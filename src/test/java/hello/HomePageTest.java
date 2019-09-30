@@ -53,4 +53,14 @@ public class HomePageTest {
                 .andExpect(xpath("//title").exists())
                 .andExpect(xpath("//title").string("Getting Started: Serving Web Content"));
     }
+
+    @Test
+    public void getHomePage_hasNavBar() throws Exception {
+        NavigationTestHelper.hasNavBar(mvc, "/");
+    }
+
+    @Test
+    public void getHomePage_hasFooter() throws Exception {
+        NavigationTestHelper.hasFooter(mvc, "/");
+    }
 }

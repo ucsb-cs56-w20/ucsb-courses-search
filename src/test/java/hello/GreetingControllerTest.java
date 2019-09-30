@@ -52,4 +52,13 @@ public class GreetingControllerTest {
                 .andExpect(xpath("//title").string("Getting Started: Serving Web Content"));
     }
 
+    @Test
+    public void getGreeting_hasNavBar() throws Exception {
+        NavigationTestHelper.hasNavBar(mvc, "/greeting");
+    }
+
+    @Test
+    public void getGreeting_hasFooter() throws Exception {
+        NavigationTestHelper.hasFooter(mvc, "/greeting");
+    }
 }

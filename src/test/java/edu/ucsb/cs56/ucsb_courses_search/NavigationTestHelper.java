@@ -1,4 +1,4 @@
-package hello;
+package edu.ucsb.cs56.ucsb_courses_search;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.http.MediaType;

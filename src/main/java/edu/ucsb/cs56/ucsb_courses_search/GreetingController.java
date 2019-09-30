@@ -1,4 +1,4 @@
-package hello;
+package edu.ucsb.cs56.ucsb_courses_search;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

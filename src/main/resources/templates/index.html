@@ -1,11 +1,18 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"> 
-  <head>
-    <title>Getting Started: Serving Web Content</title>
-    <div th:replace="fragments/bootstrap_head.html"></div>
-  </head>
-  <body>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <title>Getting Started: Serving Web Content</title>
+  <div th:replace="fragments/bootstrap_head.html"></div>
+</head>
+
+<body>
+  <div class="container">
+    <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <p>Get your greeting <a href="/greeting">here</a></p>
-    <div th:replace="fragments/bootstrap_scripts.html"></div>
-  </body>
+    <div th:replace="fragments/bootstrap_footer.html"></div>
+  </div>
+  <div th:replace="fragments/bootstrap_scripts.html"></div>
+</body>
+
 </html>

@@ -54,4 +54,13 @@ public class HomePageTest {
     public void getHomePage_hasFooter() throws Exception {
         NavigationTestHelper.hasFooter(mvc, "/");
     }
+
+    @Test
+    public void getHomePage_hasSubmitButton() throws Exception {
+        String buttonXPath = "//button[@id='js-course-search-submit']";
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(xpath(buttonXPath).exists())
+                .andExpect(xpath(buttonXPath).string("Find Courses"));
+    }
 }

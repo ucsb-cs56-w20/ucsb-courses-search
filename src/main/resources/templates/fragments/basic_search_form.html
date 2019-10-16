@@ -1,8 +1,8 @@
-<form>
+<form method="GET" th:action="@{/searchResults}" th:object="${searchObject}">
     <div class="form-group row">
         <label for="subjectArea" class="col-sm-2 col-form-label">Subject Area</label>
         <div class="col-sm-10">
-            <select id="subjectArea" class="custom-select">
+            <select th:field="*{subjectArea}" class="custom-select">
                 <option selected="selected" th:value="'ANTH'" th:text="'Anthropology - ANTH'"></option>
                 <option th:value="'ART'" th:text="'Art - ART'"></option>
                 <option th:value="'ART  CS '" th:text="'Art (Creative Studies) - ART CS '"></option>
@@ -12,7 +12,7 @@
     <div class="form-group row">
         <label for="quarter" class="col-sm-2 col-form-label">Quarter</label>
         <div class="col-sm-10">
-            <select id="quarter" class="custom-select">
+            <select th:field="*{quarter}" class="custom-select">
                 <option selected="selected" value="20194">FALL 2019 </option>
                 <option value="20193">SUMMER 2019 </option>
                 <option value="20192">SPRING 2019 </option>
@@ -28,7 +28,7 @@
     <div class="form-group row">
         <label for="courseLevel" class="col-sm-2 col-form-label">Course Level</label>
         <div class="col-sm-10">
-            <select id="courseLevel" class="custom-select">
+            <select th:field="*{courseLevel}" class="custom-select">
                 <option selected="selected" value="Undergraduate">Undergraduate</option>
                 <option value="Graduate">Graduate</option>
                 <option value="All">All</option>

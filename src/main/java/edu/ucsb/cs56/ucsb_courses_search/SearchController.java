@@ -10,7 +10,7 @@ public class SearchController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("gender", "");
+        model.addAttribute("searchObject", new SearchResult());
         return "index";
     }
 

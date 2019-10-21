@@ -1,0 +1,16 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ],
+  "env": {
+  },
+  "formation": {
+  },
+  "name": "ucsb-course-search",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}

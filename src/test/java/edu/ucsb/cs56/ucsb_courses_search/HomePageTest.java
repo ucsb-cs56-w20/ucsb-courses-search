@@ -3,6 +3,7 @@ package edu.ucsb.cs56.ucsb_courses_search;
 // import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 
 @RunWith(SpringRunner.class)
@@ -50,6 +50,7 @@ public class HomePageTest {
         NavigationTestHelper.hasNavBar(mvc, "/");
     }
 
+
     @Test
     public void getHomePage_hasFooter() throws Exception {
         NavigationTestHelper.hasFooter(mvc, "/");
@@ -62,5 +63,10 @@ public class HomePageTest {
                 .andExpect(status().isOk())
                 .andExpect(xpath(buttonXPath).exists())
                 .andExpect(xpath(buttonXPath).string("Find Courses"));
+    }
+
+    @Test
+    public void getHomePage_hasCorrectTextInNavBarBrand() throws Exception {
+        NavigationTestHelper.hasCorrectTextInNavBarBrand(mvc, "/");
     }
 }

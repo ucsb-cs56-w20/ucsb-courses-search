@@ -28,6 +28,7 @@ public class SearchController {
         model.addAttribute("subjectArea", subjectArea);
         model.addAttribute("quarter", quarter);
         model.addAttribute("courseLevel", courseLevel);
+
         return "searchResults"; // corresponds to src/main/resources/templates/searchResults.html
     }
 

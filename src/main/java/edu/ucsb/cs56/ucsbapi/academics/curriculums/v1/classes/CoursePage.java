@@ -4,8 +4,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.Data;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * CoursePage object, represents a page of returned {@link Course} objects from
@@ -16,6 +20,9 @@ import lombok.Data;
 
 @Data
 public class CoursePage {
+
+    private static Logger logger = LoggerFactory.getLogger(CoursePage.class);
+
     private int pageNumber;
     private int pageSize;
     private int total;
@@ -30,10 +37,16 @@ public class CoursePage {
      *      "https://developer.ucsb.edu/content/academic-curriculums">https://developer.ucsb.edu/content/academic-curriculums</a>
      */
     public static CoursePage fromJSON(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        CoursePage coursePage = objectMapper.readValue(json, CoursePage.class);
-        return coursePage;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    
+            CoursePage coursePage = objectMapper.readValue(json, CoursePage.class);
+            return coursePage;
+        } catch (JsonProcessingException jpe) {
+            logger.error("JsonProcessingException:" + jpe);
+            return null;
+        }
+        
     }
 }

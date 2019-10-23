@@ -8,6 +8,10 @@
 #
 # Any additional arguments passed after ./setHerokuEnv.py are passed to the "heroku config:set" commandn
 
+# The reverse operation can be done like this:
+#
+# heroku config --json --app APPNAME > heroku.json
+
 import json
 import os
 from pprint import pprint

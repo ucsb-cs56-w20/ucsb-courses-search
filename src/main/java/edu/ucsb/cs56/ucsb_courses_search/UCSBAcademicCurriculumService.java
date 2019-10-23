@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 public class UCSBAcademicCurriculumService implements CurriculumService {
 
     private Logger logger = LoggerFactory.getLogger(UCSBAcademicCurriculumService.class);
+    
     private String apiKey;
 
     public UCSBAcademicCurriculumService(@Value("${ucsb.api.consumer_key}") String apiKey) {
@@ -40,7 +41,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         headers.set("ucsb-api-key", this.apiKey);
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
-
 
         String uri = "https://api.ucsb.edu/academics/curriculums/v1/classes/search";
         String params = String.format("?quarter=%s&subjectCode=%s&objLevelCode=%s&pageNumber=%d&pageSize=%d&includeClassSections=%s",

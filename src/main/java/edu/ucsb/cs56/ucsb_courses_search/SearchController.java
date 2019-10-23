@@ -32,8 +32,10 @@ public class SearchController {
         model.addAttribute("subjectArea", subjectArea);
         model.addAttribute("quarter", quarter);
         model.addAttribute("courseLevel", courseLevel);
+        
+        String json = curriculumService.getJSON(subjectArea,quarter,courseLevel);
 
-        curriculumService.getJSON(subjectArea,quarter,courseLevel);
+        model.addAttribute("json",json);
 
         return "searchResults"; // corresponds to src/main/resources/templates/searchResults.html
     }

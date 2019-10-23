@@ -1,11 +1,12 @@
 package edu.ucsb.cs56.ucsb_courses_search;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 @Controller
 public class SearchController {
@@ -35,7 +36,10 @@ public class SearchController {
         
         String json = curriculumService.getJSON(subjectArea,quarter,courseLevel);
 
+        CoursePage cp = CoursePage.fromJSON(json);
+
         model.addAttribute("json",json);
+        model.addAttribute("cp",cp);
 
         return "searchResults"; // corresponds to src/main/resources/templates/searchResults.html
     }

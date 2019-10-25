@@ -71,23 +71,30 @@
             </tbody>
           </table>
           
-          <div th:each="s: ${c.classSections}">
               <table class="table table-bordered"
                      style="margin-left: 3em; font-size: 80%">
+                     <thead>
+                        <tr>
+                            <th>Enroll Code</th>
+                            <th>Enrolled</th>
+                            <th>Max</th>
+                            <th>Instructor(s)</th>
+                        </tr>
+                     </thead>
                   <tbody>
-                      <tr>
-                          <th>Enroll Code</th>
+                      <tr th:each="s: ${c.classSections}">
                           <td th:text="${s.enrollCode}" />
-                          <th>Enrolled</th>
                           <td th:text="${s.enrolledTotal}" />
-                          <th>Max</th>
                           <td th:text="${s.maxEnroll}" />
+                          <td>
+                            <div th:each="i: ${s.instructors}">
+                              <span th:text="${i.instructor}"></span>
+                            </div>
+                          </td>
                       </tr>
                   </tbody>
                 </table>
 
-              
-          </div>
 
     </div>
 

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"edu.ucsb.cs56.ucsb_courses_search"},{"l":"edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes"}]

@@ -79,6 +79,7 @@
                             <th>Enrolled</th>
                             <th>Max</th>
                             <th>Instructor(s)</th>
+                            <th>Room(s)</th>
                         </tr>
                      </thead>
                   <tbody>
@@ -90,6 +91,12 @@
                             <div th:each="i: ${s.instructors}">
                               <span th:text="${i.instructor}"></span>
                             </div>
+                          </td>
+                          <td>
+                            <div th:each="tl: ${s.timeLocations}">
+                                  <span th:text=${tl.building}></span>
+                                  <span th:text=${tl.room}></span>
+                             </div>  
                           </td>
                       </tr>
                   </tbody>

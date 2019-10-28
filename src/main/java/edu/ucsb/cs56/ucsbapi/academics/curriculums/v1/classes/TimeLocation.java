@@ -4,10 +4,6 @@ import lombok.Data;
 
 @Data
 public class TimeLocation {
-    private String enrollCode;
-    private int enrolledTotal;
-    private int maxEnroll;
-
     private String room;
     private String building;
     private String roomCapacity;

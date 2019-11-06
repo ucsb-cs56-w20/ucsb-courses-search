@@ -59,15 +59,11 @@ public class Section {
     public List<String> concurrentCourses;
 
     /**
-     * List of TimeLocation objects for this course
-     * 
-     * @see {@link TimeLocation}
+     * List of {@link TimeLocation} objects for this course 
      */
     public List<TimeLocation> timeLocations;
     /**
-     * List of Instructor objects for this course
-     * 
-     * @see {@link Instructor}
+     * List of {@link Instructor} objects for this course
      */
     public List<Instructor> instructors;
 

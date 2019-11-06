@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class TimeLocation {
-    private String room;
-    private String building;
-    private String roomCapacity;
-    private String days; 
-    private String beginTime; 
-    private String endTime; 
+    public String room;
+    public String building;
+    public String roomCapacity;
+    public String days; 
+    public String beginTime; 
+    public String endTime; 
 
     public TimeLocation () {}
 }

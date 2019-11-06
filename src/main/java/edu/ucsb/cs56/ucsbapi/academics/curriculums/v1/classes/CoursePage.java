@@ -23,10 +23,10 @@ public class CoursePage {
 
     private static Logger logger = LoggerFactory.getLogger(CoursePage.class);
 
-    private int pageNumber;
-    private int pageSize;
-    private int total;
-    private List<Course> classes;
+    public int pageNumber;
+    public int pageSize;
+    public int total;
+    public List<Course> classes;
 
     /**
      * Create a CoursePage object from json representation

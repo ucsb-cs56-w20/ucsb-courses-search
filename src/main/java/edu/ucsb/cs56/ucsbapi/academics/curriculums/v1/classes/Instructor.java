@@ -3,7 +3,7 @@ import lombok.Data;
 
 @Data
 public class Instructor {
-    private String instructor;
-    private String functionCode;
+    public String instructor;
+    public String functionCode;
     public Instructor() {}
 }

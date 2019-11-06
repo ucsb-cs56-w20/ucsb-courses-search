@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class Course {
-    private String quarter;
-    private String courseId;
-    private String title;
-    private List<Section> classSections;
+    public String quarter;
+    public String courseId;
+    public String title;
+    public List<Section> classSections;
 
     public Course () {}
 }

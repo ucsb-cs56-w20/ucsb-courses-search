@@ -7,7 +7,6 @@
     <artifactId>ucsb_courses_search</artifactId>
     <version>0.1.0</version>
 
-
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
@@ -60,6 +59,7 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
+
 
     </dependencies>
 

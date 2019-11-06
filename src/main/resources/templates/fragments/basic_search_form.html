@@ -1,9 +1,10 @@
-<form>
+<form method="GET" th:action="@{/searchResults}" th:object="${searchObject}">
     <div class="form-group row">
         <label for="subjectArea" class="col-sm-2 col-form-label">Subject Area</label>
         <div class="col-sm-10">
-            <select id="subjectArea" class="custom-select">
-                <option selected="selected" value="ANTH">Anthropology - ANTH</option>
+            <select th:field="*{subjectArea}" class="custom-select">
+                <option value="CMPSC">Computer Science - CMPSC</option>
+                <option value="ANTH">Anthropology - ANTH</option>
                 <option value="ART">Art - ART</option>
                 <option value="ART  CS ">Art (Creative Studies) - ART CS </option>
                 <option value="ARTHI">Art History - ARTHI</option>
@@ -22,7 +23,6 @@
                 <option value="CLASS">Classics - CLASS</option>
                 <option value="COMM">Communication - COMM</option>
                 <option value="C LIT">Comparative Literature - C LIT</option>
-                <option value="CMPSC">Computer Science - CMPSC</option>
                 <option value="CMPSCCS ">Computer Science (Creative Studies) - CMPSCCS </option>
                 <option value="CMPTG">Computing (Creative Studies) - CMPTG</option>
                 <option value="CMPTGCS ">Computing (Creative Studies) - CMPTGCS </option>
@@ -102,7 +102,8 @@
     <div class="form-group row">
         <label for="quarter" class="col-sm-2 col-form-label">Quarter</label>
         <div class="col-sm-10">
-            <select id="quarter" class="custom-select">
+            <select th:field="*{quarter}" class="custom-select">
+                <option selected="selected" value="20201">WINTER 2020</option>
                 <option selected="selected" value="20194">FALL 2019 </option>
                 <option value="20193">SUMMER 2019 </option>
                 <option value="20192">SPRING 2019 </option>
@@ -118,10 +119,11 @@
     <div class="form-group row">
         <label for="courseLevel" class="col-sm-2 col-form-label">Course Level</label>
         <div class="col-sm-10">
-            <select id="courseLevel" class="custom-select">
-                <option selected="selected" value="Undergraduate">Undergraduate</option>
-                <option value="Graduate">Graduate</option>
-                <option value="All">All</option>
+            <select th:field="*{courseLevel}"class="custom-select">
+                <option value="L">Undergrad-Lower Division</option>
+                <option value="S">Undergrad-Upper Division</option>
+                <option selected="selected" value="U">Undergrad-All</option>
+                <option value="G">Graduate</option>
             </select>
         </div>
     </div>

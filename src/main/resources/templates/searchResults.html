@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <title>Search Results</title>
+  <div th:replace="fragments/bootstrap_head.html"></div>
+</head>
+
+<body>
+  <div class="container">
+    <div th:replace="fragments/bootstrap_nav_header.html"></div>
+    <h1>Search Results</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Subject Area</th>
+          <th>Quarter</th>
+          <th>Course Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td th:text="${subjectArea}"></td>
+          <td th:text="${quarter}"></td>
+          <td th:text="${courseLevel}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Json Results</h2>
+    <pre th:text="${json}">
+    </pre>
+
+    <h2>Search Results</h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Page Number</th>
+          <th>Page Size</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td th:text="${cp.pageNumber}"></td>
+          <td th:text="${cp.pageSize}"></td>
+          <td th:text="${cp.total}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Courses</h2>
+
+    <div th:each="c: ${cp.classes}">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Quarter</th>
+                <th>Course Id</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td th:text="${c.quarter}" />
+                    <td th:text="${c.courseId}" />
+                    <td th:text="${c.title}" />
+                </tr>
+            </tbody>
+          </table>
+          
+              <table class="table table-bordered"
+                     style="margin-left: 3em; font-size: 80%">
+                     <thead>
+                        <tr>
+                            <th>Enroll Code</th>
+                            <th>Enrolled</th>
+                            <th>Max</th>
+                            <th>Instructor(s)</th>
+                            <th>Room(s)</th>
+                        </tr>
+                     </thead>
+                  <tbody>
+                      <tr th:each="s: ${c.classSections}">
+                          <td th:text="${s.enrollCode}" />
+                          <td th:text="${s.enrolledTotal}" />
+                          <td th:text="${s.maxEnroll}" />
+                          <td>
+                            <div th:each="i: ${s.instructors}">
+                              <span th:text="${i.instructor}"></span>
+                            </div>
+                          </td>
+                          <td>
+                            <div th:each="tl: ${s.timeLocations}">
+                                  <span th:text=${tl.building}></span>
+                                  <span th:text=${tl.room}></span>
+                             </div>  
+                          </td>
+                      </tr>
+                  </tbody>
+                </table>
+
+
+    </div>
+
+    
+
+    <div th:replace="fragments/bootstrap_footer.html"></div>
+  </div>
+  <div th:replace="fragments/bootstrap_scripts.html"></div>
+</body>
+
+</html>

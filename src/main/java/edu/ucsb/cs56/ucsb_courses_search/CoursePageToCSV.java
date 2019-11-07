@@ -44,7 +44,7 @@ public class CoursePageToCSV {
 
   public static void writeSections(PrintWriter writer, CoursePage cp) {
     String[] CSV_HEADER = { "quarter", "courseId", "title", "type", "lectureInstructor", "sectionInstructor", "days", "beginTime", "endTime" };
-    try (CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
+    try (CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.DEFAULT_QUOTE_CHARACTER,
         CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
       csvWriter.writeNext(CSV_HEADER);
       for (Course c : cp.classes) {

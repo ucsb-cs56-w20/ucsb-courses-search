@@ -44,4 +44,6 @@ public class SearchController {
         return "searchResults"; // corresponds to src/main/resources/templates/searchResults.html
     }
 
+   
+
 }

@@ -32,7 +32,7 @@ public class Section {
     public int maxEnroll;
 
     /** Secondary Status of the course */
-    String secondaryStatus;
+    public String secondaryStatus;
 
     /** Is department approval required for enrollment in the section */
     public boolean departmentApprovalRequired;

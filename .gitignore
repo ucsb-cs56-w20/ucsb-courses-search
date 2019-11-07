@@ -1,3 +1,6 @@
+.factorypath
+.vscode/
+
 heroku.json
 localhost.json
 

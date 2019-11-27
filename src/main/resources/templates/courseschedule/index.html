@@ -1,35 +1,27 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"> 
-  <head>
-    <title>CS56 Spring Boot Practice App</title>
-    <div th:replace="bootstrap/bootstrap_head.html"></div>
-  </head>
-  <body>
-    <div class="container">
-      <div th:replace="bootstrap/bootstrap_nav_header.html"></div>
+<html xmlns:th="http://www.thymeleaf.org">
 
-      <h3>Users</h3>
+<head>
+  <title>Getting Started: Serving Web Content</title>
+  <div th:replace="fragments/bootstrap_head.html"></div>
+</head>
+
+<body>
+  <div class="container">
+    <div th:replace="fragments/bootstrap_nav_header.html"></div>
+    <h3>My Class Schedule</h3>
       <table class="table">
           <thead>
               <tr>
-                  <th>Professor</th>
-                  <th>Meeting Time</th>
-                  <th>Meeting Day</th>
                   <th>Course Name</th>
+                  <th>Professor</th>
+                  <th>Meeting Days</th>
+                  <th>Meeting Times</th>
                   <th>Location</th>
               </tr>
           </thead>
-          <tbody>
-              <tr th:each="u: ${users}">
-                <td th:text="${u.id}"></td>
-                <td th:text="${u.uid}"></td>
-                <td th:text="${u.login}"></td>
-              </tr>
-          </tbody>
       </table>
-
-      <div th:replace="bootstrap/bootstrap_footer.html"></div>
-    </div>
-    <div th:replace="bootstrap/bootstrap_scripts.html"></div>
-  </body>
+    <div th:replace="fragments/bootstrap_footer.html"></div>
+  </div>
+</body>
 </html>

@@ -11,7 +11,7 @@ public class ScheduleController {
     @GetMapping("/courseschedule")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 	model.addAttribute("name", name);
-	return "courseschedule/index"; // corresponds to src/main/resources/templates/greeting.html
+	return "courseschedule/index"; // corresponds to src/main/resources/templates/courseschedule/index.html
     }
 
     

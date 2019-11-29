@@ -134,6 +134,12 @@
             <version>2.3.1</version>
         </dependency>
 
+         <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.3.156</version>
+          </dependency>
+
     </dependencies>
 
     <!-- For use with github pages, to publish the site to the /docs subdirectory -->

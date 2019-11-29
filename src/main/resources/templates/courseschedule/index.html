@@ -20,6 +20,15 @@
                   <th>Location</th>
               </tr>
           </thead>
+          <tbody>
+            <tr th:each="u: ${myclasses}">
+              <td th:text="${u.classname}"></td>
+              <td th:text="${u.professor}"></td>
+              <td th:text="${u.meettime}"></td>
+              <td th:text="${u.meetday}"></td>
+              <td th:text="${u.location}"></td>
+            </tr>
+        </tbody>
       </table>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>

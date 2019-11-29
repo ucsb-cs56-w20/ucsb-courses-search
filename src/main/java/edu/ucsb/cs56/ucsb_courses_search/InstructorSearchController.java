@@ -16,8 +16,32 @@ public class InstructorSearchController {
 
     @GetMapping("/instructor")
     public String instructor(Model model) {
+    	model.addAttribute("instructorSearchObject", new MyInstructorSearchResult());
         return "instructor";
     }
+
+	@GetMapping("/instructorResults")
+    public String search(
+        @RequestParam(name = "instructor", required = true) 
+        String instructor,
+        @RequestParam(name = "quarter", required = true) 
+        String quarter, 
+        Model model
+        ) {
+        model.addAttribute("instructor", instructor);
+        model.addAttribute("quarter", quarter);
+        /*
+        String json = curriculumService.getJSON(subjectArea,quarter,courseLevel);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        model.addAttribute("json",json);
+        model.addAttribute("cp",cp);
+        */
+        return "InstructorResults";
+    }
+
+
 
     
 

@@ -11,8 +11,6 @@ import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 @Controller
 public class InstructorSearchController {
 
-    @Autowired   
-    private CurriculumService curriculumService;
 
     @GetMapping("/instructor")
     public String instructor(Model model) {

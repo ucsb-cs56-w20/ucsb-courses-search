@@ -9,6 +9,7 @@ public class MySearchResult  {
     private String subjectArea;
     private String quarter;
     private String courseLevel;
+    private String instructor;
 
     public String getSubjectArea() {
         return this.subjectArea;
@@ -29,6 +30,14 @@ public class MySearchResult  {
     }
     public void setCourseLevel(String courseLevel) {
         this.courseLevel = courseLevel;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
 
     

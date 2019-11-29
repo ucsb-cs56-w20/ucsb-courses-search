@@ -11,14 +11,45 @@ import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 @Controller
 public class InstructorSearchController {
 
+    @Autowired   
+    private CurriculumService curriculumService;
+
 
     @GetMapping("/instructor")
     public String instructor(Model model) {
-    	model.addAttribute("instructorSearchObject", new MyInstructorSearchResult());
+    	model.addAttribute("searchObject", new MySearchResult());
         return "instructor";
     }
 
 	@GetMapping("/instructorResults")
+    public String singleQtrSearch(
+        @RequestParam(name = "instructor", required = true) 
+        String instructor,
+        @RequestParam(name = "quarter", required = true) 
+        String quarter, 
+        Model model
+        ) {
+        model.addAttribute("instructor", instructor);
+        model.addAttribute("quarter", quarter);
+        
+        String json = curriculumService.getJSON(instructor, quarter);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        model.addAttribute("json",json);
+        model.addAttribute("cp",cp);
+        
+        return "instructorResults";
+    }
+
+    @GetMapping("/multi")
+    public String multi(Model model) {
+    	model.addAttribute("searchObject", new MySearchResult());
+        return "multi";
+    }
+
+
+    @GetMapping("/multiResults")
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
@@ -28,20 +59,18 @@ public class InstructorSearchController {
         ) {
         model.addAttribute("instructor", instructor);
         model.addAttribute("quarter", quarter);
-        /*
-        String json = curriculumService.getJSON(subjectArea,quarter,courseLevel);
+        
+        
+	    String json = curriculumService.getJSON(instructor, quarter);
 
         CoursePage cp = CoursePage.fromJSON(json);
 
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
-        */
-        return "InstructorResults";
+        
+
+        return "multiResults"; // corresponds to src/main/resources/templates/multiResults.html
     }
-
-
-
-    
 
    
 

@@ -16,10 +16,35 @@ public class MultiQuarterSearchController {
 
     @GetMapping("/multi")
     public String multi(Model model) {
+	model.addAttribute("multiSearchObject", new MyMultiSearchResult());
         return "multi";
     }
 
     
+    @GetMapping("/multiResults")
+    public String search(
+        @RequestParam(name = "instructor", required = true) 
+        String instructor,
+        @RequestParam(name = "quarter", required = true) 
+        String quarter, 
+        Model model
+        ) {
+        model.addAttribute("instructor", instructor);
+        model.addAttribute("quarter", quarter);
+        
+        /*
+	String json = curriculumService.getJSON(instructor,quarter);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        model.addAttribute("json",json);
+        model.addAttribute("cp",cp);
+	*/
+
+        return "multiResults"; // corresponds to src/main/resources/templates/searchResults.html
+    }
+
+ 
 
    
 

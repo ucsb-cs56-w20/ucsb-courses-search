@@ -21,6 +21,7 @@ public class CourseController {
     
     @GetMapping("/courseschedule")
     public String index(Model model) {
+        courseRepository.findByClassname("Under");
         Iterable<Course> myclasses = courseRepository.findAll();
         model.addAttribute("myclasses", myclasses);
         return "courseschedule/index";

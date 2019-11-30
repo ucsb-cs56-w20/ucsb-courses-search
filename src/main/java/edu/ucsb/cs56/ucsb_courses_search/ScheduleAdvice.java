@@ -1,13 +1,14 @@
-package classes;
+package edu.ucsb.cs56.ucsb_courses_search;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 // import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import classes.repositories.CourseRepository;
-import classes.entities.Course;
-import java.util.List;
+
+import edu.ucsb.cs56.ucsb_courses_search.entities.Course;
+import edu.ucsb.cs56.ucsb_courses_search.repositories.CourseRepository;
 
 @ControllerAdvice
 public class ScheduleAdvice {
@@ -15,11 +16,15 @@ public class ScheduleAdvice {
     @Autowired   
     private CourseRepository courseRepository;
 
-    @ModelAttribute("classname")
+    ScheduleAdvice(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;   
+    }
+
+
     public String getClassname(String classname){
         if (classname == null) return "";
 
-        String fake = "Underwater basket weaving";
+        String fake = classname;
         List<Course> myclasses = courseRepository.findByClassname(fake);
 
         if (myclasses.size()==0) {

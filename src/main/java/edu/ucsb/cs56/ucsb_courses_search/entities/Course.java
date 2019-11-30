@@ -1,4 +1,4 @@
-package classes.entities;
+package edu.ucsb.cs56.ucsb_courses_search.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

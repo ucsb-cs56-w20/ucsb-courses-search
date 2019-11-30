@@ -1,9 +1,9 @@
-package classes.repositories;
+package edu.ucsb.cs56.ucsb_courses_search.repositories;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import classes.entities.Course;
+import edu.ucsb.cs56.ucsb_courses_search.entities.Course;
 
 @Repository
 public interface CourseRepository extends CrudRepository<Course, String> {

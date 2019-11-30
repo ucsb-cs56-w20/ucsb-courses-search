@@ -16,7 +16,7 @@ public class ScheduleAdvice {
     @Autowired   
     private CourseRepository courseRepository;
 
-    ScheduleAdvice(CourseRepository courseRepository) {
+    public ScheduleAdvice(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;   
     }
 
@@ -28,7 +28,6 @@ public class ScheduleAdvice {
         List<Course> myclasses = courseRepository.findByClassname(fake);
 
         if (myclasses.size()==0) {
-            System.out.print("snap\n");
             Course u = new Course();
             u.setClassname(fake);
             u.setProfessor("Dr Justin Tjoa");
@@ -41,22 +40,4 @@ public class ScheduleAdvice {
         return fake;
     }
 
-    // @ModelAttribute("professor")
-    // public String getProfessor(String classname){
-    //     return membershipService.isMember(classname);
-    // }
-    // @ModelAttribute("meettime")
-    // public String getMeettime(String classname){
-    //     return membershipService.isAdmin(classname);
-    // }
-
-    // @ModelAttribute("meetday")
-    // public String getMeetday(String classname){
-    //     return membershipService.role(classname);
-    // }
-
-    // @ModelAttribute("location")
-    // private String getLocation(String classname) {
-    //     return classname.getPrincipal().getAttributes().get("login").toString();
-    // }
 }

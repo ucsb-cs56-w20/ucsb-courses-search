@@ -12,17 +12,18 @@ import edu.ucsb.cs56.ucsb_courses_search.repositories.CourseRepository;
 @Controller
 public class CourseController {
 
-    private CourseRepository courseRepository;
+    private ScheduleAdvice scheduleAdvice;
 
     @Autowired
-    public CourseController(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;   
+    public CourseController(ScheduleAdvice scheduleAdvice) {
+        this.scheduleAdvice = scheduleAdvice;   
     }
     
     @GetMapping("/courseschedule")
     public String index(Model model) {
-        courseRepository.findByClassname("Under");
-        Iterable<Course> myclasses = courseRepository.findAll();
+        scheduleAdvice.getClassname("Underwater");
+        CourseRepository input = scheduleAdvice.getRepo();
+        Iterable<Course> myclasses = input.findAll();
         model.addAttribute("myclasses", myclasses);
         return "courseschedule/index";
     }

@@ -20,6 +20,10 @@ public class ScheduleAdvice {
         this.courseRepository = courseRepository;   
     }
 
+    public CourseRepository getRepo() {
+        return courseRepository;
+    }
+
 
     public String getClassname(String classname){
         if (classname == null) return "";

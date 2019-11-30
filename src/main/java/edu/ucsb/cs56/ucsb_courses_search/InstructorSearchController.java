@@ -18,7 +18,7 @@ public class InstructorSearchController {
     @GetMapping("/instructor")
     public String instructor(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "instructor";
+        return "instructor"; // corresponds to src/main/resources/templates/instructor.html
     }
 
 	@GetMapping("/instructorResults")
@@ -32,20 +32,23 @@ public class InstructorSearchController {
         model.addAttribute("instructor", instructor);
         model.addAttribute("quarter", quarter);
         
+        // calls curriculumService method to get JSON from UCSB API
         String json = curriculumService.getJSON(instructor, quarter);
-
+        
+        // maps json to a CoursePage object so values can be easily accessed
         CoursePage cp = CoursePage.fromJSON(json);
-
+        
+        // adds the json and CoursePage object as attributes so they can be accessed in the html, e.g. ${json} or ${cp.classes}
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         
-        return "instructorResults";
+        return "instructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
     }
 
     @GetMapping("/multi")
     public String multi(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "multi";
+        return "multi"; // corresponds to src/main/resources/templates/multi.html
     }
 
 
@@ -60,11 +63,14 @@ public class InstructorSearchController {
         model.addAttribute("instructor", instructor);
         model.addAttribute("quarter", quarter);
         
-        
+        // calls curriculumService method to get JSON from UCSB API
+        // Note: the same curriculum service as the single quarter search above is used, so we will need to implement a function that takes in multiple quarters
 	    String json = curriculumService.getJSON(instructor, quarter);
-
+        
+        // maps json to a CoursePage object so values can be easily accessed
         CoursePage cp = CoursePage.fromJSON(json);
-
+        
+        // adds the json and CoursePage object as attributes so they can be accessed in the html, e.g. ${json} or ${cp.classes}
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         

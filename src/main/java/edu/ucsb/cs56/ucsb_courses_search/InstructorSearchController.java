@@ -15,10 +15,10 @@ public class InstructorSearchController {
     private CurriculumService curriculumService;
 
 
-    @GetMapping("/instructor")
+    @GetMapping("/instructor/search")
     public String instructor(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "instructor"; // corresponds to src/main/resources/templates/instructor.html
+        return "instructor/search"; // corresponds to src/main/resources/templates/instructor/search.html
     }
 
 	@GetMapping("/instructorResults")
@@ -45,10 +45,10 @@ public class InstructorSearchController {
         return "instructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
     }
 
-    @GetMapping("/multi")
+    @GetMapping("/instructor/multi")
     public String multi(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "multi"; // corresponds to src/main/resources/templates/multi.html
+        return "instructor/multi"; // corresponds to src/main/resources/templates/instructor/multi.html
     }
 
 

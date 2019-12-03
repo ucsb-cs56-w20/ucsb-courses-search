@@ -23,17 +23,13 @@ public class InstructorSearchController {
 
 	@GetMapping("/instructorResults")
     public String singleQtrSearch(
-        @RequestParam(name = "instructor", required = true) 
-        String instructor,
-        @RequestParam(name = "quarter", required = true) 
-        String quarter, 
+        InsSearch insSearch,
         Model model
         ) {
-        model.addAttribute("instructor", instructor);
-        model.addAttribute("quarter", quarter);
+        model.addAttribute("insSearch", insSearch);
         
         // calls curriculumService method to get JSON from UCSB API
-        String json = curriculumService.getJSON(instructor, quarter);
+        String json = curriculumService.getJSON(insSearch.getInstructor(), insSearch.getQuarter());
         
         // maps json to a CoursePage object so values can be easily accessed
         CoursePage cp = CoursePage.fromJSON(json);

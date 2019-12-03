@@ -7,8 +7,10 @@
 </head>
 
 <body>
+	<div class="container">
+    <div th:replace="fragments/bootstrap_nav_header.html"></div>
 	<h1>Multiquarter Instructor Search Results</h1>
-</body>
+	</div>
 
 <!-- raw json returned from the controller method is displayed here for reference -->
 <h2>Json Results</h2>
@@ -16,5 +18,11 @@
 </pre>
 
 <!-- TODO: render the CoursePage object into a table following searchResults.html methodology -->
+
+<div th:replace="fragments/bootstrap_footer.html"></div>
+  </div>
+  <div th:replace="fragments/bootstrap_scripts.html"></div>
+
+</body>
 
 </html>

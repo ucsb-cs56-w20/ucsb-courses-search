@@ -14,6 +14,8 @@ public class InstructorSearchController {
     @Autowired   
     private CurriculumService curriculumService;
 
+    // Hard code value for quarters
+    private static final String[] quarters = {"20174", "20181", "20182", "20183", "20184", "20191", "20192", "20193", "20194", "20201"};
 
     @GetMapping("/instructor/search")
     public String instructor(Model model) {
@@ -52,12 +54,14 @@ public class InstructorSearchController {
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
-        @RequestParam(name = "quarter", required = true) 
-        String quarter,
+        @RequestParam(name = "beginQuarter", required = true) 
+        int beginQuarter,
+        @RequestParam(name = "endQuarter", required = true) 
+        int endQuarter,
         Model model
         ) {
         model.addAttribute("instructor", instructor);
-        model.addAttribute("quarter", quarter);
+        //model.addAttribute("quarter", quarter);
         
         // calls curriculumService method to get JSON from UCSB API
         // Note: the same curriculum service as the single quarter search above is used, so we will need to implement a function that takes in multiple quarters
@@ -65,6 +69,10 @@ public class InstructorSearchController {
         
         // maps json to a CoursePage object so values can be easily accessed
         CoursePage cp = CoursePage.fromJSON(json);
+
+        for(int i = beginQuarter + 1; i <= endQuarter; i++){
+            cp.classes.addAll(CoursePage.fromJSON(curriculumService.getJSON(instructor, quarters[i])).classes);
+        }
         
         // adds the json and CoursePage object as attributes so they can be accessed in the html, e.g. ${json} or ${cp.classes}
         model.addAttribute("json",json);

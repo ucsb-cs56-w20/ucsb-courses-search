@@ -63,7 +63,7 @@ public class InstructorSearchController {
         Model model
         ) {
         model.addAttribute("instructor", instructor);
-        model.addAttribute("quarter", beginQquarter);
+        model.addAttribute("quarter", beginQuarter);
         
         // calls curriculumService method to get JSON from UCSB API
         // Note: the same curriculum service as the single quarter search above is used, so we will need to implement a function that takes in multiple quarters

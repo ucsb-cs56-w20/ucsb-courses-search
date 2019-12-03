@@ -103,10 +103,23 @@
                       <span th:text=${tl.building}></span>
                       <span th:text=${tl.room}></span>
                     </td>
-                  <tr>
+                    <!-- th:if to only have the add and drop by sections, not lectures -->
+                    <td th:if="${s.secondaryStatus == NULL}">
+                      <button type="button" class="btn btn-primary" id="js-add-course">Add</button>
+                    </td>
+                    <td th:if="${s.secondaryStatus == NULL}">
+                      <button type="button" class="btn btn-primary" id="js-drop-course">Drop</button>
+                    </td>
+
+
+
+                  </tr>
                 </table>
+
               </div>
+
             </td>
+
           </tr>
         </tbody>
       </table>

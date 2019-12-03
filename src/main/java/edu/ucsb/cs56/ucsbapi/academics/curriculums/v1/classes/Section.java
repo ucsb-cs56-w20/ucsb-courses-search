@@ -69,4 +69,8 @@ public class Section {
 
     public Section() {
     }
+
+    public boolean isSection(){
+        return (Integer.parseInt(this.section) % 100 != 0);
+    }
 }

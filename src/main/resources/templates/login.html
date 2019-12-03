@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <title>Login</title>
+  <div th:replace="bootstrap/bootstrap_head.html"></div>
+</head>
+
+<body>
+  <div class="container">
+    <div th:replace="bootstrap/bootstrap_nav_header.html"></div>
+
+    <p>You must login in order to proceed</p>
+    
+    <p th:each="url : ${urls}">
+      <a th:text="'Login with ' + ${url.key}" th:href="${url.value}">[Website Name To Login With]</a>
+    </p>
+
+    <div th:replace="bootstrap/bootstrap_footer.html"></div>
+  </div>
+  <div th:replace="bootstrap/bootstrap_scripts.html"></div>
+</body>

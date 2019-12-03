@@ -56,16 +56,18 @@ public class InstructorSearchController {
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
-        @RequestParam(name = "quarter", required = true) 
-        String quarter, 
+        @RequestParam(name = "beginQuarter", required = true) 
+        String beginQuarter,
+        @RequestParam(name = "endQuarter", required = true) 
+        String endQuarter,
         Model model
         ) {
         model.addAttribute("instructor", instructor);
-        model.addAttribute("quarter", quarter);
+        model.addAttribute("quarter", beginQquarter);
         
         // calls curriculumService method to get JSON from UCSB API
         // Note: the same curriculum service as the single quarter search above is used, so we will need to implement a function that takes in multiple quarters
-	    String json = curriculumService.getJSON(instructor, quarter);
+	    String json = curriculumService.getJSON(instructor, beginQuarter);
         
         // maps json to a CoursePage object so values can be easily accessed
         CoursePage cp = CoursePage.fromJSON(json);

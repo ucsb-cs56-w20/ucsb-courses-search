@@ -1,11 +1,11 @@
 package edu.ucsb.cs56.ucsb_courses_search;
 
-public class InsSearch{
+public class InsSearchMulti{
 	private String instructor;
 	private String beginQuarter;
 	private String endQuarter;
 	
-	public InsSearch(){
+	public InsSearchMulti(){
 		instructor = "";
 		beginQuarter = "";
 		endQuarter = "";

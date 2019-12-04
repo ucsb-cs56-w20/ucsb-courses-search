@@ -19,8 +19,9 @@ public class WebController {
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
 
-    @GetMapping("/home")
-    public String getHomepage(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    @GetMapping("/")
+    public String home(Model model) {
+        model.addAttribute("searchObject", new MySearchResult());
         return "index";
     }
 

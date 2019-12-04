@@ -14,12 +14,6 @@ public class SearchController {
     @Autowired
     private CurriculumService curriculumService;
 
-    @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("searchObject", new MySearchResult());
-        return "index";
-    }
-
     @GetMapping("/searchResults")
     public String search(
         @RequestParam(name = "subjectArea", required = true)

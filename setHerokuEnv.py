@@ -8,10 +8,6 @@
 #
 # Any additional arguments passed after ./setHerokuEnv.py are passed to the "heroku config:set" commandn
 
-# The reverse operation can be done like this:
-#
-# heroku config --json --app APPNAME > heroku.json
-
 import json
 import os
 from pprint import pprint
@@ -20,7 +16,7 @@ import sys
 try:
   with open('heroku.json') as json_data:
      vars = json.load(json_data)
-  back_to_json = json.dumps(vars,indent=2)
+  back_to_json = json.dumps(vars)
   print(back_to_json)
   print("JSON looks ok")
 except IOError as e:
@@ -32,13 +28,13 @@ except Exception as e:
   print(type(e),e.args)
   sys.exit(2)
 
+  
 # https://stackoverflow.com/questions/89228/calling-an-external-command-in-python
 
 addl_args = ""
 for a in sys.argv[1:]:
    addl_args += (" " + a)
 
-for k in vars.keys():
-    command = "heroku config:set " + k + "=" + vars[k] + addl_args;
-    print("\nExecuting: " + command);
-    os.system(command);
+command = "heroku config:set SPRING_APPLICATION_JSON=" + "'" + back_to_json + "'" + addl_args;
+print("\nExecuting: " + command);
+os.system(command);

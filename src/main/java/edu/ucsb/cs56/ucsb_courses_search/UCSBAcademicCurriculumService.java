@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 public class UCSBAcademicCurriculumService implements CurriculumService {
 
     private Logger logger = LoggerFactory.getLogger(UCSBAcademicCurriculumService.class);
-    
+
     private String apiKey;
 
     public UCSBAcademicCurriculumService(@Value("${ucsb.api.consumer_key}") String apiKey) {
@@ -49,7 +49,7 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         logger.info("url=" + url);
 
         String retVal="";
-        try {   
+        try {
             ResponseEntity<String> re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
              MediaType contentType = re.getHeaders().getContentType();
             HttpStatus statusCode = re.getStatusCode();

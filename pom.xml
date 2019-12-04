@@ -67,6 +67,58 @@
             <version>4.0</version>
         </dependency>
 
+
+
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>5.11.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>3.0.4.RELEASE</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.jcabi/jcabi-github -->
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-github</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.22.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <!-- For use with github pages, to publish the site to the /docs subdirectory -->
@@ -85,7 +137,7 @@
             </plugin>
 
 
-            <!-- Fix the error 
+            <!-- Fix the error
         Exit code: 1 - javadoc: error - The code being documented uses modules
         but the packages defined in http://docs.oracle.com/javase/8/docs/api/
         are in the unnamed module. -->

@@ -22,7 +22,7 @@ public class BootstrapTestHelper {
                 .andExpect(xpath(bootstrapCSSXpath).exists());
         for (String s: bootstrapJSurls) {
             String jsXPath = String.format("//script[@src='%s']",s);
-            mvc.perform(MockMvcRequestBuilders.get("/greeting").accept(MediaType.TEXT_HTML))
+            mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
               .andExpect(status().isOk())
               .andExpect(xpath(jsXPath).exists());
         }

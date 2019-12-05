@@ -7,5 +7,5 @@ import edu.ucsb.cs56.ucsb_courses_search.entities.Course;
 
 @Repository
 public interface CourseRepository extends CrudRepository<Course, String> {
-   List<Course> findByClassname(String classname);
+   List<Course> findByUid(String uid);
 }

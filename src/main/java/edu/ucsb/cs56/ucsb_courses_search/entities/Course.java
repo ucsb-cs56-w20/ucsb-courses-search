@@ -10,11 +10,16 @@ public class Course {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String uid;
     private String classname;
     private String professor;
     private String meettime;
     private String meetday;
     private String location;
+
+    public String getUid() {
+        return uid;
+    }
 
     public String getClassname() {
         return classname;
@@ -34,6 +39,10 @@ public class Course {
 
     public String getLocation() {
         return location;
+    }
+
+    public void setUid(String uid) { 
+        this.uid = uid; 
     }
 
     public void setClassname(String classname) { 

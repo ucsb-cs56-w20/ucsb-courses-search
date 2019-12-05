@@ -68,8 +68,9 @@
             <td th:text="${s.maxEnroll}" />
             <td>
               <div th:each="i: ${s.instructors}">
-                <span th:text="${i.instructor}"></span>
-              </div>
+              		<!--clickable link does not work when one instructor name is completely contained in another's-->
+		      <span><a th:href="@{'/instructorResults?quarter=20201&instructor=' + ${i.instructor}}" th:text="${i.instructor}"></a></span>
+	      </div>
             </td>
             <td>
               <div th:each="tl: ${s.timeLocations}">

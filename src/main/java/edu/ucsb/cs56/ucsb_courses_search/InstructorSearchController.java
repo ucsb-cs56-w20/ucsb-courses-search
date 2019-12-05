@@ -43,6 +43,32 @@ public class InstructorSearchController {
         return "instructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
     }
 
+    @GetMapping("/instructor/specific")
+    public String specifc(Model model) {
+        model.addAttribute("searchObject", new MySearchResult());
+        return "instructor/specific"; // corresponds to src/main/resources/templates/instructor/search.html
+    }
+
+    @GetMapping("/specificInstructorResults")
+    public String singleQtrSearch(
+        InsSearchSpecific insSearchSpecic,
+        Model model
+        ) {
+        model.addAttribute("insSearchSpecic", insSearchSpecic);
+        
+        // calls curriculumService method to get JSON from UCSB API
+        String json = curriculumService.getJSON(insSearchSpecic.getInstructor(), insSearchSpecic.getQuarter());
+        
+        // maps json to a CoursePage object so values can be easily accessed
+        CoursePage cp = CoursePage.fromJSON(json);
+        
+        // adds the json and CoursePage object as attributes so they can be accessed in the html, e.g. ${json} or ${cp.classes}
+        model.addAttribute("json",json);
+        model.addAttribute("cp",cp);
+        
+        return "specificInstructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
+    }
+
     @GetMapping("/instructor/multi")
     public String multi(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());

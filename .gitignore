@@ -9,7 +9,8 @@
 .classpath
 .project
 .settings/
-
+.factorypath
+.sts4-cache/
 
 # MacOS
 

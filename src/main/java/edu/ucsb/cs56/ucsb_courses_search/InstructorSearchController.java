@@ -87,6 +87,8 @@ public class InstructorSearchController {
         Model model
         ) {
         model.addAttribute("instructor", instructor);
+        model.addAttribute("beginQuarter", beginQuarter);
+        model.addAttribute("endQuarter", endQuarter);
         //model.addAttribute("quarter", quarter);
         
         // calls curriculumService method to get JSON from UCSB API

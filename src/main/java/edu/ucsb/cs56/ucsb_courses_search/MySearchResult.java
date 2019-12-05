@@ -8,6 +8,8 @@ public class MySearchResult  {
 
     private String subjectArea;
     private String quarter;
+    private int beginQuarter;
+    private int endQuarter;
     private String courseLevel;
     private String instructor;
 
@@ -23,6 +25,22 @@ public class MySearchResult  {
     }
     public void setQuarter(String quarter) {
         this.quarter = quarter;
+    }
+
+    public int getBeginQuarter() {
+        return this.beginQuarter;
+    }
+
+    public void setBeginQuarter(int beginQuarter) {
+        this.beginQuarter = beginQuarter;
+    }
+
+    public int getEndQuarter() {
+        return this.endQuarter;
+    }
+
+    public void setEndQuarter(int endQuarter) {
+        this.endQuarter = endQuarter;
     }
 
     public String getCourseLevel() {

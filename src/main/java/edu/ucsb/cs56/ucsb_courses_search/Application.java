@@ -20,7 +20,7 @@ public class Application extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     http
     .authorizeRequests()
-        .antMatchers("/","/greeting", "/login**","/webjars/**","/error**")
+        .antMatchers("/","/greeting", "/login**","/webjars/**","/error**", "/searchResults**")
         .permitAll()
     .anyRequest()
         .authenticated()

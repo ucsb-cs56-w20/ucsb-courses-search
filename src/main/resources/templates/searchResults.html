@@ -104,10 +104,10 @@
                       <span th:text=${tl.room}></span>
                     </td>
                     <!-- th:if to only have the add and drop by sections, not lectures -->
-                    <td th:if="${s.isSection()}">
+                    <td th:if="${s.isSection() && isLoggedIn}">
                       <button type="button" class="btn btn-primary" id="js-add-course">Add</button>
                     </td>
-                    <td th:if="${s.isSection()}">
+                    <td th:if="${s.isSection() && isLoggedIn}">
                       <button type="button" class="btn btn-primary" id="js-drop-course">Drop</button>
                     </td>
 

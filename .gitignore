@@ -1,5 +1,9 @@
 # Emacs/vim
 
+.DS_Store
+.factorypath
+.vscode/
+
 *~
 *.swp
 

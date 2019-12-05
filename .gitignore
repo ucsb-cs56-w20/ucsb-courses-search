@@ -3,15 +3,14 @@
 *~
 *.swp
 
-# VSCode and other IDEs
+# VSCode
 
 .vscode
 .classpath
 .project
-.settings
+.settings/
 .factorypath
-.sts4-cache
-.metadata
+.sts4-cache/
 
 # MacOS
 
@@ -61,5 +60,3 @@ buildNumber.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-

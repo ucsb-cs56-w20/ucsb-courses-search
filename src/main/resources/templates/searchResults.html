@@ -105,11 +105,15 @@
                     </td>
                     <!-- th:if to only have the add and drop by sections, not lectures -->
                     <td th:if="${s.isSection() && isLoggedIn}">
-                      <button type="button" class="btn btn-primary" id="js-add-course">Add</button>
-                    </td>
-                    <td th:if="${s.isSection() && isLoggedIn}">
-                      <button type="button" class="btn btn-primary" id="js-drop-course">Drop</button>
-                    </td>
+                      <form action="#" th:action="@{/course/add}" th:object="${course}" method="post">
+                        <input type="hidden" name="uid" th:value="${s.uid}" value="" />
+                        <input type="hidden" name="classname" th:value="${s.classname}" value="" />
+                        <input type="hidden" name="professor" th:value="${s.professor}" value="" />
+                        <input type="hidden" name="meettime" th:value="${s.meettime}" value="" />
+                        <input type="hidden" name="meetday" th:value="${s.meetday}" value="" />
+                        <input type="hidden" name="location" th:value="${s.location}" value="" />
+                        <input type="submit" class="btn btn-primary" value="Add" />
+                      </form>
 
 
 

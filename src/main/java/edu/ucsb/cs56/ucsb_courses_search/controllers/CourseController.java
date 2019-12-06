@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entities.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repositories.CourseRepository;
@@ -24,7 +25,7 @@ public class CourseController {
     public CourseController(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
-    
+
     @GetMapping("/courseschedule")
     public String index(Model model, OAuth2AuthenticationToken token) {
         if (token!=null) {
@@ -35,8 +36,14 @@ public class CourseController {
             model.addAttribute("myclasses", myclasses);
         } else {
             ArrayList<Course> emptyList = new ArrayList<Course>();
-            model.addAttribute("myclasses", emptyList); 
+            model.addAttribute("myclasses", emptyList);
         }
+        return "courseschedule/index";
+    }
+    @PostMapping("/course/add")
+    public String add(Course course, Model model) {
+        courseRepository.save(course);
+        model.addAttribute("courses", courseRepository.findAll());
         return "courseschedule/index";
     }
 

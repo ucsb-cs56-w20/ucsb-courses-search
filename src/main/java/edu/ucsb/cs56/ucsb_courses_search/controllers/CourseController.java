@@ -40,8 +40,10 @@ public class CourseController {
         }
         return "courseschedule/index";
     }
-    @PostMapping("/course/add")
+    @PostMapping("/courseschedule/add")
     public String add(Course course, Model model) {
+        System.out.print("Hello!!!!!\n");
+        System.out.print(course.getUid());
         courseRepository.save(course);
         model.addAttribute("courses", courseRepository.findAll());
         return "courseschedule/index";

@@ -18,6 +18,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.junit.Before;
+
+
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(WebController.class)
@@ -32,23 +38,22 @@ public class HomePageTest {
     @MockBean
     private ClientRegistrationRepository crr;
 
+ 
+
     @Test
     public void getHomePage_ContentType() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk())
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 
-
     @Test
     public void getHomePage_BootstrapLoaded() throws Exception {
-       BootstrapTestHelper.bootstrapIsLoaded(mvc, "/");
+        BootstrapTestHelper.bootstrapIsLoaded(mvc, "/");
     }
 
     @Test
     public void getHomePage_hasCorrectTitle() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk())
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
                 .andExpect(xpath("//title").exists())
                 .andExpect(xpath("//title").string("Getting Started: Serving Web Content"));
     }
@@ -66,9 +71,7 @@ public class HomePageTest {
     @Test
     public void getHomePage_hasSubmitButton() throws Exception {
         String buttonXPath = "//button[@id='js-course-search-submit']";
-        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk())
-                .andExpect(xpath(buttonXPath).exists())
-                .andExpect(xpath(buttonXPath).string("Find Courses"));
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+                .andExpect(xpath(buttonXPath).exists()).andExpect(xpath(buttonXPath).string("Find Courses"));
     }
 }

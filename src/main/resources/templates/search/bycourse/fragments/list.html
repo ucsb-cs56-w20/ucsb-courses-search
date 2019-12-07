@@ -1,0 +1,18 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Quarter</th>
+            <th>CourseId</th>
+            <th>Title</th>
+            <th>Instructor(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c: ${courses}">
+            <td th:text="${c.quarter}"></td>
+            <td th:text="${c.courseId}"></td>
+            <td th:text="${c.title}"></td>
+            <td th:text="${c.mainInstructorList()}"></td>
+        </tr>
+    </tbody>
+</table>

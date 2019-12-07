@@ -109,9 +109,10 @@
                          <input type="hidden" name="classname" th:value="${c.courseId} "value="" />
                         <input type="hidden" name="uid" value="1000" />  
                          <input type="hidden" name="professor" th:value="${c.classSections[0].instructors[0].instructor}" value="fakevalue" />
-                        <input type="hidden" name="meettime"  th:value="${s.timeLocations[0].beginTime + s.timeLocations[0].endTime}" value="" />
+                        <input type="hidden" name="meettime"  th:value="${s.timeLocations[0].beginTime + '-' + s.timeLocations[0].endTime}" value="" />
                         <input type="hidden" name="meetday" th:value="${s.timeLocations[0].days}" value="TR" />   
-                        <input type="hidden" name="location" th:value="${s.timeLocations[0].building + s.timeLocations[0].room}" value="Library" /> 
+                        <input type="hidden" name="location" th:value="${s.timeLocations[0].building + '-' + s.timeLocations[0].room}" value="Library" /> 
+                        <input type="hidden" name="quarter" th:value="${c.quarter}" value="" /> 
                         <input type="submit" class="btn btn-primary" value="Add" />  
                       </form>  
 

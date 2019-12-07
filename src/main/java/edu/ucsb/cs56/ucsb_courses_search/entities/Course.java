@@ -16,11 +16,14 @@ public class Course {
     private String meettime;
     private String meetday;
     private String location;
+    private String quarter;
 
     public String getUid() {
         return uid;
     }
 
+ 
+ 
     public String getClassname() {
         return classname;
     }
@@ -39,6 +42,10 @@ public class Course {
 
     public String getLocation() {
         return location;
+    }
+
+   public String getQuarter(){
+        return quarter;
     }
 
     public void setUid(String uid) { 
@@ -63,6 +70,10 @@ public class Course {
 
     public void setLocation(String location) { 
         this.location = location; 
+    }
+
+   public void setQuarter(String quarter){
+        this.quarter = quarter;
     }
 
     

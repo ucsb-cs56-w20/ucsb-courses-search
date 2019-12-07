@@ -10,27 +10,34 @@
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedule</h3>
-      <table class="table">
-          <thead>
-              <tr>
-                  <th>Course Name</th>
-                  <th>Professor</th>
-                  <th>Meeting Days</th>
-                  <th>Meeting Times</th>
-                  <th>Location</th>
-              </tr>
-          </thead>
-          <tbody>
-            <tr th:each="u: ${myclasses}">
-              <td th:text="${u.classname}"></td>
-              <td th:text="${u.professor}"></td>
-              <td th:text="${u.meettime}"></td>
-              <td th:text="${u.meetday}"></td>
-              <td th:text="${u.location}"></td>
-            </tr>
-        </tbody>
-      </table>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Quarter</th>
+          <th>Course Name</th>
+          <th>Enroll Code</th>
+          <th>UID</th>
+          <th>Professor</th>
+          <th>Meeting Times</th>
+          <th>Meeting Days</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="u: ${myclasses}">
+          <td th:text="${u.quarter}"></td>
+          <td th:text="${u.classname}"></td>
+          <td th:text="${u.enrollCode}"></td>
+          <td th:text="${u.uid}"></td>
+          <td th:text="${u.professor}"></td>
+          <td th:text="${u.meettime}"></td>
+          <td th:text="${u.meetday}"></td>
+          <td th:text="${u.location}"></td>
+        </tr>
+      </tbody>
+    </table>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
 </body>
+
 </html>

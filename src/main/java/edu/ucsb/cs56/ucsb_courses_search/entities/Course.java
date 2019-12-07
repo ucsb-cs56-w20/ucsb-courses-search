@@ -9,18 +9,56 @@ import javax.persistence.Id;
 public class Course {
  
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String uid;
     private String classname;
     private String professor;
     private String meettime;
     private String meetday;
     private String location;
+    private String quarter;
+    private String uid;
+    private String associatedLectureDay;
+    private String associatedLectureTime;
+    private String associatedLectureLocation;
+    private String enrollCode;
+
+	public String getEnrollCode() {
+		return this.enrollCode;
+	}
+
+	public void setEnrollCode(String enrollCode) {
+		this.enrollCode = enrollCode;
+	}
+
+	public String getAssociatedLectureDay() {
+		return this.associatedLectureDay;
+	}
+
+	public void setAssociatedLectureDay(String associatedLectureDay) {
+		this.associatedLectureDay = associatedLectureDay;
+	}
+
+	public String getAssociatedLectureTime() {
+		return this.associatedLectureTime;
+	}
+
+	public void setAssociatedLectureTime(String associatedLectureTime) {
+		this.associatedLectureTime = associatedLectureTime;
+	}
+
+	public String getAssociatedLectureLocation() {
+		return this.associatedLectureLocation;
+	}
+
+	public void setAssociatedLectureLocation(String associatedLectureLocation) {
+		this.associatedLectureLocation = associatedLectureLocation;
+	}
 
     public String getUid() {
         return uid;
     }
 
+ 
+ 
     public String getClassname() {
         return classname;
     }
@@ -39,6 +77,10 @@ public class Course {
 
     public String getLocation() {
         return location;
+    }
+
+   public String getQuarter(){
+        return quarter;
     }
 
     public void setUid(String uid) { 
@@ -63,6 +105,10 @@ public class Course {
 
     public void setLocation(String location) { 
         this.location = location; 
+    }
+
+   public void setQuarter(String quarter){
+        this.quarter = quarter;
     }
 
     

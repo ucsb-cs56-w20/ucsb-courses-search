@@ -105,14 +105,18 @@
                     </td>
                     <!-- th:if to only have the add and drop by sections, not lectures -->
                     <td th:if="${s.isSection() && isLoggedIn}">
-                      <button type="button" class="btn btn-primary" id="js-add-course">Add</button>
-                    </td>
-                    <td th:if="${s.isSection() && isLoggedIn}">
-                      <button type="button" class="btn btn-primary" id="js-drop-course">Drop</button>
-                    </td>
-
-
-
+                       <form action="#" th:action="@{/courseschedule/add}" th:object="${c}" method="post">
+                        <input type="hidden" name="classname" th:value="${c.courseId} "value="" />
+                        <input type="hidden" name="enrollCode" th:value="${s.enrollCode} "value="" />
+                        <input type="hidden" name="uid" th:value="${id}" value="1000" />  
+                        <input type="hidden" name="professor" th:value="${c.classSections[0].instructors[0].instructor}" value="fakevalue" />
+                        <input type="hidden" name="meettime"  th:value="${s.timeLocations[0].beginTime + '-' + s.timeLocations[0].endTime}" value="" />
+                        <input type="hidden" name="meetday" th:value="${s.timeLocations[0].days}" value="TR" />
+                        <input type="hidden" name="location" th:value="${s.timeLocations[0].building + '-' + s.timeLocations[0].room}" value="Library" /> 
+                        <input type="hidden" name="quarter" th:value="${c.quarter}" value="" /> 
+                        <input type="submit" class="btn btn-primary" value="Add" />  
+                      </form> 
+                      
                   </tr>
                 </table>
 

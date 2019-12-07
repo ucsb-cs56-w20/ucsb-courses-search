@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entities.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repositories.CourseRepository;
@@ -18,13 +19,14 @@ public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
+    @Autowired
     private CourseRepository courseRepository;
 
     @Autowired
     public CourseController(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
-    
+
     @GetMapping("/courseschedule")
     public String index(Model model, OAuth2AuthenticationToken token) {
         if (token!=null) {
@@ -32,11 +34,21 @@ public class CourseController {
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
+            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
         } else {
             ArrayList<Course> emptyList = new ArrayList<Course>();
-            model.addAttribute("myclasses", emptyList); 
+            model.addAttribute("myclasses", emptyList);
         }
+        return "courseschedule/index";
+    }
+    @PostMapping("/courseschedule/add")
+    public String add(Course course, Model model) {
+        logger.info("Hello!\n");
+        logger.info("course's uid: " + course.getUid());
+
+        courseRepository.save(course);
+        model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
         return "courseschedule/index";
     }
 

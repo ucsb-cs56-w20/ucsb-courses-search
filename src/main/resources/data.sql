@@ -1,4 +1,4 @@
-INSERT INTO
+/*INSERT INTO
     course (
         uid,
         classname,
@@ -16,3 +16,4 @@ VALUES
         'Thursday',
         'HFH 1152'
     );
+    */

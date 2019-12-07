@@ -34,6 +34,7 @@ public class CourseController {
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
+            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
         } else {
             ArrayList<Course> emptyList = new ArrayList<Course>();
@@ -43,10 +44,11 @@ public class CourseController {
     }
     @PostMapping("/courseschedule/add")
     public String add(Course course, Model model) {
-        logger.info("Hello!!!!!\n");
-        logger.info(course.getUid());
+        logger.info("Hello!\n");
+        logger.info("course's uid: " + course.getUid());
+
         courseRepository.save(course);
-        model.addAttribute("myclasses", courseRepository.findAll());
+        model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
         return "courseschedule/index";
     }
 

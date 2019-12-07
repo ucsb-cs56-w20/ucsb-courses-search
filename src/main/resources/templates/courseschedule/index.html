@@ -14,17 +14,19 @@
           <thead>
               <tr>
                   <th>Course Name</th>
-                  <th>Quarter</th>
+                  <th>Enroll Code</th>
+                  <th>UID</th>
                   <th>Professor</th>
-                  <th>Meeting Days</th>
                   <th>Meeting Times</th>
+                  <th>Meeting Days</th>
                   <th>Location</th>
               </tr>
           </thead>
           <tbody>
             <tr th:each="u: ${myclasses}">
               <td th:text="${u.classname}"></td>
-              <td th:text="${u.quarter}"></td>
+              <td th:text="${u.enrollCode}"></td>
+              <td th:text="${u.uid}"></td>
               <td th:text="${u.professor}"></td>
               <td th:text="${u.meettime}"></td>
               <td th:text="${u.meetday}"></td>

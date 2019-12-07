@@ -29,6 +29,10 @@ public class CourseController {
 
     @GetMapping("/courseschedule")
     public String index(Model model, OAuth2AuthenticationToken token) {
+        
+        logger.info("Inside /courseschedule controller method CourseController#index");
+        logger.info("model=" + model + " token=" + token);
+
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("id").toString();
             logger.info("uid="+uid);

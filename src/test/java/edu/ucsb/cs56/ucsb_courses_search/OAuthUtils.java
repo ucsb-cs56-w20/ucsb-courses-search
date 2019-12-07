@@ -34,6 +34,8 @@ public class OAuthUtils {
         attributes.put("sub", "1234567890");
         attributes.put("name", name);
         attributes.put("email", email);
+        attributes.put("id", 123456789);
+
 
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         authorities.add(authority);

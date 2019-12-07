@@ -20,6 +20,25 @@ public class Course {
     private String associatedLectureTime;
     private String associatedLectureLocation;
     private String enrollCode;
+    private String notes;
+
+    /**
+     * Sets the "notes" field, which stores extra information to be displayed about the course.
+     * The original intended purpose is to allow development to be simplified by assuming the common
+     * case that there is only one timeLocation associated with each section, and with each primary,
+     * in order to simplify the application structure, but to allow notes to be added in the unusual cases
+     * where there is more than one.  That way the application structure is simplified, but the user
+     * is alerted that there may be an additional time and location that is not being taken into account.
+     */
+    
+    public String getNotes() {
+        return this.notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
 
 	public String getEnrollCode() {
 		return this.enrollCode;

@@ -24,15 +24,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="u: ${myclasses}">
-          <td th:text="${u.quarter}"></td>
-          <td th:text="${u.classname}"></td>
-          <td th:text="${u.enrollCode}"></td>
-          <td th:text="${u.uid}"></td>
-          <td th:text="${u.professor}"></td>
-          <td th:text="${u.meettime}"></td>
-          <td th:text="${u.meetday}"></td>
-          <td th:text="${u.location}"></td>
+        <tr th:each="c: ${myclasses}">
+          <td th:text="${c.quarter}"></td>
+          <td th:text="${c.classname}"></td>
+          <td th:text="${c.enrollCode}"></td>
+          <td th:text="${c.uid}"></td>
+          <td th:text="${c.professor}"></td>
+          <td th:text="${c.meettime}"></td>
+          <td th:text="${c.meetday}"></td>
+          <td th:text="${c.location}"></td>
         </tr>
       </tbody>
     </table>

@@ -48,10 +48,11 @@ public class CoursePageToCSV {
         CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
       csvWriter.writeNext(CSV_HEADER);
       for (Course c : cp.classes) {
-        String lectureInstructor = instructorsToString(c.classSections.get(0).instructors);
-        for (Section s : c.classSections) {
+        String lectureInstructor = instructorsToString(c.getClassSections().get(0).instructors);
+        for (Section s : c.getClassSections()) {
           for (TimeLocation t : s.timeLocations) {
-            String[] data = { c.quarter, c.courseId, c.title, secondaryStatus(s), lectureInstructor, instructorsToString(s.instructors), t.days, t.beginTime,
+            String[] data = { c.getQuarter(), c.getCourseId(), c.getTitle(), secondaryStatus(s), lectureInstructor,
+                instructorsToString(s.instructors), t.days, t.beginTime,
                 t.endTime };
             csvWriter.writeNext(data);
 

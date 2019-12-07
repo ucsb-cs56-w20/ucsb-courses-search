@@ -1,7 +1,8 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Quarter</th>
+            <th>YYYYQ</th>
+            <th>QYY</th>
             <th>CourseId</th>
             <th>Title</th>
             <th>Instructor(s)</th>
@@ -10,6 +11,7 @@
     <tbody>
         <tr th:each="c: ${courses}">
             <td th:text="${c.quarter}"></td>
+            <td th:text="${c.getQuarterQyy()}"></td>
             <td th:text="${c.courseId}"></td>
             <td th:text="${c.title}"></td>
             <td th:text="${c.mainInstructorList()}"></td>

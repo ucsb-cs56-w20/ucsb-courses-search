@@ -61,30 +61,12 @@ public class CourseScheduleTest {
     @MockBean
     private ClientRegistrationRepository crr;
 
+    @MockBean
+    private CourseRepository mockCourseRepository;
+
     private Authentication mockAuthentication;
 
-    private static CourseRepository mockCourseRepository;
-
     private static final String URL = "/courseschedule";
-
-    /**
-     * This configures the test to ONLY load one controller, which means that there
-     * are far fewer beans that have to be mocked and stubbed. See
-     * https://stackoverflow.com/a/45228072 plus the comments underneath about
-     * Configuration.
-     */
-    @Configuration
-    public static class TestConf {
-        @Bean
-        public CourseController courseController() {
-            // This sets up findAll to always return an empty list.
-            // Eventually, we'll probably want it to actually have some data in it.
-            List<Course> emptyCourseList = new ArrayList<Course>();
-            mockCourseRepository = mock(CourseRepository.class);
-            when(mockCourseRepository.findAll()).thenReturn(emptyCourseList);
-            return new CourseController(mockCourseRepository);
-        }
-    }
 
     /**
      * Set up an OAuth mock user so that we can unit test protected endpoints
@@ -93,7 +75,8 @@ public class CourseScheduleTest {
     public void setUp() {
         OAuth2User principal = OAuthUtils.createOAuth2User("Chris Gaucho", "cgaucho@example.com");
         mockAuthentication = OAuthUtils.getOauthAuthenticationFor(principal);
-
+        List<Course> emptyCourseList = new ArrayList<Course>();
+        when(mockCourseRepository.findAll()).thenReturn(emptyCourseList);
     }
 
     @Test

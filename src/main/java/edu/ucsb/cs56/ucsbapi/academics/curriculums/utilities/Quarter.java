@@ -25,40 +25,41 @@ public class Quarter {
         this.yyyyq = yyyyq;
     }
 
-    public Quarter(String qyy) {
-        if (qyy.length() != 3) {
-            throw new IllegalArgumentException("Quarter requires string of length 3");
+    /**
+     * Construct a Quarter object from a string s, either in QYY or YYYYQ format.
+     * If s is of length three, QYY format is expected, if 5 then YYYYQ format is expected.
+     * Otherwise an IllegalArgumentException is thrown.
+     * @param s Quarter either in QYY or YYYYQ format
+     */
+
+    public Quarter(String s) {
+
+        switch (s.length()) {
+            case 3:
+                this.yyyyq = qyyToQyyyy(s); 
+                return;
+            case 5:
+                this.yyyyq = yyyyqToInt(s);
+                return;
+            default:
+               throw new IllegalArgumentException("Quarter shoudl be in QYY or YYYYQ format");
         }
-        char q = qyy.charAt(0);
-        String yy = qyy.substring(1, 3);
-        String legalQuarters = "WSMF";
-        int qInt = legalQuarters.indexOf(q) + 1;
-        if (invalidQtr(qInt)) {
-            throw new IllegalArgumentException("First char should be one of " + legalQuarters);
-        }
-        int yyInt = Integer.parseInt(yy);
-        int century = (yyInt > 50) ? 1900 : 2000;
-        this.yyyyq = (century + yyInt) * 10 + qInt;
     }
 
     public String getYY() {
-        return String.format("%02d", (yyyyq / 10) % 100);
+        return getYY(this.yyyyq);
     }
 
     public String getYYYY() {
-        return String.format("%04d", (yyyyq / 10));
+        return getYYYY(this.yyyyq);
     }
 
     public String toString() {
-        return String.format("%s%s", getQ(), getYY());
+        return  yyyyqToQyy(this.yyyyq);
     }
 
     public String getQ() {
-        String[] quarters = new String[] { "W", "S", "M", "F" };
-        int index = yyyyq % 10;
-        if (index < 1 || index > 4)
-            throw new IllegalStateException("Invalid value for quarter " + index);
-        return quarters[index - 1];
+        return getQ(this.yyyyq);
     }
 
     private static boolean invalidQtr(int value) {
@@ -68,7 +69,7 @@ public class Quarter {
 
     /**
      * Advance to the next quater, and return the value of that quarter as an int.
-     * @return
+     * @return the new getValue() for the quarter, i.e. quarter as in in yyyyq format
      */
     public int increment() {
         int q = this.yyyyq % 10;
@@ -78,4 +79,97 @@ public class Quarter {
         return this.yyyyq;
     }
 
+    /**
+     * Convert yyyyq as string to int, throwing exception if format is incorrect
+     * @param yyyyq String in yyyyq format (e.g. 20194 for F19 (Fall 2019))
+     * @throws IllegalArgumentException
+     * @return int representation of quarter
+     */
+    public static int yyyyqToInt(String yyyyq) {
+        String errorMsg = "Argument should be a string representation of a five digit integer yyyyq ending in 1,2,3 or 4";
+        int result = 0;
+        try {
+            result = Integer.parseInt(yyyyq);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(errorMsg);
+        }
+        if (invalidQtr(result)) {
+            throw new IllegalArgumentException(errorMsg);
+        }
+        return result;
+    }
+
+     /**
+     * Convert yyyyq int format to Yqq String format throwing exception if format is incorrect
+     * @param yyyyq int (e.g. 20194 for Fall 2019
+     * @throws IllegalArgumentException
+     * @return Qyy representation (e.g. F19)
+     */
+    public static String yyyyqToQyy(int yyyyq) {
+        if (invalidQtr(yyyyq)) {
+            throw new IllegalArgumentException("Argument should be a five digit integer in qqqqy format ending in 1,2,3 or 4");
+        }
+        return String.format("%s%s", getQ(yyyyq), getYY(yyyyq));        
+    }
+
+     /**
+     * Take yyyyq int format and return single character for quarter, 
+     * either "W", "S", "M", or "F" for last digit 1, 2, 3, 4, respectively.
+     * Throw illegal argument exception if not in yyyyq format.
+     * @param yyyyq int (e.g. 20194 for Fall 2019)
+     * @throws IllegalArgumentException
+     * @return single char string for quarter (e.g. "F") 
+     */
+    public static String getQ(int yyyyq) {
+        if (invalidQtr(yyyyq)) {
+            throw new IllegalArgumentException("Argument should be a five digit integer in qqqqy format ending in 1,2,3 or 4");
+        }
+        String[] quarters = new String[] { "W", "S", "M", "F" };
+        int index = yyyyq % 10;
+        return quarters[index - 1];
+    }
+
+    /**
+     * Take yyyyq int format and return two digit year as a String
+     * Throw illegal argument exception if not in yyyyq format.
+     * @param yyyyq int (e.g. 20194 for Fall 2019)
+     * @throws IllegalArgumentException
+     * @return two char string for year  (e.g. "19") 
+     */
+    public static String getYY(int yyyyq) {
+        if (invalidQtr(yyyyq)) {
+            throw new IllegalArgumentException("Argument should be a five digit integer in qqqqy format ending in 1,2,3 or 4");
+        }
+        return String.format("%02d", (yyyyq / 10) % 100);
+    }
+
+    /**
+     * Take yyyyq int format and return four digit year as a String
+     * Throw illegal argument exception if not in yyyyq format.
+     * @param yyyyq int (e.g. 20194 for Fall 2019)
+     * @throws IllegalArgumentException
+     * @return four char string for year  (e.g. "2019") 
+     */
+    public static String getYYYY(int yyyyq) {
+        if (invalidQtr(yyyyq)) {
+            throw new IllegalArgumentException("Argument should be a five digit integer in qqqqy format ending in 1,2,3 or 4");
+        }
+        return String.format("%04d", (yyyyq / 10));
+    }
+
+    public static int qyyToQyyyy(String qyy) {
+        if (qyy.length() !=3)
+            throw new IllegalArgumentException("Argument shoudl be in QYY format");
+
+        char q = qyy.charAt(0);
+        String yy = qyy.substring(1, 3);
+        String legalQuarters = "WSMF";
+        int qInt = legalQuarters.indexOf(q) + 1;
+        if (invalidQtr(qInt)) {
+            throw new IllegalArgumentException("First char should be one of " + legalQuarters);
+        }
+        int yyInt = Integer.parseInt(yy);
+        int century = (yyInt > 50) ? 1900 : 2000;
+        return (century + yyInt) * 10 + qInt;
+    }
 }

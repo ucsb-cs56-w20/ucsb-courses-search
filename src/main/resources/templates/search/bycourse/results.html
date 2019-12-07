@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <title>Course Search Results</title>
+  <div th:replace="fragments/bootstrap_head.html"></div>
+</head>
+
+<body>
+  <div class="container">
+    <div th:replace="fragments/bootstrap_nav_header.html"></div>
+    <h1>Course Search</h1>
+    <p>This page allows you to search for a given course over multiple quarters.</p>
+    <div th:replace="search/bycourse/fragments/form.html"></div>
+    <div th:replace="search/bycourse/fragments/list.html"></div>
+    <div th:replace="fragments/bootstrap_footer.html"></div>
+  </div>
+  <div th:replace="fragments/bootstrap_scripts.html"></div>
+</body>
+
+</html>

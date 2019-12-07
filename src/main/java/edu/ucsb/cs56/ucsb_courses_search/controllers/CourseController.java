@@ -19,6 +19,7 @@ public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
+    @Autowired
     private CourseRepository courseRepository;
 
     @Autowired
@@ -42,10 +43,10 @@ public class CourseController {
     }
     @PostMapping("/courseschedule/add")
     public String add(Course course, Model model) {
-        System.out.print("Hello!!!!!\n");
-        System.out.print(course.getUid());
+        logger.info("Hello!!!!!\n");
+        logger.info(course.getUid());
         courseRepository.save(course);
-        model.addAttribute("courses", courseRepository.findAll());
+        model.addAttribute("myclasses", courseRepository.findAll());
         return "courseschedule/index";
     }
 

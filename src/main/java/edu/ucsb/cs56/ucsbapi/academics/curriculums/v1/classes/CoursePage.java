@@ -1,12 +1,12 @@
 package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import lombok.Data;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * 
  */
 
-@Data
+
 public class CoursePage {
 
     private static Logger logger = LoggerFactory.getLogger(CoursePage.class);
@@ -27,7 +27,7 @@ public class CoursePage {
     public int pageSize;
     public int total;
     public List<Course> classes;
-
+   
     /**
      * Create a CoursePage object from json representation
      * 
@@ -49,4 +49,65 @@ public class CoursePage {
         }
         
     }
+
+    public int getPageNumber() {
+        return this.pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public int getPageSize() {
+        return this.pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getTotal() {
+        return this.total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public List<Course> getClasses() {
+        return this.classes;
+    }
+
+    public void setClasses(List<Course> classes) {
+        this.classes = classes;
+    }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " pageNumber='" + getPageNumber() + "'" +
+            ", pageSize='" + getPageSize() + "'" +
+            ", total='" + getTotal() + "'" +
+            ", classes='" + getClasses() + "'" +
+            "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof CoursePage)) {
+            return false;
+        }
+        CoursePage coursePage = (CoursePage) o;
+        return pageNumber == coursePage.pageNumber && pageSize == coursePage.pageSize && total == coursePage.total && Objects.equals(classes, coursePage.classes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pageNumber, pageSize, total, classes);
+    }
+
+
 }

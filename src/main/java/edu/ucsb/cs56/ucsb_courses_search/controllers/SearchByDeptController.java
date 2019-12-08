@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.results.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.searches.SearchByDept;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
@@ -50,8 +51,12 @@ public class SearchByDeptController {
 
         String json = curriculumService.getJSON(dept,quarter,courseLevel);
         CoursePage cp = CoursePage.fromJSON(json);
+
+        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
         
         model.addAttribute("cp",cp);
+        model.addAttribute("courseOfferings",courseOfferings);
+
         return "search/bydept/results"; 
     }
 

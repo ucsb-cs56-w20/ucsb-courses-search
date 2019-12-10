@@ -21,8 +21,13 @@ public class CourseOffering {
     private Section primary;
     private List<Section> secondaries;
 
+
     public Course getCourse() {
         return this.course;
+    }
+
+    public Section getPrimary() {
+        return this.primary;
     }
 
     public List<Section> getSecondaries() {

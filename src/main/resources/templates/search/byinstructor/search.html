@@ -9,8 +9,10 @@
 <body>
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
+    
     <h1>Instructor Search</h1>
-    <div th:replace="fragments/instructor_search_form.html"></div>
+    <div th:replace="search/byinstructor/fragments/form.html"></div>
+
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

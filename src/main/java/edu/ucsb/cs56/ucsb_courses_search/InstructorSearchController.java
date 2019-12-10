@@ -23,11 +23,8 @@ public class InstructorSearchController {
         return "search/byinstructor/search"; 
     }
 
-	@GetMapping("/instructorResults")  // search/byinstructor/results
-    public String singleQtrSearch(
-        InsSearch insSearch,
-        Model model
-        ) {
+	@GetMapping("/search/instructor/results")  
+    public String singleQtrSearch( InsSearch insSearch, Model model) {
         model.addAttribute("insSearch", insSearch);
         
         // calls curriculumService method to get JSON from UCSB API
@@ -40,8 +37,8 @@ public class InstructorSearchController {
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         
-        return "instructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
-    }   // search/byinstructor/results 
+        return "search/byinstructor/results";
+    } 
 
     @GetMapping("/instructor/specific")  // /search/instructor/specific
     public String specifc(Model model) {

@@ -47,6 +47,14 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
                 "?quarter=%s&subjectCode=%s&objLevelCode=%s&pageNumber=%d&pageSize=%d&includeClassSections=%s", quarter,
                 subjectArea, courseLevel, 1, 100, "true");
         String url = uri + params;
+
+        if (courseLevel.equals("A")) {
+            params = String.format(
+                    "?quarter=%s&subjectCode=%s&pageNumber=%d&pageSize=%d&includeClassSections=%s",
+                    quarter, subjectArea, 1, 100, "true");
+            url = uri + params;
+        }
+
         logger.info("url=" + url);
 
         String retVal = "";

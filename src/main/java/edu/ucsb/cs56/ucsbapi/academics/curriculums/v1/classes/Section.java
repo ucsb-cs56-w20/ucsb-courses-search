@@ -2,10 +2,175 @@ package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 
 import java.util.List;
 
-import lombok.Data;
-
-@Data
 public class Section {
+
+
+    /** a unique number assigned to a section */
+    public String getEnrollCode() {
+        return this.enrollCode;
+    }
+
+    /** a unique number assigned to a section */
+    public void setEnrollCode(String enrollCode) {
+        this.enrollCode = enrollCode;
+    }
+
+    /** section number of the course */
+    public String getSection() {
+        return this.section;
+    }
+
+    /** section number of the course */
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    /** session only for summer quarter */
+    public String getSession() {
+        return this.session;
+    }
+
+    /** session only for summer quarter */
+    public void setSession(String session) {
+        this.session = session;
+    }
+
+    public String getClassClosed() {
+        return this.classClosed;
+    }
+
+    public void setClassClosed(String classClosed) {
+        this.classClosed = classClosed;
+    }
+
+    public String getCourseCancelled() {
+        return this.courseCancelled;
+    }
+
+    public void setCourseCancelled(String courseCancelled) {
+        this.courseCancelled = courseCancelled;
+    }
+
+    public String getGradingOptionCode() {
+        return this.gradingOptionCode;
+    }
+
+    public void setGradingOptionCode(String gradingOptionCode) {
+        this.gradingOptionCode = gradingOptionCode;
+    }
+
+    public int getEnrolledTotal() {
+        return this.enrolledTotal;
+    }
+
+    public void setEnrolledTotal(int enrolledTotal) {
+        this.enrolledTotal = enrolledTotal;
+    }
+
+    public int getMaxEnroll() {
+        return this.maxEnroll;
+    }
+
+    public void setMaxEnroll(int maxEnroll) {
+        this.maxEnroll = maxEnroll;
+    }
+
+    public String getSecondaryStatus() {
+        return this.secondaryStatus;
+    }
+
+    public void setSecondaryStatus(String secondaryStatus) {
+        this.secondaryStatus = secondaryStatus;
+    }
+
+    public boolean isDepartmentApprovalRequired() {
+        return this.departmentApprovalRequired;
+    }
+
+    public boolean getDepartmentApprovalRequired() {
+        return this.departmentApprovalRequired;
+    }
+
+    public void setDepartmentApprovalRequired(boolean departmentApprovalRequired) {
+        this.departmentApprovalRequired = departmentApprovalRequired;
+    }
+
+    public boolean isInstructorApprovalRequired() {
+        return this.instructorApprovalRequired;
+    }
+
+    public boolean getInstructorApprovalRequired() {
+        return this.instructorApprovalRequired;
+    }
+
+    public void setInstructorApprovalRequired(boolean instructorApprovalRequired) {
+        this.instructorApprovalRequired = instructorApprovalRequired;
+    }
+
+    public String getRestrictionLevel() {
+        return this.restrictionLevel;
+    }
+
+    public void setRestrictionLevel(String restrictionLevel) {
+        this.restrictionLevel = restrictionLevel;
+    }
+
+    public String getRestrictionMajor() {
+        return this.restrictionMajor;
+    }
+
+    public void setRestrictionMajor(String restrictionMajor) {
+        this.restrictionMajor = restrictionMajor;
+    }
+
+    public String getRestrictionMajorPass() {
+        return this.restrictionMajorPass;
+    }
+
+    public void setRestrictionMajorPass(String restrictionMajorPass) {
+        this.restrictionMajorPass = restrictionMajorPass;
+    }
+
+    public String getRestrictionMinor() {
+        return this.restrictionMinor;
+    }
+
+    public void setRestrictionMinor(String restrictionMinor) {
+        this.restrictionMinor = restrictionMinor;
+    }
+
+    public String getRestrictionMinorPass() {
+        return this.restrictionMinorPass;
+    }
+
+    public void setRestrictionMinorPass(String restrictionMinorPass) {
+        this.restrictionMinorPass = restrictionMinorPass;
+    }
+
+    public List<String> getConcurrentCourses() {
+        return this.concurrentCourses;
+    }
+
+    public void setConcurrentCourses(List<String> concurrentCourses) {
+        this.concurrentCourses = concurrentCourses;
+    }
+
+    public List<TimeLocation> getTimeLocations() {
+        return this.timeLocations;
+    }
+
+    public void setTimeLocations(List<TimeLocation> timeLocations) {
+        this.timeLocations = timeLocations;
+    }
+
+    public List<Instructor> getInstructors() {
+        return this.instructors;
+    }
+
+    public void setInstructors(List<Instructor> instructors) {
+        this.instructors = instructors;
+    }
+
     /** a unique number assigned to a section */
     public String enrollCode;
     /** section number of the course */
@@ -72,5 +237,30 @@ public class Section {
 
     public boolean isSection(){
         return (Integer.parseInt(this.section) % 100 != 0);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " enrollCode='" + getEnrollCode() + "'" +
+            ", section='" + getSection() + "'" +
+            ", session='" + getSession() + "'" +
+            ", classClosed='" + getClassClosed() + "'" +
+            ", courseCancelled='" + getCourseCancelled() + "'" +
+            ", gradingOptionCode='" + getGradingOptionCode() + "'" +
+            ", enrolledTotal='" + getEnrolledTotal() + "'" +
+            ", maxEnroll='" + getMaxEnroll() + "'" +
+            ", secondaryStatus='" + getSecondaryStatus() + "'" +
+            ", departmentApprovalRequired='" + isDepartmentApprovalRequired() + "'" +
+            ", instructorApprovalRequired='" + isInstructorApprovalRequired() + "'" +
+            ", restrictionLevel='" + getRestrictionLevel() + "'" +
+            ", restrictionMajor='" + getRestrictionMajor() + "'" +
+            ", restrictionMajorPass='" + getRestrictionMajorPass() + "'" +
+            ", restrictionMinor='" + getRestrictionMinor() + "'" +
+            ", restrictionMinorPass='" + getRestrictionMinorPass() + "'" +
+            ", concurrentCourses='" + getConcurrentCourses() + "'" +
+            ", timeLocations='" + getTimeLocations() + "'" +
+            ", instructors='" + getInstructors() + "'" +
+            "}";
     }
 }

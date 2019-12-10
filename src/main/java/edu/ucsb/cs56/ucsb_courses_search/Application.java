@@ -12,26 +12,22 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class Application extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) {
-	SpringApplication.run(Application.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    http
-    .authorizeRequests()
-        .antMatchers("/","/greeting", "/login**","/webjars/**","/error**", "/searchResults**")
-        .permitAll()
-    .anyRequest()
-        .authenticated()
-    .and()
-        .oauth2Login().loginPage("/login")
-    .and()
-        .logout()
-        .deleteCookies("remove")
-        .invalidateHttpSession(true)
-        .logoutUrl("/logout")
-        .logoutSuccessUrl("/")
-        .permitAll();
-}
+        http.authorizeRequests()
+                .antMatchers("/", "/greeting", "/login**", "/webjars/**", "/error**", "/searchResults**", "/search/**") 
+                   .permitAll()
+                .anyRequest().authenticated()
+                .and()
+                  .oauth2Login().loginPage("/login")
+                .and()
+                   .logout()
+                     .deleteCookies("remove").invalidateHttpSession(true)
+                     .logoutUrl("/logout").logoutSuccessUrl("/")
+                     .permitAll();
+    }
 
 }

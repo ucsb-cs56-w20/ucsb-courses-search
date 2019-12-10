@@ -23,7 +23,7 @@ public class InstructorSearchController {
         return "search/byinstructor/search"; 
     }
 
-	@GetMapping("/search/instructor/results")  
+	@GetMapping("/search/byinstructor/results")  
     public String singleQtrSearch( InsSearch insSearch, Model model) {
         model.addAttribute("insSearch", insSearch);
         
@@ -40,13 +40,13 @@ public class InstructorSearchController {
         return "search/byinstructor/results";
     } 
 
-    @GetMapping("/instructor/specific")  // /search/instructor/specific
+    @GetMapping("/search/byinstructor/specific")  // /search/instructor/specific
     public String specifc(Model model) {
         model.addAttribute("searchObject", new MySearchResult());
-        return "instructor/specific"; // corresponds to src/main/resources/templates/instructor/search.html
-    }  // /search/byinstructor/specific/results
+        return "search/byinstructor/specific/search"; 
+    }  
 
-    @GetMapping("/specificInstructorResults")
+    @GetMapping("/search/byinstructor/specific/results")
     public String singleQtrSearch(
         InsSearchSpecific insSearchSpecic,
         Model model
@@ -63,13 +63,13 @@ public class InstructorSearchController {
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         
-        return "specificInstructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
-    }  // search/byinstructor/specific/results
+        return "search/byinstructor/specific/results"; 
+    }  
 
     @GetMapping("/instructor/multi") // search/instructor/multiquarter
     public String multi(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "instructor/multi"; // corresponds to src/main/resources/templates/instructor/multi.html
+        return "instructor/multi"; 
     }  // search/byinstructor/multi
 
 

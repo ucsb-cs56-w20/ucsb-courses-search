@@ -26,14 +26,14 @@
       </tbody>
     </table>
 
-<!-- raw json returned from the controller method is displayed here for reference -->
+    <!-- raw json returned from the controller method is displayed here for reference -->
     <h2>Json Results</h2>
     <pre th:text="${json}">
     </pre>
 
     <h2>Courses</h2>
 
-      <div th:each="c: ${cp.classes}">
+    <div th:each="c: ${cp.classes}">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -68,9 +68,11 @@
             <td th:text="${s.maxEnroll}" />
             <td>
               <div th:each="i: ${s.instructors}">
-              		<!--clickable link does not work when one instructor name is completely contained in another's-->
-	      	<span><a th:href="@{'/instructorResults?quarter=' + ${c.quarter}+'&instructor=' + ${i.instructor}}" th:text="${i.instructor}"></a></span>
-	      </div>
+                <!--clickable link does not work when one instructor name is completely contained in another's-->
+                <!-- to fix, maybe filter out red-herring results in the controller before displaying-->
+                <span><a th:href="@{'/search/byinstructor/results?quarter=' + ${c.quarter}+'&instructor=' + ${i.instructor}}"
+                    th:text="${i.instructor}"></a></span>
+              </div>
             </td>
             <td>
               <div th:each="tl: ${s.timeLocations}">
@@ -92,12 +94,12 @@
         </tbody>
       </table>
 
-   
-  </div>
-   <div th:replace="fragments/bootstrap_footer.html"></div>
-  <div th:replace="fragments/bootstrap_scripts.html"></div>
 
-<!-- TODO: render the CoursePage object into a table following searchResults.html methodology -->
+    </div>
+    <div th:replace="fragments/bootstrap_footer.html"></div>
+    <div th:replace="fragments/bootstrap_scripts.html"></div>
+
+    <!-- TODO: render the CoursePage object into a table following searchResults.html methodology -->
 </body>
 
 </html>

@@ -66,14 +66,13 @@ public class InstructorSearchController {
         return "search/byinstructor/specific/results"; 
     }  
 
-    @GetMapping("/instructor/multi") // search/instructor/multiquarter
+    @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "instructor/multi"; 
-    }  // search/byinstructor/multi
+        return "search/byinstructor/multiquarter/search"; 
+    }
 
-
-    @GetMapping("/multiResults")
+    @GetMapping("/search/byinstructor/multiquarter/results")
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
@@ -104,8 +103,7 @@ public class InstructorSearchController {
         model.addAttribute("cp",cp);
         
 
-        return "multiResults"; // corresponds to src/main/resources/templates/multiResults.html
-    }   // search/byinstructor/multiquarter/results
-   
+        return "search/byinstructor/multiquarter/results"; 
+    }
 
 }

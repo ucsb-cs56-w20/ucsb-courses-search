@@ -1,49 +1,35 @@
-<form method="GET"  th:object="${searchObject}">
+<form method="GET" th:object="${searchObject}">
     <div class="form-group row">
         <label for="instructor" class="col-sm-2 col-form-label">Instructor</label>
         <div class="col-sm-10">
-             <input type="text" th:field="*{instructor}" class="form-control" id="instructor" placeholder="Search..">
-	</div>
+            <input type="text" th:field="*{instructor}" class="form-control" id="instructor" placeholder="Search..">
+        </div>
     </div>
+
     <div class="form-group row">
-        <label for="beginQuarter" class="col-sm-2 col-form-label">Begin Quarter</label>
+        <label for="beginQ" class="col-sm-2 col-form-label">Begin Quarter</label>
         <div class="col-sm-10">
-            <select th:field="*{beginQuarter}" class="custom-select">
-                <option selected="selected" value=9>WINTER 2020</option>
-                <option value=8>FALL 2019 </option>
-                <option value=7>SUMMER 2019 </option>
-                <option value=6>SPRING 2019 </option>
-                <option value=5>WINTER 2019 </option>
-                <option value=4>FALL 2018 </option>
-                <option value=3>SUMMER 2018 </option>
-                <option value=2>SPRING 2018 </option>
-                <option value=1>WINTER 2018 </option>
-                <option value=0>FALL 2017 </option>
+            <select th:field="*{beginQ}" class="custom-select">
+                <option th:each="q: ${quarters}" th:value="${q.value}" th:text="${q}"></option>
             </select>
         </div>
     </div>
+
     <div class="form-group row">
-        <label for="endQuarter" class="col-sm-2 col-form-label">End Quarter</label>
+        <label for="endQ" class="col-sm-2 col-form-label">End Quarter</label>
         <div class="col-sm-10">
-            <select th:field="*{endQuarter}" class="custom-select">
-                <option selected="selected" value=9>WINTER 2020</option>
-                <option value=8>FALL 2019 </option>
-                <option value=7>SUMMER 2019 </option>
-                <option value=6>SPRING 2019 </option>
-                <option value=5>WINTER 2019 </option>
-                <option value=4>FALL 2018 </option>
-                <option value=3>SUMMER 2018 </option>
-                <option value=2>SPRING 2018 </option>
-                <option value=1>WINTER 2018 </option>
-                <option value=0>FALL 2017 </option>
+            <select th:field="*{endQ}" class="custom-select">
+                <option th:each="q: ${quarters}" th:value="${q.value}" th:text="${q}"></option>
             </select>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="js-multi-search-submit" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <button type="submit" th:formaction="@{/search/byinstructor/multiquarter/results}" class="btn btn-primary" id="js-multi-search-submit">Find Instructor</button>
         </div>
     </div>
     
+    <div class="form-group row">
+        <label for="js-multi-search-submit" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <button type="submit" th:formaction="@{/search/byinstructor/multiquarter/results}" class="btn btn-primary"
+                id="js-multi-search-submit">Find Instructor</button>
+        </div>
+    </div>
+
 </form>

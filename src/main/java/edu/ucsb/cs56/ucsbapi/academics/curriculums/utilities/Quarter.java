@@ -60,6 +60,10 @@ public class Quarter {
         return getYYYY(this.yyyyq);
     }
 
+    public String getYYYYQ() {
+        return String.format("%d",this.yyyyq);
+    }
+
     public String toString() {
         return yyyyqToQyy(this.yyyyq);
     }

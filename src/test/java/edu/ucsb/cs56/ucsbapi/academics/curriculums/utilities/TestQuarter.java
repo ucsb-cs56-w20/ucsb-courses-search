@@ -109,6 +109,36 @@ public class TestQuarter {
         assertEquals("F20", q.toString());
     }
 
+
+    @Test
+    public void test_decrement_F19() {
+        Quarter q = new Quarter("F19");
+        assertEquals(20193, q.decrement());
+        assertEquals("M19", q.toString());
+    }
+
+    @Test
+    public void test_decrement_W20() {
+        Quarter q = new Quarter("W20");
+        assertEquals(20194, q.decrement());
+        assertEquals("F19", q.toString());
+    }
+
+    @Test
+    public void test_decrement_S20() {
+        Quarter q = new Quarter("S20");
+        assertEquals(20201, q.decrement());
+        assertEquals("W20", q.toString());
+    }
+
+    @Test
+    public void test_decrement_M20() {
+        Quarter q = new Quarter("M20");
+        assertEquals(20202, q.decrement());
+        assertEquals("S20", q.toString());
+    }
+
+
     // TEST STATIC METHODS
 
     @Test
@@ -220,4 +250,24 @@ public class TestQuarter {
     public void test_qyyToQyyyy__badChar() {
         Quarter.qyyToQyyyy("F2X");
     }
+
+    @Test
+    public void test_quarterList_S20_F19() {
+        ArrayList<Quarter> expected = new ArrayList<Quarter>();
+        expected.add(new Quarter("S20"));
+        expected.add(new Quarter("W20"));
+        expected.add(new Quarter("F19"));
+        assertEquals(expected, Quarter.quarterList("S20","F19"));
+    }
+
+    @Test
+    public void test_quarterList_F19_S20() {
+        List<Quarter> expected = new ArrayList<Quarter>();
+        expected.add(new Quarter("F19"));
+        expected.add(new Quarter("W20"));
+        expected.add(new Quarter("S20"));
+       
+        assertEquals(expected, Quarter.quarterList("F19","S20"));
+    }
+
 }

@@ -98,7 +98,7 @@ public class CourseOffering {
      */ 
 
     public static List<CourseOffering> fromCoursePage(CoursePage cp) {  
-        return fromCourses(cp.getClasses);
+        return fromCourses(cp.getClasses());
     }
 
 

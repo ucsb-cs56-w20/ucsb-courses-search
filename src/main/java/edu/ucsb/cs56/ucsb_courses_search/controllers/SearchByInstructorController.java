@@ -6,10 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ucsb.cs56.ucsb_courses_search.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.InsSearchSpecific;
+import edu.ucsb.cs56.ucsb_courses_search.MySearchResult;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 @Controller
-public class InstructorSearchController {
+public class SearchByInstructorController {
 
     @Autowired   
     private CurriculumService curriculumService;
@@ -17,17 +20,14 @@ public class InstructorSearchController {
     // Hard code value for quarters
     private static final String[] quarters = {"20174", "20181", "20182", "20183", "20184", "20191", "20192", "20193", "20194", "20201"};
 
-    @GetMapping("/instructor/search")
+    @GetMapping("/search/byinstructor") 
     public String instructor(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "instructor/search"; // corresponds to src/main/resources/templates/instructor/search.html
+        return "search/byinstructor/search"; 
     }
 
-	@GetMapping("/instructorResults")
-    public String singleQtrSearch(
-        InsSearch insSearch,
-        Model model
-        ) {
+	@GetMapping("/search/byinstructor/results")  
+    public String singleQtrSearch( InsSearch insSearch, Model model) {
         model.addAttribute("insSearch", insSearch);
         
         // calls curriculumService method to get JSON from UCSB API
@@ -40,16 +40,16 @@ public class InstructorSearchController {
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         
-        return "instructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
-    }
+        return "search/byinstructor/results";
+    } 
 
-    @GetMapping("/instructor/specific")
+    @GetMapping("/search/byinstructor/specific")  // /search/instructor/specific
     public String specifc(Model model) {
         model.addAttribute("searchObject", new MySearchResult());
-        return "instructor/specific"; // corresponds to src/main/resources/templates/instructor/search.html
-    }
+        return "search/byinstructor/specific/search"; 
+    }  
 
-    @GetMapping("/specificInstructorResults")
+    @GetMapping("/search/byinstructor/specific/results")
     public String singleQtrSearch(
         InsSearchSpecific insSearchSpecic,
         Model model
@@ -66,17 +66,16 @@ public class InstructorSearchController {
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         
-        return "specificInstructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
-    }
+        return "search/byinstructor/specific/results"; 
+    }  
 
-    @GetMapping("/instructor/multi")
+    @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "instructor/multi"; // corresponds to src/main/resources/templates/instructor/multi.html
+        return "search/byinstructor/multiquarter/search"; 
     }
 
-
-    @GetMapping("/multiResults")
+    @GetMapping("/search/byinstructor/multiquarter/results")
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
@@ -107,9 +106,7 @@ public class InstructorSearchController {
         model.addAttribute("cp",cp);
         
 
-        return "multiResults"; // corresponds to src/main/resources/templates/multiResults.html
+        return "search/byinstructor/multiquarter/results"; 
     }
-
-   
 
 }

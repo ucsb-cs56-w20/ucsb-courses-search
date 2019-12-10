@@ -1,20 +1,27 @@
+<h2>Courses</h2>
+
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>YYYYQ</th>
-            <th>QYY</th>
-            <th>CourseId</th>
-            <th>Title</th>
-            <th>Instructor(s)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="c: ${courses}">
-            <td th:text="${c.quarter}"></td>
-            <td th:text="${c.getQuarterQyy()}"></td>
-            <td th:text="${c.courseId}"></td>
-            <td th:text="${c.title}"></td>
-            <td th:text="${c.mainInstructorList()}"></td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>YYYYQ</th>
+      <th>QYY</th>
+      <th>CourseId</th>
+      <th>Title</th>
+      <th>Instructor</th>
+      <th>Enrolled</th>
+      <th>Capacity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="r: ${rows}">
+     <td th:text="${r.course.quarter}"></td>
+     <td th:text="${r.course.getQuarterQyy()}"></td>
+     <td th:text="${r.course.courseId}"></td>
+      <td th:text="${r.course.title}"></td>
+      <td class="instructorList" th:text="${r.section.instructorList()}"></td>
+      <td th:text="${r.section.enrolledTotal}"></td>
+      <td th:text="${r.section.maxEnroll}"></td>
+    </tr>
+  </tbody>
 </table>

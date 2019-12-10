@@ -96,9 +96,21 @@ public class CourseOffering {
      * into a list of CourseOffering objects.  The main purpose is to group the secondaries (sections)
      * with the appropriate primaries to make it easier to process, understand, and format the results.
      */ 
+
     public static List<CourseOffering> fromCoursePage(CoursePage cp) {  
+        return fromCourses(cp.getClasses());
+    }
+
+
+
+    /**
+     * Convert a List<Course>, (possibly a compilation of several CoursePage objects)
+     * into a list of CourseOffering objects.  The main purpose is to group the secondaries (sections)
+     * with the appropriate primaries to make it easier to process, understand, and format the results.
+     */ 
+    public static List<CourseOffering> fromCourses(List<Course> courses) {  
         ArrayList<CourseOffering> result = new ArrayList<CourseOffering>();
-        for ( Course c : cp.getClasses() ) {
+        for ( Course c : courses ) {
             // Use first two characters of section to group primary with section
             // Assumption: If last two chars are "00" it's the primary
             //   otherwise it's a seciton that goes with a matching primary
@@ -130,6 +142,7 @@ public class CourseOffering {
         }
         return result;
     }
+
 
 
     @Override

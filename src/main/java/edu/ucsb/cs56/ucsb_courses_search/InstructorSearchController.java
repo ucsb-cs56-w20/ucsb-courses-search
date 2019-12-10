@@ -17,13 +17,13 @@ public class InstructorSearchController {
     // Hard code value for quarters
     private static final String[] quarters = {"20174", "20181", "20182", "20183", "20184", "20191", "20192", "20193", "20194", "20201"};
 
-    @GetMapping("/instructor/search")
+    @GetMapping("/search/byinstructor") 
     public String instructor(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
-        return "instructor/search"; // corresponds to src/main/resources/templates/instructor/search.html
+        return "search/byinstructor/search"; 
     }
 
-	@GetMapping("/instructorResults")
+	@GetMapping("/instructorResults")  // search/byinstructor/results
     public String singleQtrSearch(
         InsSearch insSearch,
         Model model
@@ -41,13 +41,13 @@ public class InstructorSearchController {
         model.addAttribute("cp",cp);
         
         return "instructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
-    }
+    }   // search/byinstructor/results 
 
-    @GetMapping("/instructor/specific")
+    @GetMapping("/instructor/specific")  // /search/instructor/specific
     public String specifc(Model model) {
         model.addAttribute("searchObject", new MySearchResult());
         return "instructor/specific"; // corresponds to src/main/resources/templates/instructor/search.html
-    }
+    }  // /search/byinstructor/specific/results
 
     @GetMapping("/specificInstructorResults")
     public String singleQtrSearch(
@@ -67,13 +67,13 @@ public class InstructorSearchController {
         model.addAttribute("cp",cp);
         
         return "specificInstructorResults"; // corresponds to src/main/resources/templates/instructorResults.html
-    }
+    }  // search/byinstructor/specific/results
 
-    @GetMapping("/instructor/multi")
+    @GetMapping("/instructor/multi") // search/instructor/multiquarter
     public String multi(Model model) {
     	model.addAttribute("searchObject", new MySearchResult());
         return "instructor/multi"; // corresponds to src/main/resources/templates/instructor/multi.html
-    }
+    }  // search/byinstructor/multi
 
 
     @GetMapping("/multiResults")
@@ -108,8 +108,7 @@ public class InstructorSearchController {
         
 
         return "multiResults"; // corresponds to src/main/resources/templates/multiResults.html
-    }
-
+    }   // search/byinstructor/multiquarter/results
    
 
 }

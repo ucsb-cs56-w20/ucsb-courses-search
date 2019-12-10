@@ -6,10 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ucsb.cs56.ucsb_courses_search.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.InsSearchSpecific;
+import edu.ucsb.cs56.ucsb_courses_search.MySearchResult;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 @Controller
-public class InstructorSearchController {
+public class SearchByInstructorController {
 
     @Autowired   
     private CurriculumService curriculumService;

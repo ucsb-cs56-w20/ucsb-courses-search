@@ -1,6 +1,7 @@
 package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Section {
 
@@ -237,6 +238,20 @@ public class Section {
 
     public boolean isSection(){
         return (Integer.parseInt(this.section) % 100 != 0);
+    }
+
+
+  /**
+     * Return the name of the instructor(s) for the section. 
+     * If there is more than one, they are separated by commas
+     * and a single space.
+     * 
+     * @return Name of instructor(s) for the section.
+     */
+    public String instructorList() { 
+        List<String> instructorNames = this.instructors.stream().map((i) -> i.instructor).collect(Collectors.toList());
+        String instructorsCommaSeparated = String.join(", ", instructorNames);
+        return instructorsCommaSeparated;
     }
 
     @Override

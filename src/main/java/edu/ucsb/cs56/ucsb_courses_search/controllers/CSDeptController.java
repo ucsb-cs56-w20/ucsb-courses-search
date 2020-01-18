@@ -38,15 +38,12 @@ public class CSDeptController {
     }
 
     @GetMapping("/csdept/search/classroom/results")
-    public String search(@RequestParam(name = "dept", required = true) String dept,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            @RequestParam(name = "courseLevel", required = true) String courseLevel, Model model,
+    public String search(@RequestParam(name = "quarter", required = true) String quarter,
+            Model model,
             SearchByDept searchByDept) {
-        model.addAttribute("dept", dept);
         model.addAttribute("quarter", quarter);
-        model.addAttribute("courseLevel", courseLevel);
 
-        String json = curriculumService.getJSON(dept, quarter, courseLevel);
+        String json = curriculumService.getJSON("CMPSC", quarter, "A");
         CoursePage cp = CoursePage.fromJSON(json);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
@@ -56,7 +53,7 @@ public class CSDeptController {
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);
 
-        return "search/bydept/results";
+        return "csdept/classroom/results";
     }
 
 }

@@ -191,4 +191,20 @@ public class CourseListingRow {
         return this.getTimeLocation().building + " " + this.getTimeLocation().room;
     }
 
+    public String getDays() {
+        if(this.timeLocation == null) {
+            return "";
+        }
+
+        return this.getTimeLocation().days;
+    }
+
+    public String getBeginTime() {
+        if(this.timeLocation == null) {
+            return "";
+        }
+
+        return this.getTimeLocation().beginTime;
+    }
+
 }

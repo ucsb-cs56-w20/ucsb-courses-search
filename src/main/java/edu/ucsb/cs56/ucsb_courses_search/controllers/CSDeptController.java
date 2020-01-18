@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,9 +57,22 @@ public class CSDeptController {
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
         List<CourseListingRow> filteredRows = filter(rows);
 
-        java.util.Collections.sort(filteredRows, (r1, r2) -> {
+        Comparator<CourseListingRow> byBuildingRoom = (r1, r2) -> {
             return r1.getBuildingRoom().compareTo(r2.getBuildingRoom());
-        });
+        };
+
+        Comparator<CourseListingRow> byDays = (r1, r2) -> {
+            // This comparator depends on the format of days that comes from the Courses
+            // API, where days only occur in their place in the string "MTWRFSU".
+            // This comparator must be reversed to get chronological order.
+            return r1.getDays().compareTo(r2.getDays());
+        };
+
+        Comparator<CourseListingRow> byBeginTime = (r1, r2) -> {
+            return r1.getBeginTime().compareTo(r2.getBeginTime());
+        };
+
+        Collections.sort(filteredRows, byBuildingRoom.thenComparing(byDays.reversed()).thenComparing(byBeginTime));
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", filteredRows);

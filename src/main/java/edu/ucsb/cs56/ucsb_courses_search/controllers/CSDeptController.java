@@ -55,6 +55,10 @@ public class CSDeptController {
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
         List<CourseListingRow> filteredRows = filter(rows);
 
+        java.util.Collections.sort(filteredRows, (r1, r2) -> {
+            return r1.getBuildingRoom().compareTo(r2.getBuildingRoom());
+        });
+
         model.addAttribute("cp", cp);
         model.addAttribute("rows", filteredRows);
 

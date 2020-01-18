@@ -28,6 +28,22 @@ public class CourseListingRow {
     private boolean firstRow;
     private boolean lastRow;
 
+    public boolean isFirstRow() {
+        return this.firstRow;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " course='" + getCourse() + "'" +
+            ", rowType='" + getRowType() + "'" +
+            ", section='" + getSection() + "'" +
+            ", timeLocation='" + getTimeLocation() + "'" +
+            ", firstRow='" + isFirstRow() + "'" +
+            ", lastRow='" + isLastRow() + "'" +
+            "}";
+    }
+
     public CourseListingRow(Course course, RowType rowType, Section section, TimeLocation timeLocation,
             boolean firstRow, boolean lastRow) {
         this.course = course;
@@ -165,6 +181,14 @@ public class CourseListingRow {
 
     public void setLastRow(boolean lastRow) {
         this.lastRow = lastRow;
+    }
+
+    public String getBuildingRoom() {
+        if(this.timeLocation == null) {
+            return "";
+        }
+
+        return this.getTimeLocation().building + " " + this.getTimeLocation().room;
     }
 
 }

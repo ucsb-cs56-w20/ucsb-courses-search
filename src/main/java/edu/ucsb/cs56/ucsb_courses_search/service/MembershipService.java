@@ -1,4 +1,4 @@
-package edu.ucsb.cs56.ucsb_courses_search;
+package edu.ucsb.cs56.ucsb_courses_search.service;
 
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 

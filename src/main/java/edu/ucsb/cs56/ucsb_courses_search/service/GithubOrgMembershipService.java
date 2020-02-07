@@ -1,4 +1,4 @@
-package edu.ucsb.cs56.ucsb_courses_search;
+package edu.ucsb.cs56.ucsb_courses_search.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.jcabi.github.Github;
-import com.jcabi.github.Organization;
 import com.jcabi.github.RtGithub;
-import com.jcabi.github.User;
 import com.jcabi.github.wire.RetryCarefulWire;
 import com.jcabi.http.Request;
 import com.jcabi.http.response.JsonResponse;

@@ -1,18 +1,10 @@
-package edu.ucsb.cs56.ucsb_courses_search.results;
+package edu.ucsb.cs56.ucsb_courses_search.model.result;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.hibernate.type.AbstractStandardBasicType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Section;
-import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
-import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
-import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Instructor;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.TimeLocation;
 
 public class CourseListingRow {

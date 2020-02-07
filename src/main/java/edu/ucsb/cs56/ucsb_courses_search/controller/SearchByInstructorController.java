@@ -1,25 +1,24 @@
-package edu.ucsb.cs56.ucsb_courses_search;
+package edu.ucsb.cs56.ucsb_courses_search.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import edu.ucsb.cs56.ucsb_courses_search.model.result.MySearchResult;
+import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearch;
+import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearchSpecific;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import edu.ucsb.cs56.ucsb_courses_search.CurriculumService;
-import edu.ucsb.cs56.ucsb_courses_search.InsSearchSpecific;
-import edu.ucsb.cs56.ucsb_courses_search.MySearchResult;
+import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 
-import edu.ucsb.cs56.ucsb_courses_search.results.CourseListingRow;
-import edu.ucsb.cs56.ucsb_courses_search.results.CourseOffering;
-import edu.ucsb.cs56.ucsb_courses_search.searches.SearchByCourse;
-import edu.ucsb.cs56.ucsb_courses_search.searches.SearchByInstructorMultiQuarter;
+import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
+import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
+import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByInstructorMultiQuarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
 import org.slf4j.Logger;

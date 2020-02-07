@@ -1,9 +1,9 @@
-package edu.ucsb.cs56.ucsb_courses_search;
+package edu.ucsb.cs56.ucsb_courses_search.controller.advice;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice

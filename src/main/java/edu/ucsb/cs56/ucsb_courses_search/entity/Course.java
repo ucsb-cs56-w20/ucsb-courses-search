@@ -1,8 +1,6 @@
-package edu.ucsb.cs56.ucsb_courses_search.entities;
+package edu.ucsb.cs56.ucsb_courses_search.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity

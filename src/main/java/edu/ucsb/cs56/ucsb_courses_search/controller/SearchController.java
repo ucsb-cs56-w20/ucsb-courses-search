@@ -1,5 +1,6 @@
-package edu.ucsb.cs56.ucsb_courses_search;
+package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package edu.ucsb.cs56.ucsb_courses_search.controllers;
+package edu.ucsb.cs56.ucsb_courses_search.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import edu.ucsb.cs56.ucsb_courses_search.entities.Course;
-import edu.ucsb.cs56.ucsb_courses_search.repositories.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
+import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;

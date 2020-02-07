@@ -9,12 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,12 +18,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import edu.ucsb.cs56.ucsb_courses_search.AuthControllerAdvice;
+import edu.ucsb.cs56.ucsb_courses_search.controller.advice.AuthControllerAdvice;
 import edu.ucsb.cs56.ucsb_courses_search.BootstrapTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.NavigationTestHelper;
-import edu.ucsb.cs56.ucsb_courses_search.controllers.CourseController;
-import edu.ucsb.cs56.ucsb_courses_search.entities.Course;
-import edu.ucsb.cs56.ucsb_courses_search.repositories.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.controller.CourseController;
+import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
+import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 

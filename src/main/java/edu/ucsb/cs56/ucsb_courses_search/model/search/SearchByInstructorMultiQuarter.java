@@ -1,4 +1,4 @@
-package edu.ucsb.cs56.ucsb_courses_search.searches;
+package edu.ucsb.cs56.ucsb_courses_search.model.search;
 
 import java.util.Objects;
 

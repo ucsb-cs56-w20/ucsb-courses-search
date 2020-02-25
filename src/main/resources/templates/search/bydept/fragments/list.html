@@ -23,6 +23,7 @@
       <th>Location</th>
       <th>Enrolled</th>
       <th>Capacity</th>
+      <!-- <th>Details</th> -->
     </tr>
   </thead>
   <tbody>
@@ -37,6 +38,9 @@
       <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
       <td th:text="${r.section.enrolledTotal}"></td>
       <td th:text="${r.section.maxEnroll}"></td>
+      <div th:if = "${r.rowType}=='PRIMARY'">  <td> 
+        <button type="submit" class="btn btn-info" id="course-detail-btn">Details</button> </td>
+      </div>
     </tr>
   </tbody>
 </table>

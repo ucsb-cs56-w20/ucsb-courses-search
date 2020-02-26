@@ -30,6 +30,7 @@ public class GithubOrgMembershipService implements MembershipService {
     @Autowired
     private OAuth2AuthorizedClientService clientService;
 
+    //Assign githubOrg default value of ${app_github_org}
     public GithubOrgMembershipService(@Value("${app_github_org}") String githubOrg) {
         this.githubOrg = githubOrg;
         logger.info("githubOrg=" + githubOrg);
@@ -93,15 +94,6 @@ public class GithubOrgMembershipService implements MembershipService {
             // I think it has something to do with respecting rate limits
             github = new RtGithub(new RtGithub(accessToken).entry()
                     .through(RetryCarefulWire.class, 50));
-
-            // logger.info("github=" + github);
-            // User ghuser = github.users().get(user);
-            // logger.info("ghuser=" + ghuser);
-            // JsonResponse jruser = github.entry().uri().path("/user").back().method(Request.GET).fetch()
-            //         .as(JsonResponse.class);
-            // logger.info("jruser =" + jruser);
-            // Organization org = github.organizations().get(githubOrg);
-            // logger.info("org =" + org);
 
             String path = String.format("/user/memberships/orgs/%s",githubOrg);
             logger.info("githuborg =" + githubOrg);

@@ -118,7 +118,19 @@
                         <input type="hidden" name="meetday" th:value="${s.timeLocations[0].days}" value="" />
                         <input type="hidden" name="location" th:value="${s.timeLocations[0].building + '-' + s.timeLocations[0].room}" value="" /> 
                         <input type="hidden" name="quarter" th:value="${c.getQuarterQyy()}" value="" /> 
-                        <input type="submit" class="btn btn-primary" value="Add" />  
+                        <!-- <input type="submit" class="btn btn-primary" value="Add" />   -->
+
+                        <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Schedule 1</a>
+                            <a class="dropdown-item" href="#">Schedule 2</a>
+                            <a class="dropdown-item" href="#">Schedule 3</a>
+                          </div>
+                        </div>
+
                       </form> 
                       
                   </tr>

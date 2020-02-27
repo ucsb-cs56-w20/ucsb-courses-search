@@ -33,13 +33,6 @@ public class GithubOrgMembershipService implements MembershipService {
     public GithubOrgMembershipService(@Value("${app_github_org}") String githubOrg) {
     }
 
-    /**
-     * is current logged in user a member but NOT an admin of the github org
-     */
-    public boolean isMember(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        return hasRole(oAuth2AuthenticationToken, "member");
-    }
-
     /** is current logged in user a member of the github org */
     public boolean isAdmin(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         return hasRole(oAuth2AuthenticationToken, "admin");

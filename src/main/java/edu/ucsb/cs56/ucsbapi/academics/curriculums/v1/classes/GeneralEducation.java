@@ -1,8 +1,8 @@
 package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 
 public class GeneralEducation {
-    public String geCode;
-    public String geCollege;
+    private String geCode;
+    private String geCollege;
 
     public GeneralEducation() {}
 

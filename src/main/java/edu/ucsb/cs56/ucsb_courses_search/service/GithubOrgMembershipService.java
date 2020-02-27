@@ -25,15 +25,12 @@ public class GithubOrgMembershipService implements MembershipService {
 
     private Logger logger = LoggerFactory.getLogger(GithubOrgMembershipService.class);
 
-    private String githubOrg;
 
     @Autowired
     private OAuth2AuthorizedClientService clientService;
 
     //Assign githubOrg default value of ${app_github_org}
     public GithubOrgMembershipService(@Value("${app_github_org}") String githubOrg) {
-        this.githubOrg = githubOrg;
-        logger.info("githubOrg=" + githubOrg);
     }
 
     /**

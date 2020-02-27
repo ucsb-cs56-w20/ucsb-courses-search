@@ -44,7 +44,7 @@ public class UserMembershipService implements MembershipService {
             return false;
         }
         OAuth2User oAuth2User = oauthToken.getPrincipal();
-        String user = (String) oAuth2User.getAttributes().get("email");
+        String user = (String) oAuth2User.getAttributes().get("name");
 
 
         if (clientService==null) {

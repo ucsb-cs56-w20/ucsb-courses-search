@@ -92,12 +92,12 @@
           </li>
         </ul>
       </li>
-      <li th:unless="${isLoggedIn}">
-	<form method="GET" action="/oauth2/authorization/google" class="form-inline my-2 my-lg-0"
-          th:unless="${isLoggedIn}"> 
-          <button class="navbar-btn" type="submit">Google Login</button>
-        </form>
-      </li>
+      	 <li th:unless="${isLoggedIn}">
+		<form method="GET" action="/oauth2/authorization/google" class="form-inline my-2 my-lg-0"
+		  th:unless="${isLoggedIn}"> 
+		  <button class="navbar-btn" type="submit">Google Login</button>
+		</form>
+         </li>
     </ul>
 
 

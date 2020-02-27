@@ -40,38 +40,9 @@ public class UserMembershipService implements MembershipService {
      */
 
     public boolean hasRole(OAuth2AuthenticationToken oauthToken, String roleToTest) {
-        if (oauthToken == null) {
-            return false;
-        }
-        OAuth2User oAuth2User = oauthToken.getPrincipal();
-        String user = (String) oAuth2User.getAttributes().get("name");
-
-
-        if (clientService==null) {
-            logger.error(String.format("unable to obtain autowired clientService"));
-            return false;
-        }
-        OAuth2AuthorizedClient client = clientService
-                .loadAuthorizedClient(oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
-
-        if (client==null) {
-            logger.info(String.format("clientService was not null but client returned was null for user %s",user));
-            return false;
-        }
-
-        OAuth2AccessToken token = client.getAccessToken();
-
-        if (token==null) {
-            logger.info(String.format("client for %s was not null but getAccessToken returned null",user));
-            return false;
-        }
-        String accessToken = token.getTokenValue();
-        if (accessToken==null) {
-            logger.info(String.format("token was not null but getTokenValue returned null for user %s",user));
-            return false;
-        }
-
-	// STUB
+    	// The G Suite's membership concept is not useful for this app (since none of us is likely to be an admin on the ucsb.edu domain)
+	// Thus, for now, I've left this function to return false every time
+	// This will make it so every user has the role "Guest".
         return false;
     }
 

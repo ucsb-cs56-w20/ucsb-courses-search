@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,9 @@ public class SearchByCourseController {
 
     @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private QuarterListService quarterListService = new QuarterListService();
 
     @GetMapping("/search/bycourse")
     public String instructor(Model model, SearchByCourse searchByCourse) {
@@ -63,7 +67,7 @@ public class SearchByCourseController {
         model.addAttribute("rows", primaryRows);
 
         // Note: F83 seems to be the oldest data available in the API
-        model.addAttribute("quarters",Quarter.quarterList("W20","F83"));
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/bycourse/results";
     }
 

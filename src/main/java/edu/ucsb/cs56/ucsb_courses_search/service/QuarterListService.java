@@ -6,19 +6,17 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.List;
 
 public class QuarterListService {
+    @Value("${app.start_quarter}")
+    private String startQuarter;
 
-    private List<Quarter> quarters;
+    @Value("${app.end_quarter}")
+    private String endQuarter;
 
-    /**
-     *
-     * @param startQuarter String in format (QYY) in application.properties, first quarter to show
-     * @param endQuarter String in format (QYY) in application.properties, last quarter to show
-     */
-    public QuarterListService(@Value("${app.start_quarter}") String startQuarter, @Value("${app.end_quarter}") String endQuarter) {
-        quarters = Quarter.quarterList(startQuarter, endQuarter);
+    public QuarterListService() {
+
     }
 
-    public List<Quarter> getQuarters(){
-        return quarters;
+    public List<Quarter> getQuarters() {
+        return Quarter.quarterList(startQuarter, endQuarter);
     }
 }

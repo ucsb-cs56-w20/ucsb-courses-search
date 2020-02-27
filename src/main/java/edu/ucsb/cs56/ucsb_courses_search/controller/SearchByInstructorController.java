@@ -48,9 +48,12 @@ public class SearchByInstructorController {
     public String singleQtrSearch(InsSearch insSearch, Model model) {
         model
                 .addAttribute("insSearch", insSearch);
+
+	//if (insSearch.getInstructor() == "")
+	//return "search/byinstructor/blank_message";
 	
 	if (insSearch.getInstructor() == "")
-	    return "search/byinstrutor/error_message";
+	    return "search/byinstructor/error_message";
     
         // calls curriculumService method to get JSON from UCSB API
         String json = curriculumService
@@ -70,7 +73,11 @@ public class SearchByInstructorController {
         model
                 .addAttribute("cp", cp);
 
-        return "search/byinstructor/results";
+	//if (insSearch.getInstructor() == "")
+	//  return "search/byinstructor/blank_message";                       
+
+
+	return "search/byinstructor/results";
     }
 
     @GetMapping("/search/byinstructor/specific") // /search/instructor/specific

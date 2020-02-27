@@ -27,12 +27,21 @@ public class Course {
         return this.quarter;
     }
 
+    public String getQuarterNoSpace() {
+        return this.quarter.replaceAll("\\s","");
+    }
+
     public void setQuarter(String quarter) {
         this.quarter = quarter;
     }
 
+
     public String getCourseId() {
         return this.courseId;
+    }
+
+    public String getCourseIdNoSpace() {
+        return this.courseId.replaceAll("\\s","");
     }
 
     public void setCourseId(String courseId) {
@@ -41,6 +50,10 @@ public class Course {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public String getTitleNoSpace() {
+        return this.title.replaceAll("\\s","");
     }
 
     public void setTitle(String title) {

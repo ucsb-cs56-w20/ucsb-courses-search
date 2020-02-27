@@ -1,10 +1,25 @@
 package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 
-import lombok.Data;
-
-@Data
 public class GeneralEducation {
     public String geCode;
     public String geCollege;
+
     public GeneralEducation() {}
+
+    public String getGeCode() {
+        return this.geCode;
+    }
+
+    public void setGeCode(String geCode) {
+        this.geCode = geCode;
+    }
+
+    public String getGeCollege() {
+        return this.geCollege;
+    }
+
+    public void setGeCollege(String geCollege) {
+        this.geCollege = geCollege;
+    }
+
 }

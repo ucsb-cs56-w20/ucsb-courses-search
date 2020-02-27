@@ -72,7 +72,7 @@
 
     <ul class="nav navbar-nav navbar-right">
       <li th:if="${isLoggedIn}">
-        <a th:text="${login}" th:href="'https://google.com/' + ${login}"></a>
+      	<p th:text="${login}">
       </li>
       <li th:if="${isLoggedIn}" th:text="'(' + ${role} + ')'">(Role)</li>
       <li th:if="${isLoggedIn}" class="dropdown user-nav">
@@ -93,8 +93,6 @@
         </ul>
       </li>
       <li th:unless="${isLoggedIn}">
-        <!-- <form method="GET" action="/login/oauth2/code/google" class="form-inline my-2 my-lg-0"
-          th:unless="${isLoggedIn}"> -->
 	<form method="GET" action="/oauth2/authorization/google" class="form-inline my-2 my-lg-0"
           th:unless="${isLoggedIn}"> 
           <button class="navbar-btn" type="submit">Google Login</button>

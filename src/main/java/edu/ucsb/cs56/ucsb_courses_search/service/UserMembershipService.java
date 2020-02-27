@@ -11,29 +11,23 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.jcabi.github.Github;
-import com.jcabi.github.RtGithub;
-import com.jcabi.github.wire.RetryCarefulWire;
-import com.jcabi.http.Request;
-import com.jcabi.http.response.JsonResponse;
 
 /**
  * Service object that wraps the UCSB Academic Curriculum API
  */
 @Service
-public class GithubOrgMembershipService implements MembershipService {
+public class UserMembershipService implements MembershipService {
 
-    private Logger logger = LoggerFactory.getLogger(GithubOrgMembershipService.class);
+    private Logger logger = LoggerFactory.getLogger(UserMembershipService.class);
 
 
     @Autowired
     private OAuth2AuthorizedClientService clientService;
 
-    //Assign githubOrg default value of ${app_github_org}
-    public GithubOrgMembershipService(@Value("${app_github_org}") String githubOrg) {
+    public UserMembershipService()
+    {
     }
 
-    /** is current logged in user a member of the github org */
     public boolean isAdmin(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         return hasRole(oAuth2AuthenticationToken, "admin");
     }
@@ -52,7 +46,6 @@ public class GithubOrgMembershipService implements MembershipService {
         OAuth2User oAuth2User = oauthToken.getPrincipal();
         String user = (String) oAuth2User.getAttributes().get("email");
 
-        Github github = null;
 
         if (clientService==null) {
             logger.error(String.format("unable to obtain autowired clientService"));
@@ -78,37 +71,8 @@ public class GithubOrgMembershipService implements MembershipService {
             return false;
         }
 
-	/*
-        try {
-            // I forget why we have Github wrapped like this
-            // TODO: find the tutorial that explains it
-            // I think it has something to do with respecting rate limits
-            github = new RtGithub(new RtGithub(accessToken).entry()
-                    .through(RetryCarefulWire.class, 50));
-
-            String path = String.format("/user/memberships/orgs/%s",githubOrg);
-            logger.info("githuborg =" + githubOrg);
-            JsonResponse jr = github.entry().uri().path(path).back()
-                    .method(Request.GET).fetch().as(JsonResponse.class);
-
-            logger.info("jr =" + jr);
-
-            String actualRole = jr.json().readObject().getString("role");
-            String state = jr.json().readObject().getString("state");
-
-            logger.info("actualRole =" + actualRole);
-            logger.info("roleToTest =" + roleToTest);
-            logger.info("state =" + state);
-
-            return actualRole.equals(roleToTest);
-            //return true;
-        } catch (Exception e) {
-            logger.error("Exception happened while trying to determine membership in github org");
-            logger.error("Exception",e);
-        }
-	*/
+	// STUB
         return false;
-	//return true;
     }
 
 }

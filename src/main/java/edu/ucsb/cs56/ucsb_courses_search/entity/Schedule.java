@@ -1,6 +1,7 @@
 package edu.ucsb.cs56.ucsb_courses_search.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Schedule {

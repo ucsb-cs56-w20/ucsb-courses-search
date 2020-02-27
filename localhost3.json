@@ -1,0 +1,8 @@
+{
+    "spring.security.oauth2.client.registration.github.client-id":"969540885724-efihq6qdr8cq0svs274ej36indkgntdi.apps.googleusercontent.com",
+    "spring.security.oauth2.client.registration.github.client-secret":"7LeM09JqTWaQPT9I1nomTZ1w",
+    "spring.security.oauth2.client.registration.google.client-id":"969540885724-efihq6qdr8cq0svs274ej36indkgntdi.apps.googleusercontent.com",
+    "spring.security.oauth2.client.registration.google.client-secret":"7LeM09JqTWaQPT9I1nomTZ1w",
+    "app_github_org":"ucsb-cs56-w20",
+    "ucsb.api.consumer_key":"21LUMAQ2B3McXVN6XSHPGSYTJ3GzXIWq" 
+}

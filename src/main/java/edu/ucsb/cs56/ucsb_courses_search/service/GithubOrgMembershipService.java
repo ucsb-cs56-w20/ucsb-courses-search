@@ -60,7 +60,7 @@ public class GithubOrgMembershipService implements MembershipService {
             return false;
         }
         OAuth2User oAuth2User = oauthToken.getPrincipal();
-        String user = (String) oAuth2User.getAttributes().get("login");
+        String user = (String) oAuth2User.getAttributes().get("email");
 
         Github github = null;
 
@@ -88,6 +88,7 @@ public class GithubOrgMembershipService implements MembershipService {
             return false;
         }
 
+	/*
         try {
             // I forget why we have Github wrapped like this
             // TODO: find the tutorial that explains it
@@ -115,7 +116,9 @@ public class GithubOrgMembershipService implements MembershipService {
             logger.error("Exception happened while trying to determine membership in github org");
             logger.error("Exception",e);
         }
+	*/
         return false;
+	//return true;
     }
 
 }

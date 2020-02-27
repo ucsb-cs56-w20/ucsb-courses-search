@@ -75,10 +75,10 @@
       </table>
 
     <div class="modal fade" id="courseDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle"> <div th:text="${c.courseId}"></div> <div th:text="${c.title}"></div>Course Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -99,8 +99,6 @@
             The light is your friend. Preserve it. Anyone can paint. Let's have a nice tree right here. That's the way I look when I get home late; black and blue. Poor old tree. Let your imagination be your guide. Everyone is going to see things differently - and that's the way it should be. We need a shadow side and a highlight side. Maybe there's a happy little Evergreen that lives here. I really believe that if you practice enough you could paint the 'Mona Lisa' with a two-inch brush. Don't be bashful drop me a line. We'll have a super time. Everybody's different. Trees are different. Let them all be individuals. If what you're doing doesn't make you happy - you're doing the wrong thing. Let's have a little bit of fun today. Trees get lonely too, so we'll give him a little friend. You have to make almighty decisions when you're the creator. Just go out and talk to a tree. Make friends with it. From all of us here, I want to wish you happy painting and God bless, my friends. We must be quiet, soft and gentle. Everyone needs a friend. Friends are the most valuable things in the world. Nature is so fantastic, enjoy it. Let it make you happy. This is the fun part We'll take a little bit of Van Dyke Brown. There's not a thing in the world wrong with washing your brush.
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>

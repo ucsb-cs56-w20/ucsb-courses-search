@@ -18,26 +18,6 @@
           <th>Subject Area</th>
           <th>Quarter</th>
           <th>Course Level</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td th:text="${subjectArea}"></td>
-          <td th:text="${quarter}"></td>
-          <td th:text="${courseLevel}"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!---<h2>Json Results</h2>
-    <pre th:text="${json}">
-    </pre> --->
-
-    <h2>Search Results</h2>
-
-    <table class="table">
-      <thead>
-        <tr>
           <th>Page Number</th>
           <th>Page Size</th>
           <th>Total</th>
@@ -45,6 +25,9 @@
       </thead>
       <tbody>
         <tr>
+          <td th:text="${subjectArea}"></td>
+          <td th:text="${quarter}"></td>
+          <td th:text="${courseLevel}"></td>
           <td th:text="${cp.pageNumber}"></td>
           <td th:text="${cp.pageSize}"></td>
           <td th:text="${cp.total}"></td>
@@ -52,109 +35,7 @@
       </tbody>
     </table>
 
-    <h2>Courses</h2>
-
-    <div th:each="c, iStat: ${cp.classes}">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Quarter</th>
-            <th>Course Id</th>
-            <th>Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td th:text="${c.quarter}" />
-            <td th:text="${c.courseId}" />
-            <td th:text="${c.title}" />
-            <td> <button type="submit" class="btn btn-primary" data-toggle = "modal" th:attr = "data-target='#' + ${c.getCourseIdNoSpace()} + ${c.getQuarterNoSpace()} " ;
-                id="course-detail-btn">Details</button> </td>
-          </tr>
-        </tbody>
-      </table>
-
-    <div class="modal fade" th:attr = "id=${c.getCourseIdNoSpace()} + ${c.getQuarterNoSpace()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle"> <div th:text="${c.courseId}"></div> <div th:text="${c.title}"></div>Course Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            In life you need colors. That's what makes life fun. That you can make these decisions. That you can create the world that you want. See. We take the corner of the brush and let it play back-and-forth. See how easy it is to create a little tree right in your world. We have a fantastic little sky! All kinds of happy little splashes. There's nothing wrong with having a tree as a friend. Automatically, all of these beautiful, beautiful things will happen. We'll put all the little clouds in and let them dance around and have fun. Volunteering your time; it pays you and your whole community fantastic dividends. If there's two big trees invariably sooner or later there's gonna be a little tree. Fluff that up. You've got to learn to fight the temptation to resist these things. Just let them happen. Only eight colors that you need. Here's something that's fun. Maybe there's a happy little waterfall happening over here. Use what happens naturally, don't fight it. You can work and carry-on and put lots of little happy things in here. When you do it your way you can go anywhere you choose. Put your feelings into it, your heart, it's your world. Mountains are so simple, they're hard. Use what you see, don't plan it. Let's make a nice big leafy tree. Exercising the imagination, experimenting with talents, being creative; these things, to me, are truly the windows to your soul. Talent is a pursued interest. That is to say, anything you practice you can do. You don't have to be crazy to do this but it does help. Let's have a happy little tree in here.
-          </div>
-          <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-
-      <table class="table table-bordered" style="margin-left: 3em; font-size: 80%">
-        <thead>
-          <tr>
-            <th>Enroll Code</th>
-            <th>Enrolled</th>
-            <th>Max</th>
-            <th>Instructor(s)</th>
-            <th>Time and Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="s: ${c.classSections}">
-            <td th:text="${s.enrollCode}" />
-            <td th:text="${s.enrolledTotal}" />
-            <td th:text="${s.maxEnroll}" />
-            <td>
-              <div th:each="i: ${s.instructors}">
-                <span th:text="${i.instructor}"></span>
-              </div>
-            </td>
-            <td>
-              <div th:each="tl: ${s.timeLocations}">
-                <table>
-                  <tr>
-                    <td>
-                      <span th:text=${tl.days}></span>
-                      <span th:text=${tl.beginTime}></span>&ndash;<span th:text=${tl.endTime}></span>
-                    </td>
-                    <td>
-                      <span th:text=${tl.building}></span>
-                      <span th:text=${tl.room}></span>
-                    </td>
-                    <!-- th:if to only have the add and drop by sections, not lectures -->
-                    <td th:if="${s.isSection() && isLoggedIn}">
-                       <form action="#" th:action="@{/courseschedule/add}" th:object="${c}" method="post">
-                        <!-- name attributes below are for the th:object which is an instance of 
-                             the @Entity that is a parameter of the controller endpoint for 
-                             the th:action above.  th:value values are computed based on the
-                             objects being iterated over passed into this view -->
-                        <input type="hidden" name="classname" th:value="${c.courseId} "value="" />
-                        <input type="hidden" name="enrollCode" th:value="${s.enrollCode} "value="" />
-                        <input type="hidden" name="uid" th:value="${id}" value="1000" />  
-                        <input type="hidden" name="professor" th:value="${c.mainInstructorList()}" value="" />
-                        <input type="hidden" name="meettime"  th:value="${s.timeLocations[0].beginTime + '-' + s.timeLocations[0].endTime}" value="" />
-                        <input type="hidden" name="meetday" th:value="${s.timeLocations[0].days}" value="" />
-                        <input type="hidden" name="location" th:value="${s.timeLocations[0].building + '-' + s.timeLocations[0].room}" value="" /> 
-                        <input type="hidden" name="quarter" th:value="${c.getQuarterQyy()}" value="" /> 
-                        <input type="submit" class="btn btn-primary" value="Add" />  
-                      </form> 
-                      
-                  </tr>
-                </table>
-
-              </div>
-
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
-
-
-    </div>
+    <div th:replace="resultTable.html"></div>
 
 
 

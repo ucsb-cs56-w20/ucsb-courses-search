@@ -33,6 +33,14 @@ public class AuthControllerAdvice {
 
     }
 
+    @ModelAttribute("picture")
+    public String getPicture(OAuth2AuthenticationToken token){
+    	if (token == null) return "";
+	return token.getPrincipal().getAttributes().get("picture").toString();
+    }
+
+
+
    @ModelAttribute("isAdmin")
     public boolean getIsAdmin(OAuth2AuthenticationToken token){
         return membershipService.isAdmin(token);

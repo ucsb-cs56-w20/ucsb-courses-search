@@ -78,8 +78,8 @@
       <li th:if="${isLoggedIn}" class="dropdown user-nav">
         <a href="#" class="dropdown-toggle float-left" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="false">
-          <!-- <img th:src="'https://avatars2.githubusercontent.com/u/' + ${id} + '?v=3&amp;s=40'" height="20" width="20"
-            th:alt="${login}" /> -->
+          <img th:src="${picture}" height="20" width="20"
+            th:alt="${login}" /> 
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu  pull-left">

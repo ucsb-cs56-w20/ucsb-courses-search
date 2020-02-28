@@ -29,8 +29,6 @@ public class WebController {
         Map<String, String> urls = new HashMap<>();
 
         // get around an unfortunate limitation of the API
-	// NOTE: one of the two links created using this data is the login with Github link on the /login page. We want to remove this link,
-	// so we should try to remove that from the database later on
         @SuppressWarnings("unchecked") Iterable<ClientRegistration> iterable = ((Iterable<ClientRegistration>) clientRegistrationRepository);
         iterable.forEach(clientRegistration -> urls.put(clientRegistration.getClientName(),
                 "/oauth2/authorization/" + clientRegistration.getRegistrationId()));

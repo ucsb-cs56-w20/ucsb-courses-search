@@ -27,7 +27,7 @@
   <tbody>
     <div th:each="r: ${rows}">
     <tr th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}" >
-      <div th:switch=${r.getRowType()}> <!--If lecture, draw this.-->
+      <div th:switch=${r.getRowType()}> <!--If data is for a lecture, draw this.-->
           <div th:case= "'PRIMARY'">
             <td th:text="${r.course.courseId}"></td>
             <td th:text="${r.course.title}"></td>
@@ -42,7 +42,7 @@
             <td> <button type="submit" class="btn btn-primary" data-toggle = "modal" th:attr = "data-target='#' + ${r.course.getCourseKey()}" ;
                 id="course-detail-btn">Details</button> </td>
         </div>
-        <div th:case= "'SECONDARY'"> <!--If section, draw this.-->
+        <div th:case= "'SECONDARY'"> <!--If the data is for a class section, draw this.-->
             <td></td>
             <td></td>
             <td class="section" th:text="${r.section.section}"></td>
@@ -56,7 +56,7 @@
         </div>
       </div>
     </tr>
-    <!--GENERATE MODAL AND INSERT DATA HERE-->
+    <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
     <div class="modal fade" th:attr = "id=${r.course.getCourseKey()}" tabindex="-1" role="dialog" aria-labelledby="detailTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">

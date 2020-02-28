@@ -96,12 +96,6 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>3.0.4.RELEASE</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.jcabi/jcabi-github -->
-        <dependency>
-            <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-github</artifactId>
-            <version>1.0</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
         <dependency>
             <groupId>javax.json</groupId>

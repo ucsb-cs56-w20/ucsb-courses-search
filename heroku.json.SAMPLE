@@ -1,6 +1,5 @@
 {
     "spring.security.oauth2.client.registration.google.client-id":"copy-from-google",
     "spring.security.oauth2.client.registration.google.client-secret":"copy-from-google",
-    "app_google_org":"ucsb-cs56-f19",
     "ucsb.api.consumer_key":"fill-it-in" 
 }

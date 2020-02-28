@@ -1,7 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
 import org.springframework.test.web.servlet.htmlunit.webdriver.MockMvcHtmlUnitDriverBuilder;
-import org.hibernate.validator.internal.engine.messageinterpolation.ElTermResolver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +13,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
-
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import org.openqa.selenium.WebDriver;
@@ -59,6 +61,18 @@ public class SearchByDeptControllerTest {
     public void test_get_W20_CMPSC_Undergrad_All() throws Exception {
         String url = "http://localhost/search/bydept/results?dept=CMPSC&quarter=20201&courseLevel=U";
         HtmlPage htmlPage = webClient.getPage(url);
+        List<DomElement> elems = htmlPage.getByXPath("//table/tbody/tr[1]/td[1]");
+        assertEquals("CMPSC     8  ",elems.get(0).getTextContent());
+    }
+
+    @Test
+    public void test_get_f19_CMPSC_UpperDiv() throws Exception {
+        String url = "http://localhost/search/bydept/results?dept=CMPSC&quarter=20194&courseLevel=S";
+        HtmlPage htmlPage = webClient.getPage(url);
+        String textToFind = "CMPSC   130A ";
+        String xpath=String.format("//*[text()='%s']",textToFind);
+        List<DomElement> elems = htmlPage.getByXPath(xpath);
+        assertEquals(textToFind,elems.get(0).getTextContent());
     }
 
 }

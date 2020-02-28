@@ -26,17 +26,14 @@ public class AuthControllerAdvice {
     @ModelAttribute("login")
     public String getLogin(OAuth2AuthenticationToken token){
         if (token == null) return "";
-	return token.getPrincipal().getAttributes().get("name").toString();
-
+        return token.getPrincipal().getAttributes().get("name").toString();
     }
 
     @ModelAttribute("picture")
     public String getPicture(OAuth2AuthenticationToken token){
-    	if (token == null) return "";
-	return token.getPrincipal().getAttributes().get("picture").toString();
+        if (token == null) return "";
+        return token.getPrincipal().getAttributes().get("picture").toString();
     }
-
-
 
    @ModelAttribute("isAdmin")
     public boolean getIsAdmin(OAuth2AuthenticationToken token){

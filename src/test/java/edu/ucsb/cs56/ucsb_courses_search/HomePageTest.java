@@ -49,7 +49,7 @@ public class HomePageTest {
     public void getHomePage_hasCorrectTitle() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
                 .andExpect(xpath("//title").exists())
-                .andExpect(xpath("//title").string("Getting Started: Serving Web Content"));
+                .andExpect(xpath("//title").string("UCSB Course Search"));
     }
 
     @Test

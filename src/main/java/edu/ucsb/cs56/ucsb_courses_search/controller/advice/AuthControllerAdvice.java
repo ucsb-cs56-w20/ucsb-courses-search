@@ -20,9 +20,6 @@ public class AuthControllerAdvice {
     @ModelAttribute("id")
     public String getUid(OAuth2AuthenticationToken token){
         if (token == null) return "";
-        for (java.util.Map.Entry<java.lang.String, java.lang.Object> entry : token.getPrincipal().getAttributes().entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
-        }
         return token.getPrincipal().getAttributes().get("sub").toString();
     }
 

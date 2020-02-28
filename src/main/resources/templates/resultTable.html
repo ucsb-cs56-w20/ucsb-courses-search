@@ -12,13 +12,13 @@
           <td th:text="${c.quarter}" />
           <td th:text="${c.courseId}" />
           <td th:text="${c.title}" />
-          <td> <button type="submit" class="btn btn-primary" data-toggle = "modal" th:attr = "data-target='#' + ${c.getCourseIdNoSpace()} + ${c.getQuarterNoSpace()} " ;
+          <td> <button type="submit" class="btn btn-primary" data-toggle = "modal" th:attr = "data-target='#' + ${c.getCourseKey()}" ;
               id="course-detail-btn">Details</button> </td>
         </tr>
       </tbody>
     </table>
 
-  <div class="modal fade" th:attr = "id=${c.getCourseIdNoSpace()} + ${c.getQuarterNoSpace()}" tabindex="-1" role="dialog" aria-labelledby="detailTitle" aria-hidden="true">
+  <div class="modal fade" th:attr = "id=${c.getCourseKey()}" tabindex="-1" role="dialog" aria-labelledby="detailTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">

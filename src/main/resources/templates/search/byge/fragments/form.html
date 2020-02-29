@@ -4,7 +4,7 @@
         <div class="col-sm-10">
             <select th:field="*{college}"class="custom-select" id="college">
                 <option selected = "selected" value="ENGR">College of Engineering</option>
-                <option value="CCS">College of Creative Studies</option>
+                <option value="CRST">College of Creative Studies</option>
                 <option value="L&S">College of Letter and Science</option>
             </select>
         </div>
@@ -14,14 +14,20 @@
         <div class="col-sm-10">
             <select th:field="*{area}" class="custom-select" id="area">
                 <option value="A">Area A - English Reading and Composition</option>
+                <!--
+                <option value="B">Area B - Foreign Language (L&S Only)</option>
+                <option value="C">Area C - Science, Mathematics, and Technology (L&S Only)</option>-->
                 <option value="D">Area D - Social Sciences</option>
                 <option value="E">Area E - Culture and Though</option>
                 <option value="F">Area F - Arts</option>
                 <option value="G">Area G - Literature</option>
                 <option value="H">Area H - Foreign Language</option>
-                <option value="EUR">Special Subject Area EUR - European Traditions</option>
                 <option value="ETH">Special Subject Area ETH - Ethnicity</option>
+                <option value="EUR">Special Subject Area EUR - European Traditions</option>
+                <option value="NWC">Special Subject Area NWC - World Cultures</option>
+                <option value="QNT">Special Subject Area QNT - Quantitative Relationships</option>
                 <option value="WRT">Special Subject Area WRT - Writing</option>
+
             </select>
         </div>
     </div>

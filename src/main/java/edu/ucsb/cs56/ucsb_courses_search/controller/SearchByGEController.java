@@ -40,7 +40,7 @@ public class SearchByGEController {
         model.addAttribute("area", area);
         model.addAttribute("quarter", quarter);
 
-        String json = curriculumService.getJSON(college, area, quarter);
+        String json = curriculumService.getGE(college, area, quarter);
         CoursePage cp = CoursePage.fromJSON(json);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);

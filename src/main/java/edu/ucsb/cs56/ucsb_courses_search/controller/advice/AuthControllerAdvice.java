@@ -26,6 +26,12 @@ public class AuthControllerAdvice {
     @ModelAttribute("login")
     public String getLogin(OAuth2AuthenticationToken token){
         if (token == null) return "";
+        return token.getPrincipal().getAttributes().get("email").toString();
+    }
+
+    @ModelAttribute("name")
+    public String getLogin(OAuth2AuthenticationToken token){
+        if (token == null) return "";
         return token.getPrincipal().getAttributes().get("name").toString();
     }
 

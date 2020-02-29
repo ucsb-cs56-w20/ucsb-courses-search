@@ -12,6 +12,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th th:if="${quarters != null}">Quarter</th>
       <th>Course Id</th>
       <th>Title</th>
       <th>Section</th>
@@ -27,32 +28,24 @@
   <tbody>
     <div th:each="r: ${rows}">
     <tr th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}" >
+      <td th:if="${quarters != null}" th:text="${r.rowType}=='PRIMARY' ? ${r.course.getQuarterQyy()} : '' "></td>
+      <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.courseId} : '' "></td>
+      <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.title} : '' "></td>
+      <td class="section" th:text="${r.section.section}"></td>
+      <td class="instructorList" th:text="${r.section.instructorList()}"></td>
+      <td class="enrollCode" th:text="${r.section.enrollCode}"></td>
+      <td th:text="${r.timeLocation?.days}"></td>
+      <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}"></td>
+      <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
+      <td th:text="${r.section.enrolledTotal}"></td>
+      <td th:text="${r.section.maxEnroll}"></td>
       <div th:switch=${r.getRowType()}> <!--If data is for a lecture, draw this.-->
-          <div th:case= "'PRIMARY'">
-            <td th:text="${r.course.courseId}"></td>
-            <td th:text="${r.course.title}"></td>
-            <td class="section" th:text="${r.section.section}"></td>
-            <td class="instructorList" th:text="${r.section.instructorList()}"></td>
-            <td class="enrollCode" th:text="${r.section.enrollCode}"></td>
-            <td th:text="${r.timeLocation?.days}"></td>
-            <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}"></td>
-            <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
-            <td th:text="${r.section.enrolledTotal}"></td>
-            <td th:text="${r.section.maxEnroll}"></td>
-            <td> <button type="submit" class="btn btn-primary" data-toggle = "modal" th:attr = "data-target='#' + ${r.course.getCourseKey()}" ;
-                id="course-detail-btn">Details</button> </td>
+        <div th:case = "'PRIMARY'">
+          <td> <button type="submit" class="btn btn-primary" data-toggle = "modal" th:attr = "data-target='#' + ${r.course.getCourseKey()}" ;
+            id="course-detail-btn">Details</button> </td>
         </div>
         <div th:case= "'SECONDARY'"> <!--If the data is for a class section, draw this.-->
-            <td></td>
-            <td></td>
-            <td class="section" th:text="${r.section.section}"></td>
-            <td class="instructorList" th:text="${r.section.instructorList()}"></td>
-            <td class="enrollCode" th:text="${r.section.enrollCode}"></td>
-            <td th:text="${r.timeLocation?.days}"></td>
-            <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}"></td>
-            <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
-            <td th:text="${r.section.enrolledTotal}"></td>
-            <td th:text="${r.section.maxEnroll}"></td>
+           <td></td>
         </div>
       </div>
     </tr>

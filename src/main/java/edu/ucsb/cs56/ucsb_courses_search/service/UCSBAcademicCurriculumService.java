@@ -146,8 +146,9 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
     }
 
 
-    public String getGE(String college, String area, String quarter) {
+    public String getGE(String college, String areas, String quarter) {
         logger.info("api: " + apiKey);
+        logger.info("getGE: college: " + college + " areas: " + areas +" quarter: " + quarter);
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -160,8 +161,8 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
 
         String uri = "https://api.ucsb.edu/academics/curriculums/v1/classes/search";
         String params = String.format(
-                "?college=%s&area=%s&quarter=%s&pageNumber=%d&pageSize=%d&includeClassSections=%s",
-                college, area, quarter, 1, 100, "true");
+                "?college=%s&areas=%s&quarter=%s&pageNumber=%d&pageSize=%d&includeClassSections=%s",
+                college, areas, quarter, 1, 100, "true");
         String url = uri + params;
         logger.info("url=" + url);
 

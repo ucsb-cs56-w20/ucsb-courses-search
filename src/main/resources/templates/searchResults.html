@@ -104,7 +104,8 @@
                       <span th:text=${tl.room}></span>
                     </td>
                     <!-- th:if to only have the add and drop by sections, not lectures -->
-                    <td th:if="${s.isSection() && isLoggedIn}">
+                    <!-- REMOVED "s.isSection()" condition in th:if to allow user to add lectures to their schedules -->
+                    <td th:if="${isLoggedIn}">
                        <form action="#" th:action="@{/courseschedule/add}" th:object="${c}" method="post">
                         <!-- name attributes below are for the th:object which is an instance of 
                              the @Entity that is a parameter of the controller endpoint for 

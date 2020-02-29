@@ -46,12 +46,23 @@ public class CourseController {
         }
         return "courseschedule/index";
     }
+
     @PostMapping("/courseschedule/add")
     public String add(Course course, Model model) {
         logger.info("Hello!\n");
         logger.info("course's uid: " + course.getUid());
 
         courseRepository.save(course);
+        model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
+        return "courseschedule/index";
+    }
+
+    @PostMapping("/courseschedule/delete")
+    public String delete(Course course, Model model) {
+        logger.info("Goodbye!\n");
+        logger.info("course's uid: " + course.getUid());
+
+        courseRepository.delete(course);
         model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
         return "courseschedule/index";
     }

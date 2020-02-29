@@ -21,6 +21,7 @@
           <th>Meeting Times</th>
           <th>Meeting Days</th>
           <th>Location</th>
+          <th>Lecture</th>
         </tr>
       </thead>
       <tbody>
@@ -33,6 +34,7 @@
           <td th:text="${c.meettime}"></td>
           <td th:text="${c.meetday}"></td>
           <td th:text="${c.location}"></td>
+          <td th:text="${c.associatedLectureDay}"></td>
         </tr>
       </tbody>
     </table>
@@ -43,76 +45,24 @@
     <div align = "Center">
       <table cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
         <tbody>
-          <tr>
+          <tr >
             <th class = "heading">&nbsp</th>
-            <th class = "heading">
-              <span>
-                Monday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Tuesday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Wednesday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Thursday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Friday
-              </span>
+            <th th:each = "d: ${days}" th:text="${d}">
             </th>
           </tr>
-
-
-          <tr>//need 29 rows for 8am - 10pm
-            <th class = "timerange">
-              <span>
-                8:00 AM
-              </span>
-            </th>
-            //5 tds per tr
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-
-          </tr>
-          <tr>
-              <th class = "timerange">
-                <span>
-                  8:30 AM
-                </span>
-              </th>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
+          <!-- javascipt here to put classes into some sort of an array ->>
+          <!--need 29 rows for 8am - 10pm -->
+          <th class = "timerange"></th>
+            <tr th:each = "tr: ${timerange}">
+              <td th:text="${tr}"></td>
+              <!--  //5 tds per tr
+              <td rowspan = "5"></td> -->
+              <script>
+              </script>
+              <!-- put javascript in here for if statements^ -->
+              <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
             </tr>
-          </tr>
-          <tr>
-              <th class = "timerange">
-                <span>
-                  9:00 AM
-                </span>
-              </th>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-            </tr>
-          </tr>
+
         </tbody>
       </table>
     </div>

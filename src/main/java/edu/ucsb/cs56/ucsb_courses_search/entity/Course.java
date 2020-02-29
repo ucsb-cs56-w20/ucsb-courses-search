@@ -5,7 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Course {
- 
+
     @Id
     private String classname;
     private String professor;
@@ -28,7 +28,7 @@ public class Course {
      * where there is more than one.  That way the application structure is simplified, but the user
      * is alerted that there may be an additional time and location that is not being taken into account.
      */
-    
+
     public String getNotes() {
         return this.notes;
     }
@@ -74,8 +74,8 @@ public class Course {
         return uid;
     }
 
- 
- 
+
+
     public String getClassname() {
         return classname;
     }
@@ -100,33 +100,33 @@ public class Course {
         return quarter;
     }
 
-    public void setUid(String uid) { 
-        this.uid = uid; 
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public void setClassname(String classname) { 
-        this.classname = classname; 
+    public void setClassname(String classname) {
+        this.classname = classname;
     }
 
-    public void setProfessor(String professor) { 
-        this.professor = professor; 
+    public void setProfessor(String professor) {
+        this.professor = professor;
     }
 
-    public void setMeettime(String meettime) { 
-        this.meettime =  meettime; 
+    public void setMeettime(String meettime) {
+        this.meettime =  meettime;
     }
 
-    public void setMeetday(String meetday) { 
-        this.meetday = meetday; 
+    public void setMeetday(String meetday) {
+        this.meetday = meetday;
     }
 
-    public void setLocation(String location) { 
-        this.location = location; 
+    public void setLocation(String location) {
+        this.location = location;
     }
 
    public void setQuarter(String quarter){
         this.quarter = quarter;
     }
 
-    
+
 }

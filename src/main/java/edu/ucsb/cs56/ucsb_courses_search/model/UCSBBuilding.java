@@ -1,48 +1,54 @@
 package edu.ucsb.cs56.ucsb_courses_search.model;
 
-public class UCSBBuilding{
+public class UCSBBuilding {
 
-
-
-    private String buildingCode;
+    private String code;
     private String name;
-    private double longitude;
     private double latitude;
+    private double longitude;
 
-    public UCSBBuilding(String buildingCode, String name, double longitude, double latitude) {
-        this.buildingCode = buildingCode;
+    public UCSBBuilding(String code, String name, double latitude, double longitude) {
+        this.code = code;
         this.name = name;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public String getBuildingCode(){
-        return this.buildingCode;
+    public String getCode() {
+        return this.code;
     }
 
-    public String getName(){
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
         return this.name;
     }
 
-    public double getLongitude(){
-        return this.longitude;
-    }
-
-    public double getLatitude(){
-        return this.latitude;
-    }
-    
-	public void setBuildingCode(String buildingCode) {
-        this.buildingCode = buildingCode;
-    }
     public void setName(String name) {
         this.name = name;
     }
+
+    public double getLatitude() {
+        return this.latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return this.longitude;
+    }
+
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 }

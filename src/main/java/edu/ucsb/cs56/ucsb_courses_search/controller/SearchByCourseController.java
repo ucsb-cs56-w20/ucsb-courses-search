@@ -31,11 +31,11 @@ public class SearchByCourseController {
     private CurriculumService curriculumService;
 
     @Autowired
-    private QuarterListService quarterListService = new QuarterListService();
+    private QuarterListService quarterListService;
 
     @GetMapping("/search/bycourse")
     public String instructor(Model model, SearchByCourse searchByCourse) {
-        model.addAttribute("quarters",Quarter.quarterList("W20","F83"));
+        model.addAttribute("quarters", quarterListService.getQuarters());
         model.addAttribute("searchByCourse", new SearchByCourse());
         return "search/bycourse/search";
     }
@@ -66,7 +66,6 @@ public class SearchByCourseController {
 
         model.addAttribute("rows", primaryRows);
 
-        // Note: F83 seems to be the oldest data available in the API
         model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/bycourse/results";
     }

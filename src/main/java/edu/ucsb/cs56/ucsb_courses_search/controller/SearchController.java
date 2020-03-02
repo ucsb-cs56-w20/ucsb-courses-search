@@ -41,7 +41,7 @@ public class SearchController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
-        String link = UCSBBuildingService.getLink(cp.classes.classSections.timeLocations.building);
+        String link = UCSBBuildingService.getLink(tl.building);
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         model.addAttribute("rows", rows);

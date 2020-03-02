@@ -11,6 +11,8 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.UCSBBuildingService;
+
 import java.util.List;
 
 @Controller()
@@ -39,9 +41,12 @@ public class SearchController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+        String link = UCSBBuildingService.getLink(cp.classes.classSections.timeLocations.building);
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         model.addAttribute("rows", rows);
+        model.addAttribute("link", link);
+        
 
         return "searchResults"; // corresponds to src/main/resources/templates/searchResults.html
     }

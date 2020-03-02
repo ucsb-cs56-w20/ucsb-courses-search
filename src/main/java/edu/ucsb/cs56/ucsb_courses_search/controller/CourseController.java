@@ -11,6 +11,9 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import java.util.ArrayList;
 
+import edu.ucsb.cs56.ucsb_courses_search.entity.Schedule;
+//I added this
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,12 +47,20 @@ public class CourseController {
             ArrayList<Course> emptyList = new ArrayList<Course>();
             model.addAttribute("myclasses", emptyList);
         }
+
         return "courseschedule/index";
     }
     @PostMapping("/courseschedule/add")
     public String add(Course course, Model model) {
         logger.info("Hello!\n");
         logger.info("course's uid: " + course.getUid());
+
+
+	Schedule nameTest = new Schedule();
+	nameTest.setSchedulename("testing2");
+
+	model.addAttribute("scheduleName", nameTest);
+
 
         courseRepository.save(course);
         model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));

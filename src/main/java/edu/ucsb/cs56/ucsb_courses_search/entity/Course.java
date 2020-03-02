@@ -14,6 +14,7 @@ public class Course {
     private String location;
     private String quarter;
     private String uid;
+    private String scheduleid; // id for specific schedule
     private String associatedLectureDay;
     private String associatedLectureTime;
     private String associatedLectureLocation;

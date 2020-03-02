@@ -10,9 +10,17 @@
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedule</h3>
+
+    <p id="test"></p>
+
+    <script>
+      document.write(scheduleName.schedulename);
+    </script>
+
     <table class="table">
       <thead>
         <tr>
+    	  <th>Schedule Name</th>
           <th>Quarter</th>
           <th>Course Name</th>
           <th>Enroll Code</th>
@@ -25,6 +33,7 @@
       </thead>
       <tbody>
         <tr th:each="c: ${myclasses}">
+    	  <td th:text="${scheduleName.schedulename}"></td>
           <td th:text="${c.quarter}"></td>
           <td th:text="${c.classname}"></td>
           <td th:text="${c.enrollCode}"></td>

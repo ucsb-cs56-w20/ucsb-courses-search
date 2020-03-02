@@ -28,6 +28,24 @@ public class UserMembershipService implements MembershipService {
     {
     }
 
+    /**
+     * Is the currently logged in user a member of the UCSB Gsuite
+     *
+     * @param oAuth2AuthenticationToken the current user's authentication token
+     * @return true if the user is a member of the UCSB GSuite, false otherwise
+     */ 
+    public boolean isMember(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+	// Per Professor Conrad's request (see https://github.com/ucsb-cs56-w20/ucsb-courses-search/pull/199, bottom),
+	// a member will be anyone with a UCSB email address
+	String userEmail = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("email").toString();
+	if(userEmail.endsWith("@ucsb.edu") || userEmail.endsWith("@umail.ucsb.edu"))
+	{
+		return true;
+	}
+	return false;
+    }
+
+
     public boolean isAdmin(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         return hasRole(oAuth2AuthenticationToken, "admin");
     }
@@ -40,9 +58,11 @@ public class UserMembershipService implements MembershipService {
      */
 
     public boolean hasRole(OAuth2AuthenticationToken oauthToken, String roleToTest) {
-    	// The G Suite's membership concept is not useful for this app (since none of us is likely to be an admin on the ucsb.edu domain)
-	// Thus, for now, I've left this function to return false every time
-	// This will make it so every user has the role "Guest".
+
+	if(roleToTest == "member")
+	{
+		return isMember(oauthToken);
+	}
         return false;
     }
 

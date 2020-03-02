@@ -14,7 +14,7 @@ public class AuthControllerAdvice {
 
     @ModelAttribute("isLoggedIn")
     public boolean getIsLoggedIn(OAuth2AuthenticationToken token){
-        return token != null;
+        return token != null; 
     }
 
     @ModelAttribute("id")
@@ -30,7 +30,7 @@ public class AuthControllerAdvice {
     }
 
     @ModelAttribute("name")
-    public String getLogin(OAuth2AuthenticationToken token){
+    public String getName(OAuth2AuthenticationToken token){
         if (token == null) return "";
         return token.getPrincipal().getAttributes().get("name").toString();
     }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
+
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -23,6 +25,10 @@ public class CourseController {
     private CourseRepository courseRepository;
 
     @Autowired
+    private MembershipService membershipService;
+
+
+    @Autowired
     public CourseController(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
@@ -33,7 +39,7 @@ public class CourseController {
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
 
-        if (token!=null) {
+        if (token!=null && membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);

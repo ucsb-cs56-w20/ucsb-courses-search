@@ -53,8 +53,8 @@ public class UCSBBuildingService {
         UCSBBuilding building = service.buildingMap.get(buildingCode);
         String lat = Double.toString(building.getLatitude());
         String lon = Double.toString(building.getLongitude());
-        String result = "https://maps.openrouteservice.org/directions?n1=" + lat + "&n2="
-            + lon + "&n3=13&b=0&k1=en-US&k2=km";
+        String result = "https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
+        + lat + "," + lon + ",null,null&b=0&c=0&k1=en-US&k2=km";
         return result;
     }
 }

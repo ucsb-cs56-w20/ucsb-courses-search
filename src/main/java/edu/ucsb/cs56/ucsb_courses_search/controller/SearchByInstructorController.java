@@ -6,6 +6,7 @@ import java.util.List;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.MySearchResult;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearch;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearchSpecific;
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,9 @@ public class SearchByInstructorController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @Autowired
+    private QuarterListService quarterListService;
+
     // Hard code value for quarters
     private static final String[] quarters = { "20174", "20181", "20182", "20183", "20184", "20191", "20192", "20193",
             "20194", "20201" };
@@ -41,6 +45,7 @@ public class SearchByInstructorController {
     public String instructor(Model model) {
         model
                 .addAttribute("searchObject", new MySearchResult());
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/byinstructor/search";
     }
 
@@ -66,6 +71,7 @@ public class SearchByInstructorController {
                 .addAttribute("json", json);
         model
                 .addAttribute("cp", cp);
+        model.addAttribute("quarters", quarterListService.getQuarters());
 
         return "search/byinstructor/results";
     }
@@ -74,6 +80,7 @@ public class SearchByInstructorController {
     public String specifc(Model model) {
         model
                 .addAttribute("searchObject", new MySearchResult());
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/byinstructor/specific/search";
     }
 
@@ -107,9 +114,7 @@ public class SearchByInstructorController {
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model
                 .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
-        model
-                .addAttribute("quarters", Quarter
-                        .quarterList("W20", "F83"));
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/byinstructor/multiquarter/search";
     }
 
@@ -143,8 +148,7 @@ public class SearchByInstructorController {
             model.addAttribute("rows", rows);
             model.addAttribute("searchObject", searchObject );
 
-            // Note: F83 seems to be the oldest data available in the API
-            model.addAttribute("quarters",Quarter.quarterList("W20","F83"));
+            model.addAttribute("quarters", quarterListService.getQuarters());
             return "search/byinstructor/multiquarter/results";
     }
 

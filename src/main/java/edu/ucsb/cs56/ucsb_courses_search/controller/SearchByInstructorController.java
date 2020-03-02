@@ -37,10 +37,6 @@ public class SearchByInstructorController {
     @Autowired
     private QuarterListService quarterListService;
 
-    // Hard code value for quarters
-    private static final String[] quarters = { "20174", "20181", "20182", "20183", "20184", "20191", "20192", "20193",
-            "20194", "20201" };
-
     @GetMapping("/search/byinstructor")
     public String instructor(Model model) {
         model

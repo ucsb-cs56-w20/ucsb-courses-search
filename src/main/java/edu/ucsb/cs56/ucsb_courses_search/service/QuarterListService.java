@@ -18,8 +18,6 @@ public class QuarterListService {
     }
 
     public List<Quarter> getQuarters() {
-        System.out.println("calling get quarters~!!!!!!!!!");
-        System.out.println(Quarter.quarterList(startQuarter, endQuarter));
         return Quarter.quarterList(startQuarter, endQuarter);
     }
 }

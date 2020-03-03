@@ -18,6 +18,7 @@ public class Course {
     private String quarter;
     private String courseId;
     private String title;
+    private String description;
     private List<Section> classSections;
 
     public Course() {
@@ -53,6 +54,14 @@ public class Course {
 
     public void setClassSections(List<Section> classSections) {
         this.classSections = classSections;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setDescription(){
+        this.description = description;
     }
 
    

@@ -12,6 +12,19 @@ public class Schedule {
     private String quarter;
     private String uid;
 
+    public Schedule() {
+    	scheduleid = "scheduleid";
+	schedulename = "schedulename";
+	quarter = "quarter";
+	uid = "uid";
+    }
+
+    public Schedule(String scheduleid, String schedulename, String quarter, String uid) {
+	this.scheduleid = scheduleid;
+	this.schedulename = schedulename;
+	this.quarter = quarter;
+	this.uid = uid;
+    }
 
     public String getUid() {
         return uid;

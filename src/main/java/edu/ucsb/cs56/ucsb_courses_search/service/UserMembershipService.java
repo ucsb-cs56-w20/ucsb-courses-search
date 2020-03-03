@@ -10,7 +10,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Service object that wraps the UCSB Academic Curriculum API
@@ -20,6 +21,8 @@ public class UserMembershipService implements MembershipService {
 
     private Logger logger = LoggerFactory.getLogger(UserMembershipService.class);
 
+    @Value("${app.admin.emails:}")
+    final private List<String> adminEmails = new ArrayList<String>();
 
     @Autowired
     private OAuth2AuthorizedClientService clientService;
@@ -35,6 +38,9 @@ public class UserMembershipService implements MembershipService {
      * @return true if the user is a member of the UCSB GSuite, false otherwise
      */ 
     public boolean isMember(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+	if(oAuth2AuthenticationToken == null)
+		return false;
+
 	// Per Professor Conrad's request (see https://github.com/ucsb-cs56-w20/ucsb-courses-search/pull/199, bottom),
 	// a member will be anyone with a UCSB email address
 	String userEmail = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("email").toString();
@@ -47,7 +53,10 @@ public class UserMembershipService implements MembershipService {
 
 
     public boolean isAdmin(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        return hasRole(oAuth2AuthenticationToken, "admin");
+        if (oAuth2AuthenticationToken == null) 
+		return false;
+	String userEmail = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("email").toString();
+	return adminEmails.contains(userEmail);
     }
 
     /**
@@ -62,6 +71,10 @@ public class UserMembershipService implements MembershipService {
 	if(roleToTest == "member")
 	{
 		return isMember(oauthToken);
+	}
+	if(roleToTest == "admin")
+	{
+		return isAdmin(oauthToken);
 	}
         return false;
     }

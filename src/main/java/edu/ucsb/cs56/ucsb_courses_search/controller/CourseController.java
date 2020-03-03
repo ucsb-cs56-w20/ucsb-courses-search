@@ -48,6 +48,11 @@ public class CourseController {
             model.addAttribute("myclasses", emptyList);
         }
 
+	Schedule nameTest = new Schedule();
+	nameTest.setSchedulename("testName");
+
+	model.addAttribute("scheduleName", nameTest);
+
         return "courseschedule/index";
     }
     @PostMapping("/courseschedule/add")

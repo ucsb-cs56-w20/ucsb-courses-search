@@ -70,6 +70,14 @@ public class ScheduleItem {
 		return this.associatedLectureTime;
 	}
 
+    public String getUid() {
+        return this.uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 	public void setAssociatedLectureTime(String associatedLectureTime) {
 		this.associatedLectureTime = associatedLectureTime;
 	}

@@ -25,7 +25,7 @@ public class UserMembershipService implements MembershipService {
     final private List<String> adminEmails = new ArrayList<String>();
 
     @Value("${app.member.hosted-domain}")
-    final private String memberHostedDomain = "";
+    final private String memberHostedDomain = "ucsb.edu";
 
     @Autowired
     private OAuth2AuthorizedClientService clientService;
@@ -75,6 +75,7 @@ public class UserMembershipService implements MembershipService {
 
         logger.info("email=[" + email + "]");
         logger.info("hostedDomain=" + hostedDomain);
+	logger.info("memberhosteddomain=" + memberHostedDomain);
 
         if (roleToTest.equals("admin") && isAdminEmail(email)) {
             return true;
@@ -89,7 +90,18 @@ public class UserMembershipService implements MembershipService {
 
     private boolean isAdminEmail(String email)
     {
-    	return adminEmails != null && adminEmails.contains(email);
+    	email=email.trim();
+	for(int i = 0; i < adminEmails.size(); i++)
+	{
+		String test = adminEmails.get(i).trim();
+		adminEmails.set(i, test);
+	}
+	logger.info("email=" + email);
+	logger.info("adminemails=" + adminEmails);
+	logger.info("contains=" + adminEmails.contains(email));
+	logger.info("size=" + adminEmails.size());
+	logger.info("last one=" + adminEmails.get(adminEmails.size()-1));
+    	return adminEmails.get(0).contains(email);
     }
 }
 

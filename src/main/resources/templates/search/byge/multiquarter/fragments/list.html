@@ -1,5 +1,3 @@
-<h2>Courses</h2>
-
 <style>
   tr.firstRowForCourse { border-top: solid black 2px;}
   tr.lastRowForCourse { border-bottom: solid black 2px;}
@@ -15,28 +13,15 @@
     <tr>
       <th>Course Id</th>
       <th>Title</th>
-      <th>Section</th>
       <th>Instructor</th>
-      <th>Enroll Cd</th>
-      <th>Days</th>
-      <th>Time</th>
-      <th>Location</th>
-      <th>Enrolled</th>
-      <th>Capacity</th>
+      
     </tr>
   </thead>
   <tbody>
     <tr th:each="r: ${rows}" th:if="${r.rowType}=='PRIMARY'" th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}" >
       <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.courseId} : '' "></td>
       <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.title} : '' "></td>
-      <td class="section" th:text="${r.section.section}"></td>
       <td class="instructorList" th:text="${r.section.instructorList()}"></td>
-      <td class="enrollCode" th:text="${r.section.enrollCode}"></td>
-      <td th:text="${r.timeLocation?.days}"></td>
-      <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}"></td>
-      <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
-      <td th:text="${r.section.enrolledTotal}"></td>
-      <td th:text="${r.section.maxEnroll}"></td>
     </tr>
   </tbody>
 </table>

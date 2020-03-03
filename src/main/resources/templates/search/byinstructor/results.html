@@ -31,72 +31,14 @@
     <pre th:text="${json}">
     </pre>
 
-    <h2>Courses</h2>
+    <div th:replace="fragments/generic_result_table.html"></div>
 
-      <div th:each="c: ${cp.classes}">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Quarter</th>
-            <th>Course Id</th>
-            <th>Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td th:text="${c.quarter}" />
-            <td th:text="${c.courseId}" />
-            <td th:text="${c.title}" />
-          </tr>
-        </tbody>
-      </table>
-
-      <table class="table table-bordered" style="margin-left: 3em; font-size: 80%">
-        <thead>
-          <tr>
-            <th>Enroll Code</th>
-            <th>Enrolled</th>
-            <th>Max</th>
-            <th>Instructor(s)</th>
-            <th>Time and Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="s: ${c.classSections}">
-            <td th:text="${s.enrollCode}" />
-            <td th:text="${s.enrolledTotal}" />
-            <td th:text="${s.maxEnroll}" />
-            <td>
-              <div th:each="i: ${s.instructors}">
-	           <span th:text="${i.instructor}"></span>
-	      </div>
-            </td>
-            <td>
-              <div th:each="tl: ${s.timeLocations}">
-                <table>
-                  <tr>
-                    <td>
-                      <span th:text=${tl.days}></span>
-                      <span th:text=${tl.beginTime}></span>&ndash;<span th:text=${tl.endTime}></span>
-                    </td>
-                    <td>
-                      <span th:text=${tl.building}></span>
-                      <span th:text=${tl.room}></span>
-                    </td>
-                  <tr>
-                </table>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-   
-  </div>
    <div th:replace="fragments/bootstrap_footer.html"></div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>
+</div>
 
 <!-- TODO: render the CoursePage object into a table following searchResults.html methodology -->
 </body>
 
 </html>
+

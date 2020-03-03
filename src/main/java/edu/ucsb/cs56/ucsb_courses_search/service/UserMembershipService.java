@@ -24,59 +24,72 @@ public class UserMembershipService implements MembershipService {
     @Value("${app.admin.emails:}")
     final private List<String> adminEmails = new ArrayList<String>();
 
+    @Value("${app.member.hosted-domain}")
+    final private String memberHostedDomain = "";
+
     @Autowired
     private OAuth2AuthorizedClientService clientService;
 
-    public UserMembershipService()
-    {
+    /**
+     * @param token OAuth token
+     * @return true if current logged-in user is a member but not an admin
+     */
+    public boolean isMember(OAuth2AuthenticationToken token) {
+        return hasRole(token, "member");
     }
 
     /**
-     * Is the currently logged in user a member of the UCSB Gsuite
-     *
-     * @param oAuth2AuthenticationToken the current user's authentication token
-     * @return true if the user is a member of the UCSB GSuite, false otherwise
-     */ 
-    public boolean isMember(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-	if(oAuth2AuthenticationToken == null)
-		return false;
+     * @param token OAuth token
+     * @return true if current logged-in user is an Admin
+     */
 
-	// Per Professor Conrad's request (see https://github.com/ucsb-cs56-w20/ucsb-courses-search/pull/199, bottom),
-	// a member will be anyone with a UCSB email address
-	String userEmail = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("email").toString();
-	if(userEmail.endsWith("@ucsb.edu") || userEmail.endsWith("@umail.ucsb.edu"))
-	{
-		return true;
-	}
-	return false;
-    }
-
-
-    public boolean isAdmin(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        if (oAuth2AuthenticationToken == null) 
-		return false;
-	String userEmail = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("email").toString();
-	return adminEmails.contains(userEmail);
+    public boolean isAdmin(OAuth2AuthenticationToken token) {
+        return hasRole(token, "admin");
     }
 
     /**
-     * is current logged in user has role
+     * does current logged in user have this role
      *
-     * @param roleToTest "member" or "admin"
+     * @param token      OAuth token
+     * @param roleToTest "member" or "admin" (lowercase)
      * @return if the current logged in user has that role
      */
 
-    public boolean hasRole(OAuth2AuthenticationToken oauthToken, String roleToTest) {
+    public boolean hasRole(OAuth2AuthenticationToken token, String roleToTest) {
 
-	if(roleToTest == "member")
-	{
-		return isMember(oauthToken);
-	}
-	if(roleToTest == "admin")
-	{
-		return isAdmin(oauthToken);
-	}
-        return false;
+        logger.info("adminEmails=[" + adminEmails + "]");
+
+        if (token == null) {
+            return false;
+        }
+        if (clientService == null) {
+            logger.error(String.format("unable to obtain autowired clientService"));
+            return false;
+        }
+
+        OAuth2User oAuth2User = token.getPrincipal();
+
+        String email = (String) oAuth2User.getAttributes().get("email");
+        // hd is the domain of the email, e.g. ucsb.edu
+        String hostedDomain = (String) oAuth2User.getAttributes().get("hd");
+
+        logger.info("email=[" + email + "]");
+        logger.info("hostedDomain=" + hostedDomain);
+
+        if (roleToTest.equals("admin") && isAdminEmail(email)) {
+            return true;
+        }
+
+        if (roleToTest.equals("member") && memberHostedDomain.equals(hostedDomain)) {
+            return true;
+        }
+
+        return false;   
     }
 
+    private boolean isAdminEmail(String email)
+    {
+    	return adminEmails != null && adminEmails.contains(email);
+    }
 }
+

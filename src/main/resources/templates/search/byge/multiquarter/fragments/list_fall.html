@@ -18,10 +18,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr th:each="r: ${rows}" th:if="${r.rowType}=='PRIMARY'" th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}" >
+    <tr th:each="r: ${rows}" th:if="${r.rowType}=='PRIMARY'"  th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}" >
+      <div th:if = "${quarter[4]=='4'}">
       <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.courseId} : '' "></td>
       <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.title} : '' "></td>
       <td class="instructorList" th:text="${r.section.instructorList()}"></td>
+      </div>
     </tr>
   </tbody>
 </table>

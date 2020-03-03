@@ -1,0 +1,29 @@
+<style>
+  tr.firstRowForCourse { border-top: solid black 2px;}
+  tr.lastRowForCourse { border-bottom: solid black 2px;}
+  tr.SECONDARY td.section { padding-left: 2em; }
+  tr.SECONDARY td.enrollCode { padding-left: 2em; }
+  tr.SECONDARY td.instructorList { padding-left: 2em; }
+
+
+</style>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Course Id</th>
+      <th>Title</th>
+      <th>Instructor</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="r: ${rows}" th:if="${r.rowType}=='PRIMARY'" th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}" >
+      <div th:if="${quarter[4]=='1'}">
+      <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.courseId} : '' "></td>
+      <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.title} : '' "></td>
+      <td class="instructorList" th:text="${r.section.instructorList()}"></td>
+      </div>
+    </tr>
+  </tbody>
+</table>

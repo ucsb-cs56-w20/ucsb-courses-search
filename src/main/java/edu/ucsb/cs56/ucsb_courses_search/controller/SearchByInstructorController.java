@@ -48,9 +48,6 @@ public class SearchByInstructorController {
     public String singleQtrSearch(InsSearch insSearch, Model model) {
         model
                 .addAttribute("insSearch", insSearch);
-
-	//if (insSearch.getInstructor() == "")
-	//return "search/byinstructor/blank_message";
 	
 	if (insSearch.getInstructor() == "")
 	    return "search/byinstructor/error_message";
@@ -72,9 +69,6 @@ public class SearchByInstructorController {
                 .addAttribute("json", json);
         model
                 .addAttribute("cp", cp);
-
-	//if (insSearch.getInstructor() == "")
-	//  return "search/byinstructor/blank_message";                       
 
 
 	return "search/byinstructor/results";

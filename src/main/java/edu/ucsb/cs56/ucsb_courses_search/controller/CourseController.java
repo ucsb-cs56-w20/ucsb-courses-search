@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,6 +18,7 @@ import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +54,16 @@ public class CourseController {
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
+<<<<<<< HEAD
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
+=======
+            logger.info("courseRepository="+courseRepository);
+            List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
+            // get courses by each scheduleid to a list
+            Schedule lastSchedule = myschedules.get(myschedules.size() -1);
+            Iterable<Course> myclasses = courseRepository.findByScheduleid(lastSchedule.getScheduleid());
+>>>>>>> jz/ch/jj/al - fix add to schedule and view most recent schedule
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);
@@ -66,6 +75,7 @@ public class CourseController {
         }
         return "courseschedule/index";
     }
+<<<<<<< HEAD
     @PostMapping("/courseschedule/add")
     public String add(ScheduleItem scheduleItem, 
                         Model model,
@@ -96,6 +106,16 @@ public class CourseController {
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";
+=======
+    @PostMapping("/courseschedule/add/{scheduleid}")
+    public String add(
+        @PathVariable("scheduleid") long scheduleid, 
+        Course course, Model model
+        ) {
+        course.setScheduleid(scheduleid);
+        courseRepository.save(course);
+        return "redirect:/courseschedule";
+>>>>>>> jz/ch/jj/al - fix add to schedule and view most recent schedule
     }
 
 }

@@ -13,10 +13,6 @@ public class Schedule {
     private String uid;
 
     public Schedule() {
-    	scheduleid = "scheduleid";
-	schedulename = "schedulename";
-	quarter = "quarter";
-	uid = "uid";
     }
 
     public Schedule(String scheduleid, String schedulename, String quarter, String uid) {

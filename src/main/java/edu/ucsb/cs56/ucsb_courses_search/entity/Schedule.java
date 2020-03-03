@@ -1,13 +1,13 @@
 package edu.ucsb.cs56.ucsb_courses_search.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Schedule {
  
     @Id
-    private String scheduleid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long scheduleid;
     private String schedulename;
     private String quarter;
     private String uid;
@@ -21,11 +21,11 @@ public class Schedule {
         this.uid = uid; 
     }
 
-    public String getScheduleid() {
+    public long getScheduleid() {
         return scheduleid;
     }
 
-    public void setScheduleid(String scheduleid) { 
+    public void setScheduleid(long scheduleid) { 
         this.scheduleid = scheduleid; 
     }
 

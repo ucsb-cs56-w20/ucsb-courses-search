@@ -17,3 +17,16 @@ VALUES
         'HFH 1152'
     );
     */
+
+INSERT INTO
+    schedule (
+        uid,
+        schedulename,
+        quarter
+    )
+VALUES
+    (
+        '46585685',
+        'winter2020',
+        'W20'
+    );

@@ -31,6 +31,7 @@ public class SearchByGEController {
         return "search/byge/search";
     }
 
+
     @GetMapping("/search/byge/results")
     public String search(@RequestParam(name = "college", required = true) String college,
             @RequestParam(name = "area", required = true) String area,
@@ -40,7 +41,7 @@ public class SearchByGEController {
         model.addAttribute("area", area);
         model.addAttribute("quarter", quarter);
 
-        String json = curriculumService.getJSON(college, area, quarter);
+        String json = curriculumService.getGE(college, area, quarter);
         CoursePage cp = CoursePage.fromJSON(json);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
@@ -52,5 +53,6 @@ public class SearchByGEController {
 
         return "search/byge/results";
     }
+    
 
 }

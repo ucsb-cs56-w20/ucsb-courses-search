@@ -1,0 +1,62 @@
+<form method="GET"  th:object="${searchByGE}">
+    <div class="form-group row">
+        <label for="college" class="col-sm-2 col-form-label">College</label>
+        <div class="col-sm-10">
+            <select th:field="*{college}"class="custom-select" id="college">
+                <option selected = "selected" value="ENGR">College of Engineering</option>
+                <option value="CRST">College of Creative Studies</option>
+                <option value="L&S">College of Letter and Science</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="area" class="col-sm-2 col-form-label">Area</label>
+        <div class="col-sm-10">
+            <select th:field="*{area}" class="custom-select" id="area">
+                <option value="A1">Area A1 - English Reading and Composition</option>
+                <option value="A2">Area A2 - English Reading and Composition</option>
+                <!--
+                <option value="B">Area B - Foreign Language (L&S Only)</option>
+                <option value="C">Area C - Science, Mathematics, and Technology (L&S Only)</option>-->
+                <option value="D">Area D - Social Sciences</option>
+                <option value="E">Area E - Culture and Though</option>
+                <option value="F">Area F - Arts</option>
+                <option value="G">Area G - Literature</option>
+                <option value="H">Area H - Foreign Language</option>
+                <option value="ETH">Special Subject Area ETH - Ethnicity</option>
+                <option value="EUR">Special Subject Area EUR - European Traditions</option>
+                <option value="NWC">Special Subject Area NWC - World Cultures</option>
+                <option value="QNT">Special Subject Area QNT - Quantitative Relationships</option>
+                <option value="WRT">Special Subject Area WRT - Writing</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="quarter" class="col-sm-2 col-form-label">Quarter</label>
+        <div class="col-sm-10">
+            <select th:field="*{quarter}" class="custom-select">
+                <option selected="selected" value="20202">SPRING 2020</option>
+                <option value="20201">WINTER 2020</option>
+                <option value="20194">FALL 2019 </option>
+                <option value="20193">SUMMER 2019 </option>
+                <option value="20192">SPRING 2019 </option>
+                <option value="20191">WINTER 2019 </option>
+                <option value="20184">FALL 2018 </option>
+                <option value="20183">SUMMER 2018 </option>
+                <option value="20182">SPRING 2018 </option>
+                <option value="20181">WINTER 2018 </option>
+                <option value="20174">FALL 2017 </option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="js-course-search-submit" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <button type="submit" th:formaction="@{/search/byge/results}" class="btn btn-primary" id="js-course-search-submit">Find Courses</button>
+        </div>
+    </div>
+
+    
+</form>

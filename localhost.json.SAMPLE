@@ -2,5 +2,5 @@
     "spring.security.oauth2.client.registration.github.client-id":"cde3513f7a8c0f81b3d4",
     "spring.security.oauth2.client.registration.github.client-secret":"3dc9abe0a770ae107de32a0480a182b9cf11b5bb",
     "app_github_org":"ucsb-cs56-f19",
-    "ucsb.api.consumer_key":"21LUMAQ2B3McXVN6XSHPGSYTJ3GzXIWq" 
+    "ucsb.api.consumer_key":"Tuob4Q7LAL5YOI4TFJEYunW4aWmlDmuB" 
 }

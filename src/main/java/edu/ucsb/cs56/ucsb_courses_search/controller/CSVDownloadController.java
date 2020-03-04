@@ -20,13 +20,14 @@ public class CSVDownloadController {
     @Autowired
     private CurriculumService curriculumService;
 
-    String filename = "courses.csv";
-
     @GetMapping("/searchCSV")
     public void downloadCSV(@RequestParam(name = "subjectArea", required = true) String subjectArea,
             @RequestParam(name = "quarter", required = true) String quarter,
             @RequestParam(name = "courseLevel", required = true) String courseLevel,
             HttpServletResponse response) throws IOException {
+
+        String filename = subjectArea + "-" + quarter + "-" + courseLevel + ".csv";
+
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 

@@ -54,13 +54,13 @@ public class SearchByGEController {
         return "search/byge/results";
     }
     
-    @GetMapping("/search/byge/multiQuarter")
+    @GetMapping("/search/byge/multiquarter")
     public String instructor(Model model, SearchByGEMultiQuarter SearchByGEMultiQuarter) {
         model.addAttribute("searchByGE", new SearchByGE());
-        return "search/byge/multiQuarter/search";
+        return "search/byge/multiquarter/search";
     }
 
-    @GetMapping("search/byge/multiQuarter/search")
+    @GetMapping("search/byge/multiquarter/search")
     public String SearchByGEMultiQuarter(@RequestParam(name = "college", required = true) String college,
     @RequestParam(name = "area", required = true) String area,
     @RequestParam(name = "year", required = true) String year, Model model,
@@ -80,7 +80,7 @@ public class SearchByGEController {
             model.addAttribute("cp", cp);
             model.addAttribute("rows", rows);
         }
-        return "search/byge/multiQuarter/search";
+        return "search/byge/multiquarter/search";
         
     }
 

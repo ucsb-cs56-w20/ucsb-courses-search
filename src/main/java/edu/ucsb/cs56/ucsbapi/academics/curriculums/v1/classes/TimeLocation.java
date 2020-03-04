@@ -11,5 +11,13 @@ public class TimeLocation {
     public String beginTime; 
     public String endTime; 
 
+    public String displayBuildingAndRoom() {
+        String displayBuilding = 
+            (building == null) ? "" : building;
+        String displayRoom = 
+            (room == null) ? "" : room;
+        return displayBuilding + " " + displayRoom;    
+    }
+
     public TimeLocation () {}
 }

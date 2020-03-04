@@ -51,7 +51,8 @@
         <td th:text="${r.timeLocation?.days}"></td>
         <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}">
         </td>
-        <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
+        <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation.displayBuildingAndRoom()"></td>
+        <!-- TODO Make building a link to the map for the building -->
         <td th:text="${r.section.enrolledTotal}"></td>
         <td th:text="${r.section.maxEnroll}"></td>
         <div th:switch=${r.getRowType()}>

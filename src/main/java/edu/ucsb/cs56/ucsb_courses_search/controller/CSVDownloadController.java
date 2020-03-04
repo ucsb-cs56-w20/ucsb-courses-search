@@ -21,9 +21,9 @@ public class CSVDownloadController {
     private CurriculumService curriculumService;
 
     @GetMapping("/searchCSV")
-    public void downloadCSV(@RequestParam(name = "subjectArea", required = true) String subjectArea,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            @RequestParam(name = "courseLevel", required = true) String courseLevel,
+    public void downloadCSV(@RequestParam(name = "subjectArea", required = false) String subjectArea,
+            @RequestParam(name = "quarter", required = false) String quarter,
+            @RequestParam(name = "courseLevel", required = false) String courseLevel,
             HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; file=courses.csv");
@@ -49,9 +49,28 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
+<<<<<<< HEAD
     @GetMapping("/searchCSV_ByInstructor")
     public void downloadCSV_ByDepartment(@RequestParam(name = "instructor", required = true) String instructor,
             @RequestParam(name = "quarter", required = true) String quarter,
+=======
+    @GetMapping("/searchCSDeptCSV")
+    public void downloadCSV(@RequestParam(name = "quarter", required = true) String quarter,
+            HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
+
+        String json = curriculumService.getJSON(quarter);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        CoursePageToCSV.writeSections(response.getWriter(), cp);
+    }
+
+    @GetMapping("/searchInstructorCSV")
+    public void downloadCSV(@RequestParam(name = "instructor", required = true) String instructor,
+        @RequestParam(name = "quarter", required = true) String quarter,
+>>>>>>> t-7pm-c-download-search
             HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; file=courses.csv");

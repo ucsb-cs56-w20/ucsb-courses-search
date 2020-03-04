@@ -27,6 +27,11 @@ public class Course {
         return this.quarter;
     }
 
+    public int getQuarterSeason() {
+        int size = this.getQuarter().length();
+        return Integer.parseInt(String.valueOf(getQuarter().charAt(size-1)));
+    }
+
     public String getQuarterNoSpace() {
         return this.quarter.replaceAll("\\s","");
     }

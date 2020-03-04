@@ -34,7 +34,33 @@ public class CSVDownloadController {
 
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
+    @GetMapping("/searchCSV_ByDepartment")
+    public void downloadCSV_ByDepartment(@RequestParam(name = "dept", required = true) String dept,
+            @RequestParam(name = "quarter", required = true) String quarter,
+            @RequestParam(name = "courseLevel", required = true) String courseLevel,
+            HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
 
-    
+        String json = curriculumService.getJSON(dept, quarter, courseLevel);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        CoursePageToCSV.writeSections(response.getWriter(), cp);
+    }
+
+    @GetMapping("/searchCSV_ByInstructor")
+    public void downloadCSV_ByDepartment(@RequestParam(name = "instructor", required = true) String instructor,
+            @RequestParam(name = "quarter", required = true) String quarter,
+            HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
+
+        String json = curriculumService.getJSON(instructor, quarter);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        CoursePageToCSV.writeSections(response.getWriter(), cp);
+    }
 
 }

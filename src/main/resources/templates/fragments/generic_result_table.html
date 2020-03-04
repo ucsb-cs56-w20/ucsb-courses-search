@@ -73,12 +73,9 @@
                 <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />
                 <input type="hidden" name="uid" th:value="${id}" value="1000" />
                 <input type="hidden" name="professor" th:value="${r.course.mainInstructorList()}" value="" />
-                <input type="hidden" name="meettime"
-                  th:value="${r.section.timeLocations[0].beginTime + '-' + r.section.timeLocations[0].endTime}"
-                  value="" />
-                <input type="hidden" name="meetday" th:value="${r.section.timeLocations[0].days}" value="" />
-                <input type="hidden" name="location"
-                  th:value="${r.section.timeLocations[0].building + '-' + r.section.timeLocations[0].room}" value="" />
+                <input type="hidden" name="meettime" th:value="${r.section.meetTime()}"  value="" />
+                <input type="hidden" name="meetday" th:value="${r.section.meetDay()}" value="" />
+                <input type="hidden" name="location" th:value="${r.section.location()}" value="" />
                 <input type="hidden" name="quarter" th:value="${r.course.getQuarterQyy()}" value="" />
                 <input type="submit" class="btn btn-primary" value="Add" />
               </form>

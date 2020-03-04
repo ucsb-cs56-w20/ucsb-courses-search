@@ -156,7 +156,8 @@ public class SearchByInstructorController {
 
             model.addAttribute("rows", rows);
             model.addAttribute("searchObject", searchObject );
-
+            
+        
             // Note: F83 seems to be the oldest data available in the API
             model.addAttribute("quarters",Quarter.quarterList("W20","F83"));
             return "search/byinstructor/multiquarter/results";

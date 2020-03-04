@@ -41,11 +41,9 @@ public class SearchController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
             
-        String link = "https://www.google.com";
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         model.addAttribute("rows", rows);
-        model.addAttribute("link",link);
 
         
 

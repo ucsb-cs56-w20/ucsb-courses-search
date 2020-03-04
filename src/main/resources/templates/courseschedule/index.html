@@ -36,6 +36,21 @@
         </tr>
       </tbody>
     </table>
+    <h4>Finals Schedule</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Final Day</th>
+          <th>Final Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="c: ${myclasses}">
+          
+        </tr>
+      </tbody>
+    </table>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

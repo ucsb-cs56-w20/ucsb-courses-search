@@ -61,13 +61,21 @@ public class SearchByInstructorController {
         CoursePage cp = CoursePage
                 .fromJSON(json);
 
+        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
+
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+        
+
         // adds the json and CoursePage object as attributes so they can be accessed in
         // the html, e.g. ${json} or ${cp.classes}
         model
                 .addAttribute("json", json);
         model
                 .addAttribute("cp", cp);
-        model.addAttribute("quarters", quarterListService.getQuarters());
+        model
+                .addAttribute("quarters", quarterListService.getQuarters());
+        model
+                .addAttribute("rows", rows);
 
         return "search/byinstructor/results";
     }
@@ -96,12 +104,18 @@ public class SearchByInstructorController {
         CoursePage cp = CoursePage
                 .fromJSON(json);
 
+        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
+
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
         // adds the json and CoursePage object as attributes so they can be accessed in
         // the html, e.g. ${json} or ${cp.classes}
         model
                 .addAttribute("json", json);
         model
                 .addAttribute("cp", cp);
+        model
+                .addAttribute("rows", rows);
 
         return "search/byinstructor/specific/results";
     }

@@ -34,6 +34,18 @@
         </a>
       </li>
 
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          By GE
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/search/byge">Basic GE Area Search</a>
+          <a class="dropdown-item" href="/search/byge/multiquarter">Search Across Multiple Quarters</a>
+          <a class="dropdown-item" href="/search/byge/multiarea">Search Across Multiple Area</a>
+        </div>
+      </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -72,14 +84,14 @@
 
     <ul class="nav navbar-nav navbar-right">
       <li th:if="${isLoggedIn}">
-        <a th:text="${login}" th:href="'https://github.com/' + ${login}"></a>
+        <p th:text="${login}">
       </li>
       <li th:if="${isLoggedIn}" th:text="'(' + ${role} + ')'">(Role)</li>
       <li th:if="${isLoggedIn}" class="dropdown user-nav">
         <a href="#" class="dropdown-toggle float-left" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="false">
-          <img th:src="'https://avatars2.githubusercontent.com/u/' + ${id} + '?v=3&amp;s=40'" height="20" width="20"
-            th:alt="${login}" />
+          <img th:src="${picture}" height="20" width="20"
+            th:alt="${login}" /> 
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu  pull-left">
@@ -92,12 +104,12 @@
           </li>
         </ul>
       </li>
-      <li th:unless="${isLoggedIn}">
-        <form method="GET" action="/oauth2/authorization/github" class="form-inline my-2 my-lg-0"
-          th:unless="${isLoggedIn}">
-          <button class="navbar-btn" type="submit">GitHub Login</button>
-        </form>
-      </li>
+         <li th:unless="${isLoggedIn}">
+    <form method="GET" action="/oauth2/authorization/google" class="form-inline my-2 my-lg-0"
+      th:unless="${isLoggedIn}"> 
+      <button class="navbar-btn" type="submit">Google Login</button>
+    </form>
+         </li>
     </ul>
 
 

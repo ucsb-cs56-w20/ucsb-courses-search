@@ -27,8 +27,16 @@ public class Course {
         return this.quarter;
     }
 
+    public String getQuarterNoSpace() {
+        return this.quarter.replaceAll("\\s","");
+    }
+
     public void setQuarter(String quarter) {
         this.quarter = quarter;
+    }
+
+    public String getCourseKey() {
+        return this.courseId.replaceAll("\\s","") + this.quarter.replaceAll("\\s","");
     }
 
     public String getCourseId() {

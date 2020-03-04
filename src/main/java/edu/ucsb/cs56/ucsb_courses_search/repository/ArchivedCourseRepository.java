@@ -48,10 +48,11 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
      * Returns a list of {@link ArchivedCourse} where at least one of the course's lectures/sections takes place in the
      * specified building and room.
      *
+     * @param quarter the quarter that the course is offered
      * @param building the building that the lecture/section is held in
      * @param room the room of the building that the lecture/section is held in
      * @return a list of matching {@link ArchivedCourse}
      */
-    @Query("{'classSections': {'$elemMatch': {'timeLocations': {'$elemMatch': {'building': ?0, 'room': ?1}}}}}")
-    List<ArchivedCourse> findByBuilding(String building, String room);
+    @Query("{'quarter': ?0, 'classSections': {'$elemMatch': {'timeLocations': {'$elemMatch': {'building': ?1, 'room': ?2}}}}}")
+    List<ArchivedCourse> findByQuarterAndRoom(String quarter, String building, String room);
 }

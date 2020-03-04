@@ -1,10 +1,15 @@
 package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.UCSBBuildingService;
-import lombok.Data;
 
-@Data
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public class TimeLocation {
+
+    private Logger logger = LoggerFactory.getLogger(TimeLocation.class);
+
     public String room;
     public String building;
     public String roomCapacity;
@@ -24,6 +29,11 @@ public class TimeLocation {
     }
 
     public String getLocationURL(){
-        return UCSBBuildingService.getLink(building);
+        logger.info("building="+building);
+        if (building==null)
+          return "";
+        String result = UCSBBuildingService.getLink(building);
+        logger.info("result="+result);
+        return result;
     }
 }

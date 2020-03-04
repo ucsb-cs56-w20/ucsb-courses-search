@@ -5,6 +5,32 @@ import java.util.stream.Collectors;
 
 public class Section {
 
+    public String meetTime() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        
+        TimeLocation tl0 = timeLocations.get(0);
+
+        return tl0.beginTime + "-" + tl0.endTime;
+    }
+
+    public String meetDay() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        return timeLocations.get(0).days;
+    }
+
+    public String location() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        
+        TimeLocation tl0 = timeLocations.get(0);
+
+        return tl0.building + "-" + tl0.room;
+    }
 
     /** a unique number assigned to a section */
     public String getEnrollCode() {

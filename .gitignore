@@ -24,6 +24,7 @@
 
 localhost.json
 heroku.json
+localhost_api_key_only.json
 
 # Maven (from: https://github.com/github/gitignore/blob/master/Maven.gitignore)
 

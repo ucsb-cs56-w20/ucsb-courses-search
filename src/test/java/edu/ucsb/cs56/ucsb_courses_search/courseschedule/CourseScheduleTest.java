@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import edu.ucsb.cs56.ucsb_courses_search.OAuthUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
@@ -79,6 +80,7 @@ public class CourseScheduleTest {
         mockAuthentication = OAuthUtils.getOauthAuthenticationFor(principal);
         List<Course> emptyCourseList = new ArrayList<Course>();
         when(mockCourseRepository.findAll()).thenReturn(emptyCourseList);
+	when(mockMembershipService.isMember((OAuth2AuthenticationToken) mockAuthentication)).thenReturn(true);
     }
 
     @Test

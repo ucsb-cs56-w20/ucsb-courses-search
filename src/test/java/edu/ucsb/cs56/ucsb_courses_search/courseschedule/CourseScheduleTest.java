@@ -24,6 +24,8 @@ import edu.ucsb.cs56.ucsb_courses_search.NavigationTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.controller.CourseController;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
+
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
@@ -60,6 +62,10 @@ public class CourseScheduleTest {
     @MockBean
     private CourseRepository mockCourseRepository;
 
+    @MockBean
+    private MembershipService mockMembershipService;
+
+
     private Authentication mockAuthentication;
 
     private static final String URL = "/courseschedule";
@@ -69,7 +75,7 @@ public class CourseScheduleTest {
      */
     @Before
     public void setUp() {
-        OAuth2User principal = OAuthUtils.createOAuth2User("Chris Gaucho", "cgaucho@example.com");
+        OAuth2User principal = OAuthUtils.createOAuth2User("Chris Gaucho", "cgaucho@ucsb.edu");
         mockAuthentication = OAuthUtils.getOauthAuthenticationFor(principal);
         List<Course> emptyCourseList = new ArrayList<Course>();
         when(mockCourseRepository.findAll()).thenReturn(emptyCourseList);

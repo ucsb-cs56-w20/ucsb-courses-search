@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
 
@@ -36,8 +37,9 @@ public class CourseController {
 
 
     @Autowired
-    public CourseController(CourseRepository courseRepository) {
+    public CourseController(CourseRepository courseRepository, MembershipService membershipService) {
         this.courseRepository = courseRepository;
+	this.membershipService = membershipService;
     }
 
     @GetMapping("/courseschedule")
@@ -45,8 +47,12 @@ public class CourseController {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
+	if (token != null)
+	{
+		logger.info("token[hd]=" + token.getPrincipal().getAttributes().get("hd"));
+	}
 
-        if (token!=null && membershipService.isMember(token)) {
+        if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);

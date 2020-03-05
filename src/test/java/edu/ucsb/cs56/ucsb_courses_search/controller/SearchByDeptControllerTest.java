@@ -75,7 +75,7 @@ public class SearchByDeptControllerTest {
     public void test_get_W20_CMPSC_Undergrad_All() throws Exception {
         String url = "http://localhost/search/bydept/results?dept=CMPSC&quarter=20201&courseLevel=U";
         HtmlPage htmlPage = webClient.getPage(url);
-        List<DomElement> elems = htmlPage.getByXPath("//table/tbody/tr[1]/td[1]");
+        List<DomElement> elems = htmlPage.getByXPath("//table/tbody/tr[1]/td[2]");
         assertEquals("CMPSC     8  ",elems.get(0).getTextContent());
     }
 

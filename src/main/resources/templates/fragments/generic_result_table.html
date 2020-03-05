@@ -1,6 +1,18 @@
 <h2>Courses</h2>
 
 <style>
+  .table {
+    display:table;
+  }
+
+  .row {
+    display:table-row;
+  }
+
+  .cell {
+    display:table-cell;
+  }
+
   tr.firstRowForCourse {
     border-top: solid black 2px;
   }
@@ -83,8 +95,10 @@
           </div>
         </div>
       </tr>
+    
+
       <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
-      <div class="modal fade" th:attr="id=${r.course.getCourseKey()}" tabindex="-1" role="dialog"
+     <div class="modal fade" th:attr="id=${r.course.getCourseKey()}" tabindex="-1" role="dialog"
         aria-labelledby="detailTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -98,13 +112,12 @@
               </button>
             </div>
             <div class="modal-body">
-              LOAD IN PER COURSE DATA HERE
             </div>
             <div class="modal-footer">
             </div>
           </div>
         </div>
-      </div>
+      </div>   
     </div>
-  </tbody>
-</table>
+</tbody>
+</table> 

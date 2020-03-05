@@ -6,7 +6,7 @@
   <div th:replace="fragments/bootstrap_head.html"></div>
 </head>
 
-<body>
+<body onload="myFunction()">
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedule</h3>
@@ -41,9 +41,9 @@
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
 
-  <div class = "content weekly view">
+  <div id = "weekly_view">
     <div align = "Center">
-      <table cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
+      <table id ="week_table" cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
         <tbody>
           <tr >
             <th class = "heading">&nbsp</th>
@@ -57,17 +57,31 @@
               <td th:text="${tr}"></td>
               <!--  //5 tds per tr
               <td rowspan = "5"></td> -->
-              <script>
-              </script>
-              <!-- put javascript in here for if statements^ -->
+  
               <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
             </tr>
-
         </tbody>
       </table>
     </div>
   </div>
+  
   <div th:replace="fragments/bootstrap_scripts.html"></div>
+  
+  <script>
+    function myFunction()
+    {
+      
+      //var week_div = document.getElementById("weekly_view");
+      
+      var cell = document.getElementById("week_table").rows[3].insertCell(1);
+      cell.innerHTML = 'HELLO <br/> \
+                       HWLLO <br/> \
+                       MW';
+      cell.rowSpan = 3;
+      //alert(document.getElementById("week_table").rows[3].cells.length);
+    }
+  </script>
+  <!-- put javascript in here for if statements^ -->
 </body>
 
 </html>

@@ -6,14 +6,14 @@ public class SearchByClassroom {
 
     private String quarter;
     private String classroom;
-    private String department;
+    private String building;
 
     public SearchByClassroom() {}
 
-    public SearchByClassroom( String quarter, String classroom, String department) {
+    public SearchByClassroom( String quarter, String classroom, String building) {
         this.quarter = quarter;
         this.classroom = classroom;
-        this.department = department;
+        this.building = building;
     }
 
     public String getQuarter() {
@@ -32,12 +32,12 @@ public class SearchByClassroom {
         this.classroom = classroom;
     }
 
-    public String getDepartment() {
-        return this.department;
+    public String getbuilding() {
+        return this.building;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setbuilding(String building) {
+        this.building = building;
     }
 
   

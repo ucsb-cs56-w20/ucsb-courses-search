@@ -1,12 +1,25 @@
 <h2>Courses</h2>
 
 <style>
-  tr.firstRowForCourse { border-top: solid black 2px;}
-  tr.lastRowForCourse { border-bottom: solid black 2px;}
-  tr.SECONDARY td.section { padding-left: 2em; }
-  tr.SECONDARY td.enrollCode { padding-left: 2em; }
-  tr.SECONDARY td.instructorList { padding-left: 2em; }
+  tr.firstRowForCourse {
+    border-top: solid black 2px;
+  }
 
+  tr.lastRowForCourse {
+    border-bottom: solid black 2px;
+  }
+
+  tr.SECONDARY td.section {
+    padding-left: 2em;
+  }
+
+  tr.SECONDARY td.enrollCode {
+    padding-left: 2em;
+  }
+
+  tr.SECONDARY td.instructorList {
+    padding-left: 2em;
+  }
 </style>
 
 <table class="table">
@@ -27,46 +40,68 @@
   </thead>
   <tbody>
     <div th:each="r: ${rows}">
-    <tr th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}" >
-      <td th:if="${quarters != null}" th:text="${r.rowType}=='PRIMARY' ? ${r.course.getQuarterQyy()} : '' "></td>
-      <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.courseId} : '' "></td>
-      <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.title} : '' "></td>
-      <td class="section" th:text="${r.section.section}"></td>
-      <td class="instructorList" th:text="${r.section.instructorList()}"></td>
-      <td class="enrollCode" th:text="${r.section.enrollCode}"></td>
-      <td th:text="${r.timeLocation?.days}"></td>
-      <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}"></td>
-      <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
-      <td th:text="${r.section.enrolledTotal}"></td>
-      <td th:text="${r.section.maxEnroll}"></td>
-      <div th:switch=${r.getRowType()}> <!--If data is for a lecture, draw this.-->
-        <div th:case = "'PRIMARY'">
-          <td> <button type="submit" class="btn btn-primary" data-toggle = "modal" th:attr = "data-target='#' + ${r.course.getCourseKey()}" ;
-            id="course-detail-btn">Details</button> </td>
+      <tr
+        th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}">
+        <td th:if="${quarters != null}" th:text="${r.rowType}=='PRIMARY' ? ${r.course.getQuarterQyy()} : '' "></td>
+        <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.courseId} : '' "></td>
+        <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.title} : '' "></td>
+        <td class="section" th:text="${r.section.section}"></td>
+        <td class="instructorList" th:text="${r.section.instructorList()}"></td>
+        <td class="enrollCode" th:text="${r.section.enrollCode}"></td>
+        <td th:text="${r.timeLocation?.days}"></td>
+        <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}">
+        </td>
+        <td><a th:href="${r.timeLocation == null} ? '' : ${r.timeLocation.getLocationURL()}" th:text="${r.timeLocation == null} ? '' : ${r.timeLocation.displayBuildingAndRoom()}"></a></td>
+        <!-- TODO Make building a link to the map for the building -->
+        <td th:text="${r.section.enrolledTotal}"></td>
+        <td th:text="${r.section.maxEnroll}"></td>
+        <div th:switch=${r.getRowType()}>
+          <!--If data is for a lecture, draw this.-->
+          <div th:case="'PRIMARY'">
+            <td> <button type="submit" class="btn btn-primary" data-toggle="modal"
+                th:attr="data-target='#' + ${r.course.getCourseKey()}" ; id="course-detail-btn">Details</button> </td>
+          </div>
+          <div th:case="'SECONDARY'">
+            <!--If the data is for a class section, draw this.-->
+            <td th:unless="${isLoggedIn}"></td>
+            <td th:if="${isLoggedIn}"> 
+              <form action="#" th:action="@{/courseschedule/add}" method="post">
+                <input type="hidden" name="classname" th:value="${r.course.courseId} " value="" />
+                <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />
+                <input type="hidden" name="uid" th:value="${id}" value="1000" />
+                <input type="hidden" name="professor" th:value="${r.course.mainInstructorList()}" value="" />
+                <input type="hidden" name="meettime" th:value="${r.section.meetTime()}"  value="" />
+                <input type="hidden" name="meetday" th:value="${r.section.meetDay()}" value="" />
+                <input type="hidden" name="location" th:value="${r.section.location()}" value="" />
+                <input type="hidden" name="quarter" th:value="${r.course.getQuarterQyy()}" value="" />
+                <input type="submit" class="btn btn-primary" value="Add" /> 
+              </form>
+            </td>
+          </div>
         </div>
-        <div th:case= "'SECONDARY'"> <!--If the data is for a class section, draw this.-->
-           <td></td>
-        </div>
-      </div>
-    </tr>
-    <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
-    <div class="modal fade" th:attr = "id=${r.course.getCourseKey()}" tabindex="-1" role="dialog" aria-labelledby="detailTitle" aria-hidden="true">
+      </tr>
+      <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
+      <div class="modal fade" th:attr="id=${r.course.getCourseKey()}" tabindex="-1" role="dialog"
+        aria-labelledby="detailTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+          <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailTitle"> <div th:text="${r.course.courseId}"></div> <div th:text="${r.course.title}"></div>Course Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <h5 class="modal-title" id="detailTitle">
+                <div th:text="${r.course.courseId}"></div>
+                <div th:text="${r.course.title}"></div>Course Details
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-                </button>
+              </button>
             </div>
             <div class="modal-body">
-                LOAD IN PER COURSE DATA HERE
+              LOAD IN PER COURSE DATA HERE
             </div>
             <div class="modal-footer">
             </div>
-            </div>
+          </div>
         </div>
-    </div>
+      </div>
     </div>
   </tbody>
 </table>

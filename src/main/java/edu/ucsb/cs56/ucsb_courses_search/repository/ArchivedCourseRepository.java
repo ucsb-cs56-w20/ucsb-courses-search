@@ -55,4 +55,18 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
      */
     @Query("{'quarter': ?0, 'classSections': {'$elemMatch': {'timeLocations': {'$elemMatch': {'building': ?1, 'room': ?2}}}}}")
     List<ArchivedCourse> findByQuarterAndRoom(String quarter, String building, String room);
+
+    /**
+     * Returns a list of {@link ArchivedCourse} occurring between specified quarters
+     * where at least one of the course's instructors matches the text.
+     *
+     * @param startQuarter the first quarter to consider in the search formatted in YYYYQ
+     * @param endQuarter the final quarter to consider in the search formatted in YYYYQ
+     * @param instructorText instructor name search query
+     * @return a list of matching {@link ArchivedCourse}
+     */
+    @Query("{'quarter': {$gte : ?0, $lte : ?1}, $text: { $search: ?3 }}")
+    List<ArchivedCourse> findByQuarterIntervalAndInstructor(String startQuarter,
+                                                           String endQuarter,
+                                                           String instructorText);
 }

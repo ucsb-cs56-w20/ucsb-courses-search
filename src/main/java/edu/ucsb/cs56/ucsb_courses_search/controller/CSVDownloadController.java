@@ -71,7 +71,6 @@ public class CSVDownloadController {
         String json = curriculumService.getJSON(instructor, quarter);
 
         CoursePage cp = CoursePage.fromJSON(json);
-
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
@@ -90,6 +89,32 @@ public class CSVDownloadController {
         List<Course> courses = new ArrayList<Course>();
         for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
             json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
+            CoursePage cp2 = CoursePage.fromJSON(json);
+            courses.addAll(cp2.classes);
+        }
+
+        CoursePage cp = CoursePage.fromJSON(json);
+        cp.setClasses(courses);
+        CoursePageToCSV.writeSections(response.getWriter(), cp);
+    
+    }
+
+    @GetMapping("/downloadCSV/courseNumberSearch")
+    public void downloadCSV(
+        @RequestParam(name = "instructor", required = false)String instructor,
+        @RequestParam(name = "course", required = true) String course,
+        @RequestParam(name = "beginQ", required = true) int beginQ,
+        @RequestParam(name = "endQ", required = true) int endQ,
+            HttpServletResponse response) throws IOException {
+
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
+
+        String json = "";
+
+        List<Course> courses = new ArrayList<Course>();
+        for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
+            json = curriculumService.getCourse(course, qtr.getValue());
             CoursePage cp2 = CoursePage.fromJSON(json);
             courses.addAll(cp2.classes);
         }

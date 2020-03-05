@@ -17,42 +17,16 @@
         </select>
       </div>
       <div class="col-1">
-        <form action="#" th:action="@{courseschedule/1}" method="get">
+        <form action="#" th:action="@{/courseschedule/1}" method="get">
           <input type="submit" class="btn btn-primary" value="View">
         </form>
       </div>
       <div class="col-1">
-        <input type="submit" class="btn btn-primary" value="Add">
+        <input type="submit" class="btn btn-primary" value="Create">
       </div>
     </div>
     <!-- th:field="*{scheduleselect}" -->
 
-    <!-- <table class="table">
-      <thead>
-        <tr>
-          <th>Quarter</th>
-          <th>Course Name</th>
-          <th>Enroll Code</th>
-          <th>SCHEDULEid</th>
-          <th>Professor</th>
-          <th>Meeting Times</th>
-          <th>Meeting Days</th>
-          <th>Location</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="c: ${myclasses}">
-          <td th:text="${c.quarter}"></td>
-          <td th:text="${c.classname}"></td>
-          <td th:text="${c.enrollCode}"></td>
-          <td th:text="${c.scheduleid}"></td>
-          <td th:text="${c.professor}"></td>
-          <td th:text="${c.meettime}"></td>
-          <td th:text="${c.meetday}"></td>
-          <td th:text="${c.location}"></td>
-        </tr>
-      </tbody>
-    </table> -->
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

@@ -45,7 +45,7 @@ public class CSVDownloadController {
 
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
-    @GetMapping("/searchCSV_ByDepartment")
+    @GetMapping("/downloadCSV/searchCSV_ByDepartment")
     public void downloadCSV_ByDepartment(@RequestParam(name = "dept", required = true) String dept,
             @RequestParam(name = "quarter", required = true) String quarter,
             @RequestParam(name = "courseLevel", required = true) String courseLevel,

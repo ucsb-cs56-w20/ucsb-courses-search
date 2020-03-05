@@ -47,10 +47,6 @@ public class CourseController {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
-	if (token != null)
-	{
-		logger.info("token[hd]=" + token.getPrincipal().getAttributes().get("hd"));
-	}
 
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();

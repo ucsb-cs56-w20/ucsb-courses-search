@@ -39,10 +39,9 @@
     <form method="GET">
       <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
     </form>
-    <form method="GET" class="form-inline my-2 my-lg-0">
-      <button class="btn btn-primary" th:formaction="@{/GoogleCalendar}" type="submit">Export to Google Calendar</button>
-      <pre th:text="${message}">Placeholder</pre>
-    </form>
+    <div class="col-sm-10">
+      <button type="submit" th:formaction="@{/GoogleCalendar}" class="btn btn-primary" id="js-course-search-submit">Export to Google Calendar</button>
+    </div>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

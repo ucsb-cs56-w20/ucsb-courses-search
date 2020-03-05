@@ -49,6 +49,9 @@
         </tr>
       </tbody>
     </table>
+    <select id="schedules" name = "Schedules">
+      <option th:each="sc:${myschedules}" th:value="${sc.scheduleid}" th:text="${sc.schedulename}"></option>
+    </select>
 
     <div th:replace="fragments/generic_result_table.html"></div>
 

@@ -31,6 +31,8 @@ public class SearchController {
         String courseLevel,
         Model model
         ) {
+       // List<Schedule> c = CourseController.myschedules;
+        model.addAttribute("myschedules", CourseController.myschedules);
         model.addAttribute("subjectArea", subjectArea);
         model.addAttribute("quarter", quarter);
         model.addAttribute("courseLevel", courseLevel);

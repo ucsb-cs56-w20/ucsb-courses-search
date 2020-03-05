@@ -45,6 +45,10 @@ public class CourseController {
 	    this.membershipService = membershipService;
     }
 
+    public List<Schedule> getmyschedules(){
+        return myschedules;
+    }
+
     @GetMapping("/courseschedule")
     public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
         
@@ -54,16 +58,8 @@ public class CourseController {
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
-<<<<<<< HEAD
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
-=======
-            logger.info("courseRepository="+courseRepository);
-            List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
-            // get courses by each scheduleid to a list
-            Schedule lastSchedule = myschedules.get(myschedules.size() -1);
-            Iterable<Course> myclasses = courseRepository.findByScheduleid(lastSchedule.getScheduleid());
->>>>>>> jz/ch/jj/al - fix add to schedule and view most recent schedule
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);
@@ -75,7 +71,6 @@ public class CourseController {
         }
         return "courseschedule/index";
     }
-<<<<<<< HEAD
     @PostMapping("/courseschedule/add")
     public String add(ScheduleItem scheduleItem, 
                         Model model,
@@ -106,16 +101,6 @@ public class CourseController {
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";
-=======
-    @PostMapping("/courseschedule/add/{scheduleid}")
-    public String add(
-        @PathVariable("scheduleid") long scheduleid, 
-        Course course, Model model
-        ) {
-        course.setScheduleid(scheduleid);
-        courseRepository.save(course);
-        return "redirect:/courseschedule";
->>>>>>> jz/ch/jj/al - fix add to schedule and view most recent schedule
     }
 
 }

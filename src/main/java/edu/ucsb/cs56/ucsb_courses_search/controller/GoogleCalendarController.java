@@ -1,6 +1,15 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
+import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -28,6 +37,8 @@ import java.util.List;
 
 @Controller
 public class GoogleCalendarController {
+    private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     private Logger logger = LoggerFactory.getLogger(GoogleCalendarController.class);
 
@@ -35,7 +46,7 @@ public class GoogleCalendarController {
     private CourseRepository courseRepository;
 
     @Autowired
-    public CourseController(CourseRepository courseRepository) {
+    public GoogleCalendarController(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
@@ -59,8 +70,11 @@ public class GoogleCalendarController {
     }
 
     private void createGoogleCalendar(OAuth2AuthenticationToken token){
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
         .setApplicationName(APPLICATION_NAME)
         .build();
     }
+
+    
 }

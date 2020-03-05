@@ -13,7 +13,8 @@ public class Course {
     private String meetday;
     private String location;
     private String quarter;
-    private String uid;
+    //private String uid;
+    private long scheduleid;
     private String associatedLectureDay;
     private String associatedLectureTime;
     private String associatedLectureLocation;
@@ -70,8 +71,8 @@ public class Course {
 		this.associatedLectureLocation = associatedLectureLocation;
 	}
 
-    public String getUid() {
-        return uid;
+    public long getScheduleid() {
+        return scheduleid;
     }
 
  
@@ -100,8 +101,8 @@ public class Course {
         return quarter;
     }
 
-    public void setUid(String uid) { 
-        this.uid = uid; 
+    public void setScheduleid(long scheduleid) { 
+        this.scheduleid = scheduleid; 
     }
 
     public void setClassname(String classname) { 

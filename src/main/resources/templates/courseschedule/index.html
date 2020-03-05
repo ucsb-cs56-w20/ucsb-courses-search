@@ -9,14 +9,19 @@
 <body>
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
-    <h3>My Class Schedule</h3>
+    <h3>My Class Schedules</h3>
+    <select class="custom-select">
+      <option th:each="s:${myschedules}" th:value="${s.scheduleid}" th:text="${s.schedulename}"></option>
+    </select>
+    <!-- th:field="*{scheduleselect}" -->
+
     <table class="table">
       <thead>
         <tr>
           <th>Quarter</th>
           <th>Course Name</th>
           <th>Enroll Code</th>
-          <th>UID</th>
+          <th>SCHEDULEid</th>
           <th>Professor</th>
           <th>Meeting Times</th>
           <th>Meeting Days</th>
@@ -28,7 +33,7 @@
           <td th:text="${c.quarter}"></td>
           <td th:text="${c.classname}"></td>
           <td th:text="${c.enrollCode}"></td>
-          <td th:text="${c.uid}"></td>
+          <td th:text="${c.scheduleid}"></td>
           <td th:text="${c.professor}"></td>
           <td th:text="${c.meettime}"></td>
           <td th:text="${c.meetday}"></td>

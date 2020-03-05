@@ -65,7 +65,7 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
      * @param instructorText instructor name search query
      * @return a list of matching {@link ArchivedCourse}
      */
-    @Query("{'quarter': {$gte : ?0, $lte : ?1}, $text: { $search: ?3 }}")
+    @Query("{'quarter': {$gte : ?0, $lte : ?1}, $text: { $search: ?2 }}")
     List<ArchivedCourse> findByQuarterIntervalAndInstructor(String startQuarter,
                                                             String endQuarter,
                                                             String instructorText);

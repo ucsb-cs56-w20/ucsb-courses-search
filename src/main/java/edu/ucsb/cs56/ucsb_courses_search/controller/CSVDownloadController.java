@@ -31,7 +31,7 @@ public class CSVDownloadController {
     @Autowired
     private CurriculumService curriculumService;
 
-    @GetMapping("/searchCSV")
+    @GetMapping("/downloadCSV/courseSearch")
     public void downloadCSV(@RequestParam(name = "subjectArea", required = true) String subjectArea,
             @RequestParam(name = "quarter", required = true) String quarter,
             @RequestParam(name = "courseLevel", required = true) String courseLevel,
@@ -46,7 +46,7 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/searchCSDeptCSV")
+    @GetMapping("/downloadCSV/csDept")
     public void downloadCSV(@RequestParam(name = "quarter", required = true) String quarter,
             HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
@@ -61,7 +61,7 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/searchInstructorCSV")
+    @GetMapping("/downloadCSV/byInstructor")
     public void downloadCSV(@RequestParam(name = "instructor", required = true) String instructor,
         @RequestParam(name = "quarter", required = true) String quarter,
             HttpServletResponse response) throws IOException {
@@ -75,7 +75,7 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/searchMultiquarterInstructorCSV")
+    @GetMapping("/downloadCSV/multiquarterSearch")
     public void downloadCSV(
         @RequestParam(name = "instructor", required = true) String instructor,
         @RequestParam(name = "beginQ", required = true) int beginQ,

@@ -13,7 +13,7 @@ public class UCSBBuilding {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
+    public UCSBBuilding(){}
     public String getCode() {
         return this.code;
     }

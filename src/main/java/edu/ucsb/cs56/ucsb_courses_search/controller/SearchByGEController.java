@@ -12,6 +12,9 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGE;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGEMultiQuarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
+
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -54,17 +57,20 @@ public class SearchByGEController {
         return "search/byge/results";
     }
     
+    
     @GetMapping("/search/byge/multiquarter")
     public String instructor(Model model, SearchByGEMultiQuarter SearchByGEMultiQuarter) {
-        model.addAttribute("searchByGE", new SearchByGE());
+        model.addAttribute("searchByGEMultiQuarter", new SearchByGEMultiQuarter());
         return "search/byge/multiquarter/search";
     }
 
-    @GetMapping("search/byge/multiquarter/search")
+
+    @GetMapping("search/byge/multiquarter/results")
     public String SearchByGEMultiQuarter(@RequestParam(name = "college", required = true) String college,
     @RequestParam(name = "area", required = true) String area,
     @RequestParam(name = "year", required = true) String year, Model model,
     SearchByGEMultiQuarter SearchByGEMultiQuarter) {
+        List<Course> courses = new ArrayList<Course>();
         for (int i=1; i<5; i++) {
             String quarter = year + Integer.toString(i);
             model.addAttribute("college", college);
@@ -72,16 +78,74 @@ public class SearchByGEController {
             model.addAttribute("quarter", quarter);
             String json = curriculumService.getGE(college, area, quarter);
             CoursePage cp = CoursePage.fromJSON(json);
-    
-            List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
-    
-            List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
-    
-            model.addAttribute("cp", cp);
-            model.addAttribute("rows", rows);
+            courses.addAll(cp.classes);
         }
-        return "search/byge/multiquarter/search";
+
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+    
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        model.addAttribute("courses", courses);
+        model.addAttribute("SearchByGEMultiQuarter", new SearchByGEMultiQuarter());
+        model.addAttribute("rows", rows);
+        
+        return "search/byge/multiquarter/results";
+        
+    }/*
+   
+    @GetMapping("search/byge/multiquarter/results")
+    public String SearchByGEMultiQuarterF(@RequestParam(name = "college", required = true) String college,
+    @RequestParam(name = "area", required = true) String area,
+    @RequestParam(name = "year", required = true) String year, Model model,
+    SearchByGEMultiQuarter SearchByGEMultiQuarter) {
+        List<Course> courses = new ArrayList<Course>();
+       
+            String quarterf = year + Integer.toString(4);
+            model.addAttribute("college", college);
+            model.addAttribute("area", area);
+            model.addAttribute("quarter", quarterf);
+            String jsonf = curriculumService.getGE(college, area, quarterf);
+            CoursePage cpf = CoursePage.fromJSON(jsonf);
+            courses.addAll(cpf.classes);
+        model.addAttribute("courses", courses);
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+    
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        
+        model.addAttribute("SearchByGEMultiQuarter", new SearchByGEMultiQuarter());
+        model.addAttribute("rows", rows);
+        
+        return "search/byge/multiquarter/results";
         
     }
 
+
+    @GetMapping("search/byge/multiquarter/results")
+    public String SearchByGEMultiQuarterW(@RequestParam(name = "college", required = true) String college,
+    @RequestParam(name = "area", required = true) String area,
+    @RequestParam(name = "year", required = true) String year, Model model,
+    SearchByGEMultiQuarter SearchByGEMultiQuarter) {
+        List<Course> courses = new ArrayList<Course>();
+       
+            String quarterf = year + Integer.toString(1);
+            model.addAttribute("college", college);
+            model.addAttribute("area", area);
+            model.addAttribute("quarter", quarterw);
+            String jsonw = curriculumService.getGE(college, area, quarterw);
+            CoursePage cpw = CoursePage.fromJSON(jsonw);
+            courses.addAll(cpw.classes);
+        model.addAttribute("courses", courses);
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+    
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        
+        model.addAttribute("SearchByGEMultiQuarter", new SearchByGEMultiQuarter());
+        model.addAttribute("rows", rows);
+        
+        return "search/byge/multiquarter/results";
+        
+    }
+*/
 }

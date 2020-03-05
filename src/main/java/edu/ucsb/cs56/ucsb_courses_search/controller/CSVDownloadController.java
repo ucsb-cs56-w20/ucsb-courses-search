@@ -49,11 +49,6 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-<<<<<<< HEAD
-    @GetMapping("/searchCSV_ByInstructor")
-    public void downloadCSV_ByDepartment(@RequestParam(name = "instructor", required = true) String instructor,
-            @RequestParam(name = "quarter", required = true) String quarter,
-=======
     @GetMapping("/searchCSDeptCSV")
     public void downloadCSV(@RequestParam(name = "quarter", required = true) String quarter,
             HttpServletResponse response) throws IOException {
@@ -70,7 +65,6 @@ public class CSVDownloadController {
     @GetMapping("/searchInstructorCSV")
     public void downloadCSV(@RequestParam(name = "instructor", required = true) String instructor,
         @RequestParam(name = "quarter", required = true) String quarter,
->>>>>>> t-7pm-c-download-search
             HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; file=courses.csv");

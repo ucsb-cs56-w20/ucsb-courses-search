@@ -219,4 +219,4 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
 //     }
 //     logger.info("from UCSBAcademicCurriculumService.getJSON: " + retVal);
 //     return retVal;
-}
+//}

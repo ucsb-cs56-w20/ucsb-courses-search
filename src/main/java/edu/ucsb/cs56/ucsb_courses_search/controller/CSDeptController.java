@@ -44,10 +44,10 @@ public class CSDeptController {
     public String search(@RequestParam(name = "quarter", required = true) String quarter, String classroom,
             Model model,
             SearchByDept searchByDept) {
-        model.addAttribute("quarter", quarter)
-        model.addAttribute("classroom", classroom)
+        model.addAttribute("quarter", quarter);
+        model.addAttribute("classroom", classroom);
 
-        String json = curriculumService.getJSON();
+        String json = curriculumService.getJSON("CMPSC", quarter, "A");
         CoursePage cp = CoursePage.fromJSON(json);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);

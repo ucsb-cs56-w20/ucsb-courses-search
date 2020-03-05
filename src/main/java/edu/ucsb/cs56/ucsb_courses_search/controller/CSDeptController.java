@@ -10,6 +10,7 @@ import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
+import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByClassroom;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 import java.util.ArrayList;
@@ -34,20 +35,19 @@ public class CSDeptController {
 
     @GetMapping("/csdept/search/classroom")
     public String instructor(Model model, SearchByDept searchByDept) {
-        SearchByDept sbd = new SearchByDept();
-        sbd.setDept("CMPSC");
-        sbd.setCourseLevel("A");
-        model.addAttribute("searchByDept", sbd);
+        SearchByClassroom sbc = new SearchByClassroom();
+        model.addAttribute("searchByClassroom", sbc);
         return "csdept/classroom/search";
     }
 
     @GetMapping("/csdept/search/classroom/results")
-    public String search(@RequestParam(name = "quarter", required = true) String quarter,
+    public String search(@RequestParam(name = "quarter", required = true) String quarter, String classroom,
             Model model,
             SearchByDept searchByDept) {
-        model.addAttribute("quarter", quarter);
+        model.addAttribute("quarter", quarter)
+        model.addAttribute("classroom", classroom)
 
-        String json = curriculumService.getJSON("CMPSC", quarter, "A");
+        String json = curriculumService.getJSON();
         CoursePage cp = CoursePage.fromJSON(json);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);

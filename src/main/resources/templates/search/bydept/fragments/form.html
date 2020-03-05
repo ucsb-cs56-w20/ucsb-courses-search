@@ -103,16 +103,7 @@
             <label for="quarter" class="col-sm-2 col-form-label">Quarter</label>
             <div class="col-sm-10">
                 <select th:field="*{quarter}" class="custom-select">
-                    <option selected="selected" value="20201">WINTER 2020</option>
-                    <option selected="selected" value="20194">FALL 2019 </option>
-                    <option value="20193">SUMMER 2019 </option>
-                    <option value="20192">SPRING 2019 </option>
-                    <option value="20191">WINTER 2019 </option>
-                    <option value="20184">FALL 2018 </option>
-                    <option value="20183">SUMMER 2018 </option>
-                    <option value="20182">SPRING 2018 </option>
-                    <option value="20181">WINTER 2018 </option>
-                    <option value="20174">FALL 2017 </option>
+                    <option th:each="q: ${quarters}" th:value="${q.value}" th:text="${q}"></option>
                 </select>
             </div>
         </div>

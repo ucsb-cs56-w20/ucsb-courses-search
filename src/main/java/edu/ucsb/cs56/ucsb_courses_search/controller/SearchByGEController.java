@@ -30,28 +30,7 @@ public class SearchByGEController {
         model.addAttribute("searchByGE", new SearchByGE());
         return "search/byge/search";
     }
-/*
-    @GetMapping("/search/byge/results")
-    public String search(@RequestParam(name = "geCollege", required = true) String geCollege,
-            @RequestParam(name = "geCode", required = true) String geCode,
-            @RequestParam(name = "quarter", required = true) String quarter, Model model,
-            SearchByGE searchByGE) {
-        model.addAttribute("geCollege", geCollege);
-        model.addAttribute("geCode", geCode);
-        model.addAttribute("quarter", quarter);
 
-        String json = curriculumService.getGE(geCollege, geCode, quarter);
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
-
-        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
-
-        model.addAttribute("cp", cp);
-        model.addAttribute("rows", rows);
-
-        return "search/byge/results";
-    }*/
 
     @GetMapping("/search/byge/results")
     public String search(@RequestParam(name = "college", required = true) String college,

@@ -51,7 +51,8 @@
         <td th:text="${r.timeLocation?.days}"></td>
         <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.beginTime}+' - '+${r.timeLocation?.endTime}">
         </td>
-        <td th:text="${r.timeLocation == null} ? '' : ${r.timeLocation?.building}+' '+${r.timeLocation?.room}"></td>
+        <td><a th:href="${r.timeLocation == null} ? '' : ${r.timeLocation.getLocationURL()}" th:text="${r.timeLocation == null} ? '' : ${r.timeLocation.displayBuildingAndRoom()}"></a></td>
+        <!-- TODO Make building a link to the map for the building -->
         <td th:text="${r.section.enrolledTotal}"></td>
         <td th:text="${r.section.maxEnroll}"></td>
         <div th:switch=${r.getRowType()}>
@@ -62,25 +63,18 @@
           </div>
           <div th:case="'SECONDARY'">
             <!--If the data is for a class section, draw this.-->
-            <td></td>
-            <td> <!--This is where the form to add courses is placed.-->
-              <form action="#" th:action="@{/courseschedule/add}" th:object="${r.course}" method="post">
-                <!-- name attributes below are for the th:object which is an instance of 
-                                   the @Entity that is a parameter of the controller endpoint for 
-                                   the th:action above.  th:value values are computed based on the
-                                   objects being iterated over passed into this view -->
+            <td th:unless="${isLoggedIn}"></td>
+            <td th:if="${isLoggedIn}"> 
+              <form action="#" th:action="@{/courseschedule/add}" method="post">
                 <input type="hidden" name="classname" th:value="${r.course.courseId} " value="" />
                 <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />
                 <input type="hidden" name="uid" th:value="${id}" value="1000" />
                 <input type="hidden" name="professor" th:value="${r.course.mainInstructorList()}" value="" />
-                <input type="hidden" name="meettime"
-                  th:value="${r.section.timeLocations[0].beginTime + '-' + r.section.timeLocations[0].endTime}"
-                  value="" />
-                <input type="hidden" name="meetday" th:value="${r.section.timeLocations[0].days}" value="" />
-                <input type="hidden" name="location"
-                  th:value="${r.section.timeLocations[0].building + '-' + r.section.timeLocations[0].room}" value="" />
+                <input type="hidden" name="meettime" th:value="${r.section.meetTime()}"  value="" />
+                <input type="hidden" name="meetday" th:value="${r.section.meetDay()}" value="" />
+                <input type="hidden" name="location" th:value="${r.section.location()}" value="" />
                 <input type="hidden" name="quarter" th:value="${r.course.getQuarterQyy()}" value="" />
-                <input type="submit" class="btn btn-primary" value="Add" />
+                <input type="submit" class="btn btn-primary" value="Add" /> 
               </form>
             </td>
           </div>

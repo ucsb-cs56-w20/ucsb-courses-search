@@ -18,7 +18,7 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
      * (e.g. CMPSC) and course number (e.g. 190J), use the overloaded version of this method instead.
      * {@link #findOneByQuarterAndCourseId(String, String, String)}
      *
-     * @param quarter the quarter that the course is offered
+     * @param quarter  the quarter that the course is offered
      * @param courseId the course's 13 character course id
      * @return an optional {@link ArchivedCourse}, if a matching course was found
      * @see #findOneByQuarterAndCourseId(String, String, String)
@@ -32,8 +32,8 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
      * This is a convenience method that calls {@link #findOneByQuarterAndCourseId(String, String)} with a properly
      * padded course id.
      *
-     * @param quarter the quarter that the course is offered
-     * @param subjectCode the course's subject code
+     * @param quarter      the quarter that the course is offered
+     * @param subjectCode  the course's subject code
      * @param courseNumber the course's course number
      * @return an optional {@link ArchivedCourse}, if a matching course was found
      * @see #findOneByQuarterAndCourseId(String, String)
@@ -48,9 +48,9 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
      * Returns a list of {@link ArchivedCourse} where at least one of the course's lectures/sections takes place in the
      * specified building and room.
      *
-     * @param quarter the quarter that the course is offered
+     * @param quarter  the quarter that the course is offered
      * @param building the building that the lecture/section is held in
-     * @param room the room of the building that the lecture/section is held in
+     * @param room     the room of the building that the lecture/section is held in
      * @return a list of matching {@link ArchivedCourse}
      */
     @Query("{'quarter': ?0, 'classSections': {'$elemMatch': {'timeLocations': {'$elemMatch': {'building': ?1, 'room': ?2}}}}}")
@@ -60,13 +60,13 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
      * Returns a list of {@link ArchivedCourse} occurring between specified quarters
      * where at least one of the course's instructors matches the text.
      *
-     * @param startQuarter the first quarter to consider in the search formatted in YYYYQ
-     * @param endQuarter the final quarter to consider in the search formatted in YYYYQ
+     * @param startQuarter   the first quarter to consider in the search formatted in YYYYQ
+     * @param endQuarter     the final quarter to consider in the search formatted in YYYYQ
      * @param instructorText instructor name search query
      * @return a list of matching {@link ArchivedCourse}
      */
     @Query("{'quarter': {$gte : ?0, $lte : ?1}, $text: { $search: ?3 }}")
     List<ArchivedCourse> findByQuarterIntervalAndInstructor(String startQuarter,
-                                                           String endQuarter,
-                                                           String instructorText);
+                                                            String endQuarter,
+                                                            String instructorText);
 }

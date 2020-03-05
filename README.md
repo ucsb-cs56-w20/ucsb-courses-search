@@ -23,6 +23,21 @@ Once you have the API key, you need to do this:
 
 * Then run `mvn spring-boot:run`
    
+# Values needed in `SPRING_APPLICATION_JSON`
+
+* Google OAuth client-id and client-secret
+   * Obtain following these instructions <https://ucsb-cs56.github.io/topics/oauth_google_setup/>
+* UCSB API key
+   * Obtain from UCSB-CS56 course staff
+   * Or, obtain a key from <https://developer.ucsb.edu/> with access to the Academic  
+     Curriculums API
+* MongoDB username/password for ArchivedCourseData
+   * Obtain from UCSB-CS56 course staff
+   * Or, set up your own Mongo DB database using the scripts
+     in <https://github.com/ucsb-cs56-w20/ucsb-courses-search-support-scripts>
+     * If you do this, you also need to override the connection string
+       that is defined in `application.properties`
+
 
 # Using Maven
 

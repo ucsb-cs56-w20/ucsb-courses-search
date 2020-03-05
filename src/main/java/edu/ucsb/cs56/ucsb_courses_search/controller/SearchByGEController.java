@@ -68,18 +68,18 @@ public class SearchByGEController {
             @RequestParam(name = "quarter", required = true) String quarter, Model model,
             SearchByGE searchByGE) {
         model.addAttribute("college", college);
-	for(int i = 0; i < area.size(); i++){
-        	model.addAttribute("area", area.get(i));
-	}
+        for(int i = 0; i < area.size(); i++){
+                model.addAttribute("area", area.get(i));
+        }
         model.addAttribute("quarter", quarter);
 
-	List<Course> courses = new ArrayList<Course>();
+        List<Course> courses = new ArrayList<Course>();
 
-	for(int j = 0; j < area.size(); j++){
-        	String json = curriculumService.getGE(college, area.get(j), quarter);
-        	CoursePage cp = CoursePage.fromJSON(json);
-		courses.addAll(cp.classes);
-	}
+        for(int j = 0; j < area.size(); j++){
+                String json = curriculumService.getGE(college, area.get(j), quarter);
+                CoursePage cp = CoursePage.fromJSON(json);
+                courses.addAll(cp.classes);
+        }
 
         model.addAttribute("courses", courses);
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);

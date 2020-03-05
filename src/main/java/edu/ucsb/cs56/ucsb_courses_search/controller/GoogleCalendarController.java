@@ -39,6 +39,9 @@ import java.util.List;
 public class GoogleCalendarController {
     private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final String CREDENTIALS_FILE_PATH = "/localhost.json";
+    private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
+    private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
     private Logger logger = LoggerFactory.getLogger(GoogleCalendarController.class);
 
@@ -56,7 +59,13 @@ public class GoogleCalendarController {
     public void exportToGoogleCalendar(Model model, OAuth2AuthenticationToken token) {
         if (token!=null) {
             Iterable<Course> myclasses = getClassesFromRepo(token);
-
+            try{
+                createGoogleCalendar();
+            } catch (IOException e) {
+                System.out.println("IOException caught");
+            } catch (GeneralSecurityException e) {
+                System.out.println("GeneralSecurityException caught");
+            }
         }
         //if not logged in, handle emptyList case from CourseController
     }
@@ -69,12 +78,33 @@ public class GoogleCalendarController {
         return myclasses;
     }
 
-    private void createGoogleCalendar(OAuth2AuthenticationToken token){
+    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+        // Load client secrets.
+        InputStream in = GoogleCalendarController.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        if (in == null) {
+            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+        }
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+        // Build flow and trigger user authorization request.
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setAccessType("offline")
+                .build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8080).build();
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+    }
+
+
+    private void createGoogleCalendar() throws IOException, GeneralSecurityException{
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
         .setApplicationName(APPLICATION_NAME)
         .build();
     }
+    
+    
 
     
 }

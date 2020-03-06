@@ -63,8 +63,8 @@
           </div>
           <div th:case="'SECONDARY'">
             <!--If the data is for a class section, draw this.-->
-            <td th:unless="${isLoggedIn}"></td>
-            <td th:if="${isLoggedIn}"> 
+            <td th:unless="${isMember}"></td>
+            <td th:if="${isMember}"> 
               <form action="#" th:action="@{/courseschedule/add}" method="post">
                 <input type="hidden" name="classname" th:value="${r.course.courseId} " value="" />
                 <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />
@@ -74,34 +74,24 @@
                 <input type="hidden" name="meetday" th:value="${r.section.meetDay()}" value="" />
                 <input type="hidden" name="location" th:value="${r.section.location()}" value="" />
                 <input type="hidden" name="quarter" th:value="${r.course.getQuarterQyy()}" value="" />
+
+                <!--Lecture Section value-->
+                <input type="hidden" name="lecture_classname" th:value="${r.course.courseId} " value="" />
+                <input type="hidden" name="lecture_enrollCode" th:value="${r.primary.enrollCode} " value="" />
+                <input type="hidden" name="lecture_uid" th:value="${id}" value="1000" />
+                <input type="hidden" name="lecture_professor" th:value="${r.course.mainInstructorList()}" value="" />
+                <input type="hidden" name="lecture_meettime" th:value="${r.primary.meetTime()}"  value="" />
+                <input type="hidden" name="lecture_meetday" th:value="${r.primary.meetDay()}" value="" />
+                <input type="hidden" name="lecture_location" th:value="${r.primary.location()}" value="" />
+                <input type="hidden" name="lecture_quarter" th:value="${r.course.getQuarterQyy()}" value="" />
+
                 <input type="submit" class="btn btn-primary" value="Add" /> 
               </form>
             </td>
           </div>
         </div>
       </tr>
-      <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
-      <div class="modal fade" th:attr="id=${r.course.getCourseKey()}" tabindex="-1" role="dialog"
-        aria-labelledby="detailTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="detailTitle">
-                <div th:text="${r.course.courseId}"></div>
-                <div th:text="${r.course.title}"></div>Course Details
-              </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              LOAD IN PER COURSE DATA HERE
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </tbody>
 </table>
+<div th:replace="fragments/course_details_modal.html"></div>

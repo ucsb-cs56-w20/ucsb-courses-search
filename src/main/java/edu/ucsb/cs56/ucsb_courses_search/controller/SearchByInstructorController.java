@@ -87,6 +87,10 @@ public class SearchByInstructorController {
                 .addAttribute("insSearchSpecific", insSearchSpecific);
 
         // calls curriculumService method to get JSON from UCSB API
+
+	if (insSearchSpecific.getInstructor() == "")
+	    return "search/byinstructor/error_message";
+	
         String json = curriculumService
                 .getJSON(insSearchSpecific
                         .getInstructor(),
@@ -128,7 +132,12 @@ public class SearchByInstructorController {
         Model model,
         SearchByInstructorMultiQuarter searchObject) {
 
-            logger.info("GET request for /search/byinstructor/multiquarter/results");
+	
+	if (instructor  == "")
+	    return "search/byinstructor/error_message";
+	
+
+	    logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
 
             List<Course> courses = new ArrayList<Course>();

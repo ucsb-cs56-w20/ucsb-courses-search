@@ -65,4 +65,44 @@ public class UCSBBuildingService {
         + lat + "," + lon + ",null,null&b=0&c=0&k1=en-US&k2=km";
         return result;
     }
+
+    public static String getWalkingLink(String code1, String code2){
+        UCSBBuildingService service = UCSBBuildingService.getInstance();
+        UCSBBuilding b1 = service.buildingMap.get(code1);
+        UCSBBuilding b2 = service.buildingMap.get(code2);
+
+        if (b1 == null || b2 == null) {
+            return "";
+        }
+
+        String lat1 = Double.toString(b1.getLatitude());
+        String lon1 = Double.toString(b1.getLongitude());
+        String lat2 = Double.toString(b2.getLatitude());
+        String lon2 = Double.toString(b2.getLongitude());
+
+        String result = "https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
+        + lat1 + "," + lon1 + "," + lat2 + "," + lon2 + "&b=2&c=0&k1=en-US&k2=km";
+
+        return result;
+    }
+
+    public static String getBikingLink(String code1, String code2){
+        UCSBBuildingService service = UCSBBuildingService.getInstance();
+        UCSBBuilding b1 = service.buildingMap.get(code1);
+        UCSBBuilding b2 = service.buildingMap.get(code2);
+
+        if (b1 == null || b2 == null) {
+            return "";
+        }
+
+        String lat1 = Double.toString(b1.getLatitude());
+        String lon1 = Double.toString(b1.getLongitude());
+        String lat2 = Double.toString(b2.getLatitude());
+        String lon2 = Double.toString(b2.getLongitude());
+
+        String result = "https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
+        + lat1 + "," + lon1 + "," + lat2 + "," + lon2 + "&b=1&c=0&k1=en-US&k2=km";
+
+        return result;
+    }
 }

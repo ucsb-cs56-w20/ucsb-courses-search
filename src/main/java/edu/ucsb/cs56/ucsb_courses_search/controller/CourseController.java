@@ -49,6 +49,7 @@ public class CourseController {
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
+            model.addAttribute ("calendar", quarterdeadline);
         } else {
             ArrayList<Course> emptyList = new ArrayList<Course>();
             model.addAttribute("myclasses", emptyList);

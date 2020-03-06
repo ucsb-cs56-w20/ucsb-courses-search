@@ -1,6 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
-import edu.ucsb.cs56.ucsb_courses_search.downloaders.CoursePageToCSV;
+import edu.ucsb.cs56.ucsb_courses_search.downloaders;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -112,6 +112,21 @@ public class CSVDownloadController {
         cp.setClasses(courses);
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     
+    }
+
+    @GetMapping("/personalSchedule")
+    public void downloadCSV(OAuth2AuthenticationToken token) throws IOException {
+        
+        if (token!=null) {
+            String uid = token.getPrincipal().getAttributes().get("sub").toString();
+            logger.info("uid="+uid);
+            logger.info("courseRepository="+courseRepository);
+            Iterable<Course> myclasses = courseRepository.findByUid(uid);
+
+                    
+            response.setContentType("text/csv");
+            response.setHeader("Content-Disposition", "attachment; file=mycourses.csv");
+            PersonalScheduleToCSV.writeSections(myclasses);
     }
 
 }

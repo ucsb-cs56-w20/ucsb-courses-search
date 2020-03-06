@@ -141,7 +141,7 @@ public class SearchByInstructorController {
     }
 
     @GetMapping("/search/byinstructor/multiquarter/results")
-    public String search(
+    public String search (
         @RequestParam(name = "instructor", required = true) 
         String instructor,
         @RequestParam(name = "beginQ", required = true) 
@@ -156,6 +156,10 @@ public class SearchByInstructorController {
 	    model.addAttribute("error_message", "Error: instructor name must not be empty");
 	    return "search/byinstructor/error_message";
 	}
+        if(endQ<beginQ){
+        model.addAttribute("error_message", "Error: End quarter must be later than begin quarter!");
+	    return "search/byinstructor/error_message";
+        }
 
 	    logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
@@ -168,6 +172,7 @@ public class SearchByInstructorController {
                 CoursePage cp = CoursePage.fromJSON(json);
                 courses.addAll(cp.classes);
             }
+
 	    */
 
 	    List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndInstructor(beginQ+"", endQ+"", instructor);

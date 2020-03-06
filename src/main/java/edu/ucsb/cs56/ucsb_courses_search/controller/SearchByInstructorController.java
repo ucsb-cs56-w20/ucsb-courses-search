@@ -48,12 +48,14 @@ public class SearchByInstructorController {
     }
 
     @GetMapping("/search/byinstructor/results")
-    public String singleQtrSearch(InsSearch insSearch, Model model) {
+    public String singleQtrSearch(InsSearch insSearch, Model model, RedirectAttributes redirAttrs) {
         model
                 .addAttribute("insSearch", insSearch);
 	
-	if (insSearch.getInstructor() == "")
-	    return "search/byinstructor/error_message";
+	if (insSearch.getInstructor() == ""){
+	    redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
+            return "redirect:.";
+        }
     
         // calls curriculumService method to get JSON from UCSB API
         String json = curriculumService
@@ -95,14 +97,16 @@ public class SearchByInstructorController {
     }
 
     @GetMapping("/search/byinstructor/specific/results")
-    public String singleQtrSearch(InsSearchSpecific insSearchSpecific, Model model) {
+    public String singleQtrSearch(InsSearchSpecific insSearchSpecific, Model model, RedirectAttributes redirAttrs) {
         model
                 .addAttribute("insSearchSpecific", insSearchSpecific);
 
         // calls curriculumService method to get JSON from UCSB API
 
-	if (insSearchSpecific.getInstructor() == "")
-	    return "search/byinstructor/error_message";
+	if (insSearchSpecific.getInstructor() == ""){
+	        redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
+            return "redirect:.";
+        }
 	
         String json = curriculumService
                 .getJSON(insSearchSpecific

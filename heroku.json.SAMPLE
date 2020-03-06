@@ -3,5 +3,6 @@
     "spring.security.oauth2.client.registration.google.client-secret":"copy-from-google",
     "ucsb.api.consumer_key":"fill-it-in",
     "app.mongodb.username":"ask-someone-who-knows",
-    "app.mongodb.password":"ask-someone-who-knows"
+    "app.mongodb.password":"ask-someone-who-knows",
+    "app.feature.multiple_schedules":"false"
 }

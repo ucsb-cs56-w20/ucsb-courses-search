@@ -18,6 +18,7 @@ import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Schedule;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleRepository;
+import edu.ucsb.cs56.ucsb_courses_search.formbeans.ScheduleSearch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class CourseController {
     }
 
     @GetMapping("/courseschedule")
-    public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
+    public String index(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) throws AccessForbiddenException {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
@@ -74,6 +75,7 @@ public class CourseController {
 	    //org.springframework.security.access.AccessDeniedException("403 returned");
 	    throw new AccessForbiddenException();
         }
+        model.addAttribute("scheduleSearch", scheduleSearch);
         return "courseschedule/index";
     }
 

@@ -11,6 +11,8 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.UCSBQuarterCalendarService;
 
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
+
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -38,6 +40,7 @@ public class CourseController {
         logger.info("model=" + model + " token=" + token);
 
         String json = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json);
 
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();

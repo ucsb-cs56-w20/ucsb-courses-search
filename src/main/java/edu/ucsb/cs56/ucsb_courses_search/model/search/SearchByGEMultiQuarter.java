@@ -56,9 +56,9 @@ public class SearchByGEMultiQuarter {
         if (!(o instanceof SearchByGEMultiQuarter)) {
             return false;
         }
-        SearchByGEMultiQuarter SearchByGEMultiQuarter = (SearchByGEMultiQuarter) o;
-        return Objects.equals(college, SearchByGEMultiQuarter.college) && 
-                              Objects.equals(area, SearchByGEMultiQuarter.area) && beginQ == SearchByGEMultiQuarter.beginQ && endQ == SearchByGEMultiQuarter.endQ ;
+        SearchByGEMultiQuarter searchByGEMultiQuarter = (SearchByGEMultiQuarter) o;
+        return Objects.equals(college, searchByGEMultiQuarter.college) && 
+                              Objects.equals(area, searchByGEMultiQuarter.area) && beginQ == searchByGEMultiQuarter.beginQ && endQ == searchByGEMultiQuarter.endQ ;
     }
 
     @Override

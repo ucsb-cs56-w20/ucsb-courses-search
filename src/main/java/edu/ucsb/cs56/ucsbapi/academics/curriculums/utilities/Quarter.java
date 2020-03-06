@@ -33,7 +33,7 @@ public class Quarter {
      * Construct a Quarter object from a string s, either in QYY or YYYYQ format. If
      * s is of length three, QYY format is expected, if 5 then YYYYQ format is
      * expected. Otherwise an IllegalArgumentException is thrown.
-     * 
+     *
      * @param s Quarter either in QYY or YYYYQ format
      */
 
@@ -79,7 +79,7 @@ public class Quarter {
 
     /**
      * Advance to the next quarter, and return the value of that quarter as an int.
-     * 
+     *
      * @return the new getValue() for the quarter, i.e. quarter as in in yyyyq
      *         format
      */
@@ -94,21 +94,20 @@ public class Quarter {
     /**
      * Subtract one from current quarter, and return the value of that quarter as an
      * int.
-     * 
+     *
      * @return the new getValue() for the quarter, i.e. quarter as in in yyyyq
      *         format
      */
     public int decrement() {
         int q = this.yyyyq % 10;
         int yyyy = this.yyyyq / 10;
-
         setValue((q == 1) ? (((yyyy - 1) * 10) + 4) : (this.yyyyq - 1));
         return this.yyyyq;
     }
 
     /**
      * Convert yyyyq as string to int, throwing exception if format is incorrect
-     * 
+     *
      * @param yyyyq String in yyyyq format (e.g. 20194 for F19 (Fall 2019))
      * @throws IllegalArgumentException
      * @return int representation of quarter
@@ -131,7 +130,7 @@ public class Quarter {
     /**
      * Convert yyyyq int format to Yqq String format throwing exception if format is
      * incorrect
-     * 
+     *
      * @param yyyyq int (e.g. 20194 for Fall 2019
      * @throws IllegalArgumentException
      * @return Qyy representation (e.g. F19)
@@ -149,7 +148,7 @@ public class Quarter {
      * Take yyyyq int format and return single character for quarter, either "W",
      * "S", "M", or "F" for last digit 1, 2, 3, 4, respectively. Throw illegal
      * argument exception if not in yyyyq format.
-     * 
+     *
      * @param yyyyq int (e.g. 20194 for Fall 2019)
      * @throws IllegalArgumentException
      * @return single char string for quarter (e.g. "F")
@@ -167,7 +166,7 @@ public class Quarter {
     /**
      * Take yyyyq int format and return two digit year as a String Throw illegal
      * argument exception if not in yyyyq format.
-     * 
+     *
      * @param yyyyq int (e.g. 20194 for Fall 2019)
      * @throws IllegalArgumentException
      * @return two char string for year (e.g. "19")
@@ -184,7 +183,7 @@ public class Quarter {
     /**
      * Take yyyyq int format and return four digit year as a String Throw illegal
      * argument exception if not in yyyyq format.
-     * 
+     *
      * @param yyyyq int (e.g. 20194 for Fall 2019)
      * @throws IllegalArgumentException
      * @return four char string for year (e.g. "2019")

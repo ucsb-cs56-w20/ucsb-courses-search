@@ -24,10 +24,6 @@ public class SearchByInstructorMultiQuarter {
     }
 
     public void setEndQ(int endQ) {
-       /* //or message to say end must be later than 
-        if(this.beginQ > this.endQ){
-            throw new IllegalArgumentException();
-        }*/
         this.endQ = endQ;
     }
 

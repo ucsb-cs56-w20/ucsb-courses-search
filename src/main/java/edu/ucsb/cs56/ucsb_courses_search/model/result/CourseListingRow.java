@@ -187,7 +187,7 @@ public class CourseListingRow {
             return "";
         }
 
-        return this.getTimeLocation().building + " " + this.getTimeLocation().room;
+        return this.getTimeLocation().getBuilding() + " " + this.getTimeLocation().getRoom();
     }
 
     public String getDays() {
@@ -195,7 +195,7 @@ public class CourseListingRow {
             return "";
         }
 
-        return this.getTimeLocation().days;
+        return this.getTimeLocation().getDays();
     }
 
     public String getBeginTime() {
@@ -203,7 +203,7 @@ public class CourseListingRow {
             return "";
         }
 
-        return this.getTimeLocation().beginTime;
+        return this.getTimeLocation().getBeginTime();
     }
 
     public Section getPrimary() {

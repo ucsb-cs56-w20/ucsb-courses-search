@@ -61,7 +61,7 @@ public class SearchByGEController {
     
     
     @GetMapping("/search/byge/multiquarter")
-    public String instructor(Model model, SearchByGEMultiQuarter SearchByGEMultiQuarter) {
+    public String instructor(Model model) {
         model.addAttribute("searchByGEMultiQuarter", new SearchByGEMultiQuarter());
         model.addAttribute("quarters", Quarter.quarterList("W20", "F83"));
         return "search/byge/multiquarter/search";

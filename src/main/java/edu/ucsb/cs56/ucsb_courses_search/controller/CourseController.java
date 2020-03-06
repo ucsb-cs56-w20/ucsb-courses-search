@@ -65,6 +65,22 @@ public class CourseController {
         }
         return "courseschedule/index";
     }
+
+    /**
+     * Deletes all courses with the same name as "name" from "courseList" and CourseRepository.
+     * Returns a list without any courses of name "name".
+    */
+    private List<Course> deleteByClassname(List<Course> courseList, String name){
+        List<Course> left = new ArrayList<Course>(courseList);
+        for (Course i : courseList){
+            if (i.getClassname().equals(name)){
+                courseRepository.delete(i);
+                left.remove(i);
+            }
+        }
+        return left;
+    }
+
     @PostMapping("/courseschedule/add")
     public String add(Course course, 
                         Model model,
@@ -78,8 +94,7 @@ public class CourseController {
                         @RequestParam String lecture_quarter) {
         logger.info("Hello!\n");
         logger.info("course's uid: " + course.getUid());
-        logger.info("course = " + course);                   
-        courseRepository.save(course);
+        logger.info("course = " + course); 
 
         Course primary = new Course();
         primary.setClassname(lecture_classname);
@@ -91,9 +106,17 @@ public class CourseController {
         primary.setLocation(lecture_location);
         primary.setQuarter(lecture_quarter);
         logger.info("primary = " + primary); 
-        courseRepository.save(primary);
 
-        model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
+        //here we find and delete the courses if they already exist.
+        List<Course> myClasses = courseRepository.findByUid(course.getUid());
+        myClasses = deleteByClassname(myClasses, course.getClassname());
+
+        courseRepository.save(primary);
+        myClasses.add(primary);
+        courseRepository.save(course);
+        myClasses.add(course);
+
+        model.addAttribute("myclasses", myClasses);
         return "courseschedule/index";
     }
 
@@ -101,13 +124,7 @@ public class CourseController {
     public String delete(Course course, Model model){
         logger.info("course to delete: " + course.getUid());
         List<Course> myClasses = courseRepository.findByUid(course.getUid());
-        List<Course> remainingClasses = new ArrayList<Course>(myClasses);
-        for (Course i : myClasses){
-            if (i.getClassname().equals(course.getClassname())){
-                courseRepository.delete(i);
-                remainingClasses.remove(i);
-            }
-        }
+        List<Course> remainingClasses = deleteByClassname(myClasses, course.getClassname());
 
         model.addAttribute("myclasses", remainingClasses);
         return "courseschedule/index";

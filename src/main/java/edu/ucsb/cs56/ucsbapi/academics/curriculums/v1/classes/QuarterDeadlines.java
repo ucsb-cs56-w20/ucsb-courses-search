@@ -10,18 +10,18 @@ import org.slf4j.LoggerFactory;
 
 public class QuarterDeadlines{
     
-    private quarter;
-    private firstDayOfClasses;
-    private lastDayOfClasses;
-    private lastDayOfFinals;
-    private firstDayOfQuarter;
-    private pass1Begin;
-    private pass2Begin;
-    private pass3Begin;
-    private feeDeadline;
-    private lastDayToAddUnderGrad;
-    private lastDayToAddGrad;
-    private lastDayThirdWeek;
+    private String quarter;
+    private String firstDayOfClasses;
+    private String lastDayOfClasses;
+    private String lastDayOfFinals;
+    private String firstDayOfQuarter;
+    private String pass1Begin;
+    private String pass2Begin;
+    private String pass3Begin;
+    private String feeDeadline;
+    private String lastDayToAddUnderGrad;
+    private String lastDayToAddGrad;
+    private String lastDayThirdWeek;
 
 
     

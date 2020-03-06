@@ -63,6 +63,7 @@ public class SearchByGEController {
     @GetMapping("/search/byge/multiquarter")
     public String instructor(Model model, SearchByGEMultiQuarter SearchByGEMultiQuarter) {
         model.addAttribute("searchByGEMultiQuarter", new SearchByGEMultiQuarter());
+        model.addAttribute("quarters", Quarter.quarterList("W20", "F83"));
         return "search/byge/multiquarter/search";
     }
 
@@ -70,19 +71,20 @@ public class SearchByGEController {
     @GetMapping("search/byge/multiquarter/results")
     public String SearchByGEMultiQuarter(@RequestParam(name = "college", required = true) String college,
     @RequestParam(name = "area", required = true) String area,
-    @RequestParam(name = "year", required = true) String year, Model model,
+    @RequestParam(name = "beginQ", required = true) int beginQ,
+    @RequestParam(name = "endQ", required = true) int endQ, 
+    Model model,
     SearchByGEMultiQuarter SearchByGEMultiQuarter) {
 
-    logger.info("GET request for /search/byge/multiquarter/results");
-    logger.info("college=" + college  + " area" + area + " year" + year);
 
         List<Course> courses = new ArrayList<Course>();
-        for (int i=1; i<5; i++) {
-            String quarter = year + Integer.toString(i);
-            model.addAttribute("college", college);
-            model.addAttribute("area", area);
-            model.addAttribute("quarter", quarter);
-            String json = curriculumService.getGE(college, area, quarter);
+        model.addAttribute("college", college);
+        model.addAttribute("area", area);
+
+        for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
+
+            logger.info("qtr=" + qtr.getValue());
+            String json = curriculumService.getGE(college, area, qtr.getYYYYQ());
             if(! "{\"error\": \"401: Unauthorized\"}".equals(json)){
                 CoursePage cp = CoursePage.fromJSON(json);
                 courses.addAll(cp.classes);
@@ -90,7 +92,6 @@ public class SearchByGEController {
         }
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
-    
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
         model.addAttribute("courses", courses);

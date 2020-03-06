@@ -5,14 +5,16 @@ import java.util.Objects;
 public class SearchByGEMultiQuarter {
     private String college;
     private String area;
-    private String year;
+    private int beginQ;
+    private int endQ;
 
     public SearchByGEMultiQuarter() { } 
 
-    public SearchByGEMultiQuarter(String college, String area, String year) {
+    public SearchByGEMultiQuarter(String college, String area, String year, int beginQ, int endQ) {
         this.college = college;
         this.area = area;
-        this.year = year;
+        this.beginQ = beginQ;
+        this.endQ = endQ;
     }
 
     public String getCollege() {
@@ -31,12 +33,20 @@ public class SearchByGEMultiQuarter {
         this.area = area;
     }
 
-    public String getYear() {
-        return this.year;
+    public int getBeginQ() {
+        return this.beginQ;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setBeginQ(int beginQ) {
+        this.beginQ = beginQ;
+    }
+
+    public int getEndQ() {
+        return this.endQ;
+    }
+
+    public void setEndQ(int endQ) {
+        this.endQ = endQ;
     }
 
     @Override
@@ -48,13 +58,12 @@ public class SearchByGEMultiQuarter {
         }
         SearchByGEMultiQuarter SearchByGEMultiQuarter = (SearchByGEMultiQuarter) o;
         return Objects.equals(college, SearchByGEMultiQuarter.college) && 
-                              Objects.equals(area, SearchByGEMultiQuarter.area) && 
-                              Objects.equals(year, SearchByGEMultiQuarter.year);
+                              Objects.equals(area, SearchByGEMultiQuarter.area) && beginQ == SearchByGEMultiQuarter.beginQ && endQ == SearchByGEMultiQuarter.endQ ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(college, area, year);
+        return Objects.hash(college, area, beginQ, endQ);
     }
 
     @Override
@@ -62,7 +71,8 @@ public class SearchByGEMultiQuarter {
         return "{" +
             " college='" + getCollege() + "'" +
             ", area='" + getArea() + "'" +
-            ", quarter='" + getYear() + "'" +
+            ", begin quarter='" + getBeginQ() + "'" +
+            ", end quarter='" + getEndQ() + "'" +
             "}";
     }
 

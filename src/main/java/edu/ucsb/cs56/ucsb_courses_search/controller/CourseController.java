@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.service.UCSBQuarterCalendarService;
+
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -19,9 +21,11 @@ public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
-    @Autowired
-    private CourseRepository courseRepository;
+    @Autowired 
+        private CourseRepository courseRepository; 
 
+    @Autowired 
+        private UCSBQuarterCalendarService calendarservice;
     @Autowired
     public CourseController(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
@@ -32,6 +36,8 @@ public class CourseController {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
+
+        String json = calendarservice.getJSON();
 
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();

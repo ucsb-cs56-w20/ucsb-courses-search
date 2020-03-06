@@ -26,6 +26,7 @@ import edu.ucsb.cs56.ucsb_courses_search.controller.CSDeptController;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
@@ -41,7 +42,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import org.junit.Before;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CSDeptController.class)
@@ -64,6 +64,9 @@ public class CSDeptTest {
 
     @MockBean
     private CurriculumService mockCurriculumService;
+
+    @MockBean
+    private FeatureToggleService mockFeatureToggleService;
 
     @MockBean
     private QuarterListService mockQuarterListService;

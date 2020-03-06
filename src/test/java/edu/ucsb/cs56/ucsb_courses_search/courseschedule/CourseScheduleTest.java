@@ -24,6 +24,7 @@ import edu.ucsb.cs56.ucsb_courses_search.NavigationTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.controller.CourseController;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 
 
@@ -66,6 +67,8 @@ public class CourseScheduleTest {
     @MockBean
     private MembershipService mockMembershipService;
 
+    @MockBean
+    private FeatureToggleService mockFeatureToggleService;
 
     private Authentication mockAuthentication;
 

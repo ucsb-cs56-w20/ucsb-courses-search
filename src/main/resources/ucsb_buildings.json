@@ -1,0 +1,584 @@
+[
+    {
+      "code": "387",
+      "name": "Modular Classrooms",
+      "latitude": 34.411973,
+      "longitude": -119.845671
+    },
+    {
+      "code": "434",
+      "name": "Former Women\u2019s Center (near Old Gym)",
+      "latitude": 34.413348,
+      "longitude": -119.848442
+    },
+    {
+      "code": "479",
+      "name": "Old Gym",
+      "latitude": 34.414563,
+      "longitude": -119.848172
+    },
+    {
+      "code": "615",
+      "name": "Materials Research Laboratory (MRL)",
+      "latitude": 34.414156,
+      "longitude": -119.841585
+    },
+    {
+      "code": "932",
+      "name": "Trailer 932 (behind Davidson Library)",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "936",
+      "name": "Physics Trailer 3",
+      "latitude": 34.416175,
+      "longitude": -119.843514
+    },
+    {
+      "code": "937",
+      "name": "Physics Trailer 2",
+      "latitude": 34.414204,
+      "longitude": -119.843935
+    },
+    {
+      "code": "939",
+      "name": "Physics Trailer 1",
+      "latitude": 34.414084,
+      "longitude": -119.843939
+    },
+    {
+      "code": "940",
+      "name": "Trailer 940 (behind Davidson Library)",
+      "latitude": 34.413947,
+      "longitude": -119.843936
+    },
+    {
+      "code": "AHC",
+      "name": "UCSB Center at Santa Maria",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "ANCAP HALL",
+      "name": "Anacapa Residence Hall",
+      "latitude": 34.411041,
+      "longitude": -119.843028
+    },
+    {
+      "code": "ARCH RANGE",
+      "name": "Archery Range",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "ARTS",
+      "name": "Arts Building",
+      "latitude": 34.412328,
+      "longitude": -119.849312
+    },
+    {
+      "code": "BSBL FIELD",
+      "name": "Baseball Field",
+      "latitude": 34.418888,
+      "longitude": -119.85288
+    },
+    {
+      "code": "BIOEN",
+      "name": "BioEngineering Building",
+      "latitude": 34.41309,
+      "longitude": -119.844712
+    },
+    {
+      "code": "BIOL2",
+      "name": "Biological Sciences II",
+      "latitude": 34.411997,
+      "longitude": -119.842633
+    },
+    {
+      "code": "BRDA",
+      "name": "Broida Hall (Physics)",
+      "latitude": 34.414094,
+      "longitude": -119.843111
+    },
+    {
+      "code": "BREN",
+      "name": "Bren Hall",
+      "latitude": 34.413175,
+      "longitude": -119.842046
+    },
+    {
+      "code": "BSIF",
+      "name": "Biological Sciences Instructional Facility",
+      "latitude": 34.412183,
+      "longitude": -119.843169
+    },
+    {
+      "code": "BUCHN",
+      "name": "Buchanan Hall",
+      "latitude": 34.415452,
+      "longitude": -119.84457
+    },
+    {
+      "code": "CAMPB HALL",
+      "name": "Campbell Hall",
+      "latitude": 34.416269,
+      "longitude": -119.845261
+    },
+    {
+      "code": "CHEM",
+      "name": "Chemistry Building",
+      "latitude": 34.415443,
+      "longitude": -119.84265
+    },
+    {
+      "code": "ED",
+      "name": "Education Building",
+      "latitude": 34.415166,
+      "longitude": -119.850431
+    },
+    {
+      "code": "ELLSN",
+      "name": "Ellison Hall",
+      "latitude": 34.415564,
+      "longitude": -119.84527
+    },
+    {
+      "code": "EMBAR HALL",
+      "name": "Embarcadero Hall",
+      "latitude": 34.412097,
+      "longitude": -119.855767
+    },
+    {
+      "code": "ENGR1",
+      "name": "See Harold Frank Hall (HFH)",
+      "latitude": 34.413787,
+      "longitude": -119.841381
+    },
+    {
+      "code": "ENGR2",
+      "name": "Engineering Building II",
+      "latitude": 34.414869,
+      "longitude": -119.848392
+    },
+    {
+      "code": "ENGR3",
+      "name": "Engineering Building III",
+      "latitude": 34.414869,
+      "longitude": -119.848392
+    },
+    {
+      "code": "ESB",
+      "name": "Engineering Sciences Building",
+      "latitude": 34.415622,
+      "longitude": -119.841405
+    },
+    {
+      "code": "EVENT CENTR",
+      "name": "Event Center",
+      "latitude": 34.413783,
+      "longitude": -119.851337
+    },
+    {
+      "code": "GIRV",
+      "name": "Girvetz Hall",
+      "latitude": 34.413562,
+      "longitude": -119.846854
+    },
+    {
+      "code": "GOLF CRSE",
+      "name": "Golf Course",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "HARDR",
+      "name": "Harder Stadium",
+      "latitude": 34.420437,
+      "longitude": -119.853805
+    },
+    {
+      "code": "HFH",
+      "name": "Harold Frank Hall (previously Engineering I)",
+      "latitude": 34.413787,
+      "longitude": -119.841381
+    },
+    {
+      "code": "HSSB",
+      "name": "Humanities and Social Sciences Building",
+      "latitude": 34.413559,
+      "longitude": -119.850461
+    },
+    {
+      "code": "ICA",
+      "name": "Intercollegiate Building",
+      "latitude": 34.415969,
+      "longitude": -119.850458
+    },
+    {
+      "code": "IV CENTR",
+      "name": "IV/UCSB Community Services Center",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "IV THEA",
+      "name": "Isla Vista Theatres",
+      "latitude": 34.411351,
+      "longitude": -119.854982
+    },
+    {
+      "code": "KERR",
+      "name": "Kerr Hall",
+      "latitude": 34.414546,
+      "longitude": -119.846853
+    },
+    {
+      "code": "KOHN",
+      "name": "Kohn Hall",
+      "latitude": 34.414397,
+      "longitude": -119.840525
+    },
+    {
+      "code": "LIB",
+      "name": "Library",
+      "latitude": 34.413782,
+      "longitude": -119.845487
+    },
+    {
+      "code": "LSB",
+      "name": "Life Science Building",
+      "latitude": 34.411879,
+      "longitude": -119.843695
+    },
+    {
+      "code": "MANZ",
+      "name": "Manzanita Village De Anza Center",
+      "latitude": 34.409602,
+      "longitude": -119.852827
+    },
+    {
+      "code": "MLAB",
+      "name": "Marine Biology Laboratory",
+      "latitude": 34.407948,
+      "longitude": -119.843215
+    },
+    {
+      "code": "MUSIC",
+      "name": "Music Building",
+      "latitude": 34.41235,
+      "longitude": -119.84719
+    },
+    {
+      "code": "MUSIC LLCH",
+      "name": "Lotte Lehmann Concert Hall",
+      "latitude": 34.41235,
+      "longitude": -119.84719
+    },
+    {
+      "code": "NOBLE",
+      "name": "Noble Hall",
+      "latitude": 34.412587,
+      "longitude": -119.843769
+    },
+    {
+      "code": "NH",
+      "name": "North Hall",
+      "latitude": 34.415169,
+      "longitude": -119.84651
+    },
+    {
+      "code": "OFF CAMP",
+      "name": "Off Campus",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "PHELP",
+      "name": "Phelps Hall",
+      "latitude": 34.41616,
+      "longitude": -119.844358
+    },
+    {
+      "code": "PSB-N",
+      "name": "Physical Sciences Building North",
+      "latitude": 34.415437,
+      "longitude": -119.843624
+    },
+    {
+      "code": "PSB-S",
+      "name": "Physical Sciences Building South",
+      "latitude": 34.414528,
+      "longitude": -119.84267
+    },
+    {
+      "code": "PT MUGU",
+      "name": "Point Mugu Naval Air Station",
+      "latitude": 34.1284,
+      "longitude": -119.0948
+    },
+    {
+      "code": "PSYCH",
+      "name": "Psychology Building",
+      "latitude": 34.412038,
+      "longitude": -119.845067
+    },
+    {
+      "code": "RECEN",
+      "name": "Recreation Center",
+      "latitude": 34.418468,
+      "longitude": -119.848983
+    },
+    {
+      "code": "RECEN CTS",
+      "name": "Recreation Center Tennis Courts",
+      "latitude": 34.418468,
+      "longitude": -119.848983
+    },
+    {
+      "code": "RECEN MAIN",
+      "name": "Recreation Center Main Gym",
+      "latitude": 34.418468,
+      "longitude": -119.848983
+    },
+    {
+      "code": "RECEN PAVLN",
+      "name": "Recreation Center Pavilion",
+      "latitude": 34.418468,
+      "longitude": -119.848983
+    },
+    {
+      "code": "RECEN WT RM",
+      "name": "Recreation Center Weight Room",
+      "latitude": 34.418468,
+      "longitude": -119.848983
+    },
+    {
+      "code": "RGYM",
+      "name": "Robertson Gym",
+      "latitude": 34.416183,
+      "longitude": -119.84925
+    },
+    {
+      "code": "RGYM CTS",
+      "name": "Robertson Gym Tennis Courts",
+      "latitude": 34.416183,
+      "longitude": -119.84925
+    },
+    {
+      "code": "RGYM FIELD",
+      "name": "Robertson Gym Field",
+      "latitude": 34.416183,
+      "longitude": -119.84925
+    },
+    {
+      "code": "RQET CTS",
+      "name": "Recreation Center Racquet Courts",
+      "latitude": 34.416183,
+      "longitude": -119.84925
+    },
+    {
+      "code": "SAASB",
+      "name": "Student Affairs and Administrative Services Building",
+      "latitude": 34.416312,
+      "longitude": -119.847292
+    },
+    {
+      "code": "SAND CTS",
+      "name": "Sand Volleyball Courts",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "SAN MIGEL",
+      "name": "San Miguel Residence Hall",
+      "latitude": 34.410298,
+      "longitude": -119.846913
+    },
+    {
+      "code": "SAN NIC",
+      "name": "San Nicholas Residence Hall",
+      "latitude": 34.409594,
+      "longitude": -119.846268
+    },
+    {
+      "code": "SAN RAFEL",
+      "name": "San Rafael Residence Hall",
+      "latitude": 34.410962,
+      "longitude": -119.852191
+    },
+    {
+      "code": "SANTA CRUZ",
+      "name": "Santa Cruz Residence Hall",
+      "latitude": 34.409905,
+      "longitude": -119.843448
+    },
+    {
+      "code": "SANTA ROSA",
+      "name": "Santa Rosa Residence Hall",
+      "latitude": 34.410892,
+      "longitude": -119.845038
+    },
+    {
+      "code": "SB HARBR",
+      "name": "Santa Barbara Harbor",
+      "latitude": 34.4036,
+      "longitude": -119.6936
+    },
+    {
+      "code": "SFTBL FIELD",
+      "name": "Softball Field",
+      "latitude": 34.418115,
+      "longitude": -119.851899
+    },
+    {
+      "code": "SH",
+      "name": "South Hall",
+      "latitude": 34.413749,
+      "longitude": -119.847456
+    },
+    {
+      "code": "STADM CTS",
+      "name": "Stadium Tennis Courts",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "STADM FIELD",
+      "name": "Stadium Field",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "STORK FIELD",
+      "name": "Storke Field",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "STU HLTH",
+      "name": "Student Health Center",
+      "latitude": 34.41546,
+      "longitude": -119.852635
+    },
+    {
+      "code": "SRB",
+      "name": "Student Resources Building",
+      "latitude": 34.412681,
+      "longitude": -119.852638
+    },
+    {
+      "code": "SWIM POOL",
+      "name": "Swimming Pool",
+      "latitude": 34.414563,
+      "longitude": -119.848172
+    },
+    {
+      "code": "TD-E",
+      "name": "Theater/Dance East",
+      "latitude": 34.412589,
+      "longitude": -119.850656
+    },
+    {
+      "code": "TD-W",
+      "name": "Theater/Dance West",
+      "latitude": 34.412494,
+      "longitude": -119.851457
+    },
+    {
+      "code": "TRACK FIELD",
+      "name": "Track Field",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "UCCS",
+      "name": "UC Sacramento Center",
+      "latitude": 38.5783,
+      "longitude": -121.4919
+    },
+    {
+      "code": "VNTRA CENTR",
+      "name": "UCSB Center at Ventura",
+      "latitude": 34.274647,
+      "longitude": -119.229034
+    },
+    {
+      "code": "WEBB",
+      "name": "Webb Hall (Geological Sciences)",
+      "latitude": 34.413394,
+      "longitude": -119.843735
+    },
+    {
+      "code": "WMNS CENTR",
+      "name": "Women\u2019s Center",
+      "latitude": 34.412681,
+      "longitude": -119.852638
+    },
+    {
+      "code": "ALISO",
+      "name": "Aliso School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "BRAND",
+      "name": "Brandon School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "ELCAM",
+      "name": "El Camino School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "FRANK",
+      "name": "Franklin School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "HOLLI",
+      "name": "Hollister School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "IVIST",
+      "name": "Isla Vista School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "LAPAT",
+      "name": "La Patera School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "MAIN",
+      "name": "Main School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "OPENA",
+      "name": "Open Alternative School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "PEABO",
+      "name": "Peabody School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    },
+    {
+      "code": "ROOSE",
+      "name": "Roosevelt School",
+      "latitude": 34.412643,
+      "longitude": -119.848392
+    }
+  ]

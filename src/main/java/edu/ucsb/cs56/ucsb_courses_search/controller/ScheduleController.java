@@ -110,4 +110,31 @@ public class ScheduleController {
         return "redirect:/schedule";
     }
 
+    // TODO: dont use coursescheduleindex
+    @GetMapping("/courseschedule/viewSchedule")
+    public String viewSchedule(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) {
+        
+        logger.info("Inside /courseschedule controller method CourseController#viewSchedule");
+        logger.info("model=" + model + " token=" + token);
+
+        if (token!=null) {
+            String uid = token.getPrincipal().getAttributes().get("sub").toString();
+            logger.info("uid="+uid);
+            logger.info("scheduleItemRepository="+scheduleItemRepository);
+            List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
+            // get courses by each scheduleid to a list
+            Schedule lastSchedule = myschedules.get(myschedules.size() -1);
+            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(lastSchedule.getScheduleid());
+            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
+            model.addAttribute("myclasses", myclasses);
+            model.addAttribute("myschedules", myschedules);
+        } else {
+            ArrayList<ScheduleItem> emptyList = new ArrayList<ScheduleItem>();
+            model.addAttribute("myclasses", emptyList);
+        }
+
+        model.addAttribute("scheduleSearch", scheduleSearch);
+        return "courseschedule/viewSchedule";
+    }
+
 }

@@ -8,12 +8,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+@ResponseStatus(HttpStatus.FORBIDDEN)
+class AccessForbiddenException extends RuntimeException {
+}
 
 @Controller
 public class CourseController {
@@ -24,17 +34,22 @@ public class CourseController {
     private CourseRepository courseRepository;
 
     @Autowired
-    public CourseController(CourseRepository courseRepository) {
+    private MembershipService membershipService;
+
+
+    @Autowired
+    public CourseController(CourseRepository courseRepository, MembershipService membershipService) {
         this.courseRepository = courseRepository;
+	this.membershipService = membershipService;
     }
 
     @GetMapping("/courseschedule")
-    public String index(Model model, OAuth2AuthenticationToken token) {
+    public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
 
-        if (token!=null) {
+        if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
@@ -42,8 +57,10 @@ public class CourseController {
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
         } else {
-            ArrayList<Course> emptyList = new ArrayList<Course>();
-            model.addAttribute("myclasses", emptyList);
+            //ArrayList<Course> emptyList = new ArrayList<Course>();
+            //model.addAttribute("myclasses", emptyList);
+	    //org.springframework.security.access.AccessDeniedException("403 returned");
+	    throw new AccessForbiddenException();
         }
         return "courseschedule/index";
     }

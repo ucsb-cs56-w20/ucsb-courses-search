@@ -30,7 +30,7 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         logger.info("apiKey=" + apiKey);
     }
 
-    public String getJSON();
+    public String getJSON(String subjectArea, String quarter,String courseLevel){
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -43,6 +43,10 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
         String uri = "https://api.ucsb.edu/academics/curriculums/v1/classes/search";
+        String params = String.format(
+                "?quarter=%s&subjectCode=%s&objLevelCode=%s&pageNumber=%d&pageSize=%d&includeClassSections=%s", quarter,
+                subjectArea, courseLevel, 1, 100, "true");
+        String url = uri + params;
 
         if (courseLevel.equals("A")) {
             params = String.format(

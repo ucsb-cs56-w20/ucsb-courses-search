@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +77,22 @@ public class CourseController {
         courseRepository.save(primary);
 
         model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
+        return "courseschedule/index";
+    }
+
+    @PostMapping("/courseschedule/delete")
+    public String delete(Course course, Model model){
+        logger.info("course to delete: " + course.getUid());
+        List<Course> myClasses = courseRepository.findByUid(course.getUid());
+        List<Course> remainingClasses = new ArrayList<Course>(myClasses);
+        for (Course i : myClasses){
+            if (i.getClassname().equals(course.getClassname())){
+                courseRepository.delete(i);
+                remainingClasses.remove(i);
+            }
+        }
+
+        model.addAttribute("myclasses", remainingClasses);
         return "courseschedule/index";
     }
 

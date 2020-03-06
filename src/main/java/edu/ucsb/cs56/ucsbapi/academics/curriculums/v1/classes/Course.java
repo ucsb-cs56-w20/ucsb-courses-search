@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-
+@Document(collection = "courses")
 public class Course {
 
     private Logger logger = LoggerFactory.getLogger(Course.class);

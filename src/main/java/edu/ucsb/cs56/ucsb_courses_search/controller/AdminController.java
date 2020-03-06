@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
-import edu.ucsb.cs56.ucsb_courses_search.entity.ArchivedCourse;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 import java.util.List;
@@ -50,9 +50,12 @@ public class AdminController {
         model.addAttribute("quarter", quarter);
         model.addAttribute("quarters", quarterListService.getQuarters());
 
-        List<ArchivedCourse> courses = archivedCourseRepository.findByQuarterAndDepartment(quarter, dept);
+        List<Course> courses = archivedCourseRepository.findByQuarterAndDepartment(quarter, dept);
 
-        model.addAttribute("courses", courses);
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        model.addAttribute("rows", rows);
 
         return "admin/archived/results";
     }

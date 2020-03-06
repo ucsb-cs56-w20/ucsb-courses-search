@@ -32,7 +32,7 @@ public class CSVDownloadController {
     private CurriculumService curriculumService;
 
     @GetMapping("/downloadCSV/courseSearch")
-    public void downloadCSV(@RequestParam(name = "subjectArea", required = true) String subjectArea,
+    public void downloadCSV_courseSearch(@RequestParam(name = "subjectArea", required = true) String subjectArea,
             @RequestParam(name = "quarter", required = true) String quarter,
             @RequestParam(name = "courseLevel", required = true) String courseLevel,
             HttpServletResponse response) throws IOException {
@@ -46,13 +46,28 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/downloadCSV/csDept")
-    public void downloadCSV(@RequestParam(name = "quarter", required = true) String quarter,
+    @GetMapping("/downloadCSV/byDept")
+    public void downloadCSV_ByDepartment(@RequestParam(name = "dept", required = true) String dept,
+            @RequestParam(name = "quarter", required = true) String quarter,
+            @RequestParam(name = "courseLevel", required = true) String courseLevel,
             HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; file=courses.csv");
 
-        String json = curriculumService.getJSON(quarter);
+        String json = curriculumService.getJSON(dept, quarter, courseLevel);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        CoursePageToCSV.writeSections(response.getWriter(), cp);
+    }
+
+    @GetMapping("/downloadCSV/csDept")
+    public void downloadCSV_csDept(@RequestParam(name = "quarter", required = true) String quarter,
+            HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
+
+        String json = curriculumService.getJSON("CMPSC", quarter, "A");
 
         CoursePage cp = CoursePage.fromJSON(json);
 
@@ -62,7 +77,7 @@ public class CSVDownloadController {
     }
 
     @GetMapping("/downloadCSV/byInstructor")
-    public void downloadCSV(@RequestParam(name = "instructor", required = true) String instructor,
+    public void downloadCSV_instructor(@RequestParam(name = "instructor", required = true) String instructor,
         @RequestParam(name = "quarter", required = true) String quarter,
             HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
@@ -75,7 +90,7 @@ public class CSVDownloadController {
     }
 
     @GetMapping("/downloadCSV/multiquarterSearch")
-    public void downloadCSV(
+    public void downloadCSV_multiquarter(
         @RequestParam(name = "instructor", required = true) String instructor,
         @RequestParam(name = "beginQ", required = true) int beginQ,
         @RequestParam(name = "endQ", required = true) int endQ,
@@ -100,7 +115,7 @@ public class CSVDownloadController {
     }
 
     @GetMapping("/downloadCSV/courseNumberSearch")
-    public void downloadCSV(
+    public void downloadCSV_courseNumber(
         @RequestParam(name = "instructor", required = false)String instructor,
         @RequestParam(name = "course", required = true) String course,
         @RequestParam(name = "beginQ", required = true) int beginQ,
@@ -123,6 +138,22 @@ public class CSVDownloadController {
         cp.setClasses(courses);
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     
+    }
+
+    @GetMapping("/downloadCSV/geSearch")
+    public void downloadCSV_ge(@RequestParam(name = "college", required = true) String college,
+            @RequestParam(name = "area", required = true) String area,
+            @RequestParam(name = "quarter", required = true) String quarter,
+            HttpServletResponse response) throws IOException {
+
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
+
+        String json = curriculumService.getGE(college, area, quarter);
+
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
 }

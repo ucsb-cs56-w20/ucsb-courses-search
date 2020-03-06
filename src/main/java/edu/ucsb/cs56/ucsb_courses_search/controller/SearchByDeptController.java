@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +26,13 @@ public class SearchByDeptController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @Autowired
+    private QuarterListService quarterListService;
+
     @GetMapping("/search/bydept")
     public String instructor(Model model, SearchByDept searchByDept) {
         model.addAttribute("searchByDept", new SearchByDept());
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/bydept/search";
     }
 
@@ -38,6 +43,7 @@ public class SearchByDeptController {
             SearchByDept searchByDept) {
         model.addAttribute("dept", dept);
         model.addAttribute("quarter", quarter);
+        model.addAttribute("quarters", quarterListService.getQuarters());
         model.addAttribute("courseLevel", courseLevel);
 
         String json = curriculumService.getJSON(dept, quarter, courseLevel);

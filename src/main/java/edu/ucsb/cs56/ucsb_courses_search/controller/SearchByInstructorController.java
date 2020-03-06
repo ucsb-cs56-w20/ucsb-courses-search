@@ -6,6 +6,7 @@ import java.util.List;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.MySearchResult;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearch;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearchSpecific;
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,14 +34,14 @@ public class SearchByInstructorController {
     @Autowired
     private CurriculumService curriculumService;
 
-    // Hard code value for quarters
-    private static final String[] quarters = { "20174", "20181", "20182", "20183", "20184", "20191", "20192", "20193",
-            "20194", "20201" };
+    @Autowired
+    private QuarterListService quarterListService;
 
     @GetMapping("/search/byinstructor")
     public String instructor(Model model) {
         model
                 .addAttribute("searchObject", new MySearchResult());
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/byinstructor/search";
     }
 
@@ -48,7 +49,10 @@ public class SearchByInstructorController {
     public String singleQtrSearch(InsSearch insSearch, Model model) {
         model
                 .addAttribute("insSearch", insSearch);
-
+	
+	if (insSearch.getInstructor() == "")
+	    return "search/byinstructor/error_message";
+    
         // calls curriculumService method to get JSON from UCSB API
         String json = curriculumService
                 .getJSON(insSearch
@@ -72,16 +76,19 @@ public class SearchByInstructorController {
         model
                 .addAttribute("cp", cp);
         model
+                .addAttribute("quarters", quarterListService.getQuarters());
+        model
                 .addAttribute("rows", rows);
 
 
-        return "search/byinstructor/results";
+	return "search/byinstructor/results";
     }
 
     @GetMapping("/search/byinstructor/specific") // /search/instructor/specific
     public String specifc(Model model) {
         model
                 .addAttribute("searchObject", new MySearchResult());
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/byinstructor/specific/search";
     }
 
@@ -91,6 +98,10 @@ public class SearchByInstructorController {
                 .addAttribute("insSearchSpecific", insSearchSpecific);
 
         // calls curriculumService method to get JSON from UCSB API
+
+	if (insSearchSpecific.getInstructor() == "")
+	    return "search/byinstructor/error_message";
+	
         String json = curriculumService
                 .getJSON(insSearchSpecific
                         .getInstructor(),
@@ -121,9 +132,7 @@ public class SearchByInstructorController {
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model
                 .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
-        model
-                .addAttribute("quarters", Quarter
-                        .quarterList("W20", "F83"));
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/byinstructor/multiquarter/search";
     }
 
@@ -138,7 +147,13 @@ public class SearchByInstructorController {
         Model model,
         SearchByInstructorMultiQuarter searchObject) {
 
-            logger.info("GET request for /search/byinstructor/multiquarter/results");
+	
+	if (instructor  == ""){
+	    model.addAttribute("error_message", "Error: instructor name must not be empty");
+	    return "search/byinstructor/error_message";
+	}
+
+	    logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
 
             List<Course> courses = new ArrayList<Course>();
@@ -157,8 +172,7 @@ public class SearchByInstructorController {
             model.addAttribute("rows", rows);
             model.addAttribute("searchObject", searchObject );
 
-            // Note: F83 seems to be the oldest data available in the API
-            model.addAttribute("quarters",Quarter.quarterList("W20","F83"));
+            model.addAttribute("quarters", quarterListService.getQuarters());
             return "search/byinstructor/multiquarter/results";
     }
 

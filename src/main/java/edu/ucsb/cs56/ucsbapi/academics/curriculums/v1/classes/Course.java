@@ -88,13 +88,13 @@ public class Course {
         if (classSections.size() == 0)
             return "";
         Section firstSection = classSections.get(0);
-        if (firstSection.instructors == null)
+        if (firstSection.getInstructors() == null)
             return "";
-        if (firstSection.instructors.size() == 0)
+        if (firstSection.getInstructors().size() == 0)
             return "";
 
-        List<Instructor> instructors = firstSection.instructors;
-        List<String> instructorNames = instructors.stream().map((i) -> i.instructor).collect(Collectors.toList());
+        List<Instructor> instructors = firstSection.getInstructors();
+        List<String> instructorNames = instructors.stream().map((i) -> i.getInstructor()).collect(Collectors.toList());
         String instructorsCommaSeparated = String.join(", ", instructorNames);
         return instructorsCommaSeparated;
     }

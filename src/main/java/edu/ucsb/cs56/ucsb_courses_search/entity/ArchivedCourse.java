@@ -22,7 +22,7 @@ public class ArchivedCourse {
     private String courseId;
     private String quarter;
     private String title;
-    // private List<Section> classSections;
+    private List<Section> classSections;
 
     public String getCourseId() {
         return courseId;
@@ -48,12 +48,12 @@ public class ArchivedCourse {
         this.title = title;
     }
 
-    // public List<Section> getClassSections() {
-    //     return this.classSections;
-    // }
+    public List<Section> getClassSections() {
+        return this.classSections;
+    }
 
-    // public void setClassSections(List<Section> classSections) {
-    //     this.classSections = classSections;
-    // }
+    public void setClassSections(List<Section> classSections) {
+        this.classSections = classSections;
+    }
     
 }

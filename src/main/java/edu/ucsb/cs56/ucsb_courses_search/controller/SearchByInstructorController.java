@@ -148,9 +148,10 @@ public class SearchByInstructorController {
         SearchByInstructorMultiQuarter searchObject) {
 
 	
-	if (instructor  == "")
+	if (instructor  == ""){
+	    model.addAttribute("error_message", "Error: instructor name must not be empty");
 	    return "search/byinstructor/error_message";
-	
+	}
 
 	    logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);

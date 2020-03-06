@@ -28,16 +28,16 @@ public class CoursePageToCSV {
     case 0:
       return "";
     case 1:
-      return instructors.get(0).instructor;
+      return instructors.get(0).getInstructor();
     default:
-      return instructors.stream().map(i -> i.instructor).collect(Collectors.toList()).toString();
+      return instructors.stream().map(i -> i.getInstructor()).collect(Collectors.toList()).toString();
     }
   }
 
   public static String secondaryStatus(Section s) {
-    if (s.secondaryStatus==null)
+    if (s.getSecondaryStatus()==null)
       return "Section";
-    if (s.secondaryStatus.equals("R"))
+    if (s.getSecondaryStatus().equals("R"))
       return "Lecture";
     return "Section";
   }
@@ -48,12 +48,12 @@ public class CoursePageToCSV {
         CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
       csvWriter.writeNext(CSV_HEADER);
       for (Course c : cp.classes) {
-        String lectureInstructor = instructorsToString(c.getClassSections().get(0).instructors);
+        String lectureInstructor = instructorsToString(c.getClassSections().get(0).getInstructors());
         for (Section s : c.getClassSections()) {
-          for (TimeLocation t : s.timeLocations) {
+          for (TimeLocation t : s.getTimeLocations()) {
             String[] data = { c.getQuarter(), c.getCourseId(), c.getTitle(), secondaryStatus(s), lectureInstructor,
-                instructorsToString(s.instructors), t.days, t.beginTime,
-                t.endTime };
+                instructorsToString(s.getInstructors()), t.getDays(), t.getBeginTime(),
+                t.getEndTime() };
             csvWriter.writeNext(data);
 
           } // t

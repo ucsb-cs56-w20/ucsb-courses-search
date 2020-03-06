@@ -10,12 +10,12 @@ public class TimeLocation {
 
     private Logger logger = LoggerFactory.getLogger(TimeLocation.class);
 
-    public String room;
-    public String building;
-    public String roomCapacity;
-    public String days; 
-    public String beginTime; 
-    public String endTime;
+    private String room;
+    private String building;
+    private String roomCapacity;
+    private String days; 
+    private String beginTime; 
+    private String endTime;
 
     public String displayBuildingAndRoom() {
         String displayBuilding = 
@@ -36,4 +36,62 @@ public class TimeLocation {
         logger.info("result="+result);
         return result;
     }
+
+
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    public String getRoom() {
+        return this.room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public String getBuilding() {
+        return this.building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+    public String getRoomCapacity() {
+        return this.roomCapacity;
+    }
+
+    public void setRoomCapacity(String roomCapacity) {
+        this.roomCapacity = roomCapacity;
+    }
+
+    public String getDays() {
+        return this.days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    public String getBeginTime() {
+        return this.beginTime;
+    }
+
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public String getEndTime() {
+        return this.endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
 }

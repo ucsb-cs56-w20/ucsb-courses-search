@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
@@ -21,6 +22,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByInstructorMultiQuarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,10 +48,15 @@ public class SearchByInstructorController {
     }
 
     @GetMapping("/search/byinstructor/results")
-    public String singleQtrSearch(InsSearch insSearch, Model model) {
+    public String singleQtrSearch(InsSearch insSearch, Model model, RedirectAttributes redirAttrs) {
         model
                 .addAttribute("insSearch", insSearch);
-
+	
+	if (insSearch.getInstructor() == ""){
+	    redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
+            return "redirect:.";
+        }
+    
         // calls curriculumService method to get JSON from UCSB API
         String json = curriculumService
                 .getJSON(insSearch
@@ -80,7 +87,8 @@ public class SearchByInstructorController {
         boolean full_section_display = false;
         model.addAttribute("full_section_display", false); 
 
-        return "search/byinstructor/results";
+
+	return "search/byinstructor/results";
     }
 
     @GetMapping("/search/byinstructor/specific") // /search/instructor/specific
@@ -92,11 +100,17 @@ public class SearchByInstructorController {
     }
 
     @GetMapping("/search/byinstructor/specific/results")
-    public String singleQtrSearch(InsSearchSpecific insSearchSpecific, Model model) {
+    public String singleQtrSearch(InsSearchSpecific insSearchSpecific, Model model, RedirectAttributes redirAttrs) {
         model
                 .addAttribute("insSearchSpecific", insSearchSpecific);
 
         // calls curriculumService method to get JSON from UCSB API
+
+	if (insSearchSpecific.getInstructor() == ""){
+	        redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
+            return "redirect:.";
+        }
+	
         String json = curriculumService
                 .getJSON(insSearchSpecific
                         .getInstructor(),
@@ -132,7 +146,7 @@ public class SearchByInstructorController {
     }
 
     @GetMapping("/search/byinstructor/multiquarter/results")
-    public String search(
+    public String search (
         @RequestParam(name = "instructor", required = true) 
         String instructor,
         @RequestParam(name = "beginQ", required = true) 
@@ -140,11 +154,22 @@ public class SearchByInstructorController {
         @RequestParam(name = "endQ", required = true) 
         int endQ,
         Model model,
-        SearchByInstructorMultiQuarter searchObject) {
+        SearchByInstructorMultiQuarter searchObject,
+        RedirectAttributes redirAttrs) {
 
-            logger.info("GET request for /search/byinstructor/multiquarter/results");
+	
+	if (instructor  == ""){
+            redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
+            return "redirect:.";
+	}
+        if(endQ<beginQ){
+             redirAttrs.addFlashAttribute("alertDanger", "End quarter must be later than begin quarter");
+             return "redirect:.";
+        }
+
+	    logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
-
+            
             List<Course> courses = new ArrayList<Course>();
             for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
                 String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
@@ -152,6 +177,7 @@ public class SearchByInstructorController {
                 CoursePage cp = CoursePage.fromJSON(json);
                 courses.addAll(cp.classes);
             }
+ 
 
             model.addAttribute("courses", courses);
 

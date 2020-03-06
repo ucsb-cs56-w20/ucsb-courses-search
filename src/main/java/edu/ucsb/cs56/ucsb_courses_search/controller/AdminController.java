@@ -11,65 +11,52 @@ import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller
-public class SearchByDeptController {
+public class AdminController {
 
-    private Logger logger = LoggerFactory.getLogger(SearchByDeptController.class);
-
-    @Autowired
-    private CurriculumService curriculumService;
+    private Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     @Autowired
     private QuarterListService quarterListService;
 
-    @GetMapping("/search/bydept")
-    public String instructor(Model model, SearchByDept searchByDept) {
+    @Autowired
+    private ArchivedCourseRepository archivedCourseRepository;
+
+    @GetMapping("/admin/archived/search")
+    public String search(Model model,  SearchByDept searchByDept) {
+        logger.info("Entering search controller");
         model.addAttribute("searchByDept", new SearchByDept());
         model.addAttribute("quarters", quarterListService.getQuarters());
-        return "search/bydept/search";
+        return "admin/archived/search";
     }
 
-    @GetMapping("/search/bydept/results")
+    @GetMapping("/admin/archived/search/results")
     public String search(@RequestParam(name = "dept", required = true) String dept,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            @RequestParam(name = "courseLevel", required = true) String courseLevel, Model model,
-            SearchByDept searchByDept) {
+             @RequestParam(name = "quarter", required = true) String quarter,
+             Model model,
+             SearchByDept searchByDept) {
+        logger.info("Entering results controller method");
+
         model.addAttribute("dept", dept);
         model.addAttribute("quarter", quarter);
         model.addAttribute("quarters", quarterListService.getQuarters());
-        model.addAttribute("courseLevel", courseLevel);
-        boolean full_section_display = false;
-        model.addAttribute("full_section_display", false); 
 
+        List<Course> courses = archivedCourseRepository.findByQuarterAndDepartment(quarter, dept);
 
-
-        String json = curriculumService.getJSON(dept, quarter, courseLevel);
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
-
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
-        Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
-            return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());
-        };
-
-        Collections.sort(rows, byCourseId);
-
-
-        model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);
 
-        return "search/bydept/results";
+        return "admin/archived/results";
     }
-
 }

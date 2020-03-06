@@ -153,13 +153,11 @@ public class SearchByInstructorController {
 	
 	if (instructor  == ""){
             redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
-            return "redirect:/";
-	    //model.addAttribute("error_message", "Error: instructor name must not be empty");
-	    //return "search/byinstructor/error_message";
+            return "redirect:.";
 	}
         if(endQ<beginQ){
-        model.addAttribute("error_message", "Error: End quarter must be later than begin quarter!");
-	    return "search/byinstructor/error_message";
+             redirAttrs.addFlashAttribute("alertDanger", "End quarter must be later than begin quarter");
+             return "redirect:.";
         }
 
 	    logger.info("GET request for /search/byinstructor/multiquarter/results");

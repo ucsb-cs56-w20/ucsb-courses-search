@@ -45,6 +45,10 @@ public class SearchByDeptController {
         model.addAttribute("quarter", quarter);
         model.addAttribute("quarters", quarterListService.getQuarters());
         model.addAttribute("courseLevel", courseLevel);
+        boolean full_section_display = false;
+        model.addAttribute("full_section_display", false); 
+
+
 
         String json = curriculumService.getJSON(dept, quarter, courseLevel);
         CoursePage cp = CoursePage.fromJSON(json);

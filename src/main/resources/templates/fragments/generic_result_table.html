@@ -42,9 +42,9 @@
     <div th:each="r: ${rows}">
       <tr
         th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}">
-        <td th:if="${quarters != null}" th:text="${r.rowType}=='PRIMARY' ? ${r.course.getQuarterQyy()} : '' "></td>
-        <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.courseId} : '' "></td>
-        <td th:text="${r.rowType}=='PRIMARY' ? ${r.course.title} : '' "></td>
+        <td th:if="${quarters != null}" th:text="${r.rowType}=='PRIMARY' OR ${full_section_display} ? ${r.course.getQuarterQyy()} : '' "></td>
+        <td th:text="${r.rowType}=='PRIMARY' OR ${full_section_display} ? ${r.course.courseId} : '' "></td>
+        <td th:text="${r.rowType}=='PRIMARY' OR ${full_section_display} ? ${r.course.title} : '' "></td>
         <td class="section" th:text="${r.section.section}"></td>
         <td class="instructorList" th:text="${r.section.instructorList()}"></td>
         <td class="enrollCode" th:text="${r.section.enrollCode}"></td>

@@ -40,6 +40,8 @@ public class SearchByGEController {
         model.addAttribute("college", college);
         model.addAttribute("area", area);
         model.addAttribute("quarter", quarter);
+        boolean full_section_display = false;
+        model.addAttribute("full_section_display", false); 
 
         String json = curriculumService.getGE(college, area, quarter);
         CoursePage cp = CoursePage.fromJSON(json);

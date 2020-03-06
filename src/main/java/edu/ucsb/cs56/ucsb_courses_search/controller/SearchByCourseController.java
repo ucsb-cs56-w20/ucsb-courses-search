@@ -55,7 +55,8 @@ public class SearchByCourseController {
             CoursePage cp = CoursePage.fromJSON(json);
             courses.addAll(cp.classes);
         }
-
+        boolean full_section_display = false;
+        model.addAttribute("full_section_display", false); 
         model.addAttribute("courses", courses);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);

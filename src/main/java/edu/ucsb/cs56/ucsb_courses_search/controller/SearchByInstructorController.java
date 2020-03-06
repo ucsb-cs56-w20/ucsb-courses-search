@@ -76,6 +76,9 @@ public class SearchByInstructorController {
                 .addAttribute("quarters", quarterListService.getQuarters());
         model
                 .addAttribute("rows", rows);
+                
+        boolean full_section_display = false;
+        model.addAttribute("full_section_display", false); 
 
         return "search/byinstructor/results";
     }

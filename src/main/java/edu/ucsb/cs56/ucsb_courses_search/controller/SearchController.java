@@ -44,7 +44,8 @@ public class SearchController {
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         model.addAttribute("rows", rows);
-
+        boolean full_section_display = false;
+        model.addAttribute("full_section_display", false); 
         
 
         return "searchResults"; // corresponds to src/main/resources/templates/searchResults.html

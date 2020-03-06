@@ -51,6 +51,9 @@ public class CSDeptController {
             Model model,
             SearchByDept searchByDept) {
         model.addAttribute("quarter", quarter);
+        boolean full_section_display = false;
+        model.addAttribute("full_section_display", true); 
+
 
         String json = curriculumService.getJSON("CMPSC", quarter, "A");
         CoursePage cp = CoursePage.fromJSON(json);
@@ -79,7 +82,7 @@ public class CSDeptController {
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", filteredRows);
-        model.addAttribute("quarters", quarterListService.getQuarters());
+        model.addAttribute("quarters", quarterListService.getQuarters());       
 
         return "csdept/classroom/results";
     }

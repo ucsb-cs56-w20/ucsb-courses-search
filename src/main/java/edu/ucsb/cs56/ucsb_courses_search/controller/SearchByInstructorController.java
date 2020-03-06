@@ -49,7 +49,10 @@ public class SearchByInstructorController {
     public String singleQtrSearch(InsSearch insSearch, Model model) {
         model
                 .addAttribute("insSearch", insSearch);
-
+	
+	if (insSearch.getInstructor() == "")
+	    return "search/byinstructor/error_message";
+    
         // calls curriculumService method to get JSON from UCSB API
         String json = curriculumService
                 .getJSON(insSearch
@@ -77,7 +80,8 @@ public class SearchByInstructorController {
         model
                 .addAttribute("rows", rows);
 
-        return "search/byinstructor/results";
+
+	return "search/byinstructor/results";
     }
 
     @GetMapping("/search/byinstructor/specific") // /search/instructor/specific
@@ -94,6 +98,10 @@ public class SearchByInstructorController {
                 .addAttribute("insSearchSpecific", insSearchSpecific);
 
         // calls curriculumService method to get JSON from UCSB API
+
+	if (insSearchSpecific.getInstructor() == "")
+	    return "search/byinstructor/error_message";
+	
         String json = curriculumService
                 .getJSON(insSearchSpecific
                         .getInstructor(),
@@ -139,7 +147,13 @@ public class SearchByInstructorController {
         Model model,
         SearchByInstructorMultiQuarter searchObject) {
 
-            logger.info("GET request for /search/byinstructor/multiquarter/results");
+	
+	if (instructor  == ""){
+	    model.addAttribute("error_message", "Error: instructor name must not be empty");
+	    return "search/byinstructor/error_message";
+	}
+
+	    logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
 
             List<Course> courses = new ArrayList<Course>();

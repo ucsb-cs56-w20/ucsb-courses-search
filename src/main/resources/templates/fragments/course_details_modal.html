@@ -1,3 +1,14 @@
+<style>
+
+    table#t01 {
+      background-color:lightsteelblue;
+    }
+    tr.firstRow {
+      border-top: solid black 2px;
+      border-bottom: solid black 2px;
+    }
+  
+  </style>
 <div th:each="r: ${rows}">
   <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
   <div class="modal fade" th:attr="id=${r.course.getCourseKey()}" tabindex="-1" role="dialog"
@@ -14,11 +25,20 @@
           </button>
         </div>
         <div class="modal-body">
-            <table class="table">
+            <table id="t01" class="table">
+              <tr class="firstRow">
+                <th>Academic Year</th>
+                <th>Fall</th>
+                <th>Winter</th>
+                <th>Spring</th>
+                <th>Summer</th>
+              </tr>
               <tbody>
-                <td>STUB</td>
-                <td>STUB_1</td>
-                <td>STUB_2</td>
+                 <td class="otherRow">here</td>
+                 <td class="otherRow">here2</td>
+                 <td class="otherRow">here3</td>
+                 <td class="otherRow">here4</td>
+                 <td class="otherRow">here5</td>
               </tbody>
             </table>
         </div>

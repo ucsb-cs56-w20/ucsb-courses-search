@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
@@ -21,6 +22,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByInstructorMultiQuarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,12 +147,15 @@ public class SearchByInstructorController {
         @RequestParam(name = "endQ", required = true) 
         int endQ,
         Model model,
-        SearchByInstructorMultiQuarter searchObject) {
+        SearchByInstructorMultiQuarter searchObject,
+        RedirectAttributes redirAttrs) {
 
 	
 	if (instructor  == ""){
-	    model.addAttribute("error_message", "Error: instructor name must not be empty");
-	    return "search/byinstructor/error_message";
+            redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
+            return "redirect:/";
+	    //model.addAttribute("error_message", "Error: instructor name must not be empty");
+	    //return "search/byinstructor/error_message";
 	}
 
 	    logger.info("GET request for /search/byinstructor/multiquarter/results");

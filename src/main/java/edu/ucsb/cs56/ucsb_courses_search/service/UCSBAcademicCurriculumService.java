@@ -135,8 +135,11 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         String retVal = "";
         try {
             ResponseEntity<String> re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+	    logger.info("re=" + re);
             MediaType contentType = re.getHeaders().getContentType();
+	    logger.info("contenttype=" + contentType);
             HttpStatus statusCode = re.getStatusCode();
+	    logger.info("statuscode=" + statusCode);
             retVal = re.getBody();
         } catch (HttpClientErrorException e) {
             retVal = "{\"error\": \"401: Unauthorized\"}";

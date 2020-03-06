@@ -114,7 +114,7 @@ public class SearchByInstructorController {
     }
 
     @GetMapping("/search/byinstructor/multiquarter/results")
-    public String search(
+    public String search (
         @RequestParam(name = "instructor", required = true) 
         String instructor,
         @RequestParam(name = "beginQ", required = true) 
@@ -122,11 +122,11 @@ public class SearchByInstructorController {
         @RequestParam(name = "endQ", required = true) 
         int endQ,
         Model model,
-        SearchByInstructorMultiQuarter searchObject) {
-
+        SearchByInstructorMultiQuarter searchObject) {     
+           //model.addAttribute("quarters",Quarter.quarterList("W20","F83"));  
             logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
-
+            
             List<Course> courses = new ArrayList<Course>();
             for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
                 String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
@@ -134,6 +134,15 @@ public class SearchByInstructorController {
                 CoursePage cp = CoursePage.fromJSON(json);
                 courses.addAll(cp.classes);
             }
+            if(endQ<beginQ){
+                model
+                .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
+                model
+                .addAttribute("quarters", Quarter
+                        .quarterList("W20", "F83"));
+                logger.info("End quarter must be later than begin quarter");
+                return "search/byinstructor/multiquarter/search";
+            }    
 
             model.addAttribute("courses", courses);
 

@@ -1,6 +1,10 @@
 package edu.ucsb.cs56.ucsb_courses_search.entity;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Section;
 
 /**
  * Represents a course in the ucsb-courses-search MongoDB archive.
@@ -17,6 +21,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ArchivedCourse {
     private String courseId;
     private String quarter;
+    private String title;
+    // private List<Section> classSections;
 
     public String getCourseId() {
         return courseId;
@@ -33,4 +39,21 @@ public class ArchivedCourse {
     public void setQuarter(String quarter) {
         this.quarter = quarter;
     }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    // public List<Section> getClassSections() {
+    //     return this.classSections;
+    // }
+
+    // public void setClassSections(List<Section> classSections) {
+    //     this.classSections = classSections;
+    // }
+    
 }

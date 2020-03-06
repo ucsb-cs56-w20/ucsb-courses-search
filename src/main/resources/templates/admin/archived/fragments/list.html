@@ -1,0 +1,21 @@
+<!-- <div th:replace="fragments/generic_result_table.html"></div> -->
+
+<h2>Courses</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Quarter</th>
+      <th>Course Id</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <div th:each="c: ${courses}">
+      <tr>
+        <td th:text="${c.quarter}"></td>
+        <td th:text="${c.courseId}"></td>
+        <td th:text="${c.title}"></td>
+        </tr>
+    </tbody>
+</table>

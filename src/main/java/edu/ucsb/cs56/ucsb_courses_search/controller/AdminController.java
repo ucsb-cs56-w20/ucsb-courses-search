@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.entity.ArchivedCourse;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 import java.util.List;
@@ -23,10 +25,35 @@ public class AdminController {
 
     private Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-    @GetMapping("/admin/archived")
-    public String instructor(Model model) {
-        logger.info("Entering /admin/archived controller");
-        return "admin/archived/index";
+    @Autowired
+    private QuarterListService quarterListService;
+
+    @Autowired
+    private ArchivedCourseRepository archivedCourseRepository;
+
+    @GetMapping("/admin/archived/search")
+    public String search(Model model,  SearchByDept searchByDept) {
+        logger.info("Entering search controller");
+        model.addAttribute("searchByDept", new SearchByDept());
+        model.addAttribute("quarters", quarterListService.getQuarters());
+        return "admin/archived/search";
     }
 
+    @GetMapping("/admin/archived/search/results")
+    public String search(@RequestParam(name = "dept", required = true) String dept,
+             @RequestParam(name = "quarter", required = true) String quarter,
+             Model model,
+             SearchByDept searchByDept) {
+        logger.info("Entering results controller method");
+
+        model.addAttribute("dept", dept);
+        model.addAttribute("quarter", quarter);
+        model.addAttribute("quarters", quarterListService.getQuarters());
+
+        List<ArchivedCourse> courses = archivedCourseRepository.findByQuarterAndDepartment(quarter, dept);
+
+        model.addAttribute("courses", courses);
+
+        return "admin/archived/results";
+    }
 }

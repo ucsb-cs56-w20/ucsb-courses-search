@@ -69,4 +69,15 @@ public interface ArchivedCourseRepository extends MongoRepository<ArchivedCourse
     List<ArchivedCourse> findByQuarterIntervalAndInstructor(String startQuarter,
                                                             String endQuarter,
                                                             String instructorText);
+
+    /**
+     * Returns a list of {@link ArchivedCourse} from the requested
+     * quarter and for the requested dept
+     * 
+     * @param quarter   quarter formatted as YYYYQ string
+     * @param dept      the department code 
+     * @return a list of matching {@link ArchivedCourse}
+     */                                                       
+     @Query("{'quarter': ?0, 'deptCode': ?1}")
+     List<ArchivedCourse> findByQuarterAndDepartment(String quarter, String dept);
 }

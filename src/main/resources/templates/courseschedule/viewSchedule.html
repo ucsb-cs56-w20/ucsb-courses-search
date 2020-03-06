@@ -10,24 +10,36 @@
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedules</h3>
-    <div class="row">
-      <div class="col-10">
-        <select class="custom-select">
-          <option th:each="s:${myschedules}" th:value="${s.scheduleid}" th:text="${s.schedulename}"></option>
-        </select>
-      </div>
-      <form action="#" th:action="@{1}" method="get">
-        <input type="submit" class="btn btn-primary" value="View">
-      </form>
-      <div class="col-1">
-        <input type="submit" class="btn btn-primary" value="Create">
-      </div>
-    </div>
+
+    <form action="#" th:action="@{/courseschedule/viewSchedule}" th:object="${scheduleSearch}" method="get">
+      <table>
+        <tr class="form-group">
+          <th><label for="scheduleid" class="col-form-label">Scheduleid</label></th>
+          <td><input type="number" th:field="*{scheduleid}" class="form-control" id="scheduleid"></td>
+        </tr>
+        <tr class="form-group">
+          <th><label for="schedulename" class="col-form-label">Schedulename</label></th>
+          <td><input type="text" th:field="*{schedulename}" class="form-control" id="schedulename"></td>
+        </tr>
+      </table>
+
+      <input type="submit" class="btn btn-primary" value="Search">
+    </form>
+
+    <form action="#" th:action="@{/courseschedule/viewSchedule}" th:object="${scheduleSearch}" method="get"></form>
+      <select class="custom-select">
+        <option th:each="s:${myschedules}" th:value="${s.scheduleid}" th:text="${s.schedulename}"></option>
+      </select>
+      <input type="submit" class="btn btn-primary" value="View">
+    </form>
+
     </br>
+
     <div class="row">
-      <h3 class="col-3">Schedule Name</h3>
+      <h3 class="col-3" th:text="${scheduleSearch.schedulename}"></h3>
       <input type="submit" class="btn btn-primary" value="Rename">
     </div>
+
     <!-- th:field="*{scheduleselect}" -->
     </br>
     <table class="table">

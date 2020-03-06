@@ -3,6 +3,7 @@ package edu.ucsb.cs56.ucsb_courses_search.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.MySearchResult;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearch;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearchSpecific;
@@ -31,6 +32,9 @@ public class SearchByInstructorController {
     private Logger logger = LoggerFactory
             .getLogger(SearchByInstructorController.class);
 
+    @Autowired
+    private ArchivedCourseRepository archivedCourseRepository;
+    
     @Autowired
     private CurriculumService curriculumService;
 
@@ -156,6 +160,7 @@ public class SearchByInstructorController {
 	    logger.info("GET request for /search/byinstructor/multiquarter/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
 
+	    /*
             List<Course> courses = new ArrayList<Course>();
             for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
                 String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
@@ -163,7 +168,10 @@ public class SearchByInstructorController {
                 CoursePage cp = CoursePage.fromJSON(json);
                 courses.addAll(cp.classes);
             }
+	    */
 
+	    List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndInstructor(beginQ+"", endQ+"", instructor);
+	    
             model.addAttribute("courses", courses);
 
             List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);

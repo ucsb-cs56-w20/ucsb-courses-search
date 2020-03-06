@@ -16,6 +16,7 @@ public class CourseListingRow {
     private Course course;
     private RowType rowType;
     private Section section;
+    private Section primary; //null if this is a primary
     private TimeLocation timeLocation;
     private boolean firstRow;
     private boolean lastRow;
@@ -36,11 +37,13 @@ public class CourseListingRow {
             "}";
     }
 
-    public CourseListingRow(Course course, RowType rowType, Section section, TimeLocation timeLocation,
+    
+    public CourseListingRow(Course course, RowType rowType, Section section, Section primary, TimeLocation timeLocation,
             boolean firstRow, boolean lastRow) {
         this.course = course;
         this.rowType = rowType;
         this.section = section;
+        this.primary = primary;
         this.timeLocation = timeLocation;
         this.firstRow = firstRow;
         this.lastRow = lastRow;
@@ -65,6 +68,7 @@ public class CourseListingRow {
                 co.getCourse(),
                 RowType.PRIMARY,
                 co.getPrimary(),
+                null,
                 primaryFirstTimeLocation,
                 true,
                 co.getPrimary().getTimeLocations().size() <= 1 &&
@@ -76,6 +80,7 @@ public class CourseListingRow {
                     co.getCourse(),
                     RowType.ADDITIONAL_TIME_LOCATION,
                     co.getPrimary(),
+                    null,
                     co.getPrimary().getTimeLocations().get(i),
                     false,
                     (i == (co.getPrimary().getTimeLocations().size() - 1)) &&
@@ -100,6 +105,7 @@ public class CourseListingRow {
                     co.getCourse(),
                     RowType.SECONDARY,
                     s,
+                    co.getPrimary(),
                     sectionFirstTimeLocation,
                     false,
                     s == last && co.getPrimary().getTimeLocations().size() <= 1 );
@@ -111,6 +117,7 @@ public class CourseListingRow {
                         co.getCourse(),
                         RowType.ADDITIONAL_TIME_LOCATION,
                         s,
+                        co.getPrimary(),
                         s.getTimeLocations().get(i),
                         false,
                         s == last && 
@@ -197,6 +204,14 @@ public class CourseListingRow {
         }
 
         return this.getTimeLocation().getBeginTime();
+    }
+
+    public Section getPrimary() {
+        return this.primary;
+    }
+
+    public void setPrimary(Section primary) {
+        this.primary = primary;
     }
 
 }

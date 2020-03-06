@@ -34,7 +34,8 @@ public class OAuthUtils {
         attributes.put("sub", "1234567890");
         attributes.put("name", name);
         attributes.put("email", email);
-        attributes.put("id", 123456789);
+	attributes.put("picture", "example_url");
+	attributes.put("hd", "ucsb.edu"); // make them a Member, not a Guest
 
 
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();

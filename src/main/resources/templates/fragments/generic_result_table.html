@@ -78,8 +78,8 @@
           </div>
           <div th:case="'SECONDARY'">
             <!--If the data is for a class section, draw this.-->
-            <td th:unless="${isLoggedIn}"></td>
-            <td th:if="${isLoggedIn}"> 
+            <td th:unless="${isMember}"></td>
+            <td th:if="${isMember}"> 
               <form action="#" th:action="@{/courseschedule/add}" method="post">
                 <input type="hidden" name="classname" th:value="${r.course.courseId} " value="" />
                 <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />
@@ -109,5 +109,4 @@
     </div>
   </tbody>
 </table>
-
 <div th:replace="fragments/course_details_modal.html"></div>

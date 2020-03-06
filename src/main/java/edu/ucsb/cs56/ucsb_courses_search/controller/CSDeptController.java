@@ -50,19 +50,22 @@ public class CSDeptController {
 
 
     @GetMapping("/csdept/search/classroom")
-    public String instructor(Model model, SearchByDept searchByDept) {
+    public String instructor(Model model, SearchByDept searchByClassroom) {
         SearchByClassroom sbc = new SearchByClassroom();
         model.addAttribute("quarters", quarterListService.getQuarters());
-        // model.addAttribute("classroom", sbc);
+        model.addAttribute("searchByClassroom", sbc);
         // model.addAttribute("building", building);
         
         return "csdept/classroom/search";
     }
 
     @GetMapping("/csdept/search/classroom/results")
-    public String search(@RequestParam(name = "quarter", required = true) String quarter, String classroom, String building,
+    public String search(@RequestParam(name = "quarter", required = true) String quarter, @RequestParam(name = "classroom", required = true) String classroom, @RequestParam(name = "building", required = true) String building,
             Model model,
             SearchByDept searchByDept) {
+	logger.info("QUARTERRRRR=" + quarter);
+	logger.info("CLASSROOMMMMM=" + classroom);
+	logger.info("BUILDINGGGGG=" + building);
         model.addAttribute("quarter", quarter);
         model.addAttribute("classroom", classroom);
         model.addAttribute("building", building);
@@ -71,7 +74,8 @@ public class CSDeptController {
 
         // List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
 
-        List<Course> myclasses = courseRepository.findByLocation(building + " " + classroom);
+        List<Course> myclasses = courseRepository.findByLocation(building + "" + classroom);
+	logger.info("MYCLASSES=" + myclasses);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
         model.addAttribute("myclasses", myclasses);
 

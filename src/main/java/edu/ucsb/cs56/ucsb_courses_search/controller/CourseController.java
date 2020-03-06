@@ -34,7 +34,7 @@ public class CourseController {
         logger.info("model=" + model + " token=" + token);
 
         if (token!=null) {
-            String uid = token.getPrincipal().getAttributes().get("id").toString();
+            String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);

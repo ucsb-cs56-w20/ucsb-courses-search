@@ -145,11 +145,6 @@ public class SearchByInstructorController {
         @RequestParam(name = "endQ", required = true) 
         int endQ,
         Model model,
-<<<<<<< HEAD
-        SearchByInstructorMultiQuarter searchObject) {     
-           //model.addAttribute("quarters",Quarter.quarterList("W20","F83"));  
-            logger.info("GET request for /search/byinstructor/multiquarter/results");
-=======
         SearchByInstructorMultiQuarter searchObject) {
 
 	
@@ -157,9 +152,12 @@ public class SearchByInstructorController {
 	    model.addAttribute("error_message", "Error: instructor name must not be empty");
 	    return "search/byinstructor/error_message";
 	}
+        if(endQ<beginQ){
+        model.addAttribute("error_message", "Error: End quarter must be later than begin quarter!");
+	    return "search/byinstructor/error_message";
+        }
 
 	    logger.info("GET request for /search/byinstructor/multiquarter/results");
->>>>>>> c48300e97747e564a85daf75d1e7dcc6769ddf53
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
             
             List<Course> courses = new ArrayList<Course>();
@@ -169,15 +167,7 @@ public class SearchByInstructorController {
                 CoursePage cp = CoursePage.fromJSON(json);
                 courses.addAll(cp.classes);
             }
-            if(endQ<beginQ){
-                model
-                .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
-                model
-                .addAttribute("quarters", Quarter
-                        .quarterList("W20", "F83"));
-                logger.info("End quarter must be later than begin quarter");
-                return "search/byinstructor/multiquarter/search";
-            }    
+ 
 
             model.addAttribute("courses", courses);
 

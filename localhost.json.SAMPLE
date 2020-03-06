@@ -1,6 +1,14 @@
 {
+<<<<<<< HEAD
     "spring.security.oauth2.client.registration.github.client-id":"oops",
     "spring.security.oauth2.client.registration.github.client-secret":"oops",
     "app_github_org":"ucsb-cs56-f19",
     "ucsb.api.consumer_key":"oops" 
+=======
+    "spring.security.oauth2.client.registration.google.client-id":"copy-from-google",
+    "spring.security.oauth2.client.registration.google.client-secret":"copy-from-google",
+    "ucsb.api.consumer_key":"fill-it-in",
+    "app.mongodb.username":"ask-someone-who-knows",
+    "app.mongodb.password":"ask-someone-who-knows"
+>>>>>>> 11685fb4ce9e3815a10c67ce1e97ee4c2489c538
 }

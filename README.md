@@ -23,6 +23,21 @@ Once you have the API key, you need to do this:
 
 * Then run `mvn spring-boot:run`
    
+# Values needed in `SPRING_APPLICATION_JSON`
+
+* Google OAuth client-id and client-secret
+   * Obtain following these instructions <https://ucsb-cs56.github.io/topics/oauth_google_setup/>
+* UCSB API key
+   * Obtain from UCSB-CS56 course staff
+   * Or, obtain a key from <https://developer.ucsb.edu/> with access to the Academic  
+     Curriculums API
+* MongoDB username/password for ArchivedCourseData
+   * Obtain from UCSB-CS56 course staff
+   * Or, set up your own Mongo DB database using the scripts
+     in <https://github.com/ucsb-cs56-w20/ucsb-courses-search-support-scripts>
+     * If you do this, you also need to override the connection string
+       that is defined in `application.properties`
+
 
 # Using Maven
 
@@ -30,3 +45,22 @@ Once you have the API key, you need to do this:
 |-----------|------------|
 | `mvn package` | to make a jar file|
 | `mvn spring-boot:run` | to run the web app|
+
+# Some values for `application.properties`
+
+| Value | Sample Value | Explanation |
+|-------|-------------|---------------|
+| `app.start_quarter` | `S20` | The first quarter shown in quarter selection menus.   |
+| `app.end_quarter` | `F17` | The last quarter shown in quarter selection menus  |
+
+# Note concerning `app.start_quarter` and `app.end_quarter`
+
+The order given is the order in which the quarters appear in the menus.
+If they are given in reverse order, the orders will be reversed.
+
+For example if start is S20 and end is F17, the quarters will appear
+in reverse chronological order. If start is F17 and end is S20, they will
+appear in chronological order.
+
+The oldest quarter for which data is available is `F83` 
+

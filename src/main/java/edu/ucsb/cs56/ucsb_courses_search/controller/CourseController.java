@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -64,11 +65,33 @@ public class CourseController {
         return "courseschedule/index";
     }
     @PostMapping("/courseschedule/add")
-    public String add(Course course, Model model) {
+    public String add(Course course, 
+                        Model model,
+                        @RequestParam String lecture_classname,
+                        @RequestParam String lecture_enrollCode,
+                        @RequestParam String lecture_uid,
+                        @RequestParam String lecture_professor,
+                        @RequestParam String lecture_meettime,
+                        @RequestParam String lecture_meetday,
+                        @RequestParam String lecture_location,
+                        @RequestParam String lecture_quarter) {
         logger.info("Hello!\n");
         logger.info("course's uid: " + course.getUid());
-
+        logger.info("course = " + course);                   
         courseRepository.save(course);
+
+        Course primary = new Course();
+        primary.setClassname(lecture_classname);
+        primary.setEnrollCode(lecture_enrollCode);
+        primary.setUid(lecture_uid);
+        primary.setProfessor(lecture_professor);
+        primary.setMeetday(lecture_meetday);
+        primary.setMeettime(lecture_meettime);
+        primary.setLocation(lecture_location);
+        primary.setQuarter(lecture_quarter);
+        logger.info("primary = " + primary); 
+        courseRepository.save(primary);
+
         model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
         return "courseschedule/index";
     }

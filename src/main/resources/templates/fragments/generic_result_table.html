@@ -61,8 +61,7 @@
             <td> <button type="submit" class="btn btn-primary" data-toggle="modal"
                 th:attr="data-target='#' + ${r.course.getCourseKey()}" ; id="course-detail-btn">Details</button> </td>
                 <td th:unless="${isLoggedIn}"></td>
-                <td th:if="${isLoggedIn && (r.course.classSections.indexOf(r.section) + 1 == r.course.classSections.size() 
-                                          || !r.course.classSections.get(r.course.classSections.indexOf(r.section) + 1).isSection())}">
+                <td th:if="${isLoggedIn && r.isPrimaryWithNoSection()}">
                   <form action="#" th:action="@{/courseschedule/addLecture}" method="post">
                     <input type="hidden" name="classname" th:value="${r.course.courseId} " value="" />
                     <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />

@@ -14,9 +14,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CSVDownloadController {
-
-    private Logger logger = LoggerFactory
-            .getLogger(SearchByInstructorController.class);
 
     @Autowired
     private CurriculumService curriculumService;
@@ -71,8 +65,6 @@ public class CSVDownloadController {
 
         CoursePage cp = CoursePage.fromJSON(json);
 
-
-
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
@@ -86,6 +78,7 @@ public class CSVDownloadController {
         String json = curriculumService.getJSON(instructor, quarter);
 
         CoursePage cp = CoursePage.fromJSON(json);
+
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
@@ -109,9 +102,10 @@ public class CSVDownloadController {
         }
 
         CoursePage cp = CoursePage.fromJSON(json);
+
         cp.setClasses(courses);
+
         CoursePageToCSV.writeSections(response.getWriter(), cp);
-    
     }
 
     @GetMapping("/downloadCSV/courseNumberSearch")
@@ -135,9 +129,10 @@ public class CSVDownloadController {
         }
 
         CoursePage cp = CoursePage.fromJSON(json);
+
         cp.setClasses(courses);
+
         CoursePageToCSV.writeSections(response.getWriter(), cp);
-    
     }
 
     @GetMapping("/downloadCSV/geSearch")

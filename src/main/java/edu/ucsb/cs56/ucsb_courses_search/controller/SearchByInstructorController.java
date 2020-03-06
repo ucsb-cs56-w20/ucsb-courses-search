@@ -156,7 +156,7 @@ public class SearchByInstructorController {
 	    model.addAttribute("error_message", "Error: instructor name must not be empty");
 	    return "search/byinstructor/error_message";
 	}
-        if(endQ<beginQ){
+        if (endQ<beginQ){
         model.addAttribute("error_message", "Error: End quarter must be later than begin quarter!");
 	    return "search/byinstructor/error_message";
         }

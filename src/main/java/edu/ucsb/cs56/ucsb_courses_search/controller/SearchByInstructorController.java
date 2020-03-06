@@ -161,23 +161,32 @@ public class SearchByInstructorController {
 	    return "search/byinstructor/error_message";
         }
 
-	logger.info("GET request for /search/byinstructor/multiquarter/results");
-        logger.info("beginQ=" + beginQ + " endQ=" + endQ);
+	    logger.info("GET request for /search/byinstructor/multiquarter/results");
+            logger.info("beginQ=" + beginQ + " endQ=" + endQ);
 
+	    /*
+            List<Course> courses = new ArrayList<Course>();
+            for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
+                String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
+                logger.info("qtr=" + qtr.getValue() + " json=" + json);
+                CoursePage cp = CoursePage.fromJSON(json);
+                courses.addAll(cp.classes);
+            }
+
+	    */
+
+	    List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndInstructor(beginQ+"", endQ+"", instructor);
 	    
+            model.addAttribute("courses", courses);
 
-	List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndInstructor(beginQ+"", endQ+"", instructor);
-	    
-        model.addAttribute("courses", courses);
+            List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+            List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
-        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
-	List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+            model.addAttribute("rows", rows);
+            model.addAttribute("searchObject", searchObject );
 
-        model.addAttribute("rows", rows);
-        model.addAttribute("searchObject", searchObject );
-
-        model.addAttribute("quarters", quarterListService.getQuarters());
-        return "search/byinstructor/multiquarter/results";
+            model.addAttribute("quarters", quarterListService.getQuarters());
+            return "search/byinstructor/multiquarter/results";
     }
 
 }

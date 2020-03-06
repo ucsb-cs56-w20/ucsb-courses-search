@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.csdept;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 // import static org.hamcrest.Matchers.equalTo;
@@ -63,6 +64,9 @@ public class CSDeptTest {
 
     @MockBean
     private CurriculumService mockCurriculumService;
+
+    @MockBean
+    private QuarterListService mockQuarterListService;
 
     private Authentication mockAuthentication;
 

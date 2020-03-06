@@ -69,7 +69,7 @@ public class SearchByGEController {
 
 
     @GetMapping("search/byge/multiquarter/results")
-    public String SearchByGEMultiQuarter(@RequestParam(name = "college", required = true) String college,
+    public String searchByGEMultiQuarter(@RequestParam(name = "college", required = true) String college,
     @RequestParam(name = "area", required = true) String area,
     @RequestParam(name = "beginQ", required = true) int beginQ,
     @RequestParam(name = "endQ", required = true) int endQ, 

@@ -15,13 +15,11 @@ import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter; //ALSO COPY THIS
 
-<<<<<<< HEAD
 import java.util.*; //modify this so that it has access to all the arraylists and hashmaps
-=======
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
->>>>>>> e349a96572daa4366e4fd429337cc3e805b85873
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +74,6 @@ public class SearchByDeptController {
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
-<<<<<<< HEAD
         //START COPYING HERE
         HashMap<String, ArrayList<YearOfCourseEnrollment>> enrollmentClasses = new HashMap<String, ArrayList<YearOfCourseEnrollment>>();
 
@@ -98,15 +95,12 @@ public class SearchByDeptController {
           enrollmentClasses.put(offering.getCourse().getCourseId(), enrollmentNumbers); //put the enrollment numbers in the hashmap with the class id
         }
         //End copy here
-=======
         Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
             return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());
         };
 
         Collections.sort(rows, byCourseId);
 
-
->>>>>>> e349a96572daa4366e4fd429337cc3e805b85873
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);
         model.addAttribute("eh", enrollmentClasses); //BUT also copy this

@@ -46,14 +46,12 @@ public class SearchController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
-
-
+        //START COPYING HERE
         HashMap<String, ArrayList<YearOfCourseEnrollment>> enrollmentClasses = new HashMap<String, ArrayList<YearOfCourseEnrollment>>();
 
         //Let's handle the extraction of previous enrollment numbers
         for(CourseOffering offering : courseOfferings)
         {
-          System.out.println("ACtUALLY DSBFHOS");
           //this list will store the previous enrollment numbers of a single course
           ArrayList<YearOfCourseEnrollment> enrollmentNumbers = new ArrayList<YearOfCourseEnrollment>();
           //now lets loop as many times as needed for the last however many YEARS_OF_HISTORY
@@ -61,11 +59,14 @@ public class SearchController {
           {
             String quarterToExtract = Integer.toString(Integer.parseInt(quarter) - (i * 10));
             //now lets get that year history from the quarter we've parsed
-            enrollmentNumbers.add(extractYearHistory(quarterToExtract, offering.getCourse().getCourseId(), quarter));
+            YearOfCourseEnrollment yearEnroll = extractYearHistory(quarterToExtract, offering.getCourse().getCourseId(), quarter);
+            System.out.println(yearEnroll);
+            enrollmentNumbers.add(yearEnroll);
           }
 
           enrollmentClasses.put(offering.getCourse().getCourseId(), enrollmentNumbers); //put the enrollment numbers in the hashmap with the class id
         }
+        //End copy here
 
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
@@ -75,6 +76,7 @@ public class SearchController {
         return "searchResults"; // corresponds to src/main/resources/templates/searchResults.html
     }
 
+    //Copy this method
     /**
       This will extract the year's enrollment history from the database based on the quarter given
 
@@ -97,8 +99,9 @@ public class SearchController {
         year = Integer.toString(Integer.parseInt(currentYear) - 1) + "/" + currentYear;
       }
       //first set to fall quarter of the current year
+      //System.out.println(quarter);
       Quarter stepQuarter = new Quarter(quarter);
-      while(stepQuarter.getQ() != "4")
+      while(stepQuarter.getQ() != "F")
       {
         stepQuarter.decrement();
       }
@@ -109,34 +112,38 @@ public class SearchController {
         if(Integer.parseInt(presentQuarter) < Integer.parseInt(stepQuarter.getYYYYQ())) //First lets check if the quarter is in the future.
         {
           enrollmentNums[i] = "TBD";
-          continue;
-        }
-        //now the quarter is present or past. lets get enrollment numbers
-        //thse two lines will get the course info for the selected quarter and course id and parse it into a readable thing
-        String json = curriculumService.getCourse(courseID,stepQuarter.getValue());
-        CoursePage cp = CoursePage.fromJSON(json);
 
-        if(cp.getClasses().size() <= 0) //this means there were no classes held that quarter
-        {
-          enrollmentNums[i] = "-";
           continue;
         }
-        else //now this is a valid class lets get the enrollment numbers
+        else
         {
-          //if there's multiple courses, we need a way to loop through them
-          int enrolled = 0;
-          List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
-          for(CourseOffering offer : courseOfferings)
+          //now the quarter is present or past. lets get enrollment numbers
+          //thse two lines will get the course info for the selected quarter and course id and parse it into a readable thing
+          String json = curriculumService.getCourse(courseID,stepQuarter.getValue());
+          CoursePage cp = CoursePage.fromJSON(json);
+
+          if(cp.getClasses().size() <= 0) //this means there were no classes held that quarter
           {
-            enrolled += offer.getPrimary().getEnrolledTotal();
-          }
-          //now we have the enrollment numbers let's put them into a string and save
-          enrollmentNums[i] = Integer.toString(enrolled);
-        }
-      }
+            enrollmentNums[i] = "-";
 
+          }
+          else //now this is a valid class lets get the enrollment numbers
+          {
+            //if there's multiple courses, we need a way to loop through them
+            int enrolled = 0;
+            List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
+            for(CourseOffering offer : courseOfferings)
+            {
+              enrolled += offer.getPrimary().getEnrolledTotal();
+            }
+            //now we have the enrollment numbers let's put them into a string and save
+            enrollmentNums[i] = Integer.toString(enrolled);
+          }
+        }
+        stepQuarter.increment();
+      }
+      //System.out.println(year + " | " + enrollmentNums[0] + " | " + enrollmentNums[1] + " | " + enrollmentNums[2] + " | " + enrollmentNums[3]);
       return new YearOfCourseEnrollment(year, enrollmentNums[0],enrollmentNums[1],enrollmentNums[2],enrollmentNums[3]);
 
     }
-
 }

@@ -10,8 +10,11 @@ import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGE;
+import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGEStartTime;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
+
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -89,6 +92,37 @@ public class SearchByGEController {
         model.addAttribute("rows", rows);
 
         return "search/byge/multiarea/results";
+    }
+
+    @GetMapping("/search/byge/starttime")
+    public String instructor(Model model, SearchByGEStartTime searchByGEStartTime) {
+        model.addAttribute("searchByGEStartTime", new SearchByGEStartTime());
+        model.addAttribute("quarters", Quarter.quarterList("W20", "W19"));
+        return "search/byge/starttime/search";
+    }
+
+    @GetMapping("search/byge/starttime/results")
+    public String SearchByGEStartTime(@RequestParam(name = "college", required = true) String college,
+    @RequestParam(name = "area", required = true) String area,
+    @RequestParam(name = "quarter", required = true) String quarter, 
+    @RequestParam(name = "startT", required = true) int startT,
+    Model model) {
+
+        model.addAttribute("college", college);
+        model.addAttribute("area", area);
+        //model.addAttribute("quarter", quarter);
+        model.addAttribute("startT", startT);
+
+        String json = curriculumService.getGE(college, area, quarter, startT);
+        CoursePage cp = CoursePage.fromJSON(json);
+
+        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        model.addAttribute("searchByGEStartTime", new SearchByGEStartTime());
+        model.addAttribute("quarters",Quarter.quarterList("W20","W19"));
+        model.addAttribute("rows", rows);
+        return "search/byge/starttime/results";
     }
    
 

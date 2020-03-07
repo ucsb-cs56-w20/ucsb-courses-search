@@ -52,7 +52,7 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
             params += String.format("objLevelCode=%s&", courseLevel);
         }
 
-        if(dept != null){ //this ones a little eh
+        if(dept != null){
             params += String.format("subjectCode=%s&", dept);
         }
 

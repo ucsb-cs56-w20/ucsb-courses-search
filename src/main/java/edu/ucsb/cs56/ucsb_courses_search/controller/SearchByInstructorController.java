@@ -39,102 +39,7 @@ public class SearchByInstructorController {
     @Autowired
     private QuarterListService quarterListService;
 
-    @GetMapping("/search/byinstructor")
-    public String instructor(Model model) {
-        model
-                .addAttribute("searchObject", new MySearchResult());
-        model.addAttribute("quarters", quarterListService.getQuarters());
-        return "search/byinstructor/search";
-    }
-
-    @GetMapping("/search/byinstructor/results")
-    public String singleQtrSearch(InsSearch insSearch, Model model, RedirectAttributes redirAttrs) {
-        model
-                .addAttribute("insSearch", insSearch);
-	
-	if (insSearch.getInstructor() == ""){
-	    redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
-            return "redirect:.";
-        }
-    
-        // calls curriculumService method to get JSON from UCSB API
-        String json = curriculumService
-                .getJSON(insSearch
-                        .getInstructor(),
-                        insSearch
-                                .getQuarter());
-
-        // maps json to a CoursePage object so values can be easily accessed
-        CoursePage cp = CoursePage
-                .fromJSON(json);
-
-        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
-
-        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
-        
-
-        // adds the json and CoursePage object as attributes so they can be accessed in
-        // the html, e.g. ${json} or ${cp.classes}
-        model
-                .addAttribute("json", json);
-        model
-                .addAttribute("cp", cp);
-        model
-                .addAttribute("quarters", quarterListService.getQuarters());
-        model
-                .addAttribute("rows", rows);
-
-
-	return "search/byinstructor/results";
-    }
-
-    @GetMapping("/search/byinstructor/specific") // /search/instructor/specific
-    public String specifc(Model model) {
-        model
-                .addAttribute("searchObject", new MySearchResult());
-        model.addAttribute("quarters", quarterListService.getQuarters());
-        return "search/byinstructor/specific/search";
-    }
-
-    @GetMapping("/search/byinstructor/specific/results")
-    public String singleQtrSearch(InsSearchSpecific insSearchSpecific, Model model, RedirectAttributes redirAttrs) {
-        model
-                .addAttribute("insSearchSpecific", insSearchSpecific);
-
-        // calls curriculumService method to get JSON from UCSB API
-
-	if (insSearchSpecific.getInstructor() == ""){
-	        redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
-            return "redirect:.";
-        }
-	
-        String json = curriculumService
-                .getJSON(insSearchSpecific
-                        .getInstructor(),
-                        insSearchSpecific
-                                .getQuarter());
-
-        // maps json to a CoursePage object so values can be easily accessed
-        CoursePage cp = CoursePage
-                .fromJSON(json);
-
-        List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
-
-        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
-
-        // adds the json and CoursePage object as attributes so they can be accessed in
-        // the html, e.g. ${json} or ${cp.classes}
-        model
-                .addAttribute("json", json);
-        model
-                .addAttribute("cp", cp);
-        model
-                .addAttribute("rows", rows);
-
-        return "search/byinstructor/specific/results";
-    }
-
-    @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
+    @GetMapping("/search/byinstructor/") // search/instructor/
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model
                 .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
@@ -142,8 +47,8 @@ public class SearchByInstructorController {
         return "search/byinstructor/multiquarter/search";
     }
 
-    @GetMapping("/search/byinstructor/multiquarter/results")
-    public String search (
+    @GetMapping("/search/byinstructor/results")
+    public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
         @RequestParam(name = "beginQ", required = true) 
@@ -164,7 +69,7 @@ public class SearchByInstructorController {
              return "redirect:.";
         }
 
-	    logger.info("GET request for /search/byinstructor/multiquarter/results");
+	    logger.info("GET request for /search/byinstructor/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
             
             List<Course> courses = new ArrayList<Course>();
@@ -185,7 +90,8 @@ public class SearchByInstructorController {
             model.addAttribute("searchObject", searchObject );
 
             model.addAttribute("quarters", quarterListService.getQuarters());
-            return "search/byinstructor/multiquarter/results";
+
+            return "search/byinstructor/results";
     }
 
 }

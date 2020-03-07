@@ -53,6 +53,7 @@ public class SearchByCourseController {
             String json = curriculumService.getCourse(course, qtr.getValue());
             logger.info("qtr=" + qtr.getValue() + " json=" + json);
             CoursePage cp = CoursePage.fromJSON(json);
+	    logger.info("cp=" + cp);
             courses.addAll(cp.classes);
         }
 

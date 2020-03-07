@@ -168,7 +168,11 @@ public class WeeklyView {
       //                 HWLLO <br/> \
       //                 MW';
 
+<<<<<<< HEAD
       return course.getClassname() +"<br />" + course.getAssociatedLectureDay() + "<br />" + course.getAssociatedLectureTime();
+=======
+      return course.getClassname() +"<br />" + course.getAssociatedLectureTime() + "<br />" + course.getAssociatedLectureTime();
+>>>>>>> lh- changed the return span functions as well added weeklyview to model and checked with stub function
       //return "stub";
     }
     public String returnSpanSection(ScheduleItem course){

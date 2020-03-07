@@ -58,7 +58,7 @@ public class SearchByClassroomController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
-        // model.addAttribute("rows", rows);
+        model.addAttribute("rows", rows);
 
         for (CourseListingRow r:rows){
             // logger.info("LINAAAAAA" + r.toString());

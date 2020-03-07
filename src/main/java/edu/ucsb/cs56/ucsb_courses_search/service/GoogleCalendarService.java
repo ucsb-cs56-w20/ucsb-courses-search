@@ -13,6 +13,8 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -37,12 +39,18 @@ public class GoogleCalendarService {
     //private static final String CREDENTIALS_FILE_PATH = "../../localhost.json";
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
-    @Value("#{environment['spring.security.oauth2.client.registration.google.client-id']}")
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
-    @Value("#{environment['spring.security.oauth2.client.registration.google.client-secret']}")
+    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientSecret;
+    private Iterable<Course> myclasses;
 
     private Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
+
+    // Must be called before createGoogleCalendar()
+    public void setClasses(Iterable<Course> myclasses){
+        this.myclasses = myclasses;
+    }
 
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
@@ -67,7 +75,9 @@ public class GoogleCalendarService {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public void createGoogleCalendar(Iterable<Course> myclasses) throws IOException, GeneralSecurityException{
+    // Precondition: Must call setClasses(Iterable<Course> myclasses) before calling this function
+    @PostConstruct
+    public void createGoogleCalendar() throws IOException, GeneralSecurityException{
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
         .setApplicationName(APPLICATION_NAME)

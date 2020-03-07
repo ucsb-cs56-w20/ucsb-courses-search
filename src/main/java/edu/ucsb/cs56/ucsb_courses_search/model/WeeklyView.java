@@ -94,13 +94,18 @@ public class WeeklyView {
       return 0;
     }
 
+<<<<<<< HEAD
     public int returnLectureStartTime(ScheduleItem course){
+=======
+    public int returnLectureStartTime(Course course){
+>>>>>>> lh-fixed both lecture start time and section start time to return the correct row number instead of a string and tested both
       //TESTED
       //RETURNS ThE ROW, where 8:00AM = 1, 8:30AM = 2
 
       String times = course.getAssociatedLectureTime();
       //String times = "11:00 - 11:50";
       int hour= Integer.parseInt(times.substring(0,2));
+<<<<<<< HEAD
 
       int minutes = Integer.parseInt(times.substring(3,5));
       int time = hour*60 + minutes;//time in minutes
@@ -114,10 +119,22 @@ public class WeeklyView {
     public int returnSectionStartTime(ScheduleItem course){
       //TESTED
       //RETURNS ThE ROW, where 8:00AM = 2, 8:30AM = 3
+=======
+      int minutes = Integer.parseInt(times.substring(3,5));
+      int time = hour*60 + minutes;//time in minutes
+      int row = (time-480)/30+1;
+      return row;
+    }
+
+    public int returnSectionStartTime(Course course){
+      //TESTED
+      //RETURNS ThE ROW, where 8:00AM = 1, 8:30AM = 2
+>>>>>>> lh-fixed both lecture start time and section start time to return the correct row number instead of a string and tested both
 
       String times = course.getMeettime();
       //String times = "11:00 - 11:50";
       int hour= Integer.parseInt(times.substring(0,2));
+<<<<<<< HEAD
 
       int minutes = Integer.parseInt(times.substring(3,5));
       int time = hour*60 + minutes;//time in minutes
@@ -130,14 +147,28 @@ public class WeeklyView {
 
     public int returnClasslength(ScheduleItem course){
 
+=======
+      int minutes = Integer.parseInt(times.substring(3,5));
+      int time = hour*60 + minutes;//time in minutes
+      int row = (time-480)/30+1;
+      return row;
+    }
+
+    public int returnClasslength(Course course, String LectureOrSection){
+      //TESTED
+>>>>>>> lh-fixed both lecture start time and section start time to return the correct row number instead of a string and tested both
       //Course course, String LectureOrSection
       //for rowspan nte that meetime gives the section time not lecture time in form 09:00-09:50
       // for a 75 minute class, usually 12:30-1:45 or 2-3:14, the hour is difference of 1
       //for a 50 min class, the hour is the same etc; 7-7:50
       //for a long labs, there will be first a 2 hour difference such as 14-16:30 or 14-16:50, then also check the minutes for an extra
 <<<<<<< HEAD
+<<<<<<< HEAD
       String times = course.getMeettime();
       //String times = "11:00 - 11:50";
+=======
+      String times = "12:30 - 13:45";
+>>>>>>> lh-fixed both lecture start time and section start time to return the correct row number instead of a string and tested both
       // if(LectureOrSection=="lecture"){
       //     times = course.getAssociatedLectureTime();
       // }
@@ -145,6 +176,7 @@ public class WeeklyView {
       //     times = course.getMeettime();
       // }
 
+<<<<<<< HEAD
       //Put both times in minutes
 
       int hour1 = Integer.parseInt(times.substring(0,2));
@@ -161,14 +193,21 @@ public class WeeklyView {
       else{
           times = course.getMeettime();
       }
+=======
+>>>>>>> lh-fixed both lecture start time and section start time to return the correct row number instead of a string and tested both
       //Put both times in minutes
+
       int hour1 = Integer.parseInt(times.substring(0,2));
       int hour2 = Integer.parseInt(times.substring(8,10));
-      //int hourDifference = hour2 - hour1;
+
       int minutes1 = Integer.parseInt(times.substring(3,5));
       int minutes2 = Integer.parseInt(times.substring(11,13));
+<<<<<<< HEAD
       //int minuteDifference = minutes2 - minutes1;
 >>>>>>> lh-changed the rowspan function to make an easier implementation
+=======
+
+>>>>>>> lh-fixed both lecture start time and section start time to return the correct row number instead of a string and tested both
       int time1 = hour1*60 + minutes1;
       int time2 = hour2*60 + minutes2;
       int differenceInMinutes = time2 - time1; //note that 11:00-11:50= 50 amd 17:30-21:20 = 3 hr 50 min = 230 min
@@ -180,6 +219,7 @@ public class WeeklyView {
 =======
       return differenceInMinutes/30;//rowspan
 
+<<<<<<< HEAD
       // if(hourDifference == 0){
       //   return 2;
       // }
@@ -212,6 +252,8 @@ public class WeeklyView {
       // }
       //return 0;
 >>>>>>> lh-changed the rowspan function to make an easier implementation
+=======
+>>>>>>> lh-fixed both lecture start time and section start time to return the correct row number instead of a string and tested both
     }
 
     public String returnSpanLecture(ScheduleItem course){
@@ -240,7 +282,7 @@ public class WeeklyView {
       //return "stub";
     }
 
-    public String returnStub(Course course){
-      return course.getClassname();
+    public String returnStub(){
+      return "stub";
     }
 }

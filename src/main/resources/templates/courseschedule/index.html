@@ -41,13 +41,24 @@
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div id = "weekly_view">
-      <div align = "Center">
-        <table id ="week_table" cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
-          <tbody>
-            <tr >
-              <th class = "heading">&nbsp</th>
-              <th th:each = "d: ${days}" th:text="${d}">
-              </th>
+    <div align = "Center">
+      <table id ="week_table" cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
+        <tbody>
+          <tr >
+            <th class = "heading">&nbsp</th>
+            <th th:each = "d: ${days}" th:text="${d}">
+            </th>
+          </tr>
+          <!-- javascipt here to put classes into some sort of an array ->>
+          <!--need 29 rows for 8am - 10pm -->
+          <th class = "timerange"></th>
+            <tr th:each = "tr: ${timerange}">
+              <td th:text="${tr}"></td>
+              <td th:text = "${week.returnLectureStartTime()}" ></td>
+              <!--  //5 tds per tr>
+              <td rowspan = "5"></td> -->
+
+              <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
             </tr>
             <!-- javascipt here to put classes into some sort of an array ->>
             <!--need 29 rows for 8am - 10pm -->

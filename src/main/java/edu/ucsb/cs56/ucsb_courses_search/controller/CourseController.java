@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
@@ -52,29 +53,37 @@ public class CourseController {
     }
 
     @GetMapping("/courseschedule")
-    public String index(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) throws AccessForbiddenException {
+    public String index(Model model, RedirectAttributes redirAttrs, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) throws AccessForbiddenException {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
 
-        if (token!=null && this.membershipService.isMember(token)) {
-            String uid = token.getPrincipal().getAttributes().get("sub").toString();
-            logger.info("uid="+uid);
-            logger.info("scheduleItemRepository="+scheduleItemRepository);
-            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
-            Iterable<Schedule> myschedules = scheduleRepository.findByUid(uid);
-            // get all schedule ids by uid
-            // get courses by each scheduleid to a list
-            // stores in a list of schedules
-            // Iterable<Course> myclasses = courseRepository.findByScheduleid(scheduleid);
-            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
-            model.addAttribute("myschedules", myschedules);
-        } else {
-            //ArrayList<Course> emptyList = new ArrayList<Course>();
-            //model.addAttribute("myclasses", emptyList);
-	    //org.springframework.security.access.AccessDeniedException("403 returned");
-	    throw new AccessForbiddenException();
+        if (token==null) {
+            redirAttrs.addFlashAttribute("alertDanger", "You must be logged in to access a personal schedule");
+            return "redirect:/login";
+        } 
+        if (!this.membershipService.isMember(token)) {
+            redirAttrs.addFlashAttribute("alertDanger", "You must log in with a @ucsb.edu email address to create a personal schedule");
+            return "redirect:/";
         }
+        String uid = token.getPrincipal().getAttributes().get("sub").toString();
+        logger.info("uid="+uid);
+        logger.info("scheduleItemRepository="+scheduleItemRepository);
+        List<Schedule> myschedules = scheduleRepository.findByUid(uid);
+        if (myschedules.size()==0){
+            Schedule s = new Schedule();
+            s.setUid(uid);
+            s.setSchedulename("My Schedule");
+            s.setQuarter("W20");
+            scheduleRepository.save(s);
+            myschedules.add(s);
+        }
+        // get all schedule ids by uid
+        // get courses by each scheduleid to a list
+        // stores in a list of schedules
+        // Iterable<Course> myclasses = courseRepository.findByScheduleid(scheduleid);
+        // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
+        model.addAttribute("myschedules", myschedules);
         model.addAttribute("scheduleSearch", scheduleSearch);
         return "courseschedule/index";
     }

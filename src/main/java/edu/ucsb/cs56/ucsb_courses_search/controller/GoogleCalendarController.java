@@ -37,8 +37,6 @@ public class GoogleCalendarController {
     }
 
     @GetMapping("/GoogleCalendar")
-    //<button type="submit" th:formaction="@{/searchResults}" class="btn btn-primary" id="js-course-search-submit">Find Courses</button> use this format to create button in templates/courseschedule/index.html
-    //function goes here
     public String exportToGoogleCalendar(Model model, OAuth2AuthenticationToken token) {
         logger.info("Inside /GoogleCalendar controller method GoogleCalendarController#exportToGoogleCalendar");
 
@@ -55,6 +53,9 @@ public class GoogleCalendarController {
             }
         }
         //if not logged in, handle emptyList case from CourseController
+        
+        model.addAttribute("message", "Export completed!");
+
         return "courseschedule/index";
     }
 

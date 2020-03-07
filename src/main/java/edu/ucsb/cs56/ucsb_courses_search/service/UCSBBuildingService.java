@@ -26,8 +26,8 @@ public class UCSBBuildingService {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
-            File file = ResourceUtils.getFile("classpath:ucsb_buildings.json");
-            InputStream is = new FileInputStream(file);
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream is = cl.getResourceAsStream("ucsb_buildings.json");
 
             UCSBBuilding[] buildings = mapper.readValue(is, UCSBBuilding[].class);
             for (int i = 0; i < buildings.length; i++) {

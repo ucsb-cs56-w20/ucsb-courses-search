@@ -108,22 +108,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="courseLevel" class="col-sm-2 col-form-label">Course Level</label>
-            <div class="col-sm-10">
-                <select th:field="*{courseLevel}"class="custom-select">
-                    <option value="L">Undergrad-Lower Division</option>
-                    <option value="S">Undergrad-Upper Division</option>
-                    <option selected="selected" value="U">Undergrad-All</option>
-                    <option value="G">Graduate</option>
-                    <option value="A">All</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
             <label for="js-course-search-submit" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <button type="submit" th:formaction="@{/search/bydept/results}" class="btn btn-primary" id="js-course-search-submit">Find Courses</button>
-                <button type="submit" th:formaction="@{/downloadCSV/byDept}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
+                <button type="submit" th:formaction="@{/admin/archived/search/results}" class="btn btn-primary" id="js-course-search-submit">Find Archived Courses</button>
             </div>
         </div>
     

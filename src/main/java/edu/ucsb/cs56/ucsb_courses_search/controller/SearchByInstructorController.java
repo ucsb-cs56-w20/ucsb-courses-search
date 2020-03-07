@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
@@ -18,6 +19,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByInstructorMultiQuarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,16 +37,15 @@ public class SearchByInstructorController {
     private QuarterListService quarterListService;
 
 
-
-    @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
+    @GetMapping("/search/byinstructor") // search/instructor/multiquarter
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model
                 .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
-        return "search/byinstructor/multiquarter/search";
+        return "search/byinstructor/search";
     }
 
-    @GetMapping("/search/byinstructor/multiquarter/results")
+    @GetMapping("/search/byinstructor/results")
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
@@ -53,17 +54,22 @@ public class SearchByInstructorController {
         @RequestParam(name = "endQ", required = true) 
         int endQ,
         Model model,
-        SearchByInstructorMultiQuarter searchObject) {
+        SearchByInstructorMultiQuarter searchObject,
+        RedirectAttributes redirAttrs) {
 
 	
 	if (instructor  == ""){
-	    model.addAttribute("error_message", "Error: instructor name must not be empty");
-	    return "search/byinstructor/error_message";
+            redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
+            return "redirect:.";
 	}
+        if(endQ<beginQ){
+             redirAttrs.addFlashAttribute("alertDanger", "End quarter must be later than begin quarter");
+             return "redirect:.";
+        }
 
-	    logger.info("GET request for /search/byinstructor/multiquarter/results");
+	    logger.info("GET request for /search/byinstructor/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
-
+            
             List<Course> courses = new ArrayList<Course>();
             for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
                 String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
@@ -71,6 +77,7 @@ public class SearchByInstructorController {
                 CoursePage cp = CoursePage.fromJSON(json);
                 courses.addAll(cp.classes);
             }
+ 
 
             model.addAttribute("courses", courses);
 
@@ -82,7 +89,7 @@ public class SearchByInstructorController {
 
             model.addAttribute("quarters", quarterListService.getQuarters());
 
-            return "search/byinstructor/multiquarter/results";
+            return "search/byinstructor/results";
     }
 
 }

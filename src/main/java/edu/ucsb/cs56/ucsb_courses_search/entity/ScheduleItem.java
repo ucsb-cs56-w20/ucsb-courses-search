@@ -1,12 +1,16 @@
 package edu.ucsb.cs56.ucsb_courses_search.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Course {
+public class ScheduleItem {
  
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String classname;
     private String professor;
     private String meettime;
@@ -128,5 +132,32 @@ public class Course {
         this.quarter = quarter;
     }
 
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + id + "'" +
+            ", classname='" + classname + "'" +
+            ", professor='" + professor + "'" +
+            ", meettime='" + meettime + "'" +
+            ", meetday='" + meetday + "'" +
+            ", location='" + location + "'" +
+            ", quarter='" + quarter + "'" +
+            ", uid='" + uid + "'" +
+            ", associatedLectureDay='" + associatedLectureDay + "'" +
+            ", associatedLectureTime='" + associatedLectureTime + "'" +
+            ", associatedLectureLocation='" + associatedLectureLocation + "'" +
+            ", enrollCode='" + enrollCode + "'" +
+            ", notes='" + notes + "'" +
+            "}";
+    }
     
 }

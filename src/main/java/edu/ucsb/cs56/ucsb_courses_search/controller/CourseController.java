@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.service.GoogleCalendarService;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -56,4 +60,31 @@ public class CourseController {
         return "courseschedule/index";
     }
 
+    @GetMapping("/GoogleCalendar")
+    public String exportToGoogleCalendar(Model model, OAuth2AuthenticationToken token) {
+        
+        logger.info("Inside /GoogleCalendar controller method CourseController#exportToGoogleCalendar");
+        logger.info("model=" + model + " token=" + token);
+
+        GoogleCalendarService gService = new GoogleCalendarService();
+
+        if (token!=null) {
+            String uid = token.getPrincipal().getAttributes().get("sub").toString();
+            logger.info("uid="+uid);
+            logger.info("courseRepository="+courseRepository);
+            Iterable<Course> myclasses = courseRepository.findByUid(uid);
+            try{
+                gService.createGoogleCalendar(myclasses);
+                logger.info("Google Calendar created");
+            } catch (IOException e) {
+                logger.error("IOException caught");
+            } catch (GeneralSecurityException e) {
+                logger.error("GeneralSecurityException caught");
+            }
+        }
+        
+        model.addAttribute("message", "Export completed!");
+
+        return "courseschedule/index";
+    }
 }

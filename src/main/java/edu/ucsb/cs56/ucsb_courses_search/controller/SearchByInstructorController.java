@@ -37,15 +37,15 @@ public class SearchByInstructorController {
     private QuarterListService quarterListService;
 
 
-    @GetMapping("/search/byinstructor") // search/instructor/multiquarter
+    @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model
                 .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
-        return "search/byinstructor/search";
+        return "search/byinstructor/multiquarter/search";
     }
 
-    @GetMapping("/search/byinstructor/results")
+    @GetMapping("/search/byinstructor/multiquarter/results")
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
@@ -89,7 +89,7 @@ public class SearchByInstructorController {
 
             model.addAttribute("quarters", quarterListService.getQuarters());
 
-            return "search/byinstructor/results";
+            return "search/byinstructor/multiquarter/results";
     }
 
 }

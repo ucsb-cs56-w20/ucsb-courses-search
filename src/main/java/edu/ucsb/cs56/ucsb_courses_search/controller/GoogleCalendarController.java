@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
@@ -56,7 +57,8 @@ public class GoogleCalendarController {
     @GetMapping("/GoogleCalendar")
     //<button type="submit" th:formaction="@{/searchResults}" class="btn btn-primary" id="js-course-search-submit">Find Courses</button> use this format to create button in templates/courseschedule/index.html
     //function goes here
-    public void exportToGoogleCalendar(Model model, OAuth2AuthenticationToken token) {
+    public String exportToGoogleCalendar(Model model, OAuth2AuthenticationToken token) {
+        logger.info("Inside /GoogleCalendar controller method GoogleCalendarController#exportToGoogleCalendar");
         if (token!=null) {
             Iterable<Course> myclasses = getClassesFromRepo(token);
             try{
@@ -68,6 +70,7 @@ public class GoogleCalendarController {
             }
         }
         //if not logged in, handle emptyList case from CourseController
+        return "courseschedule/index";
     }
 
     private Iterable<Course> getClassesFromRepo(OAuth2AuthenticationToken token){

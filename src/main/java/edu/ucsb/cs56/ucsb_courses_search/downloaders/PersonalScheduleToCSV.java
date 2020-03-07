@@ -41,7 +41,6 @@ public class PersonalScheduleToCSV {
     try (CSVWriter csvWriter = new CSVWriter(writer, CSVWriter.DEFAULT_SEPARATOR, CSVWriter.DEFAULT_QUOTE_CHARACTER,
         CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);) {
       csvWriter.writeNext(CSV_HEADER);
-
       for (Course c : myclasses) {
 
         String[] data = { c.getQuarter(), c.getClassname(), c.getEnrollCode(), c.getUid(), c.getProfessor(), c.getMeettime(), c.getMeetday(), c.getLocation()};

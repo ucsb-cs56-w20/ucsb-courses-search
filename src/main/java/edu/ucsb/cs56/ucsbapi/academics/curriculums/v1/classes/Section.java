@@ -87,6 +87,9 @@ public class Section {
     }
 
     public Integer getEnrolledTotal() {
+	if(this.enrolledTotal == null){
+		return 0;
+	}
         return this.enrolledTotal;
     }
 
@@ -95,6 +98,9 @@ public class Section {
     }
 
     public Integer getMaxEnroll() {
+	if(this.maxEnroll == null){
+		return 0;
+	}
         return this.maxEnroll;
     }
 

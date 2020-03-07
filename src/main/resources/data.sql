@@ -30,3 +30,16 @@ VALUES
         'winter2020',
         'W20'
     );
+
+INSERT INTO
+    schedule (
+        uid,
+        schedulename,
+        quarter
+    )
+VALUES
+    (
+        '107161377026163787078',
+        'spring2020',
+        'S20'
+    );

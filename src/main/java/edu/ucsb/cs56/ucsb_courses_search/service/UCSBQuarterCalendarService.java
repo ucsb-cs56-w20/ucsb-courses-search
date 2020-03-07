@@ -41,7 +41,7 @@ public class UCSBQuarterCalendarService implements CalendarService {
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
-        String uri = "https://api.ucsb.edu/academics//quartercalendar/v1/quarters/current";
+        String uri = "https://api.ucsb.edu/academics/quartercalendar/v1/quarters/current";
         String url = uri;
 
         logger.info("url=" + url);

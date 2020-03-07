@@ -15,10 +15,9 @@ public class QuarterDeadlines{
     
     private static Logger logger = LoggerFactory.getLogger(Course.class);
 
-    private String quarter;
+    private String qyy;
     private String firstDayOfClasses;
     private String lastDayOfClasses;
-    private String lastDayOfFinals;
     private String firstDayOfQuarter;
     private String pass1Begin;
     private String pass2Begin;
@@ -26,7 +25,6 @@ public class QuarterDeadlines{
     private String feeDeadline;
     private String lastDayToAddUnderGrad;
     private String lastDayToAddGrad;
-    private String lastDayThirdWeek;
 
     public static QuarterDeadlines fromJSON(String json) {
         try {
@@ -40,18 +38,27 @@ public class QuarterDeadlines{
             return null;
         }
     }
+    public static String formatDate(String date){
+
+        String formatted = date.substring(0,11);
+        return formatted;
+    }
+
+    public void format(){
+        this.firstDayOfClasses = formatDate(this.firstDayOfClasses);
+    }
         
 
 
     public QuarterDeadlines() {
     }
 
-    public String getQuarter() {
-        return this.quarter;
+    public String getQyy() {
+        return this.qyy;
     }
 
-    public void setQuarter(String quarter) {
-        this.quarter = quarter;
+    public void setQyy(String qyy) {
+        this.qyy = qyy;
     }
 
     public String getFirstDayOfClasses() {
@@ -70,13 +77,6 @@ public class QuarterDeadlines{
         this.lastDayOfClasses = lastDayOfClasses;
     }
 
-    public String getLastDayOfFinals() {
-        return this.lastDayOfFinals;
-    }
-
-    public void setLastDayOfFinals(String lastDayOfFinals) {
-        this.lastDayOfFinals = lastDayOfFinals;
-    }
 
     public String getFirstDayOfQuarter() {
         return this.firstDayOfQuarter;
@@ -132,14 +132,6 @@ public class QuarterDeadlines{
 
     public void setLastDayToAddGrad(String lastDayToAddGrad) {
         this.lastDayToAddGrad = lastDayToAddGrad;
-    }
-
-    public String getLastDayThirdWeek() {
-        return this.lastDayThirdWeek;
-    }
-
-    public void setLastDayThirdWeek(String lastDayThirdWeek) {
-        this.lastDayThirdWeek = lastDayThirdWeek;
     }
 
 }

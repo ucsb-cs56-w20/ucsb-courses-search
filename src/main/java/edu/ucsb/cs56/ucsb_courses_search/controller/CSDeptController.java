@@ -11,6 +11,8 @@ import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 import java.util.ArrayList;
@@ -35,6 +37,9 @@ public class CSDeptController {
 
     @Autowired
     private QuarterListService quarterListService;
+
+    @Autowired
+    private ArchivedCourseRepository archivedCourseRepository;
 
     @GetMapping("/csdept/search/classroom")
     public String instructor(Model model, SearchByDept searchByDept) {
@@ -94,6 +99,34 @@ public class CSDeptController {
         }
 
         return result;
+    }
+
+    @GetMapping("/csdept/search/classroom/byclassroom")
+    public String classroom(Model model, SearchByDept searchByDept) {
+        model.addAttribute("searchByDept", new SearchByDept());
+        model.addAttribute("quarters", quarterListService.getQuarters());
+        return "csdept/classroom/search2";
+    }
+
+    @GetMapping("/csdept/search/classroom/byclassroom/results")
+    public String searchClrm(
+            @RequestParam(name = "quarter", required = true) String quarter,
+            @RequestParam(name = "building", required = true) String building,
+            @RequestParam(name = "room", required = true) String room,           
+            Model model,
+            SearchByDept searchByDept) {       
+        
+        model.addAttribute("quarter", quarter);
+        model.addAttribute("building", building);
+        model.addAttribute("room", room);
+        
+        List<Course> courses = archivedCourseRepository.findByQuarterAndRoom(quarter, building, room);
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        model.addAttribute("rows", rows);
+
+        return "csdept/classroom/results";
     }
 
 

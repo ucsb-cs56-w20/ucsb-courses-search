@@ -41,16 +41,14 @@ public class SearchByInstructorController {
 
     @GetMapping("/search/byinstructor")
     public String instructor(Model model) {
-        model
-                .addAttribute("searchObject", new MySearchResult());
+        model.addAttribute("searchObject", new MySearchResult());
         model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/byinstructor/search";
     }
 
     @GetMapping("/search/byinstructor/results")
     public String singleQtrSearch(InsSearch insSearch, Model model, RedirectAttributes redirAttrs) {
-        model
-                .addAttribute("insSearch", insSearch);
+        model.addAttribute("insSearch", insSearch);
 	
 	if (insSearch.getInstructor() == ""){
 	    redirAttrs.addFlashAttribute("alertDanger", "You cannot leave instructor blank");
@@ -59,14 +57,10 @@ public class SearchByInstructorController {
     
         // calls curriculumService method to get JSON from UCSB API
         String json = curriculumService
-                .getJSON(insSearch
-                        .getInstructor(),
-                        insSearch
-                                .getQuarter());
+                .getJSON(insSearch.getInstructor(),insSearch.getQuarter());
 
         // maps json to a CoursePage object so values can be easily accessed
-        CoursePage cp = CoursePage
-                .fromJSON(json);
+        CoursePage cp = CoursePage.fromJSON(json);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
 
@@ -75,15 +69,10 @@ public class SearchByInstructorController {
 
         // adds the json and CoursePage object as attributes so they can be accessed in
         // the html, e.g. ${json} or ${cp.classes}
-        model
-                .addAttribute("json", json);
-        model
-                .addAttribute("cp", cp);
-        model
-                .addAttribute("quarters", quarterListService.getQuarters());
-        model
-                .addAttribute("rows", rows);
-
+        model.addAttribute("json", json);
+        model.addAttribute("cp", cp);
+        model.addAttribute("quarters", quarterListService.getQuarters());
+        model.addAttribute("rows", rows);
 
 	return "search/byinstructor/results";
     }

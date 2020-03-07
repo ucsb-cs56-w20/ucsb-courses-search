@@ -11,6 +11,8 @@ import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 import java.util.Collections;
@@ -32,7 +34,7 @@ public class SearchByDeptController {
     private QuarterListService quarterListService;
 
     @GetMapping("/search/bydept")
-    public String instructor(Model model, SearchByDept searchByDept) {
+    public String department(Model model, SearchByDept searchByDept) {
         model.addAttribute("searchByDept", new SearchByDept());
         model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/bydept/search";
@@ -60,7 +62,8 @@ public class SearchByDeptController {
         };
 
         Collections.sort(rows, byCourseId);
-
+        
+       
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);

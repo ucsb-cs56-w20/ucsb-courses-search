@@ -51,7 +51,6 @@ public class AdminController {
         model.addAttribute("quarters", quarterListService.getQuarters());
 
         List<Course> courses = archivedCourseRepository.findByQuarterAndDepartment(quarter, dept);
-
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 

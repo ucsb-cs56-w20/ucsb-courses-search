@@ -118,15 +118,16 @@ public class CourseController {
         logger.info("Inside /GoogleCalendar controller method CourseController#exportToGoogleCalendar");
         logger.info("model=" + model + " token=" + token);
 
-        GoogleCalendarService gService = new GoogleCalendarService();
 
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
+            GoogleCalendarService gService = new GoogleCalendarService();
+            gService.setClasses(myclasses);
             try{
-                gService.createGoogleCalendar(myclasses);
+                gService.createGoogleCalendar();
                 logger.info("Google Calendar created");
             } catch (IOException e) {
                 logger.error("IOException caught");

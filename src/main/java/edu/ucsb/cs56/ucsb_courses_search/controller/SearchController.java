@@ -21,7 +21,7 @@ import java.util.*;
 public class SearchController {
 
     //this is for setting how many years to go back in time.
-    int YEARS_OF_HISTORY = 10;
+    int YEARS_OF_HISTORY = 2;
 
     @Autowired
     private CurriculumService curriculumService;
@@ -98,7 +98,7 @@ public class SearchController {
       }
       //first set to fall quarter of the current year
       Quarter stepQuarter = new Quarter(quarter);
-      while(stepQuarter.getQ() != "4")
+      while(!(stepQuarter.getQ().equals("4")))
       {
         stepQuarter.decrement();
       }

@@ -9,9 +9,33 @@
 <body>
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
-    <div th:replace="courseschedule/fragments/title.html"></div>
-    <div th:replace="courseschedule/fragments/form.html"></div>
-    <div th:replace="courseschedule/fragments/clickToViewText.html"></div>
+    <h3>My Class Schedule</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Quarter</th>
+          <th>Course Name</th>
+          <th>Enroll Code</th>
+          <th>UID</th>
+          <th>Professor</th>
+          <th>Meeting Times</th>
+          <th>Meeting Days</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="c: ${myclasses}">
+          <td th:text="${c.quarter}"></td>
+          <td th:text="${c.classname}"></td>
+          <td th:text="${c.enrollCode}"></td>
+          <td th:text="${c.uid}"></td>
+          <td th:text="${c.professor}"></td>
+          <td th:text="${c.meettime}"></td>
+          <td th:text="${c.meetday}"></td>
+          <td th:text="${c.location}"></td>
+        </tr>
+      </tbody>
+    </table>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

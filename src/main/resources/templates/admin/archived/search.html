@@ -1,27 +1,19 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-
 <head>
-  <title>Search Results</title>
+  <title>UCSB Course Search</title>
   <div th:replace="fragments/bootstrap_head.html"></div>
 </head>
-
 
 <body>
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
-    <!-- <h1>Search Results</h1> -->
-
-    
+       
+    <div th:replace="admin/archived/fragments/title.html"></div>
+    <div th:replace="admin/archived/fragments/form.html"></div>
   </div>
-
-  <br/><br/><br/><br/><br/>
-  <div>
-    <font size ='5'><center> <p th:text="${error_message}">Error</p></center></font>
-  </div>
-
-
+  <div th:replace="fragments/bootstrap_scripts.html"></div>
 </body>
 
 </html>

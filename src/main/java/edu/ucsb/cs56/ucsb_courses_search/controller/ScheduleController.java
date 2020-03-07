@@ -65,6 +65,7 @@ public class ScheduleController {
             }
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);
+            //model.addAttribute("quarters", quarterListService.getQuarters());
         } else {
 	        throw new AccessForbiddenException();
         }
@@ -96,6 +97,16 @@ public class ScheduleController {
         logger.info("primary = " + primary); 
         scheduleItemRepository.save(primary);
 
+        return "redirect:/schedule";
+    }
+
+    @PostMapping("/schedule/create")
+    public String add_schedule(String sname, Model model, OAuth2AuthenticationToken token) {
+        Schedule newschedule = new Schedule();
+        String uid = token.getPrincipal().getAttributes().get("sub").toString();
+        newschedule.setUid(uid);
+        newschedule.setSchedulename(sname);
+        scheduleRepository.save(newschedule);
         return "redirect:/schedule";
     }
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CSVDownloadController {
 
+
     @Autowired
     private CurriculumService curriculumService;
 
@@ -40,7 +41,7 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/downloadCSV/byDept")
+    @GetMapping("/downloadCSV/departmentSearch")
     public void downloadCSV_ByDepartment(@RequestParam(name = "dept", required = true) String dept,
             @RequestParam(name = "quarter", required = true) String quarter,
             @RequestParam(name = "courseLevel", required = true) String courseLevel,
@@ -55,7 +56,7 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/downloadCSV/csDept")
+    @GetMapping("/downloadCSV/csDepartmentSearch")
     public void downloadCSV_csDept(@RequestParam(name = "quarter", required = true) String quarter,
             HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
@@ -68,7 +69,7 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/downloadCSV/byInstructor")
+    @GetMapping("/downloadCSV/instructorSearch")
     public void downloadCSV_instructor(@RequestParam(name = "instructor", required = true) String instructor,
         @RequestParam(name = "quarter", required = true) String quarter,
             HttpServletResponse response) throws IOException {
@@ -82,7 +83,7 @@ public class CSVDownloadController {
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
 
-    @GetMapping("/downloadCSV/multiquarterSearch")
+    @GetMapping("/downloadCSV/multiquarterInstructorSearch")
     public void downloadCSV_multiquarter(
         @RequestParam(name = "instructor", required = true) String instructor,
         @RequestParam(name = "beginQ", required = true) int beginQ,
@@ -110,7 +111,6 @@ public class CSVDownloadController {
 
     @GetMapping("/downloadCSV/courseNumberSearch")
     public void downloadCSV_courseNumber(
-        @RequestParam(name = "instructor", required = false)String instructor,
         @RequestParam(name = "course", required = true) String course,
         @RequestParam(name = "beginQ", required = true) int beginQ,
         @RequestParam(name = "endQ", required = true) int endQ,

@@ -26,132 +26,66 @@ public class CSVDownloadController {
     @Autowired
     private CurriculumService curriculumService;
 
-    @GetMapping("/downloadCSV/courseSearch")
-    public void downloadCSV_courseSearch(@RequestParam(name = "subjectArea", required = true) String subjectArea,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            @RequestParam(name = "courseLevel", required = true) String courseLevel,
-            HttpServletResponse response) throws IOException {
-
-        String filename = subjectArea + "-" + quarter + "-" + courseLevel + ".csv";
-
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-
-        String json = curriculumService.getJSON(subjectArea, quarter, courseLevel);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/departmentSearch")
-    public void downloadCSV_ByDepartment(@RequestParam(name = "dept", required = true) String dept,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            @RequestParam(name = "courseLevel", required = true) String courseLevel,
-            HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getJSON(dept, quarter, courseLevel);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/csDepartmentSearch")
-    public void downloadCSV_csDept(@RequestParam(name = "quarter", required = true) String quarter,
-            HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getJSON("CMPSC", quarter, "A");
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/instructorSearch")
-    public void downloadCSV_instructor(@RequestParam(name = "instructor", required = true) String instructor,
-        @RequestParam(name = "quarter", required = true) String quarter,
-            HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getJSON(instructor, quarter);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/multiquarterInstructorSearch")
-    public void downloadCSV_multiquarter(
-        @RequestParam(name = "instructor", required = true) String instructor,
-        @RequestParam(name = "beginQ", required = true) int beginQ,
-        @RequestParam(name = "endQ", required = true) int endQ,
+    @GetMapping("/CSVDownload")
+    public void downloadCSV(@RequestParam(name = "subjectArea", required = false) String subjectArea,
+            @RequestParam(name = "quarter", required = false) String quarter,
+            @RequestParam(name = "courseLevel", required = false) String courseLevel,
+            @RequestParam(name = "dept", required = false) String dept,
+            @RequestParam(name = "instructor", required = false) String instructor,
+            @RequestParam(name = "beginQ", required = false) Integer beginQ,
+            @RequestParam(name = "endQ", required = false) Integer endQ,
+            @RequestParam(name = "course", required = false) String course,
+            @RequestParam(name = "college", required = false) String college,
+            @RequestParam(name = "area", required = false) String area,
             HttpServletResponse response) throws IOException {
 
         response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
 
         String json = "";
+        CoursePage cp;
+        String filename = "Search-Results.csv";
 
-        List<Course> courses = new ArrayList<Course>();
-        for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
-            json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
-            CoursePage cp2 = CoursePage.fromJSON(json);
-            courses.addAll(cp2.classes);
+        if(instructor != null && beginQ != null && endQ != null){ //multiquarterInstructorSearch
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+            List<Course> courses = new ArrayList<Course>();
+            for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
+                json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
+                CoursePage cp2 = CoursePage.fromJSON(json);
+                courses.addAll(cp2.classes);
+            }
+
+            cp = CoursePage.fromJSON(json);
+            cp.setClasses(courses);
+
+        }else if(course != null && beginQ != null && endQ != null){
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+            List<Course> courses = new ArrayList<Course>();
+            for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
+                json = curriculumService.getCourse(course, qtr.getValue());
+                CoursePage cp2 = CoursePage.fromJSON(json);
+                courses.addAll(cp2.classes);
+            }
+
+            cp = CoursePage.fromJSON(json);
+            cp.setClasses(courses);
+
+        }else if(quarter != null && dept == null && courseLevel == null && instructor == null && college == null && area == null){ //CS Department Seach
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            json = curriculumService.getJSON("CMPSC", quarter, "A");
+            cp = CoursePage.fromJSON(json);
+
+        }else{
+
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            json = curriculumService.getCSV(subjectArea, quarter, courseLevel, dept, instructor, course, college, area);
+            cp = CoursePage.fromJSON(json);
         }
 
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        cp.setClasses(courses);
-
         CoursePageToCSV.writeSections(response.getWriter(), cp);
     }
-
-    @GetMapping("/downloadCSV/courseNumberSearch")
-    public void downloadCSV_courseNumber(
-        @RequestParam(name = "course", required = true) String course,
-        @RequestParam(name = "beginQ", required = true) int beginQ,
-        @RequestParam(name = "endQ", required = true) int endQ,
-            HttpServletResponse response) throws IOException {
-
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = "";
-
-        List<Course> courses = new ArrayList<Course>();
-        for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
-            json = curriculumService.getCourse(course, qtr.getValue());
-            CoursePage cp2 = CoursePage.fromJSON(json);
-            courses.addAll(cp2.classes);
-        }
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        cp.setClasses(courses);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/geSearch")
-    public void downloadCSV_ge(@RequestParam(name = "college", required = true) String college,
-            @RequestParam(name = "area", required = true) String area,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            HttpServletResponse response) throws IOException {
-
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getGE(college, area, quarter);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
 }

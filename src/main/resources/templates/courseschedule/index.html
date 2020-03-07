@@ -55,7 +55,7 @@
           <th class = "timerange"></th>
             <tr th:each = "tr: ${timerange}">
               <td th:text="${tr}"></td>
-              <td th:text = "${week.returnLectureStartTime()}" ></td>
+              <td th:text = "${week.returnSpanSection(myclasses[0])}"> </td>
               <!--  //5 tds per tr>
               <td rowspan = "5"></td> -->
 
@@ -68,19 +68,21 @@
 
   <div th:replace="fragments/bootstrap_scripts.html"></div>
 
-  <script>
+  <script th:inline="javascript">
     function myFunction()
     {
+      //var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
 
       //var week_div = document.getElementById("weekly_view");
+      var table = document.getElementById("week_table");
+      var cell = table.rows[3].insertCell(2);
+      cell.innerHTML = 'HELLO <br/> \
+                       HWLLO <br/>  \
+                       MW';
 
-      var cell = document.getElementById("week_table").rows[3].insertCell(2);
-      //cell.innerHTML = 'HELLO <br/> \
-      //                 HWLLO <br/>  \
-      //                 MW';
-
-      let s = "MCDB 1LL" +"<br />" + "BIOENG 1001" + "<br />" + "7:00-10:30";
-      cell.innerHTML = s;
+      //let s = sizeOfmyClasses +"<br />" + "BIOENG 1001" + "<br />" + "7:00-10:30";
+      //var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
+      //cell.innerHTML = s;
       cell.rowSpan = 5;
 
       //alert(document.getElementById("week_table").rows[3].cells.length);

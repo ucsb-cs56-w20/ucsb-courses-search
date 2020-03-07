@@ -17,6 +17,7 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Schedule;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleRepository;
+import edu.ucsb.cs56.ucsb_courses_search.formbeans.ScheduleSearch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule")
-    public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
+    public String index(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) throws AccessForbiddenException {
         logger.info("Inside /schedule controller method ScheduleController#index");
         logger.info("model=" + model + " token=" + token);
 
@@ -69,6 +70,7 @@ public class ScheduleController {
         } else {
 	        throw new AccessForbiddenException();
         }
+        model.addAttribute("scheduleSearch", scheduleSearch);
         return "schedule/index";
     }
     @PostMapping("/schedule/add/{scheduleid}")
@@ -111,10 +113,10 @@ public class ScheduleController {
     }
 
     // TODO: dont use coursescheduleindex
-    @GetMapping("/courseschedule/viewSchedule")
+    @GetMapping("/schedule/viewSchedule")
     public String viewSchedule(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) {
         
-        logger.info("Inside /courseschedule controller method CourseController#viewSchedule");
+        logger.info("Inside /schedule controller method ScheduleController#viewSchedule");
         logger.info("model=" + model + " token=" + token);
 
         if (token!=null) {
@@ -125,7 +127,15 @@ public class ScheduleController {
             // get courses by each scheduleid to a list
             Schedule lastSchedule = myschedules.get(myschedules.size() -1);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(lastSchedule.getScheduleid());
+            Schedule schedule = new Schedule();
+            for (int i = 0; i < myschedules.size(); i++) {
+                if (myschedules.get(i).getScheduleid() == scheduleSearch.getScheduleid()) {
+                    schedule = (myschedules.get(i));
+                }
+            }
+            String schedulename = schedule.getSchedulename();
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
+            model.addAttribute("schedulename", schedulename);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);
         } else {
@@ -134,7 +144,7 @@ public class ScheduleController {
         }
 
         model.addAttribute("scheduleSearch", scheduleSearch);
-        return "courseschedule/viewSchedule";
+        return "schedule/viewSchedule";
     }
 
 }

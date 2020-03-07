@@ -25,6 +25,12 @@ import org.springframework.stereotype.Service;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 @Service
 public class GoogleCalendarService {
+    
+    private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final String CREDENTIALS_FILE_PATH = "/localhost.json";
+    private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
+    private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
     private static final String APPLICATION_NAME = "UCSB Courses Search Google Calendar Export";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();

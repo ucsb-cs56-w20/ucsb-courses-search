@@ -41,6 +41,7 @@ public class CourseController {
 
         String json = calendarservice.getJSON();
         QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json);
+        quarterdeadline.format();
 
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();

@@ -40,7 +40,7 @@ public class QuarterDeadlines{
     }
     public static String formatDate(String date){
 
-        String formatted = date.substring(0,11);
+        String formatted = date.substring(0,10);
         return formatted;
     }
 

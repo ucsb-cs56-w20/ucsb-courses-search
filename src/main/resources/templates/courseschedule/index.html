@@ -36,9 +36,12 @@
         </tr>
       </tbody>
     </table>
-    <div class="col-sm-10">
-      <button type="submit" th:formaction="@{/GoogleCalendar}" class="btn btn-primary" id="js-course-search-submit">Export to Google Calendar</button>
-    </div>
+    <div class="form-group row">
+      <label for="js-google-calendar-export" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+          <button type="button" th:formaction="@{/GoogleCalendar}" class="btn btn-primary" id="js-google-calendar-export">Export to Google Calendar</button>
+      </div>
+  </div>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

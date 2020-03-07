@@ -55,29 +55,34 @@
           <th class = "timerange"></th>
             <tr th:each = "tr: ${timerange}">
               <td th:text="${tr}"></td>
-              <!--  //5 tds per tr
+              <td th:text = "${week.returnStub()}" ></td>
+              <!--  //5 tds per tr>
               <td rowspan = "5"></td> -->
-  
+
               <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
             </tr>
         </tbody>
       </table>
     </div>
   </div>
-  
+
   <div th:replace="fragments/bootstrap_scripts.html"></div>
-  
+
   <script>
     function myFunction()
     {
-      
+
       //var week_div = document.getElementById("weekly_view");
-      
-      var cell = document.getElementById("week_table").rows[3].insertCell(1);
-      cell.innerHTML = 'HELLO <br/> \
-                       HWLLO <br/> \
-                       MW';
-      cell.rowSpan = 3;
+
+      var cell = document.getElementById("week_table").rows[3].insertCell(2);
+      //cell.innerHTML = 'HELLO <br/> \
+      //                 HWLLO <br/>  \
+      //                 MW';
+
+      let s = "MCDB 1LL" +"<br />" + "BIOENG 1001" + "<br />" + "7:00-10:30";
+      cell.innerHTML = s;
+      cell.rowSpan = 5;
+
       //alert(document.getElementById("week_table").rows[3].cells.length);
     }
   </script>

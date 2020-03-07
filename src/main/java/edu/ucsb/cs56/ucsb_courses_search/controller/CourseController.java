@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
+import edu.ucsb.cs56.ucsb_courses_search.model.WeeklyView;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import java.util.ArrayList;
 
@@ -41,18 +42,22 @@ public class CourseController {
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
             String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
             String[] timerange = new String[]{"8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM"};
-
+            WeeklyView week = new WeeklyView(); 
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("days", days);
             model.addAttribute("timerange", timerange);
+            model.addAttribute("week", week);
         } else {
             ArrayList<Course> emptyList = new ArrayList<Course>();
             String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
             String[] timerange = new String[]{"8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM"};
+            WeeklyView week = new WeeklyView();
             model.addAttribute("myclasses", emptyList);
             model.addAttribute("days", days);
             model.addAttribute("timerange", timerange);
+            model.addAttribute("week", week);
+
         }
         return "courseschedule/index";
     }

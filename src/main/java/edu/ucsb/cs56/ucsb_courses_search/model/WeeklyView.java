@@ -145,7 +145,7 @@ public class WeeklyView {
       //                 HWLLO <br/> \
       //                 MW';
 
-      return course.getClassname() +" <br/> \\ " + course.getAssociatedLectureTime() + "<br/> \\ " + course.getAssociatedLectureTime();
+      return course.getClassname() +"<br />" + course.getAssociatedLectureTime() + "<br />" + course.getAssociatedLectureTime();
       //return "stub";
     }
     public String returnSpanSection(Course course){
@@ -155,8 +155,12 @@ public class WeeklyView {
       //                 HWLLO <br/> \
       //                 MW';
 
-      return course.getClassname() +" <br/> \\" + course.getLocation() + "<br/> \\" + course.getMeettime();
+      return course.getClassname() + "<br />" + course.getLocation() + "<br />" + course.getMeettime();
+
       //return "stub";
     }
 
+    public String returnStub(){
+      return "stub";
+    }
 }

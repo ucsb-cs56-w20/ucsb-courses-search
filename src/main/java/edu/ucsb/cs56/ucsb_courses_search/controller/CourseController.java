@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
-import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -31,15 +31,15 @@ public class CourseController {
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
     @Autowired
-    private CourseRepository courseRepository;
+    private ScheduleItemRepository scheduleItemRepository;
 
     @Autowired
     private MembershipService membershipService;
 
 
     @Autowired
-    public CourseController(CourseRepository courseRepository, MembershipService membershipService) {
-        this.courseRepository = courseRepository;
+    public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
+        this.scheduleItemRepository = scheduleItemRepository;
 	this.membershipService = membershipService;
     }
 
@@ -52,8 +52,8 @@ public class CourseController {
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
-            logger.info("courseRepository="+courseRepository);
-            Iterable<Course> myclasses = courseRepository.findByUid(uid);
+            logger.info("scheduleItemRepository="+scheduleItemRepository);
+            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
         } else {
@@ -65,7 +65,7 @@ public class CourseController {
         return "courseschedule/index";
     }
     @PostMapping("/courseschedule/add")
-    public String add(Course course, 
+    public String add(ScheduleItem scheduleItem, 
                         Model model,
                         @RequestParam String lecture_classname,
                         @RequestParam String lecture_enrollCode,
@@ -76,11 +76,11 @@ public class CourseController {
                         @RequestParam String lecture_location,
                         @RequestParam String lecture_quarter) {
         logger.info("Hello!\n");
-        logger.info("course's uid: " + course.getUid());
-        logger.info("course = " + course);                   
-        courseRepository.save(course);
+        logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
+        logger.info("ScheduleItem = " + scheduleItem);                   
+        scheduleItemRepository.save(scheduleItem);
 
-        Course primary = new Course();
+        ScheduleItem primary = new ScheduleItem();
         primary.setClassname(lecture_classname);
         primary.setEnrollCode(lecture_enrollCode);
         primary.setUid(lecture_uid);
@@ -90,9 +90,9 @@ public class CourseController {
         primary.setLocation(lecture_location);
         primary.setQuarter(lecture_quarter);
         logger.info("primary = " + primary); 
-        courseRepository.save(primary);
+        scheduleItemRepository.save(primary);
 
-        model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
+        model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";
     }
 

@@ -22,8 +22,8 @@ import edu.ucsb.cs56.ucsb_courses_search.controller.advice.AuthControllerAdvice;
 import edu.ucsb.cs56.ucsb_courses_search.BootstrapTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.NavigationTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.controller.CourseController;
-import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
-import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 
@@ -62,7 +62,7 @@ public class CourseScheduleTest {
     private ClientRegistrationRepository crr;
 
     @MockBean
-    private CourseRepository mockCourseRepository;
+    private ScheduleItemRepository mockScheduleItemRepository;
 
     @MockBean
     private MembershipService mockMembershipService;
@@ -81,9 +81,9 @@ public class CourseScheduleTest {
     public void setUp() {
         OAuth2User principal = OAuthUtils.createOAuth2User("Chris Gaucho", "cgaucho@ucsb.edu");
         mockAuthentication = OAuthUtils.getOauthAuthenticationFor(principal);
-        List<Course> emptyCourseList = new ArrayList<Course>();
-        when(mockCourseRepository.findAll()).thenReturn(emptyCourseList);
-	when(mockMembershipService.isMember((OAuth2AuthenticationToken) mockAuthentication)).thenReturn(true);
+        List<ScheduleItem> emptyScheduleItemList = new ArrayList<ScheduleItem>();
+        when(mockScheduleItemRepository.findAll()).thenReturn(emptyScheduleItemList);
+	    when(mockMembershipService.isMember((OAuth2AuthenticationToken) mockAuthentication)).thenReturn(true);
     }
 
     @Test

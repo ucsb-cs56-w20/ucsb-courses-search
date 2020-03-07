@@ -1,14 +1,22 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
-import edu.ucsb.cs56.ucsb_courses_search.downloaders;
+import edu.ucsb.cs56.ucsb_courses_search.downloaders.CoursePageToCSV;
+import edu.ucsb.cs56.ucsb_courses_search.downloaders.PersonalScheduleToCSV;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
+
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
+
+import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -25,11 +33,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CSVDownloadController {
 
-    private Logger logger = LoggerFactory
-            .getLogger(SearchByInstructorController.class);
+    private Logger logger = LoggerFactory.getLogger(SearchByInstructorController.class);
 
     @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    public CSVDownloadController(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
 
     @GetMapping("/downloadCSV/courseSearch")
     public void downloadCSV(@RequestParam(name = "subjectArea", required = true) String subjectArea,
@@ -115,18 +130,21 @@ public class CSVDownloadController {
     }
 
     @GetMapping("/personalSchedule")
-    public void downloadCSV(OAuth2AuthenticationToken token) throws IOException {
+    public void downloadCSV(OAuth2AuthenticationToken token, HttpServletResponse response) throws IOException {
+        
+        logger.info("AAAAAAAAAAAAAAAAAAAAAAAAAA");
         
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
-            Iterable<Course> myclasses = courseRepository.findByUid(uid);
-
-                    
+            Iterable<edu.ucsb.cs56.ucsb_courses_search.entity.Course> myclasses = courseRepository.findByUid(uid);
+            //need full path, because there are two "Cource", java cannot import both
+                 
             response.setContentType("text/csv");
             response.setHeader("Content-Disposition", "attachment; file=mycourses.csv");
-            PersonalScheduleToCSV.writeSections(myclasses);
-    }
+            PersonalScheduleToCSV.writeSections(response.getWriter(), myclasses);
+        }
 
+    }
 }

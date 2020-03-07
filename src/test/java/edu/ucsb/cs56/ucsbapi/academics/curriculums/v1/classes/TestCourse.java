@@ -32,7 +32,7 @@ public class TestCourse {
         Course c = new Course();
         c.setClassSections(new ArrayList<Section>());
         c.getClassSections().add(s);
-        assertEquals(null, s.instructors);
+        assertEquals(null, s.getInstructors());
             
         assertEquals("", c.mainInstructorList());
     }
@@ -40,7 +40,7 @@ public class TestCourse {
     @Test
     public void test_mainInstructorList__first_section_empty_instructor_list_returns_empty_string() {
         Section s = new Section();
-        s.instructors = new ArrayList<Instructor>();
+        s.setInstructors(new ArrayList<Instructor>());
         Course c = new Course();
         c.setClassSections(new ArrayList<Section>());
         c.getClassSections().add(s);
@@ -51,10 +51,10 @@ public class TestCourse {
     @Test
     public void test_mainInstructorList__first_section_single_instructor() {
         Instructor i = new Instructor();
-        i.instructor = "GAUCHO C";
+        i.setInstructor("GAUCHO C");
         Section s = new Section();
-        s.instructors = new ArrayList<Instructor>();
-        s.instructors.add(i);
+        s.setInstructors(new ArrayList<Instructor>());
+        s.getInstructors().add(i);
         Course c = new Course();
         c.setClassSections(new ArrayList<Section>());
         c.getClassSections().add(s);
@@ -68,15 +68,18 @@ public class TestCourse {
         Instructor i2 = new Instructor();
         Instructor i3 = new Instructor();
 
-        i1.instructor = "GAUCHO A";
-        i2.instructor = "OLE B";
-        i3.instructor = "SURFER C";
+        i1.setInstructor("GAUCHO A");
+        i2.setInstructor("OLE B");
+        i3.setInstructor("SURFER C");
 
         Section s = new Section();
-        s.instructors = new ArrayList<Instructor>();
-        s.instructors.add(i1);
-        s.instructors.add(i2);
-        s.instructors.add(i3);
+        s.setInstructors(new ArrayList<Instructor>());
+
+        List<Instructor> instructors = s.getInstructors();
+
+        instructors.add(i1);
+        instructors.add(i2);
+        instructors.add(i3);
 
         Course c = new Course();
         c.setClassSections(new ArrayList<Section>());

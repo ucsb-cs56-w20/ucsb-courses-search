@@ -67,12 +67,12 @@
         <label for="sname"><b>New schedule name</b></label>
         <textarea placeholder="Enter name.." name="sname" required></textarea>
 
-      <form method="GET" th:action="@{/courseschedule/create}">
+      <!-- <form method="GET" th:action="@{/courseschedule/create}">
         <label for="quarter">Quarter</label>
         <select th:field="${searchByDept.quarter}" class="custom-select">
           <option th:each="q: ${quarters}" th:value="${q.value}" th:text="${q}"></option>
         </select>
-      </form>
+      </form> -->
 
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-primary" onclick="closepopup()">Close</button>

@@ -18,6 +18,7 @@ import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class CourseController {
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);
-            model.addAttribute("quarters", quarterListService.getQuarters());
+            //model.addAttribute("quarters", quarterListService.getQuarters());
         } else {
             //ArrayList<Course> emptyList = new ArrayList<Course>();
             //model.addAttribute("myclasses", emptyList);

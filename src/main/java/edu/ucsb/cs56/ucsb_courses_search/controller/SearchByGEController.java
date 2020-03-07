@@ -16,6 +16,8 @@ import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.TimeLocation;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -117,7 +119,30 @@ public class SearchByGEController {
         CoursePage cp = CoursePage.fromJSON(json);
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
-        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        String time = String.valueOf( startT / 100 ) + ":" 
+        + ((startT % 100 == 0) ? "00" : String.valueOf(startT % 100));
+
+        if(startT / 100 < 10)
+            time = "0" + time;
+
+        ArrayList<CourseOffering> offerings = new ArrayList<CourseOffering>();
+
+        for(CourseOffering c : courseOfferings){
+
+            Course course = c.getCourse();
+
+            String beginT = "";
+
+            if(course.getClassSections().get(0).getTimeLocations().size() >= 1) 
+                beginT =course.getClassSections().get(0).getTimeLocations().get(0).getBeginTime();
+
+            if(beginT.equals(time)){
+                offerings.add(c);
+            }
+        }
+
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(offerings);
 
         model.addAttribute("searchByGEStartTime", new SearchByGEStartTime());
         model.addAttribute("quarters",Quarter.quarterList("W20","W19"));

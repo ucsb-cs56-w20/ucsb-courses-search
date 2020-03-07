@@ -61,7 +61,7 @@ public class SearchByClassroomController {
         // model.addAttribute("rows", rows);
 
         for (CourseListingRow r:rows){
-            logger.info("LINAAAAAA" + r.toString());
+            // logger.info("LINAAAAAA" + r.toString());
         }
 
         return "classroom/results";

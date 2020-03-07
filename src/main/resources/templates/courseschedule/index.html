@@ -55,7 +55,7 @@
           <th class = "timerange"></th>
             <tr th:each = "tr: ${timerange}">
               <td th:text="${tr}"></td>
-              <td th:text = "${week.returnStub()}" ></td>
+              <td th:text = "${week.returnLectureStartTime()}" ></td>
               <!--  //5 tds per tr>
               <td rowspan = "5"></td> -->
 

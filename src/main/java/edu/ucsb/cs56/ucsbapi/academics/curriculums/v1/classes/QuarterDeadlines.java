@@ -40,10 +40,13 @@ public class QuarterDeadlines{
     }
     public static String formatDate(String date){
 
-        String daymonth = date.substring(5,10);
+        String month = date.substring(5,7);
+        String day = date.substring(8,10);
         String year = date.substring(0,4);
-        String formatted = daymonth;
-        formatted += "-";
+        String formatted = month;
+        formatted += "/";
+        formatted += day;
+        formatted += "/";
         formatted += year;
         return formatted;
     }

@@ -82,18 +82,11 @@
     <script th:inline="javascript">
         function myFunction()
     {
-<<<<<<< HEAD
         alert("hi");
         var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
         var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
         var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
         var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
-=======
-      var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
-      var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
-      var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
-      var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
->>>>>>> lh- fixed the rowspan function to accurately display rowspan
 
         alert(sizeOfmyClasses);
         alert(colsection);
@@ -112,13 +105,6 @@
       //cell.innerHTML = r;
       cell.rowSpan = 2;
 
-<<<<<<< HEAD
-=======
-      let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
-      var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
-      cell.innerHTML = r;
-      cell.rowSpan = rowspan;
->>>>>>> lh- fixed the rowspan function to accurately display rowspan
 
     }
       }

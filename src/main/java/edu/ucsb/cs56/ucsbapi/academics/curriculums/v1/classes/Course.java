@@ -3,7 +3,6 @@ package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.GeneralEducation;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
 import org.slf4j.Logger;
@@ -20,18 +19,18 @@ public class Course {
     private String courseId;
     private String title;
     private List<Section> classSections;
-    private List<GeneralEducation> GEs;
+    private List<GeneralEducation> generalEducations;
 
     public Course() {
     }
 
-    public List<GeneralEducation> getGEs() {
-        return this.GEs;
+    public List<GeneralEducation> getGeneralEducations() {
+        return this.generalEducations;
     }
 
-    public void setGEs(List<GeneralEducation> GEs) {
-        this.GEs = GEs;
-    };
+    public void setGeneralEducations(List<GeneralEducation> generalEducations) {
+        this.generalEducations = generalEducations;
+    }
 
     public String getQuarter() {
         return this.quarter;
@@ -74,12 +73,17 @@ public class Course {
     }
 
     public String getGEList() {
-        // String GEList = "";
-        // for (int i=0; i< getGEs().size(); i++) {
-        //     GEList += getGEs().get(i).toString();
-        // }
-        // return GEList;
-        return getGEs().get(0).toString();
+        if (getGeneralEducations() == null) {
+            return "1";
+        }
+        if (getGeneralEducations().size() == 0) {
+            return "2";
+        }
+        String GEList = "3";
+        for (int i=0; i< getGeneralEducations().size(); i++) {
+            GEList += getGeneralEducations().get(i).toString();
+        }
+        return GEList;
     }
    
     /**

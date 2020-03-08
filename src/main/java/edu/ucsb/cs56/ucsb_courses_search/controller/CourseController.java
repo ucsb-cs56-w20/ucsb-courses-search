@@ -124,18 +124,18 @@ public class CourseController {
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
-            logger.info("courseRepository="+courseRepository);
-            Iterable<Course> myclasses = courseRepository.findByUid(uid);
+            logger.info("scheduleItemRepository="+scheduleItemRepository);
+            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
             String email = token.getPrincipal().getAttributes().get("email").toString();
             googleCalendarService.initialize(myclasses, email);
             try{
                 googleCalendarService.createGoogleCalendar();
-                logger.info("Google Calendar created");
-            } catch (IOException e) {
+            } catch(IOException e){
                 logger.error("IOException caught");
-            } catch (GeneralSecurityException e) {
+            } catch(GeneralSecurityException e){
                 logger.error("GeneralSecurityException caught");
             }
+            logger.info("Google Calendar created");
         }
         
         model.addAttribute("message", "Export completed!");

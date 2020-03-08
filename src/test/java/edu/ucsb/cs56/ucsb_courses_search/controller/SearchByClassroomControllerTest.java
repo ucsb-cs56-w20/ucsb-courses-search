@@ -93,9 +93,10 @@ public class SearchByClassroomControllerTest {
     public void test_get_M19_IV_THEA1() throws Exception {
         String url = "http://localhost:8080/search/byclassroom/results?quarter=20202&building=PHELP&classroom=3526";
         HtmlPage htmlPage = webClient.getPage(url);
-        String textToFind = "INT      95A ";
+        String textToFind = "PSTAT   195  ";
         String xpath=String.format("//*[text()='%s']",textToFind);
         List<DomElement> elems = htmlPage.getByXPath(xpath);
+	logger.info("ELEMS13249103948-132840ELEMSSSSSSSSSSSSSSSSSSSSSELEMSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS=" + elems);
         assertEquals(textToFind,elems.get(0).getTextContent());
     }
 

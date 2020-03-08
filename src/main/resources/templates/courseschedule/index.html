@@ -49,9 +49,17 @@
         </style>
         <div class="traveltime-container">
             <h5>Travel Time</h5>
-            <p>Select two classes above and click a button below to see how long it would take to walk or bike!</p>
-            <button type="submit" th:formaction="@{WalkMap}" class="btn btn-primary">🚶Walking</button>
-            <button type="submit" th:formaction="@{BikeMap}" class="btn btn-primary">🚴Biking</button>
+            <p>Find how long it would take to go from</p>
+            <select class="custom-select">
+                <option th:each="c: ${myclasses}" th:value="${c.location}" th:text="${c.location}"></option>
+            </select>
+            <p>to</p>
+            <select class="custom-select">
+                <option th:each="c: ${myclasses}" th:value="${c.location}" th:text="${c.location}"></option>
+            </select>
+            <p>&nbsp;</p>
+            <button type="submit" th:formaction="@{/walktime}" class="btn btn-primary">🚶Walking</button>
+            <button type="submit" th:formaction="@{/biketime}" class="btn btn-primary">🚴Biking</button>
         </div>
         <h4>Finals Schedule</h4>
         <table class="table">

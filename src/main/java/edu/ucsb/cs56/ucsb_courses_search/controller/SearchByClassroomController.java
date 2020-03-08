@@ -59,18 +59,11 @@ public class SearchByClassroomController {
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
         for (int i = 0; i < rows.size(); i++){
-            logger.info("HELLLLP " + rows.get(i).getSection().toString());
+            logger.info(rows.get(i).getSection().toString());
+            logger.info("{" + rows.get(i).getCourse().getCourseId() + "}");
         }
 
         model.addAttribute("rows", rows);
-
-        // Iterator<CourseListingRow> itr = rows.iterator();
-        // while (itr.hasNext()){
-        //     if (r.getPrimary() == null){
-        //         itr.remove();
-        //     }
-        //     // logger.info("LINAAAAAA" + r.toString());
-        // }
 
 
 

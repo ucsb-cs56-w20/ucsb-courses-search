@@ -128,10 +128,14 @@ public class WeeklyView {
       int count = this.iterateCounter();//MONDAY = 1
       //loop through myclasses and look for a colsection = to 1
       for(ScheduleItem s:myclasses){
-        this.iterateRowSpan(this.returnClasslength(s));
+        this.rowspan = this.returnClasslength(s);
         if(this.returnCol(s, count)){
-          if(this.returnStartTime(s)== this.rowcounter){
+          int maxRow = this.returnStartTime(s)+ this.rowspan;
+          if(maxRow > this.rowcounter&&this.rowcounter>=this.returnStartTime(s)){
             //this.iterateRowSpan(this.returnClasslength(s));
+            if(this.returnStartTime(s)!=this.rowcounter){
+              return "@@@@@@@@@@@@@@@@@@@@";
+            }
             return this.returnDescription(s)+this.rowspan;
             //return "STUB"+count+" "+this.rowcounter;
           }
@@ -140,8 +144,8 @@ public class WeeklyView {
 
       }
       this.iterateRowSpan(1);
-      return "count:"+count+"rowcounter:"+this.rowcounter +"rowspan:"+this.rowspan;
-
+      //return "count:"+count+"rowcounter:"+this.rowcounter +"rowspan:"+this.rowspan;
+      return "";
       //return "NO item in myclasses";
 
     }

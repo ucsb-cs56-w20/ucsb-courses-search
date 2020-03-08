@@ -12,47 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "courses")
 public class Course {
 
-    public Course(Logger logger, String quarter, String courseId, String title, List<Section> classSections) {
-        this.logger = logger;
-        this.quarter = quarter;
-        this.courseId = courseId;
-        this.title = title;
-        this.classSections = classSections;
-    }
-
-    public Logger getLogger() {
-        return this.logger;
-    }
-
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-
-    public Course logger(Logger logger) {
-        this.logger = logger;
-        return this;
-    }
-
-    public Course quarter(String quarter) {
-        this.quarter = quarter;
-        return this;
-    }
-
-    public Course courseId(String courseId) {
-        this.courseId = courseId;
-        return this;
-    }
-
-    public Course title(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public Course classSections(List<Section> classSections) {
-        this.classSections = classSections;
-        return this;
-    }
-
     private Logger logger = LoggerFactory.getLogger(Course.class);
 
 

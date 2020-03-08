@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import edu.ucsb.cs56.ucsb_courses_search.controller.WebController;
 import edu.ucsb.cs56.ucsb_courses_search.controller.advice.AuthControllerAdvice;
+import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,9 @@ public class HomePageTest {
     @MockBean
     private ClientRegistrationRepository crr;
 
+    @MockBean
+    private FeatureToggleService mockFeatureToggleService;
  
-
     @Test
     public void getHomePage_ContentType() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())

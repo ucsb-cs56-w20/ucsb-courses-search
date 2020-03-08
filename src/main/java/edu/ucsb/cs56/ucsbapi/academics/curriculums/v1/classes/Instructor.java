@@ -3,7 +3,23 @@ import lombok.Data;
 
 @Data
 public class Instructor {
-    public String instructor;
-    public String functionCode;
+    private String instructor;
+    private String functionCode;
+
+    public String getInstructor() {
+        return this.instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public String getFunctionCode() {
+        return this.functionCode;
+    }
+
+    public void setFunctionCode(String functionCode) {
+        this.functionCode = functionCode;
+    }
     public Instructor() {}
 }

@@ -30,7 +30,7 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         logger.info("apiKey=" + apiKey);
     }
 
-    public String getCSV(String subjectArea, String quarter, String courseLevel, String dept, String instructor, String course, String college, String area){
+    public String getCSV(String subjectArea, String quarter, String courseLevel, String dept, String instructor, String course, String college, String areas){
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -43,6 +43,8 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
 
         String uri = "https://api.ucsb.edu/academics/curriculums/v1/classes/search";
         String params = String.format("?quarter=%s&", quarter);
+
+        logger.info("----------------------" + areas);
 
         if(subjectArea != null ){
             params += String.format("subjectCode=%s&", subjectArea);
@@ -68,10 +70,9 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
             params += String.format("college=%s&", college);
         }
 
-        if(area != null){
-            params += String.format("areas=%s&", area);
+        if(areas != null){
+            params += String.format("areas=%s&", areas);
         }
-
 
         params += String.format("pageNumber=%d&pageSize=%d&includeClassSections=%s", 1, 100, "true");
         String url = uri + params;

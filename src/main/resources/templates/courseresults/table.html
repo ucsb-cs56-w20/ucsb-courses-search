@@ -1,0 +1,33 @@
+<h2>Courses</h2>
+<div th:replace="courseresults/fragments/style.html"></div>
+<table class="table">
+  <thead>
+    <tr>
+      <div th:replace="courseresults/fragments/headers.html"></div>
+    </tr>
+  </thead>
+  <tbody>
+    <div th:each="r: ${rows}">
+      <tr
+        th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}">
+        <div th:replace="courseresults/fragments/columns.html"></div>
+        <div th:switch=${r.getRowType()}>
+          <!--If data is for a lecture, draw this.-->
+          <div th:case="'PRIMARY'">
+            <td> <button type="submit" class="btn btn-primary" data-toggle="modal"
+                th:attr="data-target='#' + ${r.course.getCourseKey()}" ; id="course-detail-btn">Details</button> </td>
+          </div>
+          <div th:case="'SECONDARY'">
+            <!--If the data is for a class section, draw this.-->
+            <td th:unless="${isMember}"></td>
+            <td th:if="${isMember}"> 
+              <div th:replace="courseresults/fragments/addToScheduleForm.html"></div>
+              <div th:replace="courseresults/fragments/addToMultipleSchedulesForm.html"></div>
+            </td>
+          </div>
+        </div>
+      </tr>
+    </div>
+  </tbody>
+</table>
+<div th:replace="fragments/course_details_modal.html"></div>

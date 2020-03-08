@@ -31,18 +31,24 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
+import edu.ucsb.cs56.ucsb_courses_search.model.ClientCredentials;
+
 @Service
-public class GoogleCalendarService {
+public class GoogleCalendarService{
     
     private static final String APPLICATION_NAME = "UCSB Courses Search Google Calendar Export";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     //private static final String CREDENTIALS_FILE_PATH = "../../localhost.json";
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
+    //private ClientCredentials clientCredentials = new ClientCredentials();
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
+    private String localClientId;
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientSecret;
+    private String localClientSecret;
+    private String REDIRECT_URI = "/login/oauth2/code/google";
     private Iterable<Course> myclasses;
 
     private Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
@@ -71,17 +77,24 @@ public class GoogleCalendarService {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8080).build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8080).setCallbackPath(REDIRECT_URI).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
     // Precondition: Must call setClasses(Iterable<Course> myclasses) before calling this function
-    @PostConstruct
     public void createGoogleCalendar() throws IOException, GeneralSecurityException{
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
         .setApplicationName(APPLICATION_NAME)
         .build();
         logger.info("Calendar built");
+    }
+
+    @PostConstruct
+    public void testPrintID(){
+        logger.info("Client ID: " + clientId);
+        logger.info("Client Secret: " + clientSecret);
+        localClientId = clientId;
+        localClientSecret = clientSecret;
     }
 } 

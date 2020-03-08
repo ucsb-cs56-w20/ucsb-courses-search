@@ -33,7 +33,8 @@ class AccessForbiddenException extends RuntimeException {
 public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
-
+    @Autowired
+    private GoogleCalendarService googleCalendarService;
     @Autowired
     private ScheduleItemRepository scheduleItemRepository;
 
@@ -44,7 +45,7 @@ public class CourseController {
     @Autowired
     public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
-	this.membershipService = membershipService;
+	    this.membershipService = membershipService;
     }
 
     @GetMapping("/courseschedule")
@@ -112,10 +113,10 @@ public class CourseController {
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
-            GoogleCalendarService gService = new GoogleCalendarService();
-            gService.setClasses(myclasses);
+            
+            googleCalendarService.setClasses(myclasses);
             try{
-                gService.createGoogleCalendar();
+                googleCalendarService.createGoogleCalendar();
                 logger.info("Google Calendar created");
             } catch (IOException e) {
                 logger.error("IOException caught");

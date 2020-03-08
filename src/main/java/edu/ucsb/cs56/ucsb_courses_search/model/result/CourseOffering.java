@@ -65,7 +65,7 @@ public class CourseOffering {
         List<Instructor> instructors = primary.getInstructors();
         if ( (instructors== null ) || (instructors.size() == 0) )
             return "";
-        List<String> instructorNames = instructors.stream().map((i) -> i.instructor).collect(Collectors.toList());
+        List<String> instructorNames = instructors.stream().map((i) -> i.getInstructor()).collect(Collectors.toList());
         String instructorsCommaSeparated = String.join(", ", instructorNames);
         return instructorsCommaSeparated;
     }

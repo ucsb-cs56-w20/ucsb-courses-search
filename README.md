@@ -38,6 +38,15 @@ Once you have the API key, you need to do this:
      * If you do this, you also need to override the connection string
        that is defined in `application.properties`
 
+* If there are feature flag values in the localhost.json.SAMPLE, you may choose the
+  value appropriate to the feature(s) you are working on.  
+  
+  For example, if there
+  is a feature flag `"app.feature.multiple_schedules":"false"` you may want to 
+  set that to `true` if you are working on that feature.  Otherwise, you can 
+  leave it as false.  These values are typically set to false in `application.properties`
+  anyway, so you can typically also just delete those lines in your `localhost.json` or
+  `heroku.json`.
 
 # Using Maven
 

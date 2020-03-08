@@ -1,10 +1,8 @@
 <form method="GET" >
         <div class="form-group row">
-            <h2 for="scheduleName" class="col-sm-2 col-form-label">Select Schedule</h2>
-            
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <select class="custom-select" onchange="if (this.value) window.location.href=this.value">
-                    <option> </option>
+                    <option>- - Select Schedule - -</option>
                     <option th:each="s:${myschedules}" th:value="@{/schedule/} + ${s.scheduleid}" th:text="${s.schedulename}"></option>
                 </select>
             </div>

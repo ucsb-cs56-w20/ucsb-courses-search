@@ -73,8 +73,7 @@ public class SearchByGEController {
     @RequestParam(name = "area", required = true) String area,
     @RequestParam(name = "beginQ", required = true) int beginQ,
     @RequestParam(name = "endQ", required = true) int endQ, 
-    Model model,
-    SearchByGEMultiQuarter SearchByGEMultiQuarter) {
+    Model model) {
 
 
         List<Course> courses = new ArrayList<Course>();

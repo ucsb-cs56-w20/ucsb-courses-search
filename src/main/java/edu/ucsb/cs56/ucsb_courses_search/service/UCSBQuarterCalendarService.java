@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Service object that wraps the UCSB Academic Curriculum API
  */
-@Service
+@Service("calendarservice")
 public class UCSBQuarterCalendarService implements CalendarService {
 
     private Logger logger = LoggerFactory.getLogger(UCSBQuarterCalendarService.class);

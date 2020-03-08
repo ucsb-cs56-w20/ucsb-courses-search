@@ -90,12 +90,14 @@ public class ScheduleController {
         
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         List<Schedule> myschedules = scheduleRepository.findByUid(uid);
-        long scheduleid = myschedules.size()-1;
+        long scheduleid = myschedules.size();
         for (int i = 0; i < myschedules.size(); i++) {
             if (myschedules.get(i).getIsActive() == true) {
                 scheduleid = myschedules.get(i).getScheduleid();
             }
         }
+
+        logger.info("SCHED ID:" +scheduleid);
 
         scheduleItem.setScheduleid(scheduleid);                  
         scheduleItemRepository.save(scheduleItem);

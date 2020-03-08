@@ -38,7 +38,6 @@ public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
-    @Autowired
     private FinalService finalService;
 
     @Autowired

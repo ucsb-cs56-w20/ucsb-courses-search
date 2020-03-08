@@ -6,7 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+<<<<<<< HEAD:src/main/java/edu/ucsb/cs56/ucsb_courses_search/entity/ScheduleItem.java
 public class ScheduleItem {
+=======
+public class Course {
+>>>>>>> 3e9fcd932d6ca3be299829c939e9c7fb72e8e106:src/main/java/edu/ucsb/cs56/ucsb_courses_search/entity/Course.java
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -112,8 +116,13 @@ public class ScheduleItem {
         return quarter;
     }
 
+<<<<<<< HEAD:src/main/java/edu/ucsb/cs56/ucsb_courses_search/entity/ScheduleItem.java
     public void setScheduleid(long scheduleid) {
         this.scheduleid = scheduleid;
+=======
+    public void setUid(String uid) {
+        this.uid = uid;
+>>>>>>> 3e9fcd932d6ca3be299829c939e9c7fb72e8e106:src/main/java/edu/ucsb/cs56/ucsb_courses_search/entity/Course.java
     }
 
     public void setClassname(String classname) {
@@ -141,6 +150,7 @@ public class ScheduleItem {
     }
 
 
+<<<<<<< HEAD:src/main/java/edu/ucsb/cs56/ucsb_courses_search/entity/ScheduleItem.java
     public long getId() {
         return this.id;
     }
@@ -169,4 +179,6 @@ public class ScheduleItem {
             "}";
     }
 
+=======
+>>>>>>> 3e9fcd932d6ca3be299829c939e9c7fb72e8e106:src/main/java/edu/ucsb/cs56/ucsb_courses_search/entity/Course.java
 }

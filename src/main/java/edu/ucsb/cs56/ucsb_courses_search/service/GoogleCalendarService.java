@@ -17,6 +17,10 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model;// this one should import all the class in the model package
+import com.google.api.services.calendar;
+
+
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
@@ -225,14 +229,14 @@ public class GoogleCalendarService {
         };
         event.setAttendees(Arrays.asList(attendees));
 
-        EventReminder[] reminderOverrides = new EventReminder[] {
-            new EventReminder().setMethod("email").setMinutes(24 * 60),
-            new EventReminder().setMethod("popup").setMinutes(10),
-        };
-        Event.Reminders reminders = new Event.Reminders()
-            .setUseDefault(false)
-            .setOverrides(Arrays.asList(reminderOverrides));
-        event.setReminders(reminders);
+        // EventReminder[] reminderOverrides = new EventReminder[] {
+        //     new EventReminder().setMethod("email").setMinutes(24 * 60),
+        //     new EventReminder().setMethod("popup").setMinutes(10),
+        // };
+        // Event.Reminders reminders = new Event.Reminders()
+        //     .setUseDefault(false)
+        //     .setOverrides(Arrays.asList(reminderOverrides));
+        // event.setReminders(reminders);
 
         String calendarId = "primary";
         event = service.events().insert(calendarId, event).execute();

@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-
+@Document(collection = "courses")
 public class Course {
 
     private Logger logger = LoggerFactory.getLogger(Course.class);
@@ -93,13 +93,13 @@ public class Course {
         if (classSections.size() == 0)
             return "";
         Section firstSection = classSections.get(0);
-        if (firstSection.instructors == null)
+        if (firstSection.getInstructors() == null)
             return "";
-        if (firstSection.instructors.size() == 0)
+        if (firstSection.getInstructors().size() == 0)
             return "";
 
-        List<Instructor> instructors = firstSection.instructors;
-        List<String> instructorNames = instructors.stream().map((i) -> i.instructor).collect(Collectors.toList());
+        List<Instructor> instructors = firstSection.getInstructors();
+        List<String> instructorNames = instructors.stream().map((i) -> i.getInstructor()).collect(Collectors.toList());
         String instructorsCommaSeparated = String.join(", ", instructorNames);
         return instructorsCommaSeparated;
     }

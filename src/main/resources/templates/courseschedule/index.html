@@ -47,20 +47,45 @@
                 padding: 10px;
             }
         </style>
+
+         <script type="text/javascript">
+            function getWalkTime(){
+                var travelFrom = document.getElementById("travel-from");
+                var travelFromCoords = travelFrom.options[travelFrom.selectedIndex].value;
+
+                var travelTo = document.getElementById("travel-to");
+                var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
+
+                window.open("https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
+        + travelFromCoords + "," + travelToCoords + "&b=2&c=0&k1=en-US&k2=km");
+            }
+
+            function getBikeTime(){
+                var travelFrom = document.getElementById("travel-from");
+                var travelFromCoords = travelFrom.options[travelFrom.selectedIndex].value;
+
+                var travelTo = document.getElementById("travel-to");
+                var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
+
+                window.open("https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
+        + travelFromCoords + "," + travelToCoords + "&b=1&c=0&k1=en-US&k2=km")
+            }
+
+         </script>
         
         <div class="traveltime-container">
             <h5>Travel Time</h5>
             <p>Find how long it would take to go from</p>
-            <select class="custom-select" form="routeForm">
+            <select class="custom-select" id="travel-from" form="routeForm">
                 <option th:each="c : ${myclasses}" th:value="${c.location}" th:text="${c.location}"></option>
             </select>
             <p>to</p>
-            <select class="custom-select" form="routeForm">
+            <select class="custom-select" id="travel-to" form="routeForm">
                 <option th:each="c: ${myclasses}" th:value="${c.location}" th:text="${c.location}"></option>
             </select>
             <p>&nbsp;</p>
-            <button type="submit" th:formaction="@{/courseschedule/walktime}" class="btn btn-primary">🚶Walking</button>
-            <button type="submit" th:formaction="@{/biketime}" class="btn btn-primary">🚴Biking</button>
+            <button onClick="getWalkTime()" class="btn btn-primary">🚶Walking</button>
+            <button onClick="getBikeTime()" class="btn btn-primary">🚴Biking</button>
         </div>
     </form> 
     <div th:replace="fragments/bootstrap_footer.html"></div>

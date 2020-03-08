@@ -40,12 +40,25 @@ public class QuarterDeadlines{
     }
     public static String formatDate(String date){
 
-        String formatted = date.substring(0,10);
+        String daymonth = date.substring(5,10);
+        String year = date.substring(0,4);
+        String formatted = daymonth;
+        formatted += "-";
+        formatted += year;
         return formatted;
     }
 
     public void format(){
         this.firstDayOfClasses = formatDate(this.firstDayOfClasses);
+        this.lastDayOfClasses = formatDate(this.lastDayOfClasses);
+        this.firstDayOfQuarter = formatDate(this.firstDayOfQuarter);
+        this.pass1Begin = formatDate(this.pass1Begin);
+        this.pass2Begin = formatDate(this.pass2Begin);
+        this.pass3Begin = formatDate(this.pass3Begin);
+        this.feeDeadline = formatDate(this.feeDeadline);
+        this.lastDayToAddGrad = formatDate(this.lastDayToAddGrad);
+        this.lastDayToAddUnderGrad = formatDate(this.lastDayToAddUnderGrad);
+
     }
         
 

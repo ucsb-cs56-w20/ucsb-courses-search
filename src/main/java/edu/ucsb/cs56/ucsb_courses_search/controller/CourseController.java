@@ -113,8 +113,8 @@ public class CourseController {
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
-            
-            googleCalendarService.setClasses(myclasses);
+            String email = token.getPrincipal().getAttributes().get("email").toString();
+            googleCalendarService.initialize(myclasses, email);
             try{
                 googleCalendarService.createGoogleCalendar();
                 logger.info("Google Calendar created");

@@ -168,7 +168,7 @@ public class WeeklyView {
       //                 HWLLO <br/> \
       //                 MW';
 
-      return course.getClassname() +"<br />" + course.getAssociatedLectureTime() + "<br />" + course.getAssociatedLectureTime();
+      return course.getClassname() +"<br />" + course.getAssociatedLectureDay() + "<br />" + course.getAssociatedLectureTime();
       //return "stub";
     }
     public String returnSpanSection(Course course){

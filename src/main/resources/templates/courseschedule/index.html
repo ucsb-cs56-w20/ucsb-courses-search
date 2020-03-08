@@ -55,7 +55,7 @@
           <th class = "timerange"></th>
             <tr th:each = "tr: ${timerange}">
               <td th:text="${tr}"></td>
-             <!--<td th:text = "${week.returnColSection(myclasses[0])}"> </td>-->
+             <td th:text = "${week.returnColSection(myclasses[0])}"> </td>
               <!--  //5 tds per tr>
               <td rowspan = "5"></td> -->
 
@@ -71,15 +71,32 @@
   <script th:inline="javascript">
     function myFunction()
     {
+      // var table = document.getElementById("week_table");
+      // for(var i = 2; i < /*[[${timerange.length+2}]]*/ 'default'; i++)
+      // {
+      //   for(var j = 1; j < 6; j++)
+      //   {
+      //     var cell = table.rows[i].insertCell(j);
+      //     cell.innerHTML = '&nbsp';
+      //   }
+      // }
+      var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
+      var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
+      var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
+      var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
+
+      
+
       var table = document.getElementById("week_table");
-      for(var i = 2; i < /*[[${timerange.length+2}]]*/ 'default'; i++)
-      {
-        for(var j = 1; j < 6; j++)
-        {
-          var cell = table.rows[i].insertCell(j);
-          cell.innerHTML = '&nbsp';
-        }
-      }
+      var cell = table.rows[row].insertCell(colsection);
+      // cell.innerHTML = 'HELLO <br/> \
+      //                  HWLLO <br/>  \
+      //                  MW';
+
+      let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
+      var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
+      cell.innerHTML = r;
+      cell.rowSpan = rowspan;
     }
   </script>
   <!-- put javascript in here for if statements^ -->

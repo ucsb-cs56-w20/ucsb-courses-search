@@ -53,6 +53,7 @@ public class CourseController {
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
+<<<<<<< HEAD
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
@@ -68,6 +69,20 @@ public class CourseController {
             //model.addAttribute("myclasses", emptyList);
 	    //org.springframework.security.access.AccessDeniedException("403 returned");
 	       throw new AccessForbiddenException();
+=======
+            logger.info("courseRepository="+courseRepository);
+            Iterable<Course> myclasses = courseRepository.findByUid(uid);
+      
+            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
+            model.addAttribute("myclasses", myclasses);
+
+        } else {
+            ArrayList<Course> emptyList = new ArrayList<Course>();
+
+            model.addAttribute("myclasses", emptyList);
+      ]
+
+>>>>>>> lh-trying to fix rebase
         }
         return "courseschedule/index";
     }

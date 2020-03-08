@@ -44,11 +44,14 @@ public class SearchByInstructorController {
     @Autowired
     private QuarterListService quarterListService;
 
+    @Autowired
+    private Quarter quarter;
+
     @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model.addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
-        model.addAttribute("instructorList", archivedCourseRepository.listInstructorNamesByQuarterInterval(quarterListService.getStartQuarter(),quarterListService.getEndQuarter())); 
+        model.addAttribute("instructorList", archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(quarter.qyyToQyyyy(quarterListService.getStartQuarter())),Integer.toString(quarter.qyyToQyyyy(quarterListService.getEndQuarter())))); 
         return "search/byinstructor/multiquarter/search";
     }
 

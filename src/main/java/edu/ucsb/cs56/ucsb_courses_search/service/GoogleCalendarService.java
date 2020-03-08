@@ -215,7 +215,7 @@ public class GoogleCalendarService {
         return recStr;
     }
 
-    private CreateEvent(){
+    private void CreateEvent(){
         Event event = new Event()
             .setSummary("Google I/O 2015")
             .setLocation("800 Howard St., San Francisco, CA 94103")

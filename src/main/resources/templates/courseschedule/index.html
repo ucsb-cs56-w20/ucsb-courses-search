@@ -21,6 +21,7 @@
           <th>Meeting Times</th>
           <th>Meeting Days</th>
           <th>Location</th>
+
         </tr>
       </thead>
       <tbody>
@@ -33,91 +34,71 @@
           <td th:text="${c.meettime}"></td>
           <td th:text="${c.meetday}"></td>
           <td th:text="${c.location}"></td>
+
         </tr>
       </tbody>
     </table>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
-
-  <div class = "content weekly view">
-    <div align = "Center">
-      <table cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
-        <tbody>
-          <tr>
-            <th class = "heading">&nbsp</th>
-            <th class = "heading">
-              <span>
-                Monday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Tuesday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Wednesday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Thursday
-              </span>
-            </th>
-            <th class = "heading">
-              <span>
-                Friday
-              </span>
-            </th>
-          </tr>
-
-
-          <tr>//need 29 rows for 8am - 10pm
-            <th class = "timerange">
-              <span>
-                8:00 AM
-              </span>
-            </th>
-            //5 tds per tr
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-            <td>&nbsp  </td>
-
-          </tr>
-          <tr>
-              <th class = "timerange">
-                <span>
-                  8:30 AM
-                </span>
+  <div id = "weekly_view">
+      <div align = "Center">
+        <table id ="week_table" cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
+          <tbody>
+            <tr >
+              <th class = "heading">&nbsp</th>
+              <th th:each = "d: ${days}" th:text="${d}">
               </th>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
             </tr>
-          </tr>
-          <tr>
-              <th class = "timerange">
-                <span>
-                  9:00 AM
-                </span>
-              </th>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-              <td>&nbsp  </td>
-            </tr>
-          </tr>
-        </tbody>
-      </table>
+            <!-- javascipt here to put classes into some sort of an array ->>
+            <!--need 29 rows for 8am - 10pm -->
+            <th class = "timerange"></th>
+              <tr th:each = "tr: ${timerange}">
+                <td th:text="${tr}"></td>
+               <td th:text = "${week.returnColSection(myclasses[0])}"> </td>
+                <!--  //5 tds per tr>
+                <td rowspan = "5"></td> -->
+
+                <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
+              </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <div th:replace="fragments/bootstrap_scripts.html"></div>
+
+    <div th:replace="fragments/bootstrap_scripts.html"></div>
+
+    <script th:inline="javascript">
+      function myFunction()
+      {
+        // var table = document.getElementById("week_table");
+        // for(var i = 2; i < /*[[${timerange.length+2}]]*/ 'default'; i++)
+        // {
+        //   for(var j = 1; j < 6; j++)
+        //   {
+        //     var cell = table.rows[i].insertCell(j);
+        //     cell.innerHTML = '&nbsp';
+        //   }
+        // }
+        var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
+        var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
+        var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
+        var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
+
+
+
+        var table = document.getElementById("week_table");
+        var cell = table.rows[row].insertCell(colsection);
+        // cell.innerHTML = 'HELLO <br/> \
+        //                  HWLLO <br/>  \
+        //                  MW';
+
+        let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
+        var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
+        cell.innerHTML = r;
+        cell.rowSpan = rowspan;
+      }
+    </script>
+
 </body>
 
 </html>

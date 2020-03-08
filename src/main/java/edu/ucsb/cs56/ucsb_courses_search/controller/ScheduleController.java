@@ -103,11 +103,11 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/create")
-    public String add_schedule(String sname, Model model, OAuth2AuthenticationToken token) {
+    public String add_schedule(Model model, OAuth2AuthenticationToken token) {
         Schedule newschedule = new Schedule();
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         newschedule.setUid(uid);
-        newschedule.setSchedulename(sname);
+        newschedule.setSchedulename("New Schedule");
         scheduleRepository.save(newschedule);
         return "redirect:/schedule";
     }

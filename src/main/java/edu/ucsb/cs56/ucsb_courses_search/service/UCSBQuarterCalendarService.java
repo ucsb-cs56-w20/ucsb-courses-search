@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Service object that wraps the UCSB Academic Curriculum API
  */
-@Service("quartercalendar")
+@Service
 public class UCSBQuarterCalendarService implements CalendarService {
 
     private Logger logger = LoggerFactory.getLogger(UCSBQuarterCalendarService.class);

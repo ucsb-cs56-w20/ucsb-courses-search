@@ -76,9 +76,9 @@ public class ScheduleController {
         model.addAttribute("scheduleSearch", scheduleSearch);
         return "schedule/index";
     }
-    @PostMapping("/schedule/add/{scheduleid}")
-    public String add( @PathVariable("scheduleid") Long scheduleid,
-                        ScheduleItem scheduleItem, 
+    @PostMapping("/schedule/add")
+    public String add(  ScheduleItem scheduleItem, 
+                        OAuth2AuthenticationToken token,
                         @RequestParam String lecture_classname,
                         @RequestParam String lecture_enrollCode,
                         @RequestParam String lecture_professor,
@@ -87,6 +87,16 @@ public class ScheduleController {
                         @RequestParam String lecture_location,
                         @RequestParam String lecture_quarter) {
         logger.info("ScheduleItem = " + scheduleItem); 
+        
+        String uid = token.getPrincipal().getAttributes().get("sub").toString();
+        List<Schedule> myschedules = scheduleRepository.findByUid(uid);
+        long scheduleid = myschedules.size()-1;
+        for (int i = 0; i < myschedules.size(); i++) {
+            if (myschedules.get(i).getIsActive() == true) {
+                scheduleid = myschedules.get(i).getScheduleid();
+            }
+        }
+
         scheduleItem.setScheduleid(scheduleid);                  
         scheduleItemRepository.save(scheduleItem);
 
@@ -106,7 +116,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/create")
-    public String add_schedule(Model model, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
+    public String add_schedule(OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
         Schedule newschedule = new Schedule();
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         newschedule.setUid(uid);
@@ -116,8 +126,28 @@ public class ScheduleController {
         return "redirect:/schedule/";
     }
 
+    @PostMapping("/schedule/isactive/{scheduleid}")
+    public String setisactive_schedule( @PathVariable("scheduleid") Long scheduleid, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
+        String uid = token.getPrincipal().getAttributes().get("sub").toString();
+        List<Schedule> myschedules = scheduleRepository.findByUid(uid);
+        Schedule schedule = new Schedule();
+        for (int i = 0; i < myschedules.size(); i++) {
+            if (myschedules.get(i).getScheduleid() == scheduleid) {
+                schedule = (myschedules.get(i));
+            }
+            else{
+                myschedules.get(i).setIsActive(false);
+            }
+        }
+        schedule.setIsActive(true);
+        logger.info("SCHEDULE IS ACTIVE: " + schedule.getIsActive());
+        scheduleRepository.save(schedule);
+        redirAttrs.addFlashAttribute("alertSuccess", "Schedule Set to Active");
+        return "redirect:/schedule/{scheduleid}";
+    }
+
     @PostMapping("/schedule/rename/{scheduleid}")
-    public String rename_schedule( @PathVariable("scheduleid") Long scheduleid, String newName, Model model, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
+    public String rename_schedule( @PathVariable("scheduleid") Long scheduleid, String newName, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         List<Schedule> myschedules = scheduleRepository.findByUid(uid);
         Schedule schedule = new Schedule();

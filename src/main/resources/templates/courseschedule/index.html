@@ -55,6 +55,7 @@
               <tr th:each = "tr: ${timerange}">
                 <td th:text="${tr}"></td>
                <td th:text = "${week.returnSpanSection(myclasses[0])}"> </td>
+
                 <!--  //5 tds per tr>
                 <td rowspan = "5"></td> -->
 
@@ -62,19 +63,24 @@
               </tr>
           </tbody>
         </table>
+        <script>myFunction();</script>
       </div>
     </div>
 
     <div th:replace="fragments/bootstrap_scripts.html"></div>
-
     <script th:inline="javascript">
         function myFunction()
     {
-      // var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
-      // var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
-      // var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
-      // var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
+        alert("hi");
+        var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
+        var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
+        var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
+        var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
 
+        alert(sizeOfmyClasses);
+        alert(colsection);
+        alert(row);
+        alert(rowspan);
       var table = document.getElementById("week_table");
       var cell = table.rows[2].insertCell(2);
       cell.innerHTML = 'HELLO <br/> \
@@ -82,16 +88,20 @@
                         MW';
 
       let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
-      //var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
+      alert(s);
+      var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
+      alert(r);
       //cell.innerHTML = r;
-      cell.rowSpan = rowspan;
+      cell.rowSpan = 2;
 
-      //alert(document.getElementById("week_table").rows[3].cells.length);
+
     }
       }
     </script>
 
 
+
 </body>
+
 
 </html>

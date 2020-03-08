@@ -111,7 +111,7 @@ public class SearchByGEController {
         model.addAttribute("quarter", quarter);
 
         String firstJson = curriculumService.getGE(college, firstArea, quarter);
-        CoursePage cp1 = CoursePage.fromJSON(firstJson);
+        CoursePage cp1 = CoursePage.fromJSON(firstJson); 
         List<Course> firstAreaCourses = new ArrayList<Course>();
         firstAreaCourses.addAll(cp1.classes);
 
@@ -122,11 +122,14 @@ public class SearchByGEController {
 
         List<Course> courses = new ArrayList<Course>();
 
-        for (Course c: firstAreaCourses) {
-            if (secondAreaCourses.contains(c) == true) {
-                courses.add(c); 
+        for (Course c1: firstAreaCourses) {
+            for (Course c2: secondAreaCourses) {
+                if (c1.getCourseId().equals(c2.getCourseId())) {
+                    courses.add(c1);
+                }
             }
         }
+        
 
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);

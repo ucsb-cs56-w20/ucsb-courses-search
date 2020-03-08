@@ -1,5 +1,7 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +22,9 @@ import org.slf4j.LoggerFactory;
 public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
+
+    @Autowired
+    private FinalService finalService;
 
     @Autowired
     private CourseRepository courseRepository;
@@ -38,7 +45,15 @@ public class CourseController {
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
-            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
+            ArrayList<FinalPage> myfinals = new ArrayList<FinalPage>();
+            for(Course course : myclasses){
+                String json = finalService.getJSON(course.getEnrollCode(), course.getQuarter());
+                logger.info(json);
+                FinalPage fp = FinalPage.fromJSON(json);
+                fp.setCourseName(course.getClassname());
+                myfinals.add(fp);
+            }
+            model.addAttribute("myfinals", myfinals);
             model.addAttribute("myclasses", myclasses);
         } else {
             ArrayList<Course> emptyList = new ArrayList<Course>();

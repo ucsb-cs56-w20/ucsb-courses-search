@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.GoogleCalendarService;
+import edu.ucsb.cs56.ucsb_courses_search.service.GoogleCalendarCallbackService;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -26,11 +27,14 @@ public class CourseController {
     private GoogleCalendarService googleCalendarService;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private GoogleCalendarCallbackService googleCalendarCallbackService;
 
     @Autowired
-    public CourseController(CourseRepository courseRepository, GoogleCalendarService googleCalendarService) {
+    public CourseController(CourseRepository courseRepository, GoogleCalendarService googleCalendarService, GoogleCalendarCallbackService googleCalendarCallbackService) {
         this.courseRepository = courseRepository;
         this.googleCalendarService = googleCalendarService;
+        this.googleCalendarCallbackService = googleCalendarCallbackService;
     }
 
     @GetMapping("/courseschedule")
@@ -62,8 +66,8 @@ public class CourseController {
         return "courseschedule/index";
     }
 
-    @GetMapping("/GoogleCalendar")
-    public String exportToGoogleCalendar(Model model, OAuth2AuthenticationToken token) {
+    //@GetMapping("/GoogleCalendar")
+    /*public String exportToGoogleCalendar(Model model, OAuth2AuthenticationToken token) {
         
         logger.info("Inside /GoogleCalendar controller method CourseController#exportToGoogleCalendar");
         logger.info("model=" + model + " token=" + token);
@@ -74,10 +78,9 @@ public class CourseController {
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
-            
             googleCalendarService.setClasses(myclasses);
             try{
-                googleCalendarService.createGoogleCalendar();
+                //googleCalendarService.createGoogleCalendar(token);
                 logger.info("Google Calendar created");
             } catch (IOException e) {
                 logger.error("IOException caught");
@@ -89,5 +92,5 @@ public class CourseController {
         model.addAttribute("message", "Export completed!");
 
         return "courseschedule/index";
-    }
+    }*/
 }

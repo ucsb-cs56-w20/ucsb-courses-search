@@ -37,6 +37,8 @@
       </tbody>
     </table>
     <form method="GET" class="form-inline my-2 my-lg-0">
+      <!--<a th:href="@{https://accounts.google.com/o/oauth2/auth?access_type=offline&client_id=498303130200-atf4fm547ttb9r46r3f707l64j2gbkc8.apps.googleusercontent.com&redirect_uri=http://localhost:8080/courseschedule&response_type=code&scope=https://www.googleapis.com/auth/calendar&state=xyz}" class="btn btn-primary" role="button">Export to Google Calendar</a>-->
+      <!--<button class="btn btn-primary" th:formaction="@{https://accounts.google.com/o/oauth2/auth?access_type=offline&client_id=498303130200-atf4fm547ttb9r46r3f707l64j2gbkc8.apps.googleusercontent.com&redirect_uri=http://localhost:8080/courseschedule&response_type=code&scope=https://www.googleapis.com/auth/calendar&state=xyz}" type="submit">Export to Google Calendar</button>-->
       <button class="btn btn-primary" th:formaction="@{/GoogleCalendar}" type="submit">Export to Google Calendar</button>
       <pre th:text="${message}">Placeholder</pre>
     </form>

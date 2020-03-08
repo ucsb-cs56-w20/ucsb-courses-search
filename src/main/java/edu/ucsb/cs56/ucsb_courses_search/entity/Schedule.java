@@ -8,6 +8,7 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long scheduleid;
+    
     private String schedulename;
     private String quarter;
     private String uid;

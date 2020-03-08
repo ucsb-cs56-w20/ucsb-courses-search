@@ -112,22 +112,27 @@ public class SearchByGEController {
 
         String firstJson = curriculumService.getGE(college, firstArea, quarter);
         CoursePage cp1 = CoursePage.fromJSON(firstJson);
-        List<CourseOffering> firstAreaOfferings = CourseOffering.fromCoursePage(cp1);
+        List<Course> firstAreaCourses = new ArrayList<Course>();
+        firstAreaCourses.addAll(cp1.classes);
 
         String secondJson = curriculumService.getGE(college, secondArea, quarter);
         CoursePage cp2 = CoursePage.fromJSON(secondJson);
-        List<CourseOffering> secondAreaOfferings = CourseOffering.fromCoursePage(cp2);
+        List<Course> secondAreaCourses = new ArrayList<Course>();
+        secondAreaCourses.addAll(cp2.classes);
 
-        List<CourseOffering> offerings = new ArrayList<CourseOffering>();
+        List<Course> courses = new ArrayList<Course>();
 
-        for (CourseOffering c: firstAreaOfferings) {
-            if (secondAreaOfferings.contains(c) == true) {
-                offerings.add(c);
+        for (Course c: firstAreaCourses) {
+            if (secondAreaCourses.contains(c) == true) {
+                courses.add(c); 
             }
         }
 
-        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(offerings);
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+        model.addAttribute("searchByGETwoAreas", new SearchByGETwoAreas());
+        
         model.addAttribute("rows", rows);
 
         return "search/byge/twoareas/results";

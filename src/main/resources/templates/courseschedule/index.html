@@ -71,18 +71,19 @@
   <script th:inline="javascript">
     function myFunction()
     {
-      //var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
+      var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
+      var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
+        var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';
 
-      //var week_div = document.getElementById("weekly_view");
       var table = document.getElementById("week_table");
-      var cell = table.rows[3].insertCell(2);
-      cell.innerHTML = 'HELLO <br/> \
-                       HWLLO <br/>  \
-                       MW';
+      var cell = table.rows[row].insertCell(2);
+      // cell.innerHTML = 'HELLO <br/> \
+      //                  HWLLO <br/>  \
+      //                  MW';
 
-      //let s = sizeOfmyClasses +"<br />" + "BIOENG 1001" + "<br />" + "7:00-10:30";
+      let s =  colsection +"<br />" + "Butt"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
       //var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
-      //cell.innerHTML = s;
+      cell.innerHTML = s;
       cell.rowSpan = 5;
 
       //alert(document.getElementById("week_table").rows[3].cells.length);

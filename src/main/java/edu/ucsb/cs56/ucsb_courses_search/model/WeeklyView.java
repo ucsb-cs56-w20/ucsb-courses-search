@@ -111,13 +111,14 @@ public class WeeklyView {
     }
 
     public int returnClasslength(Course course){
-      //TESTED
+      
       //Course course, String LectureOrSection
       //for rowspan nte that meetime gives the section time not lecture time in form 09:00-09:50
       // for a 75 minute class, usually 12:30-1:45 or 2-3:14, the hour is difference of 1
       //for a 50 min class, the hour is the same etc; 7-7:50
       //for a long labs, there will be first a 2 hour difference such as 14-16:30 or 14-16:50, then also check the minutes for an extra
       String times = course.getMeettime();
+      //String times = "11:00 - 11:50";
       // if(LectureOrSection=="lecture"){
       //     times = course.getAssociatedLectureTime();
       // }
@@ -128,16 +129,17 @@ public class WeeklyView {
       //Put both times in minutes
 
       int hour1 = Integer.parseInt(times.substring(0,2));
-      int hour2 = Integer.parseInt(times.substring(8,10));
+      int hour2 = Integer.parseInt(times.substring(6,8));
 
       int minutes1 = Integer.parseInt(times.substring(3,5));
-      int minutes2 = Integer.parseInt(times.substring(11,13));
+      int minutes2 = Integer.parseInt(times.substring(9,11));
 
       int time1 = hour1*60 + minutes1;
       int time2 = hour2*60 + minutes2;
       int differenceInMinutes = time2 - time1; //note that 11:00-11:50= 50 amd 17:30-21:20 = 3 hr 50 min = 230 min
       differenceInMinutes+=15; //everytime ends either 15,50 or 20 so add extra
-      return differenceInMinutes/30;//rowspan
+      return differenceInMinutes/30;//rowspanr
+      //return course.getMeettime();
 
     }
 

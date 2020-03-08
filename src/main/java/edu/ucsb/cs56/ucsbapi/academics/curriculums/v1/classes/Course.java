@@ -20,6 +20,7 @@ public class Course {
     private String title;
     private String description;
     private List<Section> classSections;
+    private FinalExam finalExam;
 
     public Course() {
     }
@@ -72,6 +73,13 @@ public class Course {
         this.description = description;
     }
 
+    public FinalExam getFinalExam() {
+		return this.finalExam;
+	}
+
+	public void setFinalExam(FinalExam finalExam) {
+		this.finalExam = finalExam;
+	}
    
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture

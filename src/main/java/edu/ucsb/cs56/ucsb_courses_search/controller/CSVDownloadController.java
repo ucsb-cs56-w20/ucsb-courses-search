@@ -53,7 +53,7 @@ public class CSVDownloadController {
         }
 
         if(instructor != null){
-            filename += instructor + "-";
+            filename += instructor.toUpperCase() + "-";
         }
 
         if(course != null){
@@ -68,15 +68,16 @@ public class CSVDownloadController {
             filename += area + "-";
         }
 
+        if(courseLevel != null){
+            filename += courseLevel + "-";
+        }
+
         if(beginQ != null && endQ != null){
             filename += beginQ + "-" + endQ;
         }else{
             filename += quarter;
         }
         
-        if(courseLevel != null){
-            filename += courseLevel + "-";
-        }
 
         filename += ".csv";
         response.setContentType("text/csv");

@@ -45,11 +45,17 @@
           <th>Final Day</th>
           <th>Start Time</th>
           <th>End Time</th>
+          <th>Comments</th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="c: ${myclasses}">
-          
+        <tr th:each="f: ${myfinals}">
+          <td th:text="${f.courseName}"></td>
+          <td th:text="${f.examDate}"></td>
+          <td th:text="${f.examDay}"></td>
+          <td th:text="${f.beginTime}"></td>
+          <td th:text="${f.endTime}"></td>
+          <td th:text="${f.comments}"></td>
         </tr>
       </tbody>
     </table>

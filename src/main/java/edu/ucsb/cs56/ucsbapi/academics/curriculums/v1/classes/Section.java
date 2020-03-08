@@ -104,7 +104,7 @@ public class Section {
         this.gradingOptionCode = gradingOptionCode;
     }
 
-   public Integer getEnrolledTotal() {
+    public Integer getEnrolledTotal() {
 	if(this.enrolledTotal == null){
 		return 0;
 	}
@@ -115,7 +115,7 @@ public class Section {
         this.enrolledTotal = enrolledTotal;
     }
 
-  public Integer getMaxEnroll() {
+    public Integer getMaxEnroll() {
 	if(this.maxEnroll == null){
 		return 0;
 	}

@@ -58,6 +58,8 @@ public class SearchByClassroomController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+        model.addAttribute("rows", rows);
+
         for (int i = 0; i < rows.size(); i++){
             logger.info(rows.get(i).getSection().toString());
             logger.info("{" + rows.get(i).getCourse().getCourseId() + "}");

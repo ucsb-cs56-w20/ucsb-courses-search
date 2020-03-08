@@ -3,6 +3,7 @@ package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.GeneralEducation;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
 import org.slf4j.Logger;
@@ -19,9 +20,18 @@ public class Course {
     private String courseId;
     private String title;
     private List<Section> classSections;
+    private List<GeneralEducation> GEs;
 
     public Course() {
     }
+
+    public List<GeneralEducation> getGEs() {
+        return this.GEs;
+    }
+
+    public void setGEs(List<GeneralEducation> GEs) {
+        this.GEs = GEs;
+    };
 
     public String getQuarter() {
         return this.quarter;
@@ -63,6 +73,14 @@ public class Course {
         this.classSections = classSections;
     }
 
+    public String getGEList() {
+        // String GEList = "";
+        // for (int i=0; i< getGEs().size(); i++) {
+        //     GEList += getGEs().get(i).toString();
+        // }
+        // return GEList;
+        return getGEs().get(0).toString();
+    }
    
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture

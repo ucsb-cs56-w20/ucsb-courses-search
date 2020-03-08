@@ -14,13 +14,20 @@
           </button>
         </div>
         <div class="modal-body">
-            <table class="table">
-              <tbody>
-                <td>STUB</td>
-                <td>STUB_1</td>
-                <td>STUB_2</td>
-              </tbody>
-            </table>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>GE Code</th>
+                <th>GE College</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="ge:${r.course.generalEducation}">
+                <td th:text="${ge.getGeCode()}"></td>
+                <td th:text="${ge.getGeCollege()}"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="modal-footer">
         </div>

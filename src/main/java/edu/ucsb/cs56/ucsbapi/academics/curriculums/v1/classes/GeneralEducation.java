@@ -1,6 +1,11 @@
 package edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 public class GeneralEducation {
+
     private String geCode;
     private String geCollege;
 
@@ -20,6 +25,14 @@ public class GeneralEducation {
 
     public void setGeCollege(String geCollege) {
         this.geCollege = geCollege;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + 
+            " geCode='" + getGeCode() + "'" +
+            ", geCollege='" + getGeCollege() + "'" +
+            "}";
     }
 
 }

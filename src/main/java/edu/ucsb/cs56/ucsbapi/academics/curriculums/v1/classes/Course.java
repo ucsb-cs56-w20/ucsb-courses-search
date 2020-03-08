@@ -19,6 +19,7 @@ public class Course {
     private String courseId;
     private String title;
     private List<Section> classSections;
+    private List<GeneralEducation> generalEducation;
 
     public Course() {
     }
@@ -68,7 +69,14 @@ public class Course {
         this.classSections = classSections;
     }
 
-   
+    public List<GeneralEducation> getGeneralEducation() {
+        return this.generalEducation;
+    }
+
+    public void setGeneralEducation(List<GeneralEducation> generalEducation) {
+        this.generalEducation = generalEducation;
+    }
+
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture
      * (primary) section. If there is more than one, they are separated by commas

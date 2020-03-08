@@ -60,7 +60,9 @@ public class SearchByDeptController {
         };
 
         Collections.sort(rows, byCourseId);
-
+        /*for(CourseListingRow r : rows) {
+            logger.info(r.getCourse().getCourseId() + " " + r.getCourse.getG
+        }*/
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);

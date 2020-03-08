@@ -7,111 +7,34 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 
 
 public class WeeklyView {
-    //
+    private int counter;
+    private int rowcounter;
+    private int rowspan;
+
     public WeeklyView(){
-
+      this.counter=0;
+      this.rowcounter=2;
+      this.rowspan=1;
     }
 
-    //function to return Day in number form , Monday=1 , takes in Course object
-    public int returnColLecture(ScheduleItem course){
-      String time = course.getAssociatedLectureDay();
-      String lec = "";
-      for(int i = 0; i < time.length(); i++)
-      {
-        if(time.charAt(i) != ' ')
-        {
-          lec += time.charAt(i);
-        }
-      }
-      //If MW return 1, if TR return 2, if MWF return 3
-      if( lec.equals("MW") ){
-          return 13;
-      }
-      else if (lec.equals("TR")){
-        return 24;
-      }
-      else if (lec.equals("MWF")){
-        return 135;
-      }
-      else if (lec.equals("M")){
-        return 1;
-      }
-      else if (lec.equals("T")){
-        return 2;
-      }
-      else if (lec.equals("W")){
-        return 3;
-      }
-      else if (lec.equals("R")){
-        return 4;
-      }
-      else if (lec.equals("F")){
-        return 5;
-      }
-      else if (lec.equals("WF")){
-        return 35;
-      }
-
-      return 0;
-    }
-    public int returnColSection(ScheduleItem course){
+    public boolean returnCol(ScheduleItem course, int count){
       String time = course.getMeetday();
-      String sec = "";
-      for(int i = 0; i < time.length(); i++)
-      {
-        if(time.charAt(i) != ' ')
-        {
-          sec += time.charAt(i);
-        }
-      }
+      if(count == 1)
+        return time.contains("M");
+      if(count == 2)
+        return time.contains("T");
+      if(count == 3)
+        return time.contains("W");
+      if(count == 4)
+        return time.contains("R");
+      if(count == 5)
+        return time.contains("F");
+      return false;
 
-      //Monday corresponds to Column 1 etc
-      if(sec.equals("M")){
-         return 1;
-       }
-       else if(sec.equals("T")){
-         return 2;
-       }
-       else if (sec.equals("W")){
-         return 3;
-       }
-       else if (sec.equals("R")){
-         return 4;
-       }
-       else if(sec.equals("F")){
-         return 5;
-       }
-       else if(sec.equals("TR")){
-         return 24;
-       }
-       else if(sec.equals("WF")){
-         return 35;
-      }
-      else if(sec.equals("MW")){
-         return 13;
-       }
-
-      return 0;
     }
 
-    public int returnLectureStartTime(ScheduleItem course){
-      //TESTED
-      //RETURNS ThE ROW, where 8:00AM = 1, 8:30AM = 2
 
-      String times = course.getAssociatedLectureTime();
-      //String times = "11:00 - 11:50";
-      int hour= Integer.parseInt(times.substring(0,2));
-
-      int minutes = Integer.parseInt(times.substring(3,5));
-      int time = hour*60 + minutes;//time in minutes
-      if(time ==480){
-        return 2;
-      }
-      int row = (time-480)/30+2;
-      return row;
-    }
-
-    public int returnSectionStartTime(ScheduleItem course){
+    public int returnStartTime(ScheduleItem course){
       //TESTED
       //RETURNS ThE ROW, where 8:00AM = 2, 8:30AM = 3
 
@@ -161,28 +84,56 @@ public class WeeklyView {
 
     }
 
-    public String returnSpanLecture(ScheduleItem course){
-      //for a long labs, there will be first a 2 hour difference such as 14-16:30 or 14-16:50, then also check the minutes for an extra
-      //rowspan
-      //     'HELLO <br/> \
-      //                 HWLLO <br/> \
-      //                 MW';
-
-      return course.getClassname() +"<br />" + course.getAssociatedLectureDay() + "<br />" + course.getAssociatedLectureTime();
-      //return "stub";
-    }
-    public String returnSpanSection(ScheduleItem course){
+    public String returnDescription(ScheduleItem course){
       //returns course in span format
       //rowspan
       //     'HELLO <br/> \
       //                 HWLLO <br/> \
       //                 MW';
 
-      return course.getClassname() + "<br />" + course.getLocation() + "<br />" + course.getMeettime();
+      return course.getClassname() + "\n" + course.getLocation() + "\n" + course.getMeettime();
 
       //return "stub";
     }
+    public String iterateOverArray(Iterable<ScheduleItem> myclasses){
+      //ITERATE OVER
+      int count = this.iterateCounter();//MONDAY = 1
+      //loop through myclasses and look for a colsection = to 1
+      for(ScheduleItem s:myclasses){
+        this.iterateRowSpan(this.returnClasslength(s));
+        if(this.returnCol(s, count)){
+          if(this.returnStartTime(s)== this.rowcounter){
+            //this.iterateRowSpan(this.returnClasslength(s));
+            return this.returnDescription(s)+this.rowspan;
+            //return "STUB"+count+" "+this.rowcounter;
+          }
 
+        }
+
+      }
+      this.iterateRowSpan(1);
+      return "count:"+count+"rowcounter:"+this.rowcounter +"rowspan:"+this.rowspan;
+
+      //return "NO item in myclasses";
+
+    }
+    public int iterateRowSpan(int newspan){
+      this.rowspan = newspan;
+      return this.rowspan;
+
+    }
+    public int returnRowspan(){
+      return this.rowspan;
+    }
+    public int iterateCounter(){
+       if(this.counter==5){
+        //reset the iterateCounter
+        this.counter =0;
+        this.rowcounter+=1;
+       }
+      this.counter+=1;
+      return this.counter;
+    }
     public String returnStub(){
       return "stub";
     }

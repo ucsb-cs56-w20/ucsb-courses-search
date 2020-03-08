@@ -44,6 +44,35 @@ public class CourseController {
 	this.membershipService = membershipService;
     }
 
+    private String[] getTimeRange(){
+      String[] timerange = new String[30];
+      int index = 0;
+      for(int h = 8; h <= 22; h++){
+        for(int m = 0; m <= 1; m++){
+          String time = "";
+          if(h > 12){
+            time += (h - 12);
+          } else{
+            time += h;
+          }
+          time += ":";
+          if(m == 0){
+            time += "00";
+          } else{
+            time += "30";
+          }
+          if(h >= 12){
+            time += " PM";
+          } else{
+            time += " AM";
+          }
+          timerange[index] = time;
+          index++;
+        }
+      }
+      return timerange;
+    }
+
     @GetMapping("/courseschedule")
     public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
 
@@ -57,7 +86,8 @@ public class CourseController {
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
-            String[] timerange = new String[]{"8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM"};
+            String[] timerange = getTimeRange();
+            //String[] timerange = new String[]{"8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM"};
             WeeklyView week = new WeeklyView();
 
             model.addAttribute("myclasses", myclasses);

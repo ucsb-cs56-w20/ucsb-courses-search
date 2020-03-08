@@ -55,7 +55,11 @@
             <th class = "timerange"></th>
               <tr th:each = "tr: ${timerange}">
                 <td th:text="${tr}"></td>
-               <td th:text = "${week.returnSpanSection(myclasses[0])}"> </td>
+                <td th:text = "${week.iterateOverArray(myclasses)}"   > </td>
+                <td th:text = "${week.iterateOverArray(myclasses)}"   > </td>
+                <td th:text = "${week.iterateOverArray(myclasses)}"   > </td>
+                <td th:text = "${week.iterateOverArray(myclasses)}"  > </td>
+                <td th:text = "${week.iterateOverArray(myclasses)}"  > </td>
 
                 <!--  //5 tds per tr>
                 <td rowspan = "5"></td> -->
@@ -70,30 +74,36 @@
 
     <div th:replace="fragments/bootstrap_scripts.html"></div>
     <script th:inline="javascript">
-    //     function myFunction()
-    // {
-    //     alert("ii");
-    //     var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
-    //     var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
-    //     var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
-    //     var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
-    //
-    //   var table = document.getElementById("week_table");
-    //   var cell = table.rows[2].insertCell(2);
+    /*<![CDATA[*/
+         function myFunction(course)
+     {
+         // alert("ii");
+         // var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
+         //
+         //   var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
+         //   var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
+         //   var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
+         //
+         //   var table = document.getElementById("week_table");
+         //    var cell = table.rows[row].insertCell(colsection);
+         //   var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
+         //   cell.innerHTML = r;
+          //  cell.rowSpan = rowspan;
+         //
+
+
+
+
+
+
     //   cell.innerHTML = 'HELLO <br/> \
     //                     HWLLO <br/>  \
     //                     MW';
     //
     //   let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
-    //
-    //   var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
-    //
-    //   //cell.innerHTML = r;
-    //   cell.rowSpan = 2;
-    //
-    //
-    //   }
 
+       }
+       /*]]>*/
     </script>
 
 

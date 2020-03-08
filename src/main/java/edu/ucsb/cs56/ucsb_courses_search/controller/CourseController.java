@@ -96,25 +96,15 @@ public class CourseController {
         return "courseschedule/index";
     }
 
-    @PostMapping("/courseschedule/addLecture")
-    public String add(Course course, Model model) {
-        logger.info("Hello!\n");
-        logger.info("course's uid: " + course.getUid());
-        logger.info("course = " + course);                   
-        courseRepository.save(course);
-
-        model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
-        return "courseschedule/index";
-    }
 
     @PostMapping("/courseschedule/addLecture")
-    public String add(Course course, Model model) {
+    public String addLecture(ScheduleItem scheduleItem, Model model) {
         logger.info("Hello!\n");
-        logger.info("course's uid: " + course.getUid());
-        logger.info("course = " + course);                   
-        courseRepository.save(course);
+        logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
+        logger.info("ScheduleItem = " + scheduleItem);                   
+        scheduleItemRepository.save(scheduleItem);
 
-        model.addAttribute("myclasses", courseRepository.findByUid(course.getUid()));
+        model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";
     }
 

@@ -43,17 +43,17 @@
   </div>
   <div id = "weekly_view">
     <div align = "Center">
-      <table id ="week_table" cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
-        <tbody>
+      <table id ="week_table"  cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
+        <thead>
           <tr >
             <th class = "heading">&nbsp</th>
             <th th:each = "d: ${days}" th:text="${d}">
             </th>
           </tr>
-          <!-- javascipt here to put classes into some sort of an array ->>
-
+        </thead>
+          <tbody>
             <!--need 29 rows for 8am - 10pm -->
-            <th class = "timerange"></th>
+            <th class = "timerange" scope = "row"></th>
               <tr th:each = "tr: ${timerange}" id = "timerange" >
                 <td th:text="${tr}"></td>
                 <td th:text = "${week.iterateOverArray(myclasses)}"   > </td>
@@ -62,10 +62,7 @@
                 <td th:text = "${week.iterateOverArray(myclasses)}"  > </td>
                 <td th:text = "${week.iterateOverArray(myclasses)}" > </td>
 
-                <!--  //5 tds per tr>
-                <td rowspan = "5"></td> -->
 
-                <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
               </tr>
           </tbody>
         </table>
@@ -75,44 +72,6 @@
 
     <div th:replace="fragments/bootstrap_scripts.html"></div>
 
-    <script>
-    function myFunction(){
-      var table=document.getElementById("week_table");
-        // var r=0;
-        // while(row=table.rows[r++])
-        // {
-        //    var c=0;
-        //     while(cell=row.cells[c++])
-        //     {
-        //       // while ( cell.innerText== "@@@@@@@@@@@@@@@@@@@@"){
-        //       //   //delete the cell
-        //       //   alert("hi");
-        //       //   var run =1;
-        //       //   if(table.row[r].cell[c].innerHTML == table.row[r-1].cell[c].innerHTML){
-        //       //     cell.innerHTML='-';
-        //       //     run++
-        //       //   }
-        //       //   else{
-        //       //     table.row[r-1].cell[c].rowspan = run;
-        //       //   run = 1
-        //       // }
-        //       if(cell.innerHTML == "@@@@@@@@@@@@@@@@@@@@" ){
-        //         alert("hi");
-        //         //var previouscell = table.row[r-1].cell[c];
-        //         //prviouscell.rowspan=2;
-        //         var nextCell = table.rows[r+1].cells[c];
-        //         alert(nextCell.innerHTML);
-        //       }
-        //
-        //       //cell.innerHTML='[Row='+r+',Col='+c+']'; // do sth with cell
-        //
-        //     }
-        // }]
-
-    }
-
-
-    </script>
 
 
 

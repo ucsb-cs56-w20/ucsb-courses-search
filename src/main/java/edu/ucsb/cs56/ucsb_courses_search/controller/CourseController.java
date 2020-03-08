@@ -41,7 +41,7 @@ public class CourseController {
     @Autowired
     public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
-	this.membershipService = membershipService;
+	       this.membershipService = membershipService;
     }
 
 
@@ -57,12 +57,10 @@ public class CourseController {
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
-            String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
-            
             WeeklyView week = new WeeklyView();
 
             model.addAttribute("myclasses", myclasses);
-            model.addAttribute("days", days);
+            model.addAttribute("days", week.getWeekdays());
             model.addAttribute("timerange", week.getTimeRange());
             model.addAttribute("week",week);
         } else {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
-import edu.ucsb.cs56.ucsb_courses_search.service.UCSBQuarterCalendarService;
+import edu.ucsb.cs56.ucsb_courses_search.service.CalendarService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -37,7 +37,8 @@ public class CourseController {
     private ScheduleItemRepository scheduleItemRepository;
 
     @Autowired
-    private UCSBQuarterCalendarService calendarservice;
+    @Qualifier("quartercalendar")
+    private CalendarService calendarservice;
 
     @Autowired
     private MembershipService membershipService;

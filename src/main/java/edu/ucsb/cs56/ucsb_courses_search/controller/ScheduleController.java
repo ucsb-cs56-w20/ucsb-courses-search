@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.http.HttpStatus;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
@@ -105,17 +106,18 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/create")
-    public String add_schedule(Model model, OAuth2AuthenticationToken token) {
+    public String add_schedule(Model model, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
         Schedule newschedule = new Schedule();
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         newschedule.setUid(uid);
         newschedule.setSchedulename("New Schedule");
         scheduleRepository.save(newschedule);
-        return "redirect:/schedule";
+        redirAttrs.addFlashAttribute("alertSuccess", "Schedule Created!");
+        return "redirect:/schedule/";
     }
 
     @PostMapping("/schedule/rename/{scheduleid}")
-    public String rename_schedule( @PathVariable("scheduleid") Long scheduleid, String newName, Model model, OAuth2AuthenticationToken token) {
+    public String rename_schedule( @PathVariable("scheduleid") Long scheduleid, String newName, Model model, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         List<Schedule> myschedules = scheduleRepository.findByUid(uid);
         Schedule schedule = new Schedule();
@@ -126,7 +128,8 @@ public class ScheduleController {
         }
         schedule.setSchedulename(newName);
         scheduleRepository.save(schedule);
-        return "redirect:/schedule";
+        redirAttrs.addFlashAttribute("alertSuccess", "Schedule Renamed");
+        return "redirect:/schedule/{scheduleid}";
     }
 
     @GetMapping("/schedule/{scheduleid}")

@@ -14,6 +14,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByCourse;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalExam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,14 @@ public class SearchByCourseController {
 
         List<CourseListingRow> primaryRows = rows.stream().filter(r -> r.getRowType().equals("PRIMARY"))
                 .collect(Collectors.toList());
+
+        for (CourseListingRow r : rows){
+            if (r.getFirstRow()) {
+                String finalJson = curriculumService.getFinalExam(r.getCourse().getQuarter(), r.getSection().getEnrollCode());
+                FinalExam fe = FinalExam.fromJSON(finalJson);
+                r.getCourse().setFinalExam(fe);
+            }
+        }
 
         model.addAttribute("rows", primaryRows);
 

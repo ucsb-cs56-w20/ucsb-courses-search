@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalExam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.UCSBBuildingService;
 
@@ -41,6 +42,14 @@ public class SearchController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
             
+        for (CourseListingRow r : rows){
+            if (r.getFirstRow()) {
+                String finalJson = curriculumService.getFinalExam(r.getCourse().getQuarter(), r.getSection().getEnrollCode());
+                FinalExam fe = FinalExam.fromJSON(finalJson);
+                r.getCourse().setFinalExam(fe);
+            }
+        }
+
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         model.addAttribute("rows", rows);

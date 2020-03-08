@@ -12,6 +12,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGE;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalExam;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -50,6 +51,14 @@ public class SearchByGEController {
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+        for (CourseListingRow r : rows){
+            if (r.getFirstRow()) {
+                String finalJson = curriculumService.getFinalExam(r.getCourse().getQuarter(), r.getSection().getEnrollCode());
+                FinalExam fe = FinalExam.fromJSON(finalJson);
+                r.getCourse().setFinalExam(fe);
+            }
+        }
+        
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);
 
@@ -85,6 +94,14 @@ public class SearchByGEController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        for (CourseListingRow r : rows){
+            if (r.getFirstRow()) {
+                String finalJson = curriculumService.getFinalExam(r.getCourse().getQuarter(), r.getSection().getEnrollCode());
+                FinalExam fe = FinalExam.fromJSON(finalJson);
+                r.getCourse().setFinalExam(fe);
+            }
+        }
 
         model.addAttribute("rows", rows);
 

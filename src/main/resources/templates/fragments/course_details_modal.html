@@ -14,6 +14,8 @@
           </button>
         </div>
         <div class="modal-body">
+          <b>Final Examination: </b>
+          <div th:text="${r.course.finalExam.getComments() == ''} ? ${r.course.finalExam.formatFinal()} : ${r.course.finalExam.getComments()}"></div>
             <table class="table">
               <tbody>
                 <td>STUB</td>

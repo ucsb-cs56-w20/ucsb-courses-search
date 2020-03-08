@@ -6,4 +6,5 @@ public interface CurriculumService {
     public String getJSON(String quarter);
     public String getGE(String college, String area,String quarter);
     public String getCourse(String course, int quarter);
+    public String getFinalExam(String quarter, String enrollCode);
 }

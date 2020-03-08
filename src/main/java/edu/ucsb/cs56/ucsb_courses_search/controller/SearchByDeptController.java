@@ -12,6 +12,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalExam;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,6 +59,14 @@ public class SearchByDeptController {
         Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
             return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());
         };
+
+        for (CourseListingRow r : rows){
+            if (r.getFirstRow()) {
+                String finalJson = curriculumService.getFinalExam(r.getCourse().getQuarter(), r.getSection().getEnrollCode());
+                FinalExam fe = FinalExam.fromJSON(finalJson);
+                r.getCourse().setFinalExam(fe);
+            }
+        }
 
         Collections.sort(rows, byCourseId);
 

@@ -22,6 +22,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByInstructorMultiQuarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalExam;
 
 
 import org.slf4j.Logger;
@@ -85,6 +86,14 @@ public class SearchByInstructorController {
 
             List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
             List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+            for (CourseListingRow r : rows){
+                if (r.getFirstRow()) {
+                    String finalJson = curriculumService.getFinalExam(r.getCourse().getQuarter(), r.getSection().getEnrollCode());
+                    FinalExam fe = FinalExam.fromJSON(finalJson);
+                    r.getCourse().setFinalExam(fe);
+                }
+            }
 
             model.addAttribute("rows", rows);
             model.addAttribute("searchObject", searchObject );

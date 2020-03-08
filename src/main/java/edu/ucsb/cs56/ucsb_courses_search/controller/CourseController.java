@@ -96,4 +96,16 @@ public class CourseController {
         return "courseschedule/index";
     }
 
+
+    @PostMapping("/courseschedule/addLecture")
+    public String addLecture(ScheduleItem scheduleItem, Model model) {
+        logger.info("Hello!\n");
+        logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
+        logger.info("ScheduleItem = " + scheduleItem);                   
+        scheduleItemRepository.save(scheduleItem);
+
+        model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
+        return "courseschedule/index";
+    }
+
 }

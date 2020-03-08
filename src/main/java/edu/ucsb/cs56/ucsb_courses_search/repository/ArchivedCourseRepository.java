@@ -3,6 +3,7 @@ package edu.ucsb.cs56.ucsb_courses_search.repository;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.stereotype.Repository;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
@@ -81,4 +82,7 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
      */                                                       
      @Query("{'quarter': ?0, 'deptCode': ?1}")
      List<Course> findByQuarterAndDepartment(String quarter, String dept);
+
+    @Aggregation({"{ '$match': { 'quarter': { '$gte': ?0, '$lte': ?1 } } }", "{ '$project': { 'name': '$classSections.instructors.instructor' } }"})
+    List<String> listInstructorNamesByQuarterInterval(String startQuarter, String endQuarter);
 }

@@ -20,4 +20,12 @@ public class QuarterListService {
     public List<Quarter> getQuarters() {
         return Quarter.quarterList(startQuarter, endQuarter);
     }
+
+    public String getStartQuarter() {
+        return startQuarter;
+    }
+
+    public String getEndQuarter() {
+        return endQuarter;
+    }
 }

@@ -60,9 +60,21 @@ public class SearchByClassroomController {
 
         model.addAttribute("rows", rows);
 
-        for (CourseListingRow r:rows){
-            // logger.info("LINAAAAAA" + r.toString());
+        for (int i = 0; i < rows.size(); i++){
+            logger.info("HELLLLP " + rows.get(i).getSection().toString());
         }
+
+        model.addAttribute("rows", rows);
+
+        // Iterator<CourseListingRow> itr = rows.iterator();
+        // while (itr.hasNext()){
+        //     if (r.getPrimary() == null){
+        //         itr.remove();
+        //     }
+        //     // logger.info("LINAAAAAA" + r.toString());
+        // }
+
+
 
         return "classroom/results";
     }

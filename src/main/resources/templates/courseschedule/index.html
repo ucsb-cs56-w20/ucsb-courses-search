@@ -1,31 +1,44 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
+
+
 <head>
+  <style type="text/css">
+    th:hover {background-color: red;}
+    table #tryingToSort         {border:ridge 5px red;}
+    table td       {border:inset 1px #000;}
+    table tr#ROW1  {background-color:#DC143C; color:black;}
+    </style>
   <title>My Class Schedule</title>
   <div th:replace="fragments/bootstrap_head.html"></div>
 </head>
+
+
 
 <body>
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedule</h3>
-    <table class="table">
+    <h5><strong>Click once on a header to sort your schedule by that category. Click twice to sort backwards.</strong></h5>
+
+    
+    <table id="tryingToSort" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
       <thead>
-        <tr>
-          <th>Quarter</th>
-          <th>Course Name</th>
-          <th>Enroll Code</th>
-          <th>UID</th>
-          <th>Professor</th>
-          <th>Meeting Times</th>
-          <th>Meeting Days</th>
-          <th>Location</th>
+        <tr id="ROW1">
+          <th style="cursor: pointer" onclick="sortTable(0)" class="th-sm"><span title="Sort by Quarter">Quarter</span></th>
+          <th style="cursor: pointer" onclick="sortTable(1)" class="th-sm"><span title="Sort by Course Name">Course Name</span></th>
+          <th style="cursor: pointer" onclick="sortTable(2)" class="th-sm"><span title="Sort by Enroll Code">Enroll Code</span></th>
+          <th style="cursor: pointer" onclick="sortTable(3)" class="th-sm"><span title="Sort by UID">UID</span></th>
+          <th style="cursor: pointer" onclick="sortTable(4)" class="th-sm"><span title="Sort by Professor Name">Professor</span></th>
+          <th style="cursor: pointer" onclick="sortTable(5)" class="th-sm"><span title="Sort by Class Times">Meeting Times</span></th>
+          <th style="cursor: pointer" onclick="sortTable(6)" class="th-sm"><span title="Sort by Class Days (actually works as expected instead of being alpabetical :D)">Meeting Days</span></th>
+          <th style="cursor: pointer" onclick="sortTable(7)" class="th-sm"><span title="Sort by location ALPHABETICALLY">Location</span></th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="c: ${myclasses}">
-          <td th:text="${c.quarter}"></td>
+          <td id="CELL9" th:text="${c.quarter}"></td>
           <td th:text="${c.classname}"></td>
           <td th:text="${c.enrollCode}"></td>
           <td th:text="${c.uid}"></td>
@@ -36,9 +49,66 @@
         </tr>
       </tbody>
     </table>
+    
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>
+  <script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("tryingToSort");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount ++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+    </script>
 </body>
 
 </html>

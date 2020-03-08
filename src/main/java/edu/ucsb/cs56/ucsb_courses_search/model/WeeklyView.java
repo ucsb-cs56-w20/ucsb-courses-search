@@ -91,9 +91,13 @@ public class WeeklyView {
       String times = course.getAssociatedLectureTime();
       //String times = "11:00 - 11:50";
       int hour= Integer.parseInt(times.substring(0,2));
+
       int minutes = Integer.parseInt(times.substring(3,5));
       int time = hour*60 + minutes;//time in minutes
-      int row = (time-480)/30+1;
+      if(time ==480){
+        return 2;
+      }
+      int row = (time-480)/30+2;
       return row;
     }
 
@@ -104,14 +108,18 @@ public class WeeklyView {
       String times = course.getMeettime();
       //String times = "11:00 - 11:50";
       int hour= Integer.parseInt(times.substring(0,2));
+
       int minutes = Integer.parseInt(times.substring(3,5));
       int time = hour*60 + minutes;//time in minutes
+      if(time == 480){
+        return 2;
+      }
       int row = (time-480)/30+2;
       return row;
     }
 
     public int returnClasslength(Course course){
-      
+
       //Course course, String LectureOrSection
       //for rowspan nte that meetime gives the section time not lecture time in form 09:00-09:50
       // for a 75 minute class, usually 12:30-1:45 or 2-3:14, the hour is difference of 1

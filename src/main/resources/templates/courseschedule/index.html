@@ -10,7 +10,7 @@
 <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedule</h3>
-    <form>
+     <form th:object="${Route}" method="post" id="routeForm"> 
         <table class="table">
             <thead>
             <tr>
@@ -47,21 +47,22 @@
                 padding: 10px;
             }
         </style>
+        
         <div class="traveltime-container">
             <h5>Travel Time</h5>
             <p>Find how long it would take to go from</p>
-            <select class="custom-select">
-                <option th:each="c: ${myclasses}" th:value="${c.location}" th:text="${c.location}"></option>
+            <select class="custom-select" form="routeForm">
+                <option th:each="c : ${myclasses}" th:value="${c.location}" th:text="${c.location}"></option>
             </select>
             <p>to</p>
-            <select class="custom-select">
+            <select class="custom-select" form="routeForm">
                 <option th:each="c: ${myclasses}" th:value="${c.location}" th:text="${c.location}"></option>
             </select>
             <p>&nbsp;</p>
-            <button type="submit" th:formaction="@{/walktime}" class="btn btn-primary">🚶Walking</button>
+            <button type="submit" th:formaction="@{/courseschedule/walktime}" class="btn btn-primary">🚶Walking</button>
             <button type="submit" th:formaction="@{/biketime}" class="btn btn-primary">🚴Biking</button>
         </div>
-    </form>
+    </form> 
     <div th:replace="fragments/bootstrap_footer.html"></div>
 </div>
 <div th:replace="fragments/bootstrap_scripts.html"></div>

@@ -15,12 +15,17 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.BasicAuthentication;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -34,67 +39,47 @@ import com.google.api.services.calendar.model.Events;
 import edu.ucsb.cs56.ucsb_courses_search.model.ClientCredentials;
 
 @Service
-public class GoogleCalendarService{
-    
+public class GoogleCalendarService {
+
     private static final String APPLICATION_NAME = "UCSB Courses Search Google Calendar Export";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    //private static final String CREDENTIALS_FILE_PATH = "../../localhost.json";
+    // private static final String CREDENTIALS_FILE_PATH = "../../localhost.json";
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
-    //private ClientCredentials clientCredentials = new ClientCredentials();
+    // private ClientCredentials clientCredentials = new ClientCredentials();
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
-    private String localClientId;
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientSecret;
-    private String localClientSecret;
-    private String REDIRECT_URI = "/login/oauth2/code/google";
     private Iterable<Course> myclasses;
 
     private Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
 
     // Must be called before createGoogleCalendar()
-    public void setClasses(Iterable<Course> myclasses){
+    public void setClasses(Iterable<Course> myclasses) {
         this.myclasses = myclasses;
     }
 
-    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-        // Load client secrets.
-        /*
-        InputStream in = GoogleCalendarService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-        if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
-        }
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-        */
-
-        logger.info("Client ID: " + clientId);
-        logger.info("Client Secret: " + clientSecret);
-
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, clientId, clientSecret, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-                .setAccessType("offline")
-                .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8080).setCallbackPath(REDIRECT_URI).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+    public static Credential createCredentialWithAccessTokenOnly(TokenResponse tokenResponse) {
+        return new Credential(BearerToken.authorizationHeaderAccessMethod()).setFromTokenResponse(tokenResponse);
     }
 
-    // Precondition: Must call setClasses(Iterable<Course> myclasses) before calling this function
-    public void createGoogleCalendar() throws IOException, GeneralSecurityException{
+    public Credential createCredentialWithRefreshToken(HttpTransport transport, JsonFactory jsonFactory, TokenResponse tokenResponse) {
+     return new Credential.Builder(BearerToken.authorizationHeaderAccessMethod()).setTransport(
+        transport)
+        .setJsonFactory(jsonFactory)
+        .setTokenServerUrl(null)
+        .setClientAuthentication(new BasicAuthentication(clientId, clientSecret))
+        .build()
+        .setFromTokenResponse(tokenResponse);
+  }
+
+    // Precondition: Must call setClasses(Iterable<Course> myclasses) before calling
+    // this function
+    public void createGoogleCalendar() throws IOException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-        .setApplicationName(APPLICATION_NAME)
-        .build();
+        Credential credential = createCredentialWithRefreshToken(HTTP_TRANSPORT, JSON_FACTORY, new TokenResponse());
+        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+                .setApplicationName(APPLICATION_NAME).build();
         logger.info("Calendar built");
     }
-
-    @PostConstruct
-    public void testPrintID(){
-        logger.info("Client ID: " + clientId);
-        logger.info("Client Secret: " + clientSecret);
-        localClientId = clientId;
-        localClientSecret = clientSecret;
-    }
-} 
+}

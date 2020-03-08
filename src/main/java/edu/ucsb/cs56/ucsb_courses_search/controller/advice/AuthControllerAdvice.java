@@ -14,29 +14,43 @@ public class AuthControllerAdvice {
 
     @ModelAttribute("isLoggedIn")
     public boolean getIsLoggedIn(OAuth2AuthenticationToken token){
-        return token != null;
+        return token != null; 
     }
 
     @ModelAttribute("id")
     public String getUid(OAuth2AuthenticationToken token){
         if (token == null) return "";
-        return token.getPrincipal().getAttributes().get("id").toString();
+        return token.getPrincipal().getAttributes().get("sub").toString();
     }
 
     @ModelAttribute("login")
     public String getLogin(OAuth2AuthenticationToken token){
         if (token == null) return "";
-        return token.getPrincipal().getAttributes().get("login").toString();
+        return token.getPrincipal().getAttributes().get("email").toString();
+    }
+
+    @ModelAttribute("name")
+    public String getName(OAuth2AuthenticationToken token){
+        if (token == null) return "";
+        return token.getPrincipal().getAttributes().get("name").toString();
+    }
+
+    @ModelAttribute("picture")
+    public String getPicture(OAuth2AuthenticationToken token){
+        if (token == null) return "";
+        return token.getPrincipal().getAttributes().get("picture").toString();
+    }
+
+   @ModelAttribute("isAdmin")
+    public boolean getIsAdmin(OAuth2AuthenticationToken token){
+        return membershipService.isAdmin(token);
     }
 
     @ModelAttribute("isMember")
     public boolean getIsMember(OAuth2AuthenticationToken token){
         return membershipService.isMember(token);
     }
-    @ModelAttribute("isAdmin")
-    public boolean getIsAdmin(OAuth2AuthenticationToken token){
-        return membershipService.isAdmin(token);
-    }
+
 
     @ModelAttribute("role")
     public String getRole(OAuth2AuthenticationToken token){

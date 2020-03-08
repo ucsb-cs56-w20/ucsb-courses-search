@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,9 +28,13 @@ public class SearchByDeptController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @Autowired
+    private QuarterListService quarterListService;
+
     @GetMapping("/search/bydept")
     public String instructor(Model model, SearchByDept searchByDept) {
         model.addAttribute("searchByDept", new SearchByDept());
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/bydept/search";
     }
 
@@ -38,6 +45,7 @@ public class SearchByDeptController {
             SearchByDept searchByDept) {
         model.addAttribute("dept", dept);
         model.addAttribute("quarter", quarter);
+        model.addAttribute("quarters", quarterListService.getQuarters());
         model.addAttribute("courseLevel", courseLevel);
 
         String json = curriculumService.getJSON(dept, quarter, courseLevel);
@@ -46,6 +54,13 @@ public class SearchByDeptController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
+            return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());
+        };
+
+        Collections.sort(rows, byCourseId);
+
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);

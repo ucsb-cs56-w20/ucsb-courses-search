@@ -40,17 +40,11 @@ public class SearchByInstructorController {
     @Autowired
     private QuarterListService quarterListService;
 
-
     @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model.addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
-     /*   ArrayList<String> instructorList = new ArrayList<String>();
-        instructorList.add("Conrad");
-        instructorList.add("Mirza");
-        instructorList.add("Wang");
-        instructorList.add("Matni");
-        model.addAttribute("instructorList", instructorList); */
+        model.addAttribute("instructorList", archivedCourseRepository.listInstructorNamesByQuarterInterval(quarterListService.getStartQuarter(),quarterListService.getEndQuarter())); 
         return "search/byinstructor/multiquarter/search";
     }
 
@@ -79,20 +73,8 @@ public class SearchByInstructorController {
 	    logger.info("GET request for /search/byinstructor/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
 
-<<<<<<< HEAD
-            List<Course> courses = new ArrayList<Course>();
-         
-            for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
-                String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
-                logger.info("qtr=" + qtr.getValue() + " json=" + json);
-                CoursePage cp = CoursePage.fromJSON(json);
-                courses.addAll(cp.classes);
-            }
-
-=======
 	    List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndInstructor(beginQ+"", endQ+"", instructor);
 	    
->>>>>>> 2aec907cbea64c9b2c3bcd5c72620e3d7eb82340
             model.addAttribute("courses", courses);
 
             List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);

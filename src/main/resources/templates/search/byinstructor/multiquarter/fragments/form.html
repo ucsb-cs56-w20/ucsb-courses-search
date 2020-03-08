@@ -2,7 +2,12 @@
     <div class="form-group row">
         <label for="instructor" class="col-sm-2 col-form-label">Instructor</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="instructor" th:field="*{instructor}">
+            <input list="instructors" name="instructor" th:field="*{instructor}" class="form-control" id="instructor" placeholder="Search.." autocomplete="off">
+            <datalist id="instructors">
+                <select>
+                    <option th:each="instructor: ${instructorList}" th:value = "${instructor}">
+                </select>    
+            </datalist>
         </div>
     </div>
 

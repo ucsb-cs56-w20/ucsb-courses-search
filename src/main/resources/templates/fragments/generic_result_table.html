@@ -88,7 +88,7 @@
                 <input type="submit" class="btn btn-primary" value="Add" /> 
               </form>
               <!-- this is for multiple schedules-->
-              <form th:if="${feature_multipleSchedules}" action="#" th:action="@{/schedule/add/3}" method="post">
+              <form th:if="${feature_multipleSchedules}" action="#" th:action="@{/schedule/add/4}" method="post">
                 <input type="hidden" name="classname" th:value="${r.course.courseId} " value="" />
                 <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />
                 <input type="hidden" name="uid" th:value="${id}" value="1000" />

@@ -1,9 +1,9 @@
-<form th:action="@{/schedule/rename/} + ${scheduleid}" class="form-container" method="POST" >
+<form th:action="@{/schedule/rename/} + ${scheduleid}" class="form-container" method="POST">
     <div class="row">
             <div class="col-sm-4">
                 <h3><input type="text" class="form-container" id="newName" th:value="${schedulename}" name="newName" required></input></h3>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 th:value=${alertPrimary}">
                 <button type="submit" class="btn btn-primary" id="Rename">Rename</button>
             </div>
     </div>

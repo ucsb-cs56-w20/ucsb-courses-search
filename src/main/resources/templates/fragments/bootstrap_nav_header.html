@@ -23,29 +23,29 @@
         <a class="nav-link" href="/search/bycourse" id="navbarDropdown" role="button">
           By Course
         </a>
-            </li>
+      </li>
 
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          By GE
+      <li class="nav-item dropdown">
+  	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	   By GE
+         </a>
+  	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  	    <a class="dropdown-item" href="/search/byge">Basic GE Area Search</a>
+  	    <a class="dropdown-item" href="/search/byge/multiquarter">Search Across Multiple Quarters</a>
+  	    <a class="dropdown-item" href="/search/byge/multiarea">Search Across Multiple Area</a>
+  	    <a class="dropdown-item" href="/search/byge/starttime">Search by Start Time</a>
+  	</div>
+      </li>
+  
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Personal Schedule
         </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/search/byge">Basic GE Area Search</a>
-                    <a class="dropdown-item" href="/search/byge/multiquarter">Search Across Multiple Quarters</a>
-                    <a class="dropdown-item" href="/search/byge/multiarea">Search Across Multiple Area</a>
-                    <a class="dropdown-item" href="/search/byge/starttime">Search by Start Time</a>
-                </div>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Personal Schedule
-        </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/courseschedule">See Your Schedule</a>
-                    <a th:if="${feature_multipleSchedules}" class="dropdown-item" href="/schedule">Multiple Schedules</a>
-                </div>
+	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	    <a class="dropdown-item" href="/courseschedule">See Your Schedule</a>
+	    <a th:if="${feature_multipleSchedules}" class="dropdown-item" href="/schedule">Multiple Schedules</a>
+	</div>
             </li>
 
       <li class="nav-item dropdown">
@@ -58,26 +58,26 @@
         </div>
 
       </li>
-       <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/admin/archived/search">Search Archived Course Data</a>
-                </div>
-            </li>
-            <!-- Copy/paste this template when adding additional menu items -->
-            <!--
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Next Feature
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
-              -->
+      <li class="nav-item dropdown">
+  	 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+  	 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  	   <a class="dropdown-item" href="/admin/archived/search">Search Archived Course Data</a>
+	 </div>
+      </li>
+    <!-- Copy/paste this template when adding additional menu items -->
+    <!--
+      <li class="nav-item dropdown">
+	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  Next Feature
+	</a>
+	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	  <a class="dropdown-item" href="#">Action</a>
+	  <a class="dropdown-item" href="#">Another action</a>
+	  <div class="dropdown-divider"></div>
+	  <a class="dropdown-item" href="#">Something else here</a>
+	</div>
+      </li>
+      -->
         </ul>
 
 

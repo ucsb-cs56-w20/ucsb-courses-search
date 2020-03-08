@@ -59,7 +59,7 @@ public class CourseController {
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
             
-            WeeklyView week = new WeeklyView();
+            WeeklyView week = new WeeklyView(myclasses);
 
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("days", days);

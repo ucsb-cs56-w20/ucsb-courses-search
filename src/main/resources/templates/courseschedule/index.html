@@ -38,76 +38,33 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="container" id="weekly_view">
+    <table id="week_table" cellspacing="0" cellpadding="1" rules="all"
+      style="border-color:#ff6ec7;border-width:1px;border-style:None;width:100%;border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th></th>
+          <th th:each="d: ${days}" th:text="${d}"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <th class="timerange"></th>
+        <tr th:each="tr: ${timerange}">
+          <td th:text="${tr}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+        </tr>
+      </tbody>
+    </table>
+    
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
-  <div id = "weekly_view">
-    <div align = "Center">
-      <table id ="week_table" cellspacking= "0" cellpading='1' align = "Center" rules = "all" style "border-color:#ff6ec7;border-width:1px;border-style:None,width:100%,border-collapse:collapse;">
-        <tbody>
-          <tr >
-            <th class = "heading">&nbsp</th>
-            <th th:each = "d: ${days}" th:text="${d}">
-            </th>
-          </tr>
-          <!-- javascipt here to put classes into some sort of an array ->>
 
-            <!--need 29 rows for 8am - 10pm -->
-            <th class = "timerange"></th>
-              <tr th:each = "tr: ${timerange}">
-                <td th:text="${tr}"></td>
-                <td th:text = "${week.iterateOverArray(myclasses)}"   > </td>
-                <td th:text = "${week.iterateOverArray(myclasses)}"   > </td>
-                <td th:text = "${week.iterateOverArray(myclasses)}"   > </td>
-                <td th:text = "${week.iterateOverArray(myclasses)}"  > </td>
-                <td th:text = "${week.iterateOverArray(myclasses)}"  > </td>
-
-                <!--  //5 tds per tr>
-                <td rowspan = "5"></td> -->
-
-                <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
-              </tr>
-          </tbody>
-        </table>
-
-      </div>
-    </div>
-
-    <div th:replace="fragments/bootstrap_scripts.html"></div>
-    <script th:inline="javascript">
-    /*<![CDATA[*/
-         function myFunction(course)
-     {
-         // alert("ii");
-         // var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
-         //
-         //   var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
-         //   var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
-         //   var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
-         //
-         //   var table = document.getElementById("week_table");
-         //    var cell = table.rows[row].insertCell(colsection);
-         //   var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
-         //   cell.innerHTML = r;
-          //  cell.rowSpan = rowspan;
-         //
-
-
-
-
-
-
-    //   cell.innerHTML = 'HELLO <br/> \
-    //                     HWLLO <br/>  \
-    //                     MW';
-    //
-    //   let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
-
-       }
-       /*]]>*/
-    </script>
-
-
-
+  <div th:replace="fragments/bootstrap_scripts.html"></div>
 </body>
 
 

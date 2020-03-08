@@ -20,6 +20,12 @@
   tr.SECONDARY td.instructorList {
     padding-left: 2em;
   }
+
+  #classModal {}
+
+  .modal-body {
+  overflow-x: auto;
+  }
 </style>
 
 <table class="table">
@@ -73,12 +79,9 @@
                 <input type="hidden" name="enrollCode" th:value="${r.section.enrollCode} " value="" />
                 <input type="hidden" name="uid" th:value="${id}" value="1000" />
                 <input type="hidden" name="professor" th:value="${r.course.mainInstructorList()}" value="" />
-                <input type="hidden" name="meettime"
-                  th:value="${r.section.timeLocations[0].beginTime + '-' + r.section.timeLocations[0].endTime}"
-                  value="" />
-                <input type="hidden" name="meetday" th:value="${r.section.timeLocations[0].days}" value="" />
-                <input type="hidden" name="location"
-                  th:value="${r.section.timeLocations[0].building + '-' + r.section.timeLocations[0].room}" value="" />
+                <input type="hidden" name="meettime" th:value="${r.section.meetTime()}"  value="" />
+                <input type="hidden" name="meetday" th:value="${r.section.meetDay()}" value="" />
+                <input type="hidden" name="location" th:value="${r.section.location()}" value="" />
                 <input type="hidden" name="quarter" th:value="${r.course.getQuarterQyy()}" value="" />
                 <input type="submit" class="btn btn-primary" value="Add" />
               </form>
@@ -86,30 +89,6 @@
           </div>
         </div>
       </tr>
-      <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
-      <div class="modal fade" th:attr="id=${r.course.getCourseKey()}" tabindex="-1" role="dialog"
-        aria-labelledby="detailTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="detailTitle">
-                <div th:text="${r.course.courseId}"></div>
-                <div th:text="${r.course.title}"></div>Course Details
-              </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              LOAD IN PER COURSE DATA HERE
-
-              
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </tbody>
 </table>
+<div th:replace="fragments/course_details_modal.html"></div>

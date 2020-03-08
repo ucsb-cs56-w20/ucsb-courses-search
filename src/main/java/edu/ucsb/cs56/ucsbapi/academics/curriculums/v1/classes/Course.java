@@ -68,7 +68,7 @@ public class Course {
         return this.description;
     }
 
-    public void setDescription(){
+    public void setDescription(String description){
         this.description = description;
     }
 

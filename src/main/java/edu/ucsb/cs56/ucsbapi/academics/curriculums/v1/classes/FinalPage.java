@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  */
 
 
-public class FinalPage {
+public class FinalPage{
 
     private static Logger logger = LoggerFactory.getLogger(CoursePage.class);
 
@@ -106,6 +106,23 @@ public class FinalPage {
 
     public void setEndTime(String endTime){
         this.endTime = endTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof FinalPage)) {
+            return false;
+        }
+        FinalPage finalPage = (FinalPage) o;
+        return hasFinals == finalPage.hasFinals && comments.equals(finalPage.comments) && examDay.equals(finalPage.examDay)
+         && examDate.equals(finalPage.examDate) && beginTime.equals(finalPage.beginTime) && endTime.equals(finalPage.endTime) && courseName.equals(finalPage.courseName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hasFinals, comments, examDay, examDate, beginTime, endTime, courseName);
     }
 
 }

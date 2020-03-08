@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.LinkedHashSet;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +42,6 @@ public class CourseController {
     private FinalService finalService;
 
     @Autowired
-    private CourseRepository courseRepository;
-
     private ScheduleItemRepository scheduleItemRepository;
 
     @Autowired
@@ -64,7 +65,7 @@ public class CourseController {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
-            ArrayList<FinalPage> myfinals = new ArrayList<FinalPage>();
+            Set<FinalPage> myfinals = new LinkedHashSet<FinalPage>();
             for(ScheduleItem scheduleItem : myclasses){
                 String json = finalService.getJSON(scheduleItem.getEnrollCode(), scheduleItem.getQuarter());
                 logger.info(json);

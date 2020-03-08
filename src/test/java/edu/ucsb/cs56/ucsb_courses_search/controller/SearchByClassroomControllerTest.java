@@ -73,7 +73,7 @@ public class SearchByClassroomControllerTest {
     
     @Test
     public void test_get_S20_PHELP_3525() throws Exception {
-        String url = "http://localhost:8080/search/byclassroom/results?quarter=20202&building=PHELP&classroom=3525";
+        String url = "http://localhost/search/byclassroom/results?quarter=20202&building=PHELP&classroom=3525";
         HtmlPage htmlPage = webClient.getPage(url);
         List<DomElement> elems = htmlPage.getByXPath("//table/tbody/tr[1]/td[2]");
         assertEquals("CMPSC     8  ",elems.get(0).getTextContent());
@@ -81,7 +81,7 @@ public class SearchByClassroomControllerTest {
 
     @Test
     public void test_get_S20_PHELP_3526() throws Exception {
-        String url = "http://localhost:8080/search/byclassroom/results?quarter=20202&building=PHELP&classroom=3526";
+        String url = "http://localhost/search/byclassroom/results?quarter=20202&building=PHELP&classroom=3526";
         HtmlPage htmlPage = webClient.getPage(url);
         String textToFind = "CMPSC   160  ";
         String xpath=String.format("//*[text()='%s']",textToFind);
@@ -91,7 +91,7 @@ public class SearchByClassroomControllerTest {
 
     @Test
     public void test_get_S20_PHELP_3526_2() throws Exception {
-        String url = "http://localhost:8080/search/byclassroom/results?quarter=20202&building=PHELP&classroom=3526";
+        String url = "http://localhost/search/byclassroom/results?quarter=20202&building=PHELP&classroom=3526";
         HtmlPage htmlPage = webClient.getPage(url);
         String textToFind = "PSTAT   195  ";
         String xpath=String.format("//*[text()='%s']",textToFind);
@@ -101,7 +101,7 @@ public class SearchByClassroomControllerTest {
 
     @Test
     public void test_get_M19_IV_THEA1() throws Exception {
-        String url = "http://localhost:8080/search/byclassroom/results?quarter=20193&building=IV&classroom=THEA1";
+        String url = "http://localhost/search/byclassroom/results?quarter=20193&building=IV&classroom=THEA1";
 	HtmlPage htmlPage = webClient.getPage(url);
         String textToFind = "INT      95A ";
         String xpath=String.format("//*[text()='%s']",textToFind);

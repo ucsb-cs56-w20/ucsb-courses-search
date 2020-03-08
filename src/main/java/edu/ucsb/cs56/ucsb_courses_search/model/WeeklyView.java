@@ -14,74 +14,84 @@ public class WeeklyView {
 
     //function to return Day in number form , Monday=1 , takes in Course object
     public int returnColLecture(Course course){
+      String time = course.getAssociatedLectureDay();
+      String lec = "";
+      for(int i = 0; i < time.length(); i++)
+      {
+        if(time.charAt(i) != ' ')
+        {
+          lec += time.charAt(i);
+        }
+      }
       //If MW return 1, if TR return 2, if MWF return 3
-      if( course.getAssociatedLectureDay()=="M W" ){
+      if( lec.equals("MW") ){
           return 13;
       }
-      else if (course.getAssociatedLectureDay()=="T R"){
+      else if (lec.equals("TR")){
         return 24;
       }
-      else if (course.getAssociatedLectureDay()=="M W F"){
+      else if (lec.equals("MWF")){
         return 135;
       }
-      else if (course.getAssociatedLectureDay()=="M"){
+      else if (lec.equals("M")){
         return 1;
       }
-      else if (course.getAssociatedLectureDay()=="T"){
+      else if (lec.equals("T")){
         return 2;
       }
-      else if (course.getAssociatedLectureDay()=="W"){
+      else if (lec.equals("W")){
         return 3;
       }
-      else if (course.getAssociatedLectureDay()=="R"){
+      else if (lec.equals("R")){
         return 4;
       }
-      else if (course.getAssociatedLectureDay()=="F"){
+      else if (lec.equals("F")){
         return 5;
       }
-      else if (course.getAssociatedLectureDay()=="W F"){
+      else if (lec.equals("WF")){
         return 35;
       }
 
       return 0;
     }
-    public boolean returnColSection(Course course){
+    public int returnColSection(Course course){
       String time = course.getMeetday();
-
-      return time.equals("M ");
+      String sec = "";
+      for(int i = 0; i < time.length(); i++)
+      {
+        if(time.charAt(i) != ' ')
+        {
+          sec += time.charAt(i);
+        }
+      }
 
       //Monday corresponds to Column 1 etc
-      // if((course.getMeetday()).equals("M ")){
-      //   return 1;
-      // }
-      // else if(course.getMeetday()=="T "){
-      //   return 2;
-      // }
-      // else if (course.getMeetday()=="W "){
-      //   return 3;
-      // }
-      // else if (course.getMeetday()=="R "){
-      //   return 4;
-      // }
-      // else if(course.getMeetday()=="F "){
-      //   return 5;
-      // }
-      // else if(course.getMeetday()=="T R "){
-      //   return 24;
-      // }
-      // else if(course.getMeetday()=="W F "){
-      //   return 35;
-      // }
-      // else if(course.getMeetday()=="M W "){
-      //   return 13;
-      // }
-      // else{
-      //   return 2;
-      // }
+      if(sec.equals("M")){
+         return 1;
+       }
+       else if(sec.equals("T")){
+         return 2;
+       }
+       else if (sec.equals("W")){
+         return 3;
+       }
+       else if (sec.equals("R")){
+         return 4;
+       }
+       else if(sec.equals("F")){
+         return 5;
+       }
+       else if(sec.equals("TR")){
+         return 24;
+       }
+       else if(sec.equals("WF")){
+         return 35;
+      }
+      else if(sec.equals("MW")){
+         return 13;
+       }
 
-
-
-
+      return 0;
     }
 
     public int returnLectureStartTime(Course course){

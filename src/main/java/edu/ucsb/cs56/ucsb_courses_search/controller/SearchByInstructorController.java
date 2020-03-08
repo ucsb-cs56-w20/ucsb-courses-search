@@ -122,9 +122,14 @@ public class SearchByInstructorController {
 
     @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
-        model
-                .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
+        model.addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
+     /*   ArrayList<String> instructorList = new ArrayList<String>();
+        instructorList.add("Conrad");
+        instructorList.add("Mirza");
+        instructorList.add("Wang");
+        instructorList.add("Matni");
+        model.addAttribute("instructorList", instructorList); */
         return "search/byinstructor/multiquarter/search";
     }
 
@@ -143,6 +148,7 @@ public class SearchByInstructorController {
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
 
             List<Course> courses = new ArrayList<Course>();
+         
             for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
                 String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
                 logger.info("qtr=" + qtr.getValue() + " json=" + json);

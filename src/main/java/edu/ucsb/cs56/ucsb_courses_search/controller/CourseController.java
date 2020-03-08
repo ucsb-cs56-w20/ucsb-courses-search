@@ -22,13 +22,15 @@ import org.slf4j.LoggerFactory;
 public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
-
+    @Autowired
+    private GoogleCalendarService googleCalendarService;
     @Autowired
     private CourseRepository courseRepository;
 
     @Autowired
-    public CourseController(CourseRepository courseRepository) {
+    public CourseController(CourseRepository courseRepository, GoogleCalendarService googleCalendarService) {
         this.courseRepository = courseRepository;
+        this.googleCalendarService = googleCalendarService;
     }
 
     @GetMapping("/courseschedule")
@@ -72,10 +74,10 @@ public class CourseController {
             logger.info("uid="+uid);
             logger.info("courseRepository="+courseRepository);
             Iterable<Course> myclasses = courseRepository.findByUid(uid);
-            GoogleCalendarService gService = new GoogleCalendarService();
-            gService.setClasses(myclasses);
+            
+            googleCalendarService.setClasses(myclasses);
             try{
-                gService.createGoogleCalendar();
+                googleCalendarService.createGoogleCalendar();
                 logger.info("Google Calendar created");
             } catch (IOException e) {
                 logger.error("IOException caught");

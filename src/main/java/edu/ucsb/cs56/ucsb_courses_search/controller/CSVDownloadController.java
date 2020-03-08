@@ -69,15 +69,16 @@ public class CSVDownloadController {
         }
 
         if(beginQ != null && endQ != null){
-            filename += beginQ + "-" + endQ + "-";
+            filename += beginQ + "-" + endQ;
+        }else{
+            filename += quarter;
         }
         
         if(courseLevel != null){
             filename += courseLevel + "-";
         }
 
-        filename += quarter + ".csv";
-
+        filename += ".csv";
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
@@ -111,7 +112,7 @@ public class CSVDownloadController {
     @GetMapping("/CSVDownload/csDept")
     public void downloadCSV(@RequestParam(name = "quarter", required = true) String quarter, HttpServletResponse response) throws IOException{
         
-        String filename = "Search-Results.csv";
+        String filename = "CMPSC-A-" + quarter + ".csv";
 
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");

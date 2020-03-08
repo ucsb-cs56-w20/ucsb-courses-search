@@ -1,14 +1,12 @@
-<form method="GET"  th:object="${scheduleSearch}">
+<form method="GET" >
         <div class="form-group row">
             <h2 for="scheduleName" class="col-sm-2 col-form-label">Select Schedule</h2>
             
             <div class="col-sm-8">
-                <select th:field="*{scheduleid}" class="custom-select">
-                    <option th:each="s:${myschedules}" th:value="${s.scheduleid}" th:text="${s.schedulename}"></option>
+                <select class="custom-select" onchange="if (this.value) window.location.href=this.value">
+                    <option> </option>
+                    <option th:each="s:${myschedules}" th:value="@{/schedule/} + ${s.scheduleid}" th:text="${s.schedulename}"></option>
                 </select>
-            </div>
-            <div class="col-sm-2">
-                <button type="submit" th:formaction="@{/schedule/viewSchedule}" class="btn btn-primary" id="viewScheduleSubmit">View Schedule</button>
             </div>
         </div>        
 </form>

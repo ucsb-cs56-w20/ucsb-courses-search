@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 
@@ -36,6 +37,9 @@ public class SearchByInstructorController {
     
     @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private FinalExamService finalExamService;
 
     @Autowired
     private QuarterListService quarterListService;
@@ -80,6 +84,8 @@ public class SearchByInstructorController {
             List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
             List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+            rows = finalExamService.assignFinalExams(rows);
+            
             model.addAttribute("rows", rows);
             model.addAttribute("searchObject", searchObject );
 

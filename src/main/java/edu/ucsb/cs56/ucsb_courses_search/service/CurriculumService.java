@@ -7,4 +7,5 @@ public interface CurriculumService {
     public String getGE(String college, String area,String quarter);
     public String getGE(String college, String area,String quarter, int startT);
     public String getCourse(String course, int quarter);
+    public String getFinalExam(String quarter, String enrollCode);
 }

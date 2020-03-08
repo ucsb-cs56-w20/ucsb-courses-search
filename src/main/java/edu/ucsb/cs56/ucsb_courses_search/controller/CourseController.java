@@ -37,7 +37,8 @@ public class CourseController {
     private ScheduleItemRepository scheduleItemRepository;
 
     @Autowired 
-        private UCSBQuarterCalendarService calendarservice;
+    private UCSBQuarterCalendarService calendarservice;
+
     @Autowired
     private MembershipService membershipService;
 
@@ -106,6 +107,13 @@ public class CourseController {
         scheduleItemRepository.save(primary);
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
+
+        String json = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json);
+        quarterdeadline.format();
+
+        model.addAttribute ("calendar", quarterdeadline);
+
         return "courseschedule/index";
     }
 

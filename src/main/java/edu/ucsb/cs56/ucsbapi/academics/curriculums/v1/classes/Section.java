@@ -104,25 +104,25 @@ public class Section {
         this.gradingOptionCode = gradingOptionCode;
     }
 
-    public int getEnrolledTotal() {
-        if (this.enrolledTotal != null){
-            return this.enrolledTotal;
-        }
-        return -1;
+    public Integer getEnrolledTotal() {
+	if(this.enrolledTotal == null){
+		return 0;
+	}
+        return this.enrolledTotal;
     }
 
-    public void setEnrolledTotal(int enrolledTotal) {
+    public void setEnrolledTotal(Integer enrolledTotal) {
         this.enrolledTotal = enrolledTotal;
     }
 
-    public int getMaxEnroll() {
-        if (this.maxEnroll != null){
-            return this.maxEnroll;
-        }
-        return -1;
+    public Integer getMaxEnroll() {
+	if(this.maxEnroll == null){
+		return 0;
+	}
+        return this.maxEnroll;
     }
 
-    public void setMaxEnroll(int maxEnroll) {
+    public void setMaxEnroll(Integer maxEnroll) {
         this.maxEnroll = maxEnroll;
     }
 

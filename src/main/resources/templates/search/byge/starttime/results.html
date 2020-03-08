@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-  <title>Search By GE</title>
+  <title>Start time GE Search</title>
   <div th:replace="fragments/bootstrap_head.html"></div>
 </head>
 
@@ -10,15 +10,14 @@
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
 
-    <div th:replace="search/byge/fragments/title.html"></div>
-    <div th:replace="search/byge/fragments/form.html"></div>
-    
-    <div th:replace="search/byge/fragments/list.html"></div>
-
+    <div th:replace="search/byge/starttime/fragments/title.html"></div>
+    <div th:replace="search/byge/starttime/fragments/form.html"></div>
+    <div th:replace="fragments/generic_result_table.html"></div>
     <div th:replace="fragments/bootstrap_footer.html"></div>
+
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>
-  
-  
+
+
 </body>
 </html>

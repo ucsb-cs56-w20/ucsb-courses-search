@@ -58,11 +58,7 @@ public class GeneralEducation {
 
     @Override
     public String toString() {
-        return "{" +
-            " geCode='" + getGeCode() + "'" +
-            ", geCollege='" + getGeCollege() + "'" +
-            "}";
+        return getGeCollege() + " - " + getGeCode() + "\n";
     }
-
 
 }

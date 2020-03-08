@@ -19,17 +19,17 @@ public class Course {
     private String courseId;
     private String title;
     private List<Section> classSections;
-    private List<GeneralEducation> generalEducations;
+    private List<GeneralEducation> generalEducation;
 
     public Course() {
     }
 
-    public List<GeneralEducation> getGeneralEducations() {
-        return this.generalEducations;
+    public List<GeneralEducation> getGeneralEducation() {
+        return this.generalEducation;
     }
 
-    public void setGeneralEducations(List<GeneralEducation> generalEducations) {
-        this.generalEducations = generalEducations;
+    public void setGeneralEducations(List<GeneralEducation> generalEducation) {
+        this.generalEducation = generalEducation;
     }
 
     public String getQuarter() {
@@ -73,15 +73,15 @@ public class Course {
     }
 
     public String getGEList() {
-        if (getGeneralEducations() == null) {
-            return "1";
+        if (getGeneralEducation() == null) {
+            return "";
         }
-        if (getGeneralEducations().size() == 0) {
-            return "2";
+        if (getGeneralEducation().size() == 0) {
+            return "";
         }
-        String GEList = "3";
-        for (int i=0; i< getGeneralEducations().size(); i++) {
-            GEList += getGeneralEducations().get(i).toString();
+        String GEList = "";
+        for (int i=0; i< getGeneralEducation().size(); i++) {
+            GEList += getGeneralEducation().get(i).toString();
         }
         return GEList;
     }

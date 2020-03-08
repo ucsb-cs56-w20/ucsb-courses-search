@@ -16,6 +16,34 @@ public class WeeklyView {
       this.rowcounter=2;
       this.rowspan=1;
     }
+    public String[] getTimeRange(){
+      String[] timerange = new String[30];
+      int index = 0;
+      for(int h = 8; h <= 22; h++){
+        for(int m = 0; m <= 1; m++){
+          String time = "";
+          if(h > 12){
+            time += (h - 12);
+          } else{
+            time += h;
+          }
+          time += ":";
+          if(m == 0){
+            time += "00";
+          } else{
+            time += "30";
+          }
+          if(h >= 12){
+            time += " PM";
+          } else{
+            time += " AM";
+          }
+          timerange[index] = time;
+          index++;
+        }
+      }
+      return timerange;
+    }
 
     public boolean returnCol(ScheduleItem course, int count){
       String time = course.getMeetday();

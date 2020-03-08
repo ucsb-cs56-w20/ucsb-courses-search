@@ -41,7 +41,7 @@
   <tbody>
     <div th:each="r: ${rows}">
       <tr
-        th:class="(${r.firstRow} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}">
+        th:class="(${r.firstRow} OR ${full_section_display} ? 'firstRowForCourse' : '') + ' ' + (${r.lastRow} OR ${full_section_display} ? 'lastRowForCourse' : '') + ' ' + ${r.rowType}">
         <td th:if="${quarters != null}" th:text="${r.rowType}=='PRIMARY' OR ${full_section_display} ? ${r.course.getQuarterQyy()} : '' "></td>
         <td th:text="${r.rowType}=='PRIMARY' OR ${full_section_display} ? ${r.course.courseId} : '' "></td>
         <td th:text="${r.rowType}=='PRIMARY' OR ${full_section_display} ? ${r.course.title} : '' "></td>

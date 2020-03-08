@@ -19,6 +19,7 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +39,14 @@ public class CourseController {
     private FinalService finalService;
 
     @Autowired
+    private CourseRepository courseRepository;
+
     private ScheduleItemRepository scheduleItemRepository;
 
     @Autowired
     private MembershipService membershipService;
+
+
 
     @Autowired
     public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {

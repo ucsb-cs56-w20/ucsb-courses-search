@@ -44,8 +44,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         String uri = "https://api.ucsb.edu/academics/curriculums/v1/classes/search";
         String params = String.format("?quarter=%s&", quarter);
 
-        logger.info("----------------------" + areas);
-
         if(subjectArea != null ){
             params += String.format("subjectCode=%s&", subjectArea);
         }

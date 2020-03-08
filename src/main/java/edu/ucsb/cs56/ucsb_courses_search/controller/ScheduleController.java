@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -109,6 +111,21 @@ public class ScheduleController {
         newschedule.setUid(uid);
         newschedule.setSchedulename("New Schedule");
         scheduleRepository.save(newschedule);
+        return "redirect:/schedule";
+    }
+
+    @PostMapping("/schedule/rename/{scheduleid}")
+    public String rename_schedule( @PathVariable("scheduleid") Long scheduleid, String newName, Model model, OAuth2AuthenticationToken token) {
+        String uid = token.getPrincipal().getAttributes().get("sub").toString();
+        List<Schedule> myschedules = scheduleRepository.findByUid(uid);
+        Schedule schedule = new Schedule();
+        for (int i = 0; i < myschedules.size(); i++) {
+            if (myschedules.get(i).getScheduleid() == scheduleid) {
+                schedule = (myschedules.get(i));
+            }
+        }
+        schedule.setSchedulename(newName);
+        scheduleRepository.save(schedule);
         return "redirect:/schedule";
     }
 

@@ -50,17 +50,7 @@
             </th>
           </tr>
           <!-- javascipt here to put classes into some sort of an array ->>
-          <!--need 29 rows for 8am - 10pm -->
-          <th class = "timerange"></th>
-            <tr th:each = "tr: ${timerange}">
-              <td th:text="${tr}"></td>
-              <td th:text = "${week.returnLectureStartTime()}" ></td>
-              <!--  //5 tds per tr>
-              <td rowspan = "5"></td> -->
 
-              <!-- for each of the 5 td's, run the javascript, so run it 5 times for 5 td's -->
-            </tr>
-            <!-- javascipt here to put classes into some sort of an array ->>
             <!--need 29 rows for 8am - 10pm -->
             <th class = "timerange"></th>
               <tr th:each = "tr: ${timerange}">
@@ -74,40 +64,36 @@
               </tr>
           </tbody>
         </table>
-        <script>myFunction();</script>
+
       </div>
     </div>
 
     <div th:replace="fragments/bootstrap_scripts.html"></div>
     <script th:inline="javascript">
-        function myFunction()
-    {
-        alert("ii");
-        var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
-        var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
-        var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
-        var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
+    //     function myFunction()
+    // {
+    //     alert("ii");
+    //     var sizeOfmyClasses = /*[[${myclasses.size()}]]*/ 'default';
+    //     var colsection = /*[[${week.returnColSection(myclasses[0])}]]*/ 'default';
+    //     var row = /*[[${week.returnSectionStartTime(myclasses[0])}]]*/ 'default';//WORKS
+    //     var rowspan = /*[[${week.returnClasslength(myclasses[0])}]]*/ 'default';//WORKDS
+    //
+    //   var table = document.getElementById("week_table");
+    //   var cell = table.rows[2].insertCell(2);
+    //   cell.innerHTML = 'HELLO <br/> \
+    //                     HWLLO <br/>  \
+    //                     MW';
+    //
+    //   let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
+    //
+    //   var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
+    //
+    //   //cell.innerHTML = r;
+    //   cell.rowSpan = 2;
+    //
+    //
+    //   }
 
-        alert(sizeOfmyClasses);
-        alert(colsection);
-        alert(row);
-        alert(rowspan);
-      var table = document.getElementById("week_table");
-      var cell = table.rows[2].insertCell(2);
-      cell.innerHTML = 'HELLO <br/> \
-                        HWLLO <br/>  \
-                        MW';
-
-      let s =  rowspan +"<br />" + "hi"+colsection+"BIOENG 1001" + "<br />" + "7:00-10:30";
-      alert(s);
-      var  r = /*[[${week.returnSpanSection(myclasses[0])}]]*/ 'default';
-      alert(r);
-      //cell.innerHTML = r;
-      cell.rowSpan = 2;
-
-
-    }
-      }
     </script>
 
 

@@ -32,11 +32,8 @@ public class GoogleCalendarService {
     // private ClientCredentials clientCredentials = new ClientCredentials();
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
-    private String localClientId;
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientSecret;
-    private String localClientSecret;
-    private String REDIRECT_URI = "/login/oauth2/code/google";
     private Iterable<Course> myclasses;
 
     private Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);

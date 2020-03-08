@@ -97,7 +97,7 @@ public class ScheduleController {
         primary.setQuarter(lecture_quarter);
         primary.setScheduleid(scheduleid);
         logger.info("primary = " + primary); 
-        scheduleItemRepository.save(primary);
+        // scheduleItemRepository.save(primary);
 
         return "redirect:/schedule";
     }
@@ -125,8 +125,7 @@ public class ScheduleController {
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
             // get courses by each scheduleid to a list
-            Schedule lastSchedule = myschedules.get(myschedules.size() -1);
-            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(lastSchedule.getScheduleid());
+            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(scheduleSearch.getScheduleid());
             Schedule schedule = new Schedule();
             for (int i = 0; i < myschedules.size(); i++) {
                 if (myschedules.get(i).getScheduleid() == scheduleSearch.getScheduleid()) {
@@ -144,7 +143,7 @@ public class ScheduleController {
         }
 
         model.addAttribute("scheduleSearch", scheduleSearch);
-        return "schedule/viewSchedule";
+        return "schedule/viewschedule";
     }
 
 }

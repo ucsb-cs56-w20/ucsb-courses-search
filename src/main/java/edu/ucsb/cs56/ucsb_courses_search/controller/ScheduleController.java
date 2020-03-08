@@ -112,11 +112,10 @@ public class ScheduleController {
         return "redirect:/schedule";
     }
 
-    // TODO: dont use coursescheduleindex
-    @GetMapping("/schedule/viewSchedule")
-    public String viewSchedule(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) {
+    @GetMapping("/schedule/{scheduleid}")
+    public String viewSchedule(Model model, OAuth2AuthenticationToken token, @PathVariable("scheduleid") Long scheduleid) {
         
-        logger.info("Inside /schedule controller method ScheduleController#viewSchedule");
+        logger.info("Inside /schedule controller method ScheduleController#viewschedule");
         logger.info("model=" + model + " token=" + token);
 
         if (token!=null) {
@@ -125,10 +124,10 @@ public class ScheduleController {
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
             // get courses by each scheduleid to a list
-            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(scheduleSearch.getScheduleid());
+            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(scheduleid);
             Schedule schedule = new Schedule();
             for (int i = 0; i < myschedules.size(); i++) {
-                if (myschedules.get(i).getScheduleid() == scheduleSearch.getScheduleid()) {
+                if (myschedules.get(i).getScheduleid() == scheduleid) {
                     schedule = (myschedules.get(i));
                 }
             }
@@ -141,8 +140,6 @@ public class ScheduleController {
             ArrayList<ScheduleItem> emptyList = new ArrayList<ScheduleItem>();
             model.addAttribute("myclasses", emptyList);
         }
-
-        model.addAttribute("scheduleSearch", scheduleSearch);
         return "schedule/viewschedule";
     }
 

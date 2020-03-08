@@ -67,7 +67,7 @@ public class CourseController {
             //ArrayList<Course> emptyList = new ArrayList<Course>();
             //model.addAttribute("myclasses", emptyList);
 	    //org.springframework.security.access.AccessDeniedException("403 returned");
-	    throw new AccessForbiddenException();
+	       throw new AccessForbiddenException();
         }
         return "courseschedule/index";
     }

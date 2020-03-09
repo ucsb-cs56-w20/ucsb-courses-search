@@ -21,6 +21,10 @@
                     <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Description: </td>
                     <td colspan="2" style="vertical-align:bottom;text-align:left;padding:0 10px;" th:text="${r.course.description}" > </td> 
                   </tr>
+                  <tr>
+                    <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Final Examination: </td>
+                    <td colspan="2" style="vertical-align:middle;text-align:left;padding:0 10px;" th:text="${r.course.finalExam.getComments() == ''} ? ${r.course.finalExam.formatFinal()} : ${r.course.finalExam.getComments()}" > </td> 
+                  </tr>
                   <td>STUB</td>
                   <td>STUB_1</td>
                   <td>STUB_2</td>

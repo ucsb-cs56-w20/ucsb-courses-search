@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
-
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 
-import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
+import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
+
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -25,21 +26,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CSVDownloadController {
 
+    private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
     @Autowired
     private CurriculumService curriculumService;
 
     @Autowired
-    private CourseRepository courseRepository;
+    private ScheduleItemRepository scheduleItemRepository;
 
     @Autowired
-    public CSVDownloadController(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    public CSVDownloadController(ScheduleItemRepository scheduleItemRepository) {
+        this.scheduleItemRepository = scheduleItemRepository;
     }
 
     @GetMapping("/CSVDownload")
@@ -137,16 +142,16 @@ public class CSVDownloadController {
         CoursePage cp = CoursePage.fromJSON(json);
         CoursePageToCSV.writeSections(response.getWriter(), cp);
 
+    }
+
     @GetMapping("/personalSchedule")
     public void downloadCSV(OAuth2AuthenticationToken token, HttpServletResponse response) throws IOException {
-        
-        
         
         if (token!=null) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
-            logger.info("courseRepository="+courseRepository);
-            Iterable<edu.ucsb.cs56.ucsb_courses_search.entity.Course> myclasses = courseRepository.findByUid(uid);
+            logger.info("courseRepository="+scheduleItemRepository);
+            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
             //need full path, because there are two "Cource", java cannot import both
                  
             response.setContentType("text/csv");

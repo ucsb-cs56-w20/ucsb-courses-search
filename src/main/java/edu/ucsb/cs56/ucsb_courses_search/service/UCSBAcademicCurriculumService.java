@@ -30,9 +30,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         logger.info("apiKey=" + apiKey);
     }
 
-<<<<<<< HEAD
-    public String getJSON(String subjectArea, String quarter,String courseLevel){
-=======
     public String getCSV(String subjectArea, String quarter, String courseLevel, String dept, String instructor, String course, String college, String areas){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -94,7 +91,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
     }
 
     public String getJSON(String subjectArea, String quarter, String courseLevel) {
->>>>>>> 8f146262b04f642e76a842bac92fe7533f1fa9bf
 
         RestTemplate restTemplate = new RestTemplate();
 

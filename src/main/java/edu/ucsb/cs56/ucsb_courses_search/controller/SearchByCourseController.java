@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByCourse;
@@ -29,6 +30,9 @@ public class SearchByCourseController {
 
     @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private FinalExamService finalExamService;
 
     @Autowired
     private QuarterListService quarterListService;
@@ -62,6 +66,8 @@ public class SearchByCourseController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+        rows = finalExamService.assignFinalExams(rows);
+        
         List<CourseListingRow> primaryRows = rows.stream().filter(r -> r.getRowType().equals("PRIMARY"))
                 .collect(Collectors.toList());
 

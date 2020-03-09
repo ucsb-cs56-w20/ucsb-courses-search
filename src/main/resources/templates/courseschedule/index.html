@@ -44,6 +44,9 @@
         </tr>
       </tbody>
     </table>
+    <form method="GET">
+      <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
+    </form>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

@@ -187,7 +187,7 @@ public class CourseListingRow {
             return "";
         }
 
-        return this.getTimeLocation().building + " " + this.getTimeLocation().room;
+        return this.getTimeLocation().getBuilding() + " " + this.getTimeLocation().getRoom();
     }
 
     public String getDays() {
@@ -195,7 +195,7 @@ public class CourseListingRow {
             return "";
         }
 
-        return this.getTimeLocation().days;
+        return this.getTimeLocation().getDays();
     }
 
     public String getBeginTime() {
@@ -203,7 +203,7 @@ public class CourseListingRow {
             return "";
         }
 
-        return this.getTimeLocation().beginTime;
+        return this.getTimeLocation().getBeginTime();
     }
 
     public Section getPrimary() {
@@ -214,4 +214,11 @@ public class CourseListingRow {
         this.primary = primary;
     }
 
+    public boolean isPrimaryWithNoSection() {
+        // It checks in classSections, if current lecture is the last element in classSections,
+        // and if the element of the next index is not a section, which means it's a lecture.
+        // All to check if current course is consisted of only lectures without any sections.
+        return course.getClassSections().indexOf(section) + 1 == course.getClassSections().size()
+                || !course.getClassSections().get(course.getClassSections().indexOf(section) + 1).isSection();
+    }
 }

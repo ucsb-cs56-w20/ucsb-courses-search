@@ -184,6 +184,7 @@ public class ScheduleController {
             }
             String schedulename = schedule.getSchedulename();
             if (schedule.getIsActive()) {
+                model.addAttribute("isActive", 1);
             }
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("schedulename", schedulename);

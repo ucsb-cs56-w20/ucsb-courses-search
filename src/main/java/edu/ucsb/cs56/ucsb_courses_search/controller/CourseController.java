@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
-import edu.ucsb.cs56.ucsb_courses_search.model.Route;
 import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import edu.ucsb.cs56.ucsb_courses_search.service.UCSBBuildingService;
@@ -68,35 +67,6 @@ public class CourseController {
         }
         return "courseschedule/index";
     }
-
-    @GetMapping("courseschedule/walktime")
-    public String walkRouteForm(Model model) {
-      model.addAttribute("Route", new Route());
-      return "Route";
-    }
-  
-    @PostMapping("courseschedule/walktime")
-    public String walkRouteSubmit(@ModelAttribute Route route) {
-        String l1 = (route.getB1()).split("-")[0];
-        String l2 = (route.getB2()).split("-")[0];
-        String link = UCSBBuildingService.getWalkingLink(l1, l2);
-      return "redirect : " + link;
-    }
-
-    @GetMapping("courseschedule/biketime")
-    public String bikeRouteForm(Model model) {
-      model.addAttribute("Route", new Route());
-      return "Route";
-    }
-  
-    @PostMapping("courseschedule/biketime")
-    public String bikeRouteSubmit(@ModelAttribute Route route) {
-        String l1 = (route.getB1()).split("-")[0];
-        String l2 = (route.getB2()).split("-")[0];
-        String link = UCSBBuildingService.getBikingLink(l1, l2);
-      return "redirect : " + link;
-    }
-  
   
     @PostMapping("/courseschedule/add")
     public String add(Course course, 

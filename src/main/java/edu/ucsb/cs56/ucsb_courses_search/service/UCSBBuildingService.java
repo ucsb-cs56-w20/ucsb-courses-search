@@ -53,6 +53,17 @@ public class UCSBBuildingService {
         return service.buildingMap.get(buildingCode);
     }
 
+    public static String getCoordinates(String buildingCode) {
+        UCSBBuildingService service = UCSBBuildingService.getInstance();
+        UCSBBuilding building = service.buildingMap.get(buildingCode);
+        if (building==null) {
+            return "";
+        }
+        String lat = Double.toString(building.getLatitude());
+        String lon = Double.toString(building.getLongitude());
+        return lat + "," + lon;
+    }
+
     public static String getLink(String buildingCode){
         UCSBBuildingService service = UCSBBuildingService.getInstance();
         UCSBBuilding building = service.buildingMap.get(buildingCode);

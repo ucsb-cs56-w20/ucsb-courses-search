@@ -72,6 +72,20 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
                                                             String instructorText);
 
     /**
+     * Returns a list of {@link Course} occurring between specified quarters
+     * where the course id is courseId .
+     *
+     * @param startQuarter   the first quarter to consider in the search formatted in YYYYQ
+     * @param endQuarter     the final quarter to consider in the search formatted in YYYYQ
+     * @param courseId course id to return
+     * @return a list of matching {@link Course}
+     */
+    @Query("{'quarter': {$gte : ?0, $lte : ?1}, 'courseId': ?2 }")
+    List<Course> findByQuarterIntervalAndCourseId(String startQuarter,
+                                                            String endQuarter,
+                                                            String courseId);
+                                                        
+    /**
      * Returns a list of {@link Course} from the requested
      * quarter and for the requested dept
      * 

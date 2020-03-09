@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.CourseHistoryService;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
@@ -14,7 +15,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.YearOfCourseEnrollment;//C
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter; //ALSO COPY THIS
-
+import edu.ucsb.cs56.ucsb_courses_search.service.CourseHistoryService;
 import java.util.*; //modify this so that it has access to all the arraylists and hashmaps
 
 import java.util.Collections;
@@ -50,6 +51,9 @@ public class SearchByDeptController {
     @Autowired
     private QuarterListService quarterListService;
 
+    @Autowired
+    private CourseHistoryService courseHistoryService;
+
     @GetMapping("/search/bydept")
     public String instructor(Model model, SearchByDept searchByDept) {
         model.addAttribute("searchByDept", new SearchByDept());
@@ -73,28 +77,9 @@ public class SearchByDeptController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+        HashMap<String, ArrayList<YearOfCourseEnrollment>> enrollmentClasses = courseHistoryService.getEnrollmentData(courseOfferings);
 
-        //START COPYING HERE
-        HashMap<String, ArrayList<YearOfCourseEnrollment>> enrollmentClasses = new HashMap<String, ArrayList<YearOfCourseEnrollment>>();
-
-        //Let's handle the extraction of previous enrollment numbers
-        for(CourseOffering offering : courseOfferings)
-        {
-          //this list will store the previous enrollment numbers of a single course
-          ArrayList<YearOfCourseEnrollment> enrollmentNumbers = new ArrayList<YearOfCourseEnrollment>();
-          //now lets loop as many times as needed for the last however many YEARS_OF_HISTORY
-          for(int i = 0; i < YEARS_OF_HISTORY; i++)
-          {
-            String quarterToExtract = Integer.toString(Integer.parseInt(quarter) - (i * 10));
-            //now lets get that year history from the quarter we've parsed
-            YearOfCourseEnrollment yearEnroll = extractYearHistory(quarterToExtract, offering.getCourse().getCourseId(), quarter);
-            System.out.println(yearEnroll);
-            enrollmentNumbers.add(yearEnroll);
-          }
-
-          enrollmentClasses.put(offering.getCourse().getCourseId(), enrollmentNumbers); //put the enrollment numbers in the hashmap with the class id
-        }
-        //End copy here
+        
         Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
             return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());
         };
@@ -114,7 +99,7 @@ public class SearchByDeptController {
 
       @return returns a YearOfCourses object containing enro
     */
-    private YearOfCourseEnrollment extractYearHistory(String quarter, String courseID, String presentQuarter)
+    public YearOfCourseEnrollment extractYearHistory(String quarter, String courseID, String presentQuarter)
     {
       String year = "";
       String[] enrollmentNums = new String[4];

@@ -77,6 +77,8 @@ public class Quarter {
         return (index < 1) || (index > 4);
     }
 
+
+
     /**
      * Advance to the next quarter, and return the value of that quarter as an int.
      *
@@ -143,6 +145,59 @@ public class Quarter {
         }
         return String
                 .format("%s%s", getQ(yyyyq), getYY(yyyyq));
+    }
+
+    /**
+     * Take yyyyq in string format and return academic year in a string
+     * e.g. "20154" returns "2015", "20161" returns "2015"
+     * @param yyyyq (e.g. "20154")
+     * @return "2015"
+     */
+    public static String qyyyyToAcademicYear(String yyyyq) {
+        int qtr = yyyyqToInt(yyyyq);
+        if (invalidQtr(qtr)) {
+            throw new IllegalArgumentException(
+                    "Argument should be a five digit integer in qqqqy format ending in 1,2,3 or 4");
+        }
+        int year;
+        if(yyyyq.charAt(4) == '4'){
+            return getYYYY(qtr);
+        }
+        else{
+            year = (qtr / 10) - 1;
+            return Integer.toString(year);
+        }
+    }
+
+    /**
+     * Take yyyyq in string format and return academic year index in an int
+     * e.g. "20154" returns 0 for Fall, "20161" returns 1 for Winter..."20163" returns 3 for Summer
+     * @param yyyyq (e.g. "20154")
+     * @return 0, 1, 2, 3
+     */
+    public static int qyyyyToAcademicYearIndex(String yyyyq) {
+        int qtrInt = yyyyqToInt(yyyyq);
+        if (invalidQtr(qtrInt)) {
+            throw new IllegalArgumentException(
+                    "Argument should be a five digit integer in qqqqy format ending in 1,2,3 or 4");
+        }
+        String quarter = getQ(qtrInt);
+        int quarterIndex = 0;
+        
+        if(quarter == "F"){
+            quarterIndex = 0;
+        }
+        else if(quarter == "W"){
+            quarterIndex = 1;
+        }
+        else if(quarter == "S"){
+            quarterIndex = 2;
+        }
+        else if(quarter == "M"){
+            quarterIndex = 3;
+        }
+        
+        return quarterIndex;
     }
 
     /**

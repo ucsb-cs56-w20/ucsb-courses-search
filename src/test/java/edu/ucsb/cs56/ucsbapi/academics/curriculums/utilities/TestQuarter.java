@@ -231,6 +231,7 @@ public class TestQuarter {
         assertEquals(19892, Quarter.qyyToQyyyy("S89"));
     }
 
+
     @Test(expected=IllegalArgumentException.class)
     public void test_qyyToQyyyy_badQuarter() {
         Quarter.qyyToQyyyy("X20");
@@ -249,6 +250,26 @@ public class TestQuarter {
     @Test(expected=IllegalArgumentException.class)
     public void test_qyyToQyyyy__badChar() {
         Quarter.qyyToQyyyy("F2X");
+    }
+
+    @Test
+    public void test_qyyyyToAcademicYear_20154(){
+        assertEquals("2015", Quarter.qyyyyToAcademicYear("20154"));
+    }
+
+    @Test
+    public void test_qyyyyToAcademicYear_20161(){
+        assertEquals("2015", Quarter.qyyyyToAcademicYear("20161"));
+    }
+
+    @Test
+    public void test_qyyyyToAcademicYearIndex_20154(){
+        assertEquals(0, Quarter.qyyyyToAcademicYearIndex("20154"));
+    }
+
+    @Test
+    public void test_qyyyyToAcademicYearIndex_20161(){
+        assertEquals(1, Quarter.qyyyyToAcademicYearIndex("20161"));
     }
 
     @Test

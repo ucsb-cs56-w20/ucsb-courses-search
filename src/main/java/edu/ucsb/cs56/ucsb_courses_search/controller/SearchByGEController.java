@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGE;
@@ -32,6 +33,9 @@ public class SearchByGEController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @Autowired
+    private FinalExamService finalExamService;
+
     @GetMapping("/search/byge")
     public String instructor(Model model, SearchByGE searchByGE) {
         model.addAttribute("searchByGE", new SearchByGE());
@@ -54,6 +58,8 @@ public class SearchByGEController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        rows = finalExamService.assignFinalExams(rows);
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);
@@ -90,6 +96,8 @@ public class SearchByGEController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        rows = finalExamService.assignFinalExams(rows);
 
         model.addAttribute("rows", rows);
 
@@ -144,6 +152,8 @@ public class SearchByGEController {
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(offerings);
 
+        rows = finalExamService.assignFinalExams(rows);
+        
         model.addAttribute("searchByGEStartTime", new SearchByGEStartTime());
         model.addAttribute("quarters",Quarter.quarterList("W20","W19"));
         model.addAttribute("rows", rows);

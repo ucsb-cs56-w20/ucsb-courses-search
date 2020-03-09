@@ -51,6 +51,8 @@ public class CSDeptController {
             Model model,
             SearchByDept searchByDept) {
         model.addAttribute("quarter", quarter);
+        //to display on the cs dept results page the course info for sections too
+        model.addAttribute("full_section_display", true); 
 
         String json = curriculumService.getJSON("CMPSC", quarter, "A");
         CoursePage cp = CoursePage.fromJSON(json);

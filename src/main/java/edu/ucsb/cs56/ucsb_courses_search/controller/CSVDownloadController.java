@@ -153,9 +153,11 @@ public class CSVDownloadController {
             logger.info("courseRepository="+scheduleItemRepository);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
             //need full path, because there are two "Cource", java cannot import both
-                 
+            
+
+            String filename = "MySchedule.csv";
             response.setContentType("text/csv");
-            response.setHeader("Content-Disposition", "attachment; file=mycourses.csv");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
             PersonalScheduleToCSV.writeSections(response.getWriter(), myclasses);
         }
 

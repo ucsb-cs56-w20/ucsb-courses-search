@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
-import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;

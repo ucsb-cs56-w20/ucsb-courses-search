@@ -38,6 +38,7 @@ public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
+    @Autowired(required = false)
     private FinalService finalService;
 
     @Autowired
@@ -51,7 +52,7 @@ public class CourseController {
     @Autowired
     public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
-	this.membershipService = membershipService;
+	    this.membershipService = membershipService;
     }
 
     @GetMapping("/courseschedule")

@@ -17,8 +17,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model;// this one should import all the class in the model package
-import com.google.api.services.calendar;
 
 
 import com.google.api.services.calendar.CalendarScopes;
@@ -202,45 +200,45 @@ public class GoogleCalendarService {
         return recStr;
     }
 
-    private void CreateEvent(){
-        Event event = new Event()
-            .setSummary("Google I/O 2015")
-            .setLocation("800 Howard St., San Francisco, CA 94103")
-            .setDescription("A chance to hear more about Google's developer products.");
+    // private void CreateEvent(){
+    //     Event event = new Event()
+    //         .setSummary("Google I/O 2015")
+    //         .setLocation("800 Howard St., San Francisco, CA 94103")
+    //         .setDescription("A chance to hear more about Google's developer products.");
 
-        DateTime startDateTime = new DateTime("2020-05-28T09:00:00-07:00");
-        EventDateTime start = new EventDateTime()
-            .setDateTime(startDateTime)
-            .setTimeZone("America/Los_Angeles");
-        event.setStart(start);
+    //     DateTime startDateTime = new DateTime("2020-05-28T09:00:00-07:00");
+    //     EventDateTime start = new EventDateTime()
+    //         .setDateTime(startDateTime)
+    //         .setTimeZone("America/Los_Angeles");
+    //     event.setStart(start);
 
-        DateTime endDateTime = new DateTime("2015-05-28T17:00:00-07:00");
-        EventDateTime end = new EventDateTime()
-            .setDateTime(endDateTime)
-            .setTimeZone("America/Los_Angeles");
-        event.setEnd(end);
+    //     DateTime endDateTime = new DateTime("2015-05-28T17:00:00-07:00");
+    //     EventDateTime end = new EventDateTime()
+    //         .setDateTime(endDateTime)
+    //         .setTimeZone("America/Los_Angeles");
+    //     event.setEnd(end);
 
-        String[] recurrence = new String[] {"RRULE:FREQ=DAILY;COUNT=2"};
-        event.setRecurrence(Arrays.asList(recurrence));
+    //     String[] recurrence = new String[] {"RRULE:FREQ=DAILY;COUNT=2"};
+    //     event.setRecurrence(Arrays.asList(recurrence));
 
-        EventAttendee[] attendees = new EventAttendee[] {
-            new EventAttendee().setEmail("lpage@example.com"),
-            new EventAttendee().setEmail("sbrin@example.com"),
-        };
-        event.setAttendees(Arrays.asList(attendees));
+    //     EventAttendee[] attendees = new EventAttendee[] {
+    //         new EventAttendee().setEmail("lpage@example.com"),
+    //         new EventAttendee().setEmail("sbrin@example.com"),
+    //     };
+    //     event.setAttendees(Arrays.asList(attendees));
 
-        // EventReminder[] reminderOverrides = new EventReminder[] {
-        //     new EventReminder().setMethod("email").setMinutes(24 * 60),
-        //     new EventReminder().setMethod("popup").setMinutes(10),
-        // };
-        // Event.Reminders reminders = new Event.Reminders()
-        //     .setUseDefault(false)
-        //     .setOverrides(Arrays.asList(reminderOverrides));
-        // event.setReminders(reminders);
+    //     // EventReminder[] reminderOverrides = new EventReminder[] {
+    //     //     new EventReminder().setMethod("email").setMinutes(24 * 60),
+    //     //     new EventReminder().setMethod("popup").setMinutes(10),
+    //     // };
+    //     // Event.Reminders reminders = new Event.Reminders()
+    //     //     .setUseDefault(false)
+    //     //     .setOverrides(Arrays.asList(reminderOverrides));
+    //     // event.setReminders(reminders);
 
-        String calendarId = "primary";
-        event = service.events().insert(calendarId, event).execute();
-        System.out.printf("Event created: %s\n", event.getHtmlLink());
-    }
+    //     String calendarId = "primary";
+    //     event = service.events().insert(calendarId, event).execute();
+    //     System.out.printf("Event created: %s\n", event.getHtmlLink());
+    // }
 
 }

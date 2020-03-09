@@ -4,8 +4,6 @@ import edu.ucsb.cs56.ucsb_courses_search.downloaders.CoursePageToCSV;
 import edu.ucsb.cs56.ucsb_courses_search.downloaders.PersonalScheduleToCSV;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +14,6 @@ import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
-
-import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -41,11 +37,6 @@ public class CSVDownloadController {
 
     @Autowired
     private ScheduleItemRepository scheduleItemRepository;
-
-    @Autowired
-    public CSVDownloadController(ScheduleItemRepository scheduleItemRepository) {
-        this.scheduleItemRepository = scheduleItemRepository;
-    }
 
     @GetMapping("/CSVDownload")
     public void downloadCSV(@RequestParam(name = "subjectArea", required = false) String subjectArea,
@@ -93,13 +84,11 @@ public class CSVDownloadController {
         }
 
         if(beginQ != null && endQ != null){
-            filename += beginQ + "-" + endQ;
+            filename += beginQ + "-" + endQ + ".csv";
         }else{
-            filename += quarter;
+            filename += quarter + ".csv";
         }
         
-
-        filename += ".csv";
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 

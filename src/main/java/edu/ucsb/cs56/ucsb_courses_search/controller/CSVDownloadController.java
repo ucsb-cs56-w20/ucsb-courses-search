@@ -22,9 +22,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CSVDownloadController {
 
-    private Logger logger = LoggerFactory.getLogger(SearchByInstructorController.class);
 
     @Autowired
     private CurriculumService curriculumService;
@@ -46,88 +42,100 @@ public class CSVDownloadController {
         this.courseRepository = courseRepository;
     }
 
-    @GetMapping("/downloadCSV/courseSearch")
-    public void downloadCSV(@RequestParam(name = "subjectArea", required = true) String subjectArea,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            @RequestParam(name = "courseLevel", required = true) String courseLevel,
+    @GetMapping("/CSVDownload")
+    public void downloadCSV(@RequestParam(name = "subjectArea", required = false) String subjectArea,
+            @RequestParam(name = "courseLevel", required = false) String courseLevel,
+            @RequestParam(name = "dept", required = false) String dept,
+            @RequestParam(name = "instructor", required = false) String instructor,
+            @RequestParam(name = "beginQ", required = false) Integer beginQ,
+            @RequestParam(name = "endQ", required = false) Integer endQ,
+            @RequestParam(name = "course", required = false) String course,
+            @RequestParam(name = "college", required = false) String college,
+            @RequestParam(name = "area", required = false) String area,
+            @RequestParam(name = "quarter", required = false) String quarter,
             HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getJSON(subjectArea, quarter, courseLevel);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-    @GetMapping("/downloadCSV/searchCSV_ByDepartment")
-    public void downloadCSV_ByDepartment(@RequestParam(name = "dept", required = true) String dept,
-            @RequestParam(name = "quarter", required = true) String quarter,
-            @RequestParam(name = "courseLevel", required = true) String courseLevel,
-            HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getJSON(dept, quarter, courseLevel);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/csDept")
-    public void downloadCSV(@RequestParam(name = "quarter", required = true) String quarter,
-            HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getJSON(quarter);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/byInstructor")
-    public void downloadCSV(@RequestParam(name = "instructor", required = true) String instructor,
-        @RequestParam(name = "quarter", required = true) String quarter,
-            HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
-
-        String json = curriculumService.getJSON(instructor, quarter);
-
-        CoursePage cp = CoursePage.fromJSON(json);
-
-        CoursePageToCSV.writeSections(response.getWriter(), cp);
-    }
-
-    @GetMapping("/downloadCSV/multiquarterSearch")
-    public void downloadCSV(
-        @RequestParam(name = "instructor", required = true) String instructor,
-        @RequestParam(name = "beginQ", required = true) int beginQ,
-        @RequestParam(name = "endQ", required = true) int endQ,
-            HttpServletResponse response) throws IOException {
-
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=courses.csv");
 
         String json = "";
+        CoursePage cp;
+        String filename = "";
 
-        List<Course> courses = new ArrayList<Course>();
-        for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
-            json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
-            CoursePage cp2 = CoursePage.fromJSON(json);
-            courses.addAll(cp2.classes);
+        if(subjectArea != null ){
+            filename += subjectArea + "-";
         }
 
-        CoursePage cp = CoursePage.fromJSON(json);
-        cp.setClasses(courses);
+        if(dept != null){
+            filename += dept + "-";
+        }
+
+        if(instructor != null){
+            filename += instructor.toUpperCase() + "-";
+        }
+
+        if(course != null){
+            filename += course + "-";
+        }
+
+        if(college != null){
+            filename += college + "-";
+        }
+
+        if(area != null){
+            filename += area + "-";
+        }
+
+        if(courseLevel != null){
+            filename += courseLevel + "-";
+        }
+
+        if(beginQ != null && endQ != null){
+            filename += beginQ + "-" + endQ;
+        }else{
+            filename += quarter;
+        }
+        
+
+        filename += ".csv";
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+        if((instructor != null || course != null) && beginQ != null && endQ != null){ //multiquarter Search
+
+            List<Course> courses = new ArrayList<Course>();
+            for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
+
+                if(instructor != null){ // multiquarter instructor search
+                    json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
+                }else if(course != null){ // multiquarter course search
+                    json = curriculumService.getCourse(course, qtr.getValue());
+                }
+
+                CoursePage cp2 = CoursePage.fromJSON(json);
+                courses.addAll(cp2.classes);
+            }
+
+            cp = CoursePage.fromJSON(json);
+            cp.setClasses(courses);
+
+        }else{
+
+            json = curriculumService.getCSV(subjectArea, quarter, courseLevel, dept, instructor, course, college, area);
+            cp = CoursePage.fromJSON(json);
+        }
+
         CoursePageToCSV.writeSections(response.getWriter(), cp);
-    
     }
+
+    @GetMapping("/CSVDownload/csDept")
+    public void downloadCSV(@RequestParam(name = "quarter", required = true) String quarter, HttpServletResponse response) throws IOException{
+        
+        String filename = "CMPSC-A-" + quarter + ".csv";
+
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
+        String json = curriculumService.getJSON("CMPSC", quarter, "A");
+        CoursePage cp = CoursePage.fromJSON(json);
+        CoursePageToCSV.writeSections(response.getWriter(), cp);
 
     @GetMapping("/personalSchedule")
     public void downloadCSV(OAuth2AuthenticationToken token, HttpServletResponse response) throws IOException {

@@ -15,9 +15,8 @@
             <select th:field="*{area}" class="custom-select" id="area">
                 <option value="A1">Area A1 - English Reading and Composition</option>
                 <option value="A2">Area A2 - English Reading and Composition</option>
-                <!--
                 <option value="B">Area B - Foreign Language (L&S Only)</option>
-                <option value="C">Area C - Science, Mathematics, and Technology (L&S Only)</option>-->
+                <option value="C">Area C - Science, Mathematics, and Technology (L&S Only)</option>
                 <option value="D">Area D - Social Sciences</option>
                 <option value="E">Area E - Culture and Though</option>
                 <option value="F">Area F - Arts</option>
@@ -55,7 +54,7 @@
         <label for="js-course-search-submit" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
             <button type="submit" th:formaction="@{/search/byge/results}" class="btn btn-primary" id="js-course-search-submit">Find Courses</button>
-            <button type="submit" th:formaction="@{/searchCSV}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
+            <button type="submit" th:formaction="@{/CSVDownload}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
         </div>
     </div>
 

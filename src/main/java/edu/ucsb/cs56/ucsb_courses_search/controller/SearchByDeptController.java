@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,6 +28,9 @@ public class SearchByDeptController {
 
     @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private FinalExamService finalExamService;
 
     @Autowired
     private QuarterListService quarterListService;
@@ -52,6 +58,15 @@ public class SearchByDeptController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCoursePage(cp);
 
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        rows = finalExamService.assignFinalExams(rows);
+        
+        Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
+            return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());
+        };
+
+        Collections.sort(rows, byCourseId);
+
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);

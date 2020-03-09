@@ -113,6 +113,17 @@ public class CourseController {
         logger.info("primary = " + primary); 
         scheduleItemRepository.save(primary);
 
+        Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(scheduleItem.getUid());
+        Set<FinalPage> myfinals = new LinkedHashSet<FinalPage>();
+        for(ScheduleItem si : myclasses){
+            String json = finalService.getJSON(si.getEnrollCode(), si.getQuarter());
+            logger.info(json);
+            FinalPage fp = FinalPage.fromJSON(json);
+            fp.setCourseName(si.getClassname());
+            myfinals.add(fp);
+        }
+        model.addAttribute("myfinals", myfinals);
+
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";
     }

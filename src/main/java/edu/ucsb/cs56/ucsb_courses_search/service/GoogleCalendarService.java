@@ -16,8 +16,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
-
 
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
@@ -25,10 +25,15 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
-import edu.ucsb.cs56.ucsb_courses_search.model.ClientCredentials;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
+
 @Service
 public class GoogleCalendarService {
     private static final String APPLICATION_NAME = "UCSB Courses Search Google Calendar Export";

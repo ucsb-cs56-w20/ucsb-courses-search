@@ -14,17 +14,28 @@
             </button>
           </div>
           <div class="modal-body">
-             
+
             <table class="table">
                 <tbody>
                   <tr>
                     <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Description: </td>
-                    <td colspan="2" style="vertical-align:bottom;text-align:left;padding:0 10px;" th:text="${r.course.description}" > </td> 
+                    <td colspan="2" style="vertical-align:bottom;text-align:left;padding:0 10px;" th:text="${r.course.description}" > </td>
                   </tr>
                   <tr>
                     <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Final Examination: </td>
-                    <td colspan="2" style="vertical-align:middle;text-align:left;padding:0 10px;" th:text="${r.course.finalExam.getComments() == ''} ? ${r.course.finalExam.formatFinal()} : ${r.course.finalExam.getComments()}" > </td> 
+                    <td colspan="2" style="vertical-align:middle;text-align:left;padding:0 10px;" th:text="${r.course.finalExam.getComments() == ''} ? ${r.course.finalExam.formatFinal()} : ${r.course.finalExam.getComments()}" > </td>
                   </tr>
+                  <!-- <tr> -->
+                    <!-- <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">General Education: </td> -->
+                    <!-- <table> -->
+                      <!-- <tbody> -->
+                        <tr th:each="ge: ${r.course.generalEducation}">
+                          <td th:text="${ge.getGeCode()}"> </td>
+                          <td th:text="${ge.getGeCollege()}"> </td>
+                        </tr>
+                      <!-- </tbody> -->
+                    <!-- </table> -->
+                  <!-- </tr> -->
                   <td>STUB</td>
                   <td>STUB_1</td>
                   <td>STUB_2</td>
@@ -39,5 +50,4 @@
         </div>
       </div>
     </div>
-  </div> 
-  
+  </div>

@@ -3,9 +3,7 @@ package edu.ucsb.cs56.ucsb_courses_search.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ucsb.cs56.ucsb_courses_search.model.result.MySearchResult;
-import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearch;
-import edu.ucsb.cs56.ucsb_courses_search.model.search.InsSearchSpecific;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 
@@ -34,12 +33,18 @@ public class SearchByInstructorController {
             .getLogger(SearchByInstructorController.class);
 
     @Autowired
+    private ArchivedCourseRepository archivedCourseRepository;
+    
+    @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private FinalExamService finalExamService;
 
     @Autowired
     private QuarterListService quarterListService;
 
-    @GetMapping("/search/byinstructor/") // search/instructor/
+    @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model
                 .addAttribute("searchObject", new SearchByInstructorMultiQuarter());
@@ -47,7 +52,7 @@ public class SearchByInstructorController {
         return "search/byinstructor/multiquarter/search";
     }
 
-    @GetMapping("/search/byinstructor/results")
+    @GetMapping("/search/byinstructor/multiquarter/results")
     public String search(
         @RequestParam(name = "instructor", required = true) 
         String instructor,
@@ -71,27 +76,22 @@ public class SearchByInstructorController {
 
 	    logger.info("GET request for /search/byinstructor/results");
             logger.info("beginQ=" + beginQ + " endQ=" + endQ);
-            
-            List<Course> courses = new ArrayList<Course>();
-            for (Quarter qtr = new Quarter(beginQ); qtr.getValue() <= endQ; qtr.increment()) {
-                String json = curriculumService.getJSON(instructor, qtr.getYYYYQ());
-                logger.info("qtr=" + qtr.getValue() + " json=" + json);
-                CoursePage cp = CoursePage.fromJSON(json);
-                courses.addAll(cp.classes);
-            }
- 
 
+	    List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndInstructor(beginQ+"", endQ+"", instructor);
+	    
             model.addAttribute("courses", courses);
 
             List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
             List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+            rows = finalExamService.assignFinalExams(rows);
+            
             model.addAttribute("rows", rows);
             model.addAttribute("searchObject", searchObject );
 
             model.addAttribute("quarters", quarterListService.getQuarters());
 
-            return "search/byinstructor/results";
+            return "search/byinstructor/multiquarter/results";
     }
 
 }

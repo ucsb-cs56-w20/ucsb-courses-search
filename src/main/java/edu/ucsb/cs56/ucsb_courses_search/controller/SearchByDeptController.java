@@ -13,6 +13,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByDept;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.GeneralEducation;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -70,6 +71,10 @@ public class SearchByDeptController {
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", rows);
+
+        for(CourseOffering c : courseOfferings) {
+            logger.info("name=" + c.getCourseId() + " geCode=" + c.getCourse().getGeneralEducation());
+        }
 
         return "search/bydept/results";
     }

@@ -92,7 +92,7 @@ public class CSDeptController {
         for(CourseListingRow row : rows) {
             if(classrooms.contains(row.getBuildingRoom())) {
                 result.add(row);
-            }            
+            }    
         }
 
         return result;

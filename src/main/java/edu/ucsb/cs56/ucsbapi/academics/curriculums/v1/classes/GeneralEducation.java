@@ -22,4 +22,12 @@ public class GeneralEducation {
         this.geCollege = geCollege;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " geCode='" + getGeCode() + "'" +
+            ", geCollege='" + getGeCollege() + "'" +
+            "}";
+    }
+
 }

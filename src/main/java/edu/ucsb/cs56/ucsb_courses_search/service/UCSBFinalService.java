@@ -27,10 +27,10 @@ public class UCSBFinalService implements FinalService {
 
     public UCSBFinalService(@Value("${ucsb.api.consumer_key}") String apiKey) {
         this.apiKey = apiKey;
-        logger.info("apiKey=" + apiKey);
     }
 
-    public String setQuarter(String quarter){
+    //Sets the quarter string to fit the format for the api 
+    public String setQuarterFormat(String quarter){
         String result = "";
         if(quarter.charAt(0) == 'F'){
             result = "20" + quarter.substring(1,3) + "3";
@@ -46,7 +46,7 @@ public class UCSBFinalService implements FinalService {
 
     public String getJSON(String enrollCode, String quarter) {
         
-        quarter = setQuarter(quarter); //formats quarter correctly
+        quarter = setQuarterFormat(quarter); //formats quarter correctly
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -86,7 +86,6 @@ public class UCSBFinalService implements FinalService {
      */
 
     public String getFinal(int enrollCode, int quarter) {
-        logger.info("api: " + apiKey);
         logger.info("getCourse: course: " + enrollCode + " quarter: " + quarter);
 
         RestTemplate restTemplate = new RestTemplate();

@@ -3,6 +3,8 @@ package edu.ucsb.cs56.ucsb_courses_search.controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,11 +38,14 @@ public class CourseController {
     @Autowired
     private MembershipService membershipService;
 
+    @Autowired
+	private OAuth2AuthorizedClientService clientService;
 
     @Autowired
-    public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
+    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService, OAuth2AuthorizedClientService clientService) {
         this.scheduleItemRepository = scheduleItemRepository;
-	this.membershipService = membershipService;
+        this.membershipService = membershipService;
+        this.clientService = clientService;
     }
 
     @GetMapping("/courseschedule")
@@ -48,6 +53,17 @@ public class CourseController {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
+        logger.info(token.getAuthorizedClientRegistrationId().toString());
+        logger.info(token.getName().toString());
+        OAuth2AuthorizedClient client = this.getAuthorizedClient(token);
+        // OAuth2AuthorizedClient client =
+        //      clientService.loadAuthorizedClient(
+        //          token.getAuthorizedClientRegistrationId(),
+        //          token.getName());
+    
+         String accessToken = client.getAccessToken().getTokenValue();
+         logger.info("accessToken:");
+         logger.info(accessToken);
 
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
@@ -106,6 +122,10 @@ public class CourseController {
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";
+    }
+    private OAuth2AuthorizedClient getAuthorizedClient(OAuth2AuthenticationToken token) {
+        return this.clientService.loadAuthorizedClient(
+                token.getAuthorizedClientRegistrationId(), token.getName());
     }
 
 }

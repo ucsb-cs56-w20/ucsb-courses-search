@@ -52,13 +52,17 @@ public class SearchByInstructorController {
         model.addAttribute("quarters", quarterListService.getQuarters());
         List<String> instructorNames = new ArrayList<>();
         instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy("F18")),Integer.toString(Quarter.qyyToQyyyy("S19")));
+        List<String> instructorNewNames = new ArrayList<>();
         for(int i = 0; i<instructorNames.size(); i++)
         {
-            instructorNames.get(i).split(",");
-            
+            String[] instructor = instructorNames.get(i).split(",");
+            for(int j = 0; j<instructor.length; j++)
+            {
+                instructorNewNames.add(instructor[j]);
+            }
         }
-        instructorNames.removeAll(Arrays.asList("", null));
-        Set<String> instructorSet = new HashSet<>(instructorNames);
+        instructorNewNames.removeAll(Arrays.asList("", null));
+        Set<String> instructorSet = new HashSet<>(instructorNewNames);
         List<String> instructorList = new ArrayList<>(instructorSet);
 
         model.addAttribute("instructorList", instructorList);

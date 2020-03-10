@@ -27,7 +27,6 @@ public class UCSBQuarterCalendarService implements CalendarService {
 
     public UCSBQuarterCalendarService(@Value("${ucsb.api.consumer_key}") String apiKey) {
         this.apiKey = apiKey;
-        logger.info("apiKey=" + apiKey);
     }
 
     public String getJSON(){

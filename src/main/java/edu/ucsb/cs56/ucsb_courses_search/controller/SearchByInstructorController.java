@@ -1,7 +1,9 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import java.util.*; 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
@@ -48,11 +50,23 @@ public class SearchByInstructorController {
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model.addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
+        List<String> instructorNames = new ArrayList<>();
+        instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy("F17")), Integer.toString(Quarter.qyyToQyyyy("S20")));
+        //instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy(quarterListService.getStartQuarter())),Integer.toString(Quarter.qyyToQyyyy(quarterListService.getEndQuarter())));
+        List<String> instructorNewNames = new ArrayList<>();
+        for(int i = 0; i<instructorNames.size(); i++)
+        {
+            String[] instructor = instructorNames.get(i).split(",");
+            for(int j = 0; j<instructor.length; j++)
+            {
+                instructorNewNames.add(instructor[j]);
+            }
+        }
+        instructorNewNames.removeAll(Arrays.asList("", null));
+        Set<String> instructorSet = new HashSet<>(instructorNewNames);
+        List<String> instructorList = new ArrayList<>(instructorSet);
 
-        List<String> instructorNames = new ArrayList<String>();
-        instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy("S19")),Integer.toString(Quarter.qyyToQyyyy("S19")));
-        
-        model.addAttribute("instructorList", archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy("S19")),Integer.toString(Quarter.qyyToQyyyy("S19")))); 
+        model.addAttribute("instructorList", instructorList);
         return "search/byinstructor/multiquarter/search";
     }
 

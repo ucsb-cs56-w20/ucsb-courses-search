@@ -1,4 +1,4 @@
-package edu.ucsb.cs56.ucsb_courses_search.service;
+package edu.ucsb.cs56.ucsb_courses_search.controller;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -7,19 +7,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Date;
-import java.time.Instant;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.AccessToken;
@@ -27,13 +21,8 @@ import com.google.auth.oauth2.OAuth2Credentials;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.BasicAuthentication;
-import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -42,23 +31,17 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 
-
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
-import com.google.api.services.calendar.model.Events;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
-
-import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
-
 
 @Controller
 public class GoogleCalendarController {
@@ -256,45 +239,4 @@ public class GoogleCalendarController {
         recStr += "T170000Z";
         return recStr;
     }
-
-    // private void CreateEvent(){
-    //     Event event = new Event()
-    //         .setSummary("Google I/O 2015")
-    //         .setLocation("800 Howard St., San Francisco, CA 94103")
-    //         .setDescription("A chance to hear more about Google's developer products.");
-
-    //     DateTime startDateTime = new DateTime("2020-05-28T09:00:00-07:00");
-    //     EventDateTime start = new EventDateTime()
-    //         .setDateTime(startDateTime)
-    //         .setTimeZone("America/Los_Angeles");
-    //     event.setStart(start);
-
-    //     DateTime endDateTime = new DateTime("2015-05-28T17:00:00-07:00");
-    //     EventDateTime end = new EventDateTime()
-    //         .setDateTime(endDateTime)
-    //         .setTimeZone("America/Los_Angeles");
-    //     event.setEnd(end);
-
-    //     String[] recurrence = new String[] {"RRULE:FREQ=DAILY;COUNT=2"};
-    //     event.setRecurrence(Arrays.asList(recurrence));
-
-    //     EventAttendee[] attendees = new EventAttendee[] {
-    //         new EventAttendee().setEmail("lpage@example.com"),
-    //         new EventAttendee().setEmail("sbrin@example.com"),
-    //     };
-    //     event.setAttendees(Arrays.asList(attendees));
-
-    //     // EventReminder[] reminderOverrides = new EventReminder[] {
-    //     //     new EventReminder().setMethod("email").setMinutes(24 * 60),
-    //     //     new EventReminder().setMethod("popup").setMinutes(10),
-    //     // };
-    //     // Event.Reminders reminders = new Event.Reminders()
-    //     //     .setUseDefault(false)
-    //     //     .setOverrides(Arrays.asList(reminderOverrides));
-    //     // event.setReminders(reminders);
-
-    //     String calendarId = "primary";
-    //     event = service.events().insert(calendarId, event).execute();
-    //     System.out.printf("Event created: %s\n", event.getHtmlLink());
-    // }
 }

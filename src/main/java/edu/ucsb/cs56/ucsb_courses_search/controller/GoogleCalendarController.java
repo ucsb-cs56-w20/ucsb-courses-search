@@ -18,12 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.OAuth2Credentials;
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.BasicAuthentication;
-import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.JsonFactory;
@@ -38,7 +33,6 @@ import com.google.api.services.calendar.model.EventDateTime;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
@@ -47,8 +41,6 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 public class GoogleCalendarController {
     private static final String APPLICATION_NAME = "UCSB Courses Search Google Calendar Export";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    // private static final String CREDENTIALS_FILE_PATH = "../../localhost.json";
-    private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
     @Autowired
     private OAuth2AuthorizedClientService clientService;
     
@@ -80,9 +72,6 @@ public class GoogleCalendarController {
 
         
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        // logger.info("HTTP_TRANSPORT created");
-        // Credential credential = createCredentialWithRefreshToken(HTTP_TRANSPORT, JSON_FACTORY, new TokenResponse().setScope("CalendarScopes.CALENDAR"));
-        // logger.info("Credential created");
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
                 .setApplicationName(APPLICATION_NAME).build();
         logger.info("Calendar built");

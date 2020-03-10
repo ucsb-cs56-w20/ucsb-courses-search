@@ -21,6 +21,7 @@ public class Course {
     private String description;
     private List<Section> classSections;
     private FinalExam finalExam;
+    private List<GeneralEducation> generalEducation;
 
     public Course() {
     }
@@ -80,12 +81,20 @@ public class Course {
 	public void setFinalExam(FinalExam finalExam) {
 		this.finalExam = finalExam;
 	}
-   
+
+  public List<GeneralEducation> getGeneralEducation() {
+    return this.generalEducation;
+  }
+
+  public void setGeneralEducation(List<GeneralEducation> generalEducation) {
+    this.generalEducation = generalEducation;
+  }
+
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture
      * (primary) section. If there is more than one, they are separated by commas
      * and a single space.
-     * 
+     *
      * @return Name of primary instructor(s) for the course
      */
     public String mainInstructorList() {
@@ -119,7 +128,7 @@ public class Course {
     /**
      * get quarter in Qyy format, e.g. "F19", "W20", etc. instead of "20194" or
      * "20201"
-     * 
+     *
      * @return quarter in Qyy format (e.g. "F19")
      */
 

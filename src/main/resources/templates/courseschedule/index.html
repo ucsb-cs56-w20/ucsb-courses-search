@@ -6,7 +6,7 @@
   <div th:replace="fragments/bootstrap_head.html"></div>
 </head>
 
-<body onload="myFunction()">
+<body>
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedule</h3>
@@ -61,6 +61,9 @@
       </tbody>
     </table>
     
+    <form method="GET">
+      <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
+    </form>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
 

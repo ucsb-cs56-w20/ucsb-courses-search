@@ -105,9 +105,5 @@ public class CourseController {
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";
     }
-    private OAuth2AuthorizedClient getAuthorizedClient(OAuth2AuthenticationToken token) {
-        return this.clientService.loadAuthorizedClient(
-                token.getAuthorizedClientRegistrationId(), token.getName());
-    }
 
 }

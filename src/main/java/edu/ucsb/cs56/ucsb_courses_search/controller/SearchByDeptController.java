@@ -83,10 +83,7 @@ public class SearchByDeptController {
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
         HashMap<String, ArrayList<YearOfCourseEnrollment>> enrollmentClasses = courseHistoryService.getEnrollmentData(courseOfferings);
 
-<<<<<<< HEAD
-=======
         rows = finalExamService.assignFinalExams(rows);
->>>>>>> e4b5cd400cabdd12469ad17f1684568f6ab19183
         
         Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
             return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());

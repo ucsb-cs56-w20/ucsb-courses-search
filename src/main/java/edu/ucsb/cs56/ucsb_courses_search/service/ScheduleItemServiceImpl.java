@@ -9,7 +9,7 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import java.util.List;
 
 @Service
-public class ScheduleItemService {
+public class ScheduleItemServiceImpl implements ScheduleItemService {
 
     @Autowired
     private ScheduleItemRepository scheduleItemRepository;
@@ -17,6 +17,7 @@ public class ScheduleItemService {
     public ScheduleItemService(){
     }
 
+    @Override
     public List<ScheduleItem> deleteByClassname(List<ScheduleItem> courseList, String name){
         for (ScheduleItem i : courseList){
             if (i.getClassname().equals(name)){

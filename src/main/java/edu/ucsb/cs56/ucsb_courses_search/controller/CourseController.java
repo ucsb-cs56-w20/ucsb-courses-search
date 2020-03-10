@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
+import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemService;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
@@ -36,7 +37,9 @@ public class CourseController {
 
     @Autowired
     private MembershipService membershipService;
-
+	
+    @Autowired
+    private ScheduleItemService scheduleItemService;
 
     @Autowired
     public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
@@ -109,7 +112,7 @@ public class CourseController {
       
         //here we find and delete the courses if they already exist.
         List<ScheduleItem> myClasses = scheduleItemRepository.findByUid(scheduleItem.getUid());
-        myClasses = deleteByClassname(myClasses, scheduleItem.getClassname());
+        scheduleItemService.deleteByClassname(myClasses, scheduleItem.getClassname());
 
         scheduleItemRepository.save(primary);
         myClasses.add(primary);
@@ -124,10 +127,10 @@ public class CourseController {
     public String delete(ScheduleItem scheduleItem, Model model){
         logger.info("ScheduleItem to delete: " + scheduleItem.getUid());
         List<ScheduleItem> myClasses = scheduleItemRepository.findByUid(scheduleItem.getUid());
-        List<ScheduleItem> remainingClasses = deleteByClassname(myClasses, scheduleItem.getClassname());
-
-        model.addAttribute("myclasses", remainingClasses);
-      
+	
+        scheduleItemService.deleteByClassname(myClasses, scheduleItem.getClassname());
+	    
+        model.addAttribute("myclasses", myClasses);
         return "courseschedule/index";
     }
 

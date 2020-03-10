@@ -1,7 +1,9 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import java.util.*; 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
@@ -44,14 +46,24 @@ public class SearchByInstructorController {
     @Autowired
     private QuarterListService quarterListService;
 
-    @Autowired
-    private Quarter quarter;
-
     @GetMapping("/search/byinstructor/multiquarter") // search/instructor/multiquarter
     public String multi(Model model, SearchByInstructorMultiQuarter searchObject) {
         model.addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
-        model.addAttribute("instructorList", archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(quarter.qyyToQyyyy(quarterListService.getStartQuarter())),Integer.toString(quarter.qyyToQyyyy(quarterListService.getEndQuarter())))); 
+        List<String> instructorNames = new ArrayList<>();
+        instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy("F18")),Integer.toString(Quarter.qyyToQyyyy("S19")));
+        for(int i = 0; i<instructorNames.size(); i++)
+        {
+            instructorNames.get(i).split(",");
+            
+        }
+        instructorNames.removeAll(Arrays.asList("", null));
+        Set<String> instructorSet = new HashSet<>(instructorNames);
+        List<String> instructorList = new ArrayList<>(instructorSet);
+
+        model.addAttribute("instructorList", instructorList);
+        //model.addAttribute("instructorList", archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy(quarterListService.getStartQuarter())),
+        //                Integer.toString(Quarter.qyyToQyyyy(quarterListService.getEndQuarter()))));
         return "search/byinstructor/multiquarter/search";
     }
 

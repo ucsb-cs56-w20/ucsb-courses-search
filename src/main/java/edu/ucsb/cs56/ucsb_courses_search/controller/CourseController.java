@@ -42,9 +42,11 @@ public class CourseController {
     private ScheduleItemService scheduleItemService;
 
     @Autowired
-    public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
+    public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService,
+			   ScheduleItemService scheduleItemService) {
         this.scheduleItemRepository = scheduleItemRepository;
 	this.membershipService = membershipService;
+	this.scheduleItemService = scheduleItemService;
     }
 
     @GetMapping("/courseschedule")

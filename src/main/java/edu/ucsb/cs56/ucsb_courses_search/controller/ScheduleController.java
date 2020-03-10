@@ -132,7 +132,7 @@ public class ScheduleController {
             ArrayList<ScheduleItem> emptyList = new ArrayList<ScheduleItem>();
             model.addAttribute("myclasses", emptyList);
         }
-        return "schedule/viewschedule";
+        return "schedule/index";
     }
 
 }

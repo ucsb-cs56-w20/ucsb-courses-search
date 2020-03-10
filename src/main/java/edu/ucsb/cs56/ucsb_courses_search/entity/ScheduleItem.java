@@ -18,6 +18,7 @@ public class ScheduleItem {
     private String location;
     private String quarter;
     private String uid;
+    private long scheduleid; // id for specific schedule
     private String associatedLectureDay;
     private String associatedLectureTime;
     private String associatedLectureLocation;
@@ -41,6 +42,13 @@ public class ScheduleItem {
         this.notes = notes;
     }
 
+    public String getUid() {
+        return this.uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
 	public String getEnrollCode() {
 		return this.enrollCode;
@@ -74,8 +82,8 @@ public class ScheduleItem {
 		this.associatedLectureLocation = associatedLectureLocation;
 	}
 
-    public String getUid() {
-        return uid;
+    public long getScheduleid() {
+        return scheduleid;
     }
 
  
@@ -104,8 +112,8 @@ public class ScheduleItem {
         return quarter;
     }
 
-    public void setUid(String uid) { 
-        this.uid = uid; 
+    public void setScheduleid(long scheduleid) { 
+        this.scheduleid = scheduleid; 
     }
 
     public void setClassname(String classname) { 
@@ -152,6 +160,7 @@ public class ScheduleItem {
             ", location='" + location + "'" +
             ", quarter='" + quarter + "'" +
             ", uid='" + uid + "'" +
+            ", scheduleid='" + scheduleid + "'" +
             ", associatedLectureDay='" + associatedLectureDay + "'" +
             ", associatedLectureTime='" + associatedLectureTime + "'" +
             ", associatedLectureLocation='" + associatedLectureLocation + "'" +

@@ -1,6 +1,7 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,9 @@ public class SearchController {
 
     @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private FinalExamService finalExamService;
 
     @GetMapping("/searchResults")
     public String search(
@@ -68,6 +72,9 @@ public class SearchController {
         }
         //End copy here
 
+            
+        rows = finalExamService.assignFinalExams(rows);
+        
         model.addAttribute("json",json);
         model.addAttribute("cp",cp);
         model.addAttribute("rows", rows);

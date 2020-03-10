@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CourseHistoryService;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.YearOfCourseEnrollment;//COPY THIS
@@ -49,6 +50,9 @@ public class SearchByDeptController {
     private CurriculumService curriculumService;
 
     @Autowired
+    private FinalExamService finalExamService;
+
+    @Autowired
     private QuarterListService quarterListService;
 
     @Autowired
@@ -79,6 +83,10 @@ public class SearchByDeptController {
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
         HashMap<String, ArrayList<YearOfCourseEnrollment>> enrollmentClasses = courseHistoryService.getEnrollmentData(courseOfferings);
 
+<<<<<<< HEAD
+=======
+        rows = finalExamService.assignFinalExams(rows);
+>>>>>>> e4b5cd400cabdd12469ad17f1684568f6ab19183
         
         Comparator<CourseListingRow> byCourseId = (r1, r2) -> {
             return r1.getCourse().getCourseId().compareTo(r2.getCourse().getCourseId());

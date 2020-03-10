@@ -17,7 +17,6 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Schedule;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleRepository;
-import edu.ucsb.cs56.ucsb_courses_search.formbeans.ScheduleSearch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule")
-    public String index(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) throws AccessForbiddenException {
+    public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
         logger.info("Inside /schedule controller method ScheduleController#index");
         logger.info("model=" + model + " token=" + token);
 
@@ -70,7 +69,6 @@ public class ScheduleController {
         } else {
 	        throw new AccessForbiddenException();
         }
-        model.addAttribute("scheduleSearch", scheduleSearch);
         return "schedule/index";
     }
     @PostMapping("/schedule/add/{scheduleid}")

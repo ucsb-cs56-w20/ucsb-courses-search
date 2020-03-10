@@ -18,8 +18,13 @@ public class Course {
     private String quarter;
     private String courseId;
     private String title;
+    private String description;
     private List<Section> classSections;
+<<<<<<< HEAD
     private List<GeneralEducation> generalEducation;
+=======
+    private FinalExam finalExam;
+>>>>>>> 8f146262b04f642e76a842bac92fe7533f1fa9bf
 
     public Course() {
     }
@@ -69,6 +74,7 @@ public class Course {
         this.classSections = classSections;
     }
 
+<<<<<<< HEAD
     public List<GeneralEducation> getGeneralEducation() {
         return this.generalEducation;
     }
@@ -77,6 +83,24 @@ public class Course {
         this.generalEducation = generalEducation;
     }
 
+=======
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public FinalExam getFinalExam() {
+		return this.finalExam;
+	}
+
+	public void setFinalExam(FinalExam finalExam) {
+		this.finalExam = finalExam;
+	}
+   
+>>>>>>> 8f146262b04f642e76a842bac92fe7533f1fa9bf
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture
      * (primary) section. If there is more than one, they are separated by commas

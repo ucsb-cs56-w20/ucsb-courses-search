@@ -10,6 +10,7 @@ import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGE;
+import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGEStartTime;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGETwoAreas;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;

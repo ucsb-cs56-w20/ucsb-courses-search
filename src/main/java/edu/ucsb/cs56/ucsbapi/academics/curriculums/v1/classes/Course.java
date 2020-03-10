@@ -18,7 +18,9 @@ public class Course {
     private String quarter;
     private String courseId;
     private String title;
+    private String description;
     private List<Section> classSections;
+    private FinalExam finalExam;
 
     public Course() {
     }
@@ -63,6 +65,21 @@ public class Course {
         this.classSections = classSections;
     }
 
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public FinalExam getFinalExam() {
+		return this.finalExam;
+	}
+
+	public void setFinalExam(FinalExam finalExam) {
+		this.finalExam = finalExam;
+	}
    
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture

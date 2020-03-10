@@ -84,5 +84,5 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
      List<Course> findByQuarterAndDepartment(String quarter, String dept);
 
     @Aggregation({"{ '$match': { 'quarter': { '$gte': ?0, '$lte': ?1 } } }", "{ '$project': { 'name': '$classSections.instructors.instructor' } }"})
-    List<String> listInstructorNamesByQuarterInterval(String startQuarter, String endQuarter);
+     List<String> listInstructorNamesByQuarterInterval(String startQuarter, String endQuarter);
 }

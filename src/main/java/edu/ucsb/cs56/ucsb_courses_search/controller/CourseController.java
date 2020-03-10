@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

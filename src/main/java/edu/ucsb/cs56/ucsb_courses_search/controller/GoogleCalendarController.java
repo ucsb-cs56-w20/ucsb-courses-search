@@ -49,13 +49,6 @@ public class GoogleCalendarController {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     // private static final String CREDENTIALS_FILE_PATH = "../../localhost.json";
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
-    // private ClientCredentials clientCredentials = new ClientCredentials();
-    @Value("${spring.security.oauth2.client.registration.google.client-id}")
-    private String clientId;
-    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
-    private String clientSecret;
-    private Iterable<ScheduleItem> myclasses;
-    private String email;
     @Autowired
     private OAuth2AuthorizedClientService clientService;
     
@@ -69,28 +62,7 @@ public class GoogleCalendarController {
     }
     private Logger logger = LoggerFactory.getLogger(GoogleCalendarController.class);
 
-    // Must be called before createGoogleCalendar()
-    // public void initialize(Iterable<ScheduleItem> myclasses, String email) {
-    //     this.myclasses = myclasses;
-    //     this.email = email;
-    // }
 
-    public static Credential createCredentialWithAccessTokenOnly(TokenResponse tokenResponse) {
-        return new Credential(BearerToken.authorizationHeaderAccessMethod()).setFromTokenResponse(tokenResponse);
-    }
-
-    public Credential createCredentialWithRefreshToken(HttpTransport transport, JsonFactory jsonFactory,
-            TokenResponse tokenResponse) {
-        logger.info("Client ID: " + clientId);
-        logger.info("Client Secret: " + clientSecret);
-        return new Credential.Builder(BearerToken.authorizationHeaderAccessMethod()).setTransport(transport)
-                .setJsonFactory(jsonFactory).setTokenServerUrl(null)
-                .setClientAuthentication(new BasicAuthentication(clientId, clientSecret)).build()
-                .setFromTokenResponse(tokenResponse);
-    }
-
-    // Precondition: Must call setClasses(Iterable<Course> myclasses) before calling
-    // this function
     @GetMapping("/GoogleCalendar")
     public String createGoogleCalendar(OAuth2AuthenticationToken token) throws IOException, GeneralSecurityException{
         String uid = token.getPrincipal().getAttributes().get("sub").toString();

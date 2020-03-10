@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.csdept;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 // import static org.hamcrest.Matchers.equalTo;
@@ -22,9 +23,10 @@ import edu.ucsb.cs56.ucsb_courses_search.controller.advice.AuthControllerAdvice;
 import edu.ucsb.cs56.ucsb_courses_search.BootstrapTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.NavigationTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.controller.CSDeptController;
-import edu.ucsb.cs56.ucsb_courses_search.entity.Course;
-import edu.ucsb.cs56.ucsb_courses_search.repository.CourseRepository;
+import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
@@ -40,7 +42,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import org.junit.Before;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CSDeptController.class)
@@ -59,10 +60,16 @@ public class CSDeptTest {
     private ClientRegistrationRepository crr;
 
     @MockBean
-    private CourseRepository mockCourseRepository;
+    private ScheduleItemRepository mockScheduleItemRepository;
 
     @MockBean
     private CurriculumService mockCurriculumService;
+
+    @MockBean
+    private FeatureToggleService mockFeatureToggleService;
+
+    @MockBean
+    private QuarterListService mockQuarterListService;
 
     private Authentication mockAuthentication;
 
@@ -75,8 +82,8 @@ public class CSDeptTest {
     public void setUp() {
         OAuth2User principal = OAuthUtils.createOAuth2User("Chris Gaucho", "cgaucho@example.com");
         mockAuthentication = OAuthUtils.getOauthAuthenticationFor(principal);
-        List<Course> emptyCourseList = new ArrayList<Course>();
-        when(mockCourseRepository.findAll()).thenReturn(emptyCourseList);
+        List<ScheduleItem> emptyScheduleItemList = new ArrayList<ScheduleItem>();
+        when(mockScheduleItemRepository.findAll()).thenReturn(emptyScheduleItemList);
     }
 
     @Test

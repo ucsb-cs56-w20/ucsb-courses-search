@@ -5,6 +5,32 @@ import java.util.stream.Collectors;
 
 public class Section {
 
+    public String meetTime() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        
+        TimeLocation tl0 = timeLocations.get(0);
+
+        return tl0.getBeginTime() + "-" + tl0.getEndTime();
+    }
+
+    public String meetDay() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        return timeLocations.get(0).getDays();
+    }
+
+    public String location() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        
+        TimeLocation tl0 = timeLocations.get(0);
+
+        return tl0.getBuilding() + "-" + tl0.getRoom();
+    }
 
     /** a unique number assigned to a section */
     public String getEnrollCode() {
@@ -60,19 +86,25 @@ public class Section {
         this.gradingOptionCode = gradingOptionCode;
     }
 
-    public int getEnrolledTotal() {
+    public Integer getEnrolledTotal() {
+	if(this.enrolledTotal == null){
+		return 0;
+	}
         return this.enrolledTotal;
     }
 
-    public void setEnrolledTotal(int enrolledTotal) {
+    public void setEnrolledTotal(Integer enrolledTotal) {
         this.enrolledTotal = enrolledTotal;
     }
 
-    public int getMaxEnroll() {
+    public Integer getMaxEnroll() {
+	if(this.maxEnroll == null){
+		return 0;
+	}
         return this.maxEnroll;
     }
 
-    public void setMaxEnroll(int maxEnroll) {
+    public void setMaxEnroll(Integer maxEnroll) {
         this.maxEnroll = maxEnroll;
     }
 
@@ -173,15 +205,15 @@ public class Section {
     }
 
     /** a unique number assigned to a section */
-    public String enrollCode;
+    private String enrollCode;
     /** section number of the course */
-    public String section;
+    private String section;
     /** session only for summer quarter */
-    public String session;
+    private String session;
     /** if the class is closed */
-    public String classClosed;
+    private String classClosed;
     /** is course cancelled */
-    public String courseCancelled;
+    private String courseCancelled;
     /**
      * Grading Options Code like Pass/No Pass (P/NP) Or Letter Grades (L).
      * 
@@ -190,48 +222,48 @@ public class Section {
      *      https://developer.ucsb.edu/content/student-record-code-lookups</a>
      * 
      */
-    public String gradingOptionCode;
+    private String gradingOptionCode;
 
     /** total number of enrollments in the course */
-    public int enrolledTotal;
+    private Integer enrolledTotal;
     /** max number of students can be enrolled in the section */
-    public int maxEnroll;
+    private Integer maxEnroll;
 
     /** Secondary Status of the course */
-    public String secondaryStatus;
+    private String secondaryStatus;
 
     /** Is department approval required for enrollment in the section */
-    public boolean departmentApprovalRequired;
+    private boolean departmentApprovalRequired;
 
     /** Is instructor approval required for enrollment in the section */
-    public boolean instructorApprovalRequired;
+    private boolean instructorApprovalRequired;
 
     /** Is there restriction on the level of the course */
-    public String restrictionLevel;
+    private String restrictionLevel;
 
     /** Is there restriction on the major of the student */
-    public String restrictionMajor;
+    private String restrictionMajor;
 
     /** Is there restriction on the major and pass time of the student */
-    public String restrictionMajorPass;
+    private String restrictionMajorPass;
 
     /** Is there restriction on the minor of the student */
-    public String restrictionMinor;
+    private String restrictionMinor;
 
     /** Is there restriction on the minor and pass time of the student */
-    public String restrictionMinorPass;
+    private String restrictionMinorPass;
 
     /** Concurrent courses for the section */
-    public List<String> concurrentCourses;
+    private List<String> concurrentCourses;
 
     /**
      * List of {@link TimeLocation} objects for this course 
      */
-    public List<TimeLocation> timeLocations;
+    private List<TimeLocation> timeLocations;
     /**
      * List of {@link Instructor} objects for this course
      */
-    public List<Instructor> instructors;
+    private List<Instructor> instructors;
 
     public Section() {
     }
@@ -249,7 +281,7 @@ public class Section {
      * @return Name of instructor(s) for the section.
      */
     public String instructorList() { 
-        List<String> instructorNames = this.instructors.stream().map((i) -> i.instructor).collect(Collectors.toList());
+        List<String> instructorNames = this.instructors.stream().map((i) -> i.getInstructor()).collect(Collectors.toList());
         String instructorsCommaSeparated = String.join(", ", instructorNames);
         return instructorsCommaSeparated;
     }
@@ -278,4 +310,7 @@ public class Section {
             ", instructors='" + getInstructors() + "'" +
             "}";
     }
+
+    
+
 }

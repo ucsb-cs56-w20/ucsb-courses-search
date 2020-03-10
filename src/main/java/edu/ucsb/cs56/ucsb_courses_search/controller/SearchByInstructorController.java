@@ -51,7 +51,8 @@ public class SearchByInstructorController {
         model.addAttribute("searchObject", new SearchByInstructorMultiQuarter());
         model.addAttribute("quarters", quarterListService.getQuarters());
         List<String> instructorNames = new ArrayList<>();
-        instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy("F18")),Integer.toString(Quarter.qyyToQyyyy("S19")));
+        instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy("F17")), Integer.toString(Quarter.qyyToQyyyy("S20")));
+        //instructorNames = archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy(quarterListService.getStartQuarter())),Integer.toString(Quarter.qyyToQyyyy(quarterListService.getEndQuarter())));
         List<String> instructorNewNames = new ArrayList<>();
         for(int i = 0; i<instructorNames.size(); i++)
         {
@@ -66,8 +67,6 @@ public class SearchByInstructorController {
         List<String> instructorList = new ArrayList<>(instructorSet);
 
         model.addAttribute("instructorList", instructorList);
-        //model.addAttribute("instructorList", archivedCourseRepository.listInstructorNamesByQuarterInterval(Integer.toString(Quarter.qyyToQyyyy(quarterListService.getStartQuarter())),
-        //                Integer.toString(Quarter.qyyToQyyyy(quarterListService.getEndQuarter()))));
         return "search/byinstructor/multiquarter/search";
     }
 

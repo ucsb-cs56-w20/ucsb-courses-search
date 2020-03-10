@@ -85,5 +85,5 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
 
     @Aggregation({"{ '$match': { 'quarter': { '$gte': ?0, '$lte': ?1 } } }", "{ '$project': { 'name': '$classSections.instructors.instructor' } }"})
     List<String> listInstructorNamesByQuarterInterval(String startQuarter, String endQuarter);
-
+    
 }

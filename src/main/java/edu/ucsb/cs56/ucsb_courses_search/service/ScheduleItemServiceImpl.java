@@ -14,7 +14,7 @@ public class ScheduleItemServiceImpl implements ScheduleItemService {
     @Autowired
     private ScheduleItemRepository scheduleItemRepository;
 
-    public ScheduleItemService(){
+    public ScheduleItemServiceImpl(){
     }
 
     @Override

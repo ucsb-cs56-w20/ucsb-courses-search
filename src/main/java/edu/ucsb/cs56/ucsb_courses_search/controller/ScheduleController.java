@@ -97,13 +97,13 @@ public class ScheduleController {
         primary.setQuarter(lecture_quarter);
         primary.setScheduleid(scheduleid);
         logger.info("primary = " + primary); 
-        // scheduleItemRepository.save(primary);
+        scheduleItemRepository.save(primary);
 
         return "redirect:/schedule";
     }
 
     @PostMapping("/schedule/create")
-    public String add_schedule(Model model, OAuth2AuthenticationToken token) {
+    public String addSchedule(Model model, OAuth2AuthenticationToken token) {
         Schedule newschedule = new Schedule();
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         newschedule.setUid(uid);
@@ -125,14 +125,8 @@ public class ScheduleController {
             List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
             // get courses by each scheduleid to a list
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(scheduleid);
-            Schedule schedule = new Schedule();
-            for (int i = 0; i < myschedules.size(); i++) {
-                if (myschedules.get(i).getScheduleid() == scheduleid) {
-                    schedule = (myschedules.get(i));
-                }
-            }
+            Schedule schedule = scheduleRepository.findByScheduleid(scheduleid);
             String schedulename = schedule.getSchedulename();
-            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("schedulename", schedulename);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);

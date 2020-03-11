@@ -88,7 +88,7 @@ public class ScheduleController {
         
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         List<Schedule> myschedules = scheduleRepository.findByUid(uid);
-        long scheduleid = myschedules.size()-1;
+        long scheduleid = myschedules.size();
         for (int i = 0; i < myschedules.size(); i++) {
             if (myschedules.get(i).getIsActive() == true) {
                 scheduleid = myschedules.get(i).getScheduleid();
@@ -140,7 +140,6 @@ public class ScheduleController {
         schedule.setIsActive(true);
         logger.info("SCHEDULE IS ACTIVE: " + schedule.getIsActive());
         scheduleRepository.save(schedule);
-        redirAttrs.addFlashAttribute("alertSuccess", "Schedule Set to Active");
         return "redirect:/schedule/{scheduleid}";
     }
 
@@ -156,7 +155,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule/{scheduleid}")
-    public String viewSchedule(Model model, OAuth2AuthenticationToken token, @PathVariable("scheduleid") Long scheduleid) {
+    public String viewSchedule(Model model, OAuth2AuthenticationToken token, @PathVariable("scheduleid") Long scheduleid, RedirectAttributes redirAttrs) {
         
         logger.info("Inside /schedule controller method ScheduleController#viewschedule");
         logger.info("model=" + model + " token=" + token);
@@ -170,6 +169,9 @@ public class ScheduleController {
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(scheduleid);
             Schedule schedule = scheduleRepository.findByScheduleid(scheduleid);
             String schedulename = schedule.getSchedulename();
+            if (schedule.getIsActive()) {
+                model.addAttribute("isActive", 1);
+            }
             model.addAttribute("schedulename", schedulename);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);

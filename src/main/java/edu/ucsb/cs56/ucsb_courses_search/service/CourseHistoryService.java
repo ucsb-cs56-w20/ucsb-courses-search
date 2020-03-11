@@ -90,7 +90,10 @@ public class CourseHistoryService {
           {
             tempQ.increment();
             year.setQuarter(tempQ.getValue()%10, "TBD");
+            System.out.println(tempQ);
+            System.out.println(year);
           }
+          //year.setQuarter(3, "TBD");
         }
 
         while(!startQ.equals(endQ))
@@ -100,11 +103,17 @@ public class CourseHistoryService {
             year.setQuarter(startQ.getValue()%10, Integer.toString(tempInt));
 
           startQ.decrement();
-          if(startQ.getQ() != "M")
+          if(startQ.getQ() == "M")
           {
             yCE.add(year);
+            //System.out.println(startQ);
             year = new YearOfCourseEnrollment(getSchoolYear(startQ.getYYYYQ()));
           }
+        }
+
+        if(endQ.getQ() != "M")
+        {
+          yCE.add(year);
         }
 
         return yCE;

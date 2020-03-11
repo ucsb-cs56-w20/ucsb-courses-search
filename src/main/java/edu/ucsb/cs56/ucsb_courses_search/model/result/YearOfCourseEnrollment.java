@@ -66,7 +66,7 @@ public class YearOfCourseEnrollment
 
   public void setQuarter(int quarter, String value)
   {
-    courses[(quarter+2) % 4] = value;
+    courses[quarter % 4] = value;
   }
 
   @Override

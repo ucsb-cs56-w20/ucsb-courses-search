@@ -121,7 +121,7 @@ public class ScheduleController {
         newschedule.setSchedulename("New Schedule");
         scheduleRepository.save(newschedule);
         redirAttrs.addFlashAttribute("alertSuccess", "Schedule Created!");
-        return "redirect:/schedule/";
+        return "redirect:/schedule/" + newschedule.getScheduleid();
     }
 
     @PostMapping("/schedule/isactive/{scheduleid}")

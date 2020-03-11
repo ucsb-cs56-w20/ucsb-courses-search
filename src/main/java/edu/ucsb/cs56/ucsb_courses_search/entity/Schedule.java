@@ -8,10 +8,10 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long scheduleid;
-    
     private String schedulename;
     private String quarter;
     private String uid;
+    private Boolean isactive = false;
     
 
     public String getUid() {
@@ -44,6 +44,14 @@ public class Schedule {
 
     public void setQuarter(String quarter){
         this.quarter = quarter;
+    }
+
+    public void setIsActive(Boolean isactive){
+        this.isactive = isactive;
+    }
+
+    public Boolean getIsActive(){
+        return isactive;
     }
 
     

@@ -37,11 +37,8 @@
 
                 <div th:each="yEn: ${eh.get(r.course.courseId)}">
                   <tr>
-                    <td th:text="${yEn.getYear()}"></td>
-                    <td th:text="${yEn.getEnrollmentNumbers(0)}"></td>
-                    <td th:text="${yEn.getEnrollmentNumbers(1)}"></td>
-                    <td th:text="${yEn.getEnrollmentNumbers(2)}">here4</td>
-                    <td th:text="${yEn.getEnrollmentNumbers(3)}">here5</td>
+                    <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Final Examination: </td>
+                    <td colspan="2" style="vertical-align:middle;text-align:left;padding:0 10px;" th:text="${r.course.getFinalExam().getComments() == ''} ? ${r.course.getFinalExam().formatFinal()} : ${r.course.getFinalExam().getComments()}" > </td> 
                   </tr>
                 </div>
               </tbody>

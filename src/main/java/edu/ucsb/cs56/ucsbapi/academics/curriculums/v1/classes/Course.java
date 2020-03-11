@@ -79,8 +79,10 @@ public class Course {
     }
 
     public FinalExam getFinalExam() {
-		return this.finalExam;
-	}
+    	if (this.finalExam == null)
+	    this.finalExam = new FinalExam();
+	return this.finalExam;
+    }
 
 	public void setFinalExam(FinalExam finalExam) {
 		this.finalExam = finalExam;

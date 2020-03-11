@@ -23,7 +23,7 @@
                   </tr>
                   <tr>
                     <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Final Examination: </td>
-                    <td colspan="2" style="vertical-align:middle;text-align:left;padding:0 10px;" th:text="${r.course.finalExam.getComments() == ''} ? ${r.course.finalExam.formatFinal()} : ${r.course.finalExam.getComments()}" > </td> 
+                    <td colspan="2" style="vertical-align:middle;text-align:left;padding:0 10px;" th:text="${r.course.getFinalExam().getComments() == ''} ? ${r.course.getFinalExam().formatFinal()} : ${r.course.getFinalExam().getComments()}" > </td> 
                   </tr>
                   <td>STUB</td>
                   <td>STUB_1</td>

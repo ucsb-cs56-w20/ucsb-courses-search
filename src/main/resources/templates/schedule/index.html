@@ -12,7 +12,13 @@
     <div th:replace="schedule/fragments/title.html"></div>
     <div th:replace="schedule/fragments/form.html"></div>
     <div th:replace="schedule/fragments/create_schedule.html"></div>
-    <div th:replace="schedule/fragments/clickToViewText.html"></div>
+    <div th:if="${scheduleid}">
+      <div th:replace="schedule/fragments/schedulename.html"></div>
+      <div th:replace="schedule/fragments/list.html"></div>
+    </div>
+    <div th:unless="${scheduleid}">
+      <div th:replace="schedule/fragments/click_to_view_text.html"></div>
+    </div>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>

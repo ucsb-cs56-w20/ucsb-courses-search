@@ -20,7 +20,6 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import edu.ucsb.cs56.ucsb_courses_search.entity.Schedule;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleRepository;
-import edu.ucsb.cs56.ucsb_courses_search.formbeans.ScheduleSearch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule")
-    public String index(Model model, OAuth2AuthenticationToken token, ScheduleSearch scheduleSearch) throws AccessForbiddenException {
+    public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
         logger.info("Inside /schedule controller method ScheduleController#index");
         logger.info("model=" + model + " token=" + token);
 
@@ -73,7 +72,6 @@ public class ScheduleController {
         } else {
 	        throw new AccessForbiddenException();
         }
-        model.addAttribute("scheduleSearch", scheduleSearch);
         return "schedule/index";
     }
     @PostMapping("/schedule/add")
@@ -110,13 +108,13 @@ public class ScheduleController {
         primary.setQuarter(lecture_quarter);
         primary.setScheduleid(scheduleid);
         logger.info("primary = " + primary); 
-        // scheduleItemRepository.save(primary);
+        scheduleItemRepository.save(primary);
 
         return "redirect:/schedule";
     }
 
     @PostMapping("/schedule/create")
-    public String add_schedule(OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
+    public String addSchedule(Model model, OAuth2AuthenticationToken token) {
         Schedule newschedule = new Schedule();
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         newschedule.setUid(uid);
@@ -175,14 +173,8 @@ public class ScheduleController {
             List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
             // get courses by each scheduleid to a list
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(scheduleid);
-            Schedule schedule = new Schedule();
-            for (int i = 0; i < myschedules.size(); i++) {
-                if (myschedules.get(i).getScheduleid() == scheduleid) {
-                    schedule = (myschedules.get(i));
-                }
-            }
+            Schedule schedule = scheduleRepository.findByScheduleid(scheduleid);
             String schedulename = schedule.getSchedulename();
-            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("schedulename", schedulename);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);
@@ -190,7 +182,7 @@ public class ScheduleController {
             ArrayList<ScheduleItem> emptyList = new ArrayList<ScheduleItem>();
             model.addAttribute("myclasses", emptyList);
         }
-        return "schedule/viewschedule";
+        return "schedule/index";
     }
 
 }

@@ -9,10 +9,23 @@
 <body>
   <div class="container">
     <div th:replace="fragments/bootstrap_nav_header.html"></div>
-    <div th:replace="schedule/fragments/clickToViewText.html"></div>
+    <div th:if="${isActive} and ${scheduleid}" class="alert alert-primary" role="alert">
+      Active Schedule!
+    </div>
+    <div th:replace="schedule/fragments/title.html"></div>
     <div class="form-row d-flex p-1">
       <div th:replace="schedule/fragments/form.html"></div>
       <div th:replace="schedule/fragments/create_schedule.html"></div>
+    </div>
+    <div th:if="${scheduleid}">
+      <div class="form-row d-flex p-1">
+        <div class="" th:replace="schedule/fragments/schedulename.html"></div>
+        <div class="" th:replace="schedule/fragments/active_schedule_button.html"></div>
+      </div>
+      <div th:replace="schedule/fragments/list.html"></div>
+    </div>
+    <div th:unless="${scheduleid}">
+      <div th:replace="schedule/fragments/click_to_view_text.html"></div>
     </div>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>

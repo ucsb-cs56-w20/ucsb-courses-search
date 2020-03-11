@@ -95,8 +95,6 @@ public class ScheduleController {
             }
         }
 
-        logger.info("SCHED ID:" +scheduleid);
-
         scheduleItem.setScheduleid(scheduleid);                  
         scheduleItemRepository.save(scheduleItem);
 
@@ -174,7 +172,6 @@ public class ScheduleController {
             if (schedule.getIsActive()) {
                 model.addAttribute("isActive", 1);
             }
-            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             model.addAttribute("schedulename", schedulename);
             model.addAttribute("myclasses", myclasses);
             model.addAttribute("myschedules", myschedules);

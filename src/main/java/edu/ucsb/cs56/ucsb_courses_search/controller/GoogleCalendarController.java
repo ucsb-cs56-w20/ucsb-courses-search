@@ -2,10 +2,7 @@ package edu.ucsb.cs56.ucsb_courses_search.controller;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +23,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 
-import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 
 import org.slf4j.LoggerFactory;
@@ -41,7 +36,7 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 public class GoogleCalendarController {
     private static final String APPLICATION_NAME = "UCSB Courses Search Google Calendar Export";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    @Autowired
+    
     private OAuth2AuthorizedClientService clientService;
     
     @Autowired
@@ -59,7 +54,6 @@ public class GoogleCalendarController {
     public String createGoogleCalendar(OAuth2AuthenticationToken token) throws IOException, GeneralSecurityException{
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
-        String email = (String) token.getPrincipal().getAttributes().get("email");
         OAuth2AuthorizedClient client =
              clientService.loadAuthorizedClient(
                  token.getAuthorizedClientRegistrationId(),
@@ -70,15 +64,10 @@ public class GoogleCalendarController {
         OAuth2Credentials oAuth2Credential = OAuth2Credentials.create(accessToken);
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(oAuth2Credential);
 
-        
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
                 .setApplicationName(APPLICATION_NAME).build();
         logger.info("Calendar built");
-
-        ArrayList<EventAttendee> attendees = new ArrayList<EventAttendee>();
-        attendees.add(new EventAttendee().setEmail(email));
-        logger.info("Attendees list created");
 
         for(ScheduleItem c: myclasses){
             Event event = new Event();
@@ -87,8 +76,6 @@ public class GoogleCalendarController {
             logger.info("Event summary set");
             event.setLocation(c.getLocation());
             logger.info("Event location set");
-            event.setAttendees(attendees);
-            logger.info("Event attendees set");
             event.setStart(getStart(c));
             logger.info("Event start date set");
             event.setEnd(getEnd(c));

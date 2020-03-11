@@ -1,9 +1,8 @@
-
-    <div class="col">
-        <form method="GET">
-            <select class="custom-select" onchange="if (this.value) window.location.href=this.value">
-                <option>- - Select Schedule - -</option>
-                <option th:each="s:${myschedules}" th:value="@{/schedule/} + ${s.scheduleid}" th:text="${s.schedulename}"></option>
-            </select>
-        </form>
-    </div>
+<div class="col">
+    <form method="GET">
+        <select class="custom-select" onchange="if (this.value) window.location.href=this.value">
+            <option>- - Select Schedule - -</option>
+            <option th:each="s:${myschedules}" th:value="@{/schedule/} + ${s.scheduleid}" th:text="${s.schedulename}"></option>
+        </select>
+    </form>
+</div>

@@ -8,4 +8,5 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.Schedule;
 @Repository
 public interface ScheduleRepository extends CrudRepository<Schedule, String> {
    List<Schedule> findByUid(String uid);
+   Schedule findByScheduleid(long scheduleid);
 }

@@ -125,7 +125,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/isactive/{scheduleid}")
-    public String setisactive_schedule( @PathVariable("scheduleid") Long scheduleid, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
+    public String setIsActiveSchedule( @PathVariable("scheduleid") Long scheduleid, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         List<Schedule> myschedules = scheduleRepository.findByUid(uid);
         Schedule schedule = new Schedule();
@@ -145,15 +145,10 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/rename/{scheduleid}")
-    public String rename_schedule( @PathVariable("scheduleid") Long scheduleid, String newName, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
+    public String renameSchedule( @PathVariable("scheduleid") Long scheduleid, String newName, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         List<Schedule> myschedules = scheduleRepository.findByUid(uid);
-        Schedule schedule = new Schedule();
-        for (int i = 0; i < myschedules.size(); i++) {
-            if (myschedules.get(i).getScheduleid() == scheduleid) {
-                schedule = (myschedules.get(i));
-            }
-        }
+        Schedule schedule = scheduleRepository.findByScheduleid(scheduleid);
         schedule.setSchedulename(newName);
         scheduleRepository.save(schedule);
         redirAttrs.addFlashAttribute("alertSuccess", "Schedule Renamed");

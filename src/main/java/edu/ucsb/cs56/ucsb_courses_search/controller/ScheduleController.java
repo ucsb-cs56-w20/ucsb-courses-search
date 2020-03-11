@@ -101,13 +101,38 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/create")
-    public String add_schedule(String sname, Model model, OAuth2AuthenticationToken token) {
+    public String addSchedule(Model model, OAuth2AuthenticationToken token) {
         Schedule newschedule = new Schedule();
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         newschedule.setUid(uid);
-        newschedule.setSchedulename(sname);
+        newschedule.setSchedulename("New Schedule");
         scheduleRepository.save(newschedule);
         return "redirect:/schedule";
+    }
+
+    @GetMapping("/schedule/{scheduleid}")
+    public String viewSchedule(Model model, OAuth2AuthenticationToken token, @PathVariable("scheduleid") Long scheduleid) {
+        
+        logger.info("Inside /schedule controller method ScheduleController#viewschedule");
+        logger.info("model=" + model + " token=" + token);
+
+        if (token!=null) {
+            String uid = token.getPrincipal().getAttributes().get("sub").toString();
+            logger.info("uid="+uid);
+            logger.info("scheduleItemRepository="+scheduleItemRepository);
+            List<Schedule> myschedules = scheduleRepository.findByUid(uid);// get all schedule ids by uid
+            // get courses by each scheduleid to a list
+            Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByScheduleid(scheduleid);
+            Schedule schedule = scheduleRepository.findByScheduleid(scheduleid);
+            String schedulename = schedule.getSchedulename();
+            model.addAttribute("schedulename", schedulename);
+            model.addAttribute("myclasses", myclasses);
+            model.addAttribute("myschedules", myschedules);
+        } else {
+            ArrayList<ScheduleItem> emptyList = new ArrayList<ScheduleItem>();
+            model.addAttribute("myclasses", emptyList);
+        }
+        return "schedule/index";
     }
 
 }

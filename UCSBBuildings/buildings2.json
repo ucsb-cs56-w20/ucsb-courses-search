@@ -1,0 +1,390 @@
+[
+  {
+    "code": "387",
+    "name": "Modular Classrooms"
+  },
+  {
+    "code": "434",
+    "name": "Former Women\u2019s Center (near Old Gym)"
+  },
+  {
+    "code": "479",
+    "name": "Old Gym"
+  },
+  {
+    "code": "615",
+    "name": "Materials Research Laboratory (MRL)"
+  },
+  {
+    "code": "932",
+    "name": "Trailer 932 (behind Davidson Library)"
+  },
+  {
+    "code": "936",
+    "name": "Physics Trailer 3"
+  },
+  {
+    "code": "937",
+    "name": "Physics Trailer 2"
+  },
+  {
+    "code": "939",
+    "name": "Physics Trailer 1"
+  },
+  {
+    "code": "940",
+    "name": "Trailer 940 (behind Davidson Library)"
+  },
+  {
+    "code": "AHC",
+    "name": "UCSB Center at Santa Maria"
+  },
+  {
+    "code": "ANCAP HALL",
+    "name": "Anacapa Residence Hall"
+  },
+  {
+    "code": "ARCH RANGE",
+    "name": "Archery Range"
+  },
+  {
+    "code": "ARTS",
+    "name": "Arts Building"
+  },
+  {
+    "code": "BSBL FIELD",
+    "name": "Baseball Field"
+  },
+  {
+    "code": "BIOEN",
+    "name": "BioEngineering Building"
+  },
+  {
+    "code": "BIOL2",
+    "name": "Biological Sciences II"
+  },
+  {
+    "code": "BRDA",
+    "name": "Broida Hall (Physics)"
+  },
+  {
+    "code": "BREN",
+    "name": "Bren Hall"
+  },
+  {
+    "code": "BSIF",
+    "name": "Biological Sciences Instructional Facility"
+  },
+  {
+    "code": "BUCHN",
+    "name": "Buchanan Hall"
+  },
+  {
+    "code": "CAMPB HALL",
+    "name": "Campbell Hall"
+  },
+  {
+    "code": "CHEM",
+    "name": "Chemistry Building"
+  },
+  {
+    "code": "ED",
+    "name": "Education Building"
+  },
+  {
+    "code": "ELLSN",
+    "name": "Ellison Hall"
+  },
+  {
+    "code": "EMBAR HALL",
+    "name": "Embarcadero Hall"
+  },
+  {
+    "code": "ENGR1",
+    "name": "See Harold Frank Hall (HFH)"
+  },
+  {
+    "code": "ENGR2",
+    "name": "Engineering Building II"
+  },
+  {
+    "code": "ENGR3",
+    "name": "Engineering Building III"
+  },
+  {
+    "code": "ESB",
+    "name": "Engineering Sciences Building"
+  },
+  {
+    "code": "EVENT CENTR",
+    "name": "Event Center"
+  },
+  {
+    "code": "GIRV",
+    "name": "Girvetz Hall"
+  },
+  {
+    "code": "GOLF CRSE",
+    "name": "Golf Course"
+  },
+  {
+    "code": "HARDR",
+    "name": "Harder Stadium"
+  },
+  {
+    "code": "HFH",
+    "name": "Harold Frank Hall (previously Engineering I)"
+  },
+  {
+    "code": "HSSB",
+    "name": "Humanities and Social Sciences Building"
+  },
+  {
+    "code": "ICA",
+    "name": "Intercollegiate Building"
+  },
+  {
+    "code": "IV CENTR",
+    "name": "IV/UCSB Community Services Center"
+  },
+  {
+    "code": "IV THEA",
+    "name": "Isla Vista Theatres"
+  },
+  {
+    "code": "KERR",
+    "name": "Kerr Hall"
+  },
+  {
+    "code": "KOHN",
+    "name": "Kohn Hall"
+  },
+  {
+    "code": "LIB",
+    "name": "Library"
+  },
+  {
+    "code": "LSB",
+    "name": "Life Science Building"
+  },
+  {
+    "code": "MANZ",
+    "name": "Manzanita Village De Anza Center"
+  },
+  {
+    "code": "MLAB",
+    "name": "Marine Biology Laboratory"
+  },
+  {
+    "code": "MUSIC",
+    "name": "Music Building"
+  },
+  {
+    "code": "MUSIC LLCH",
+    "name": "Lotte Lehmann Concert Hall"
+  },
+  {
+    "code": "NOBLE",
+    "name": "Noble Hall"
+  },
+  {
+    "code": "NH",
+    "name": "North Hall"
+  },
+  {
+    "code": "OFF CAMP",
+    "name": "Off Campus"
+  },
+  {
+    "code": "PHELP",
+    "name": "Phelps Hall"
+  },
+  {
+    "code": "PSB-N",
+    "name": "Physical Sciences Building North"
+  },
+  {
+    "code": "PSB-S",
+    "name": "Physical Sciences Building South"
+  },
+  {
+    "code": "PT MUGU",
+    "name": "Point Mugu Naval Air Station"
+  },
+  {
+    "code": "PSYCH",
+    "name": "Psychology Building"
+  },
+  {
+    "code": "RECEN",
+    "name": "Recreation Center"
+  },
+  {
+    "code": "RECEN CTS",
+    "name": "Recreation Center Tennis Courts"
+  },
+  {
+    "code": "RECEN MAIN",
+    "name": "Recreation Center Main Gym"
+  },
+  {
+    "code": "RECEN PAVLN",
+    "name": "Recreation Center Pavilion"
+  },
+  {
+    "code": "RECEN WT RM",
+    "name": "Recreation Center Weight Room"
+  },
+  {
+    "code": "RGYM",
+    "name": "Robertson Gym"
+  },
+  {
+    "code": "RGYM CTS",
+    "name": "Robertson Gym Tennis Courts"
+  },
+  {
+    "code": "RGYM FIELD",
+    "name": "Robertson Gym Field"
+  },
+  {
+    "code": "RQET CTS",
+    "name": "Recreation Center Racquet Courts"
+  },
+  {
+    "code": "SAASB",
+    "name": "Student Affairs and Administrative Services Building"
+  },
+  {
+    "code": "SAND CTS",
+    "name": "Sand Volleyball Courts"
+  },
+  {
+    "code": "SAN MIGEL",
+    "name": "San Miguel Residence Hall"
+  },
+  {
+    "code": "SAN NIC",
+    "name": "San Nicholas Residence Hall"
+  },
+  {
+    "code": "SAN RAFEL",
+    "name": "San Rafael Residence Hall"
+  },
+  {
+    "code": "SANTA CRUZ",
+    "name": "Santa Cruz Residence Hall"
+  },
+  {
+    "code": "SANTA ROSA",
+    "name": "Santa Rosa Residence Hall"
+  },
+  {
+    "code": "SB HARBR",
+    "name": "Santa Barbara Harbor"
+  },
+  {
+    "code": "SFTBL FIELD",
+    "name": "Softball Field"
+  },
+  {
+    "code": "SH",
+    "name": "South Hall"
+  },
+  {
+    "code": "STADM CTS",
+    "name": "Stadium Tennis Courts"
+  },
+  {
+    "code": "STADM FIELD",
+    "name": "Stadium Field"
+  },
+  {
+    "code": "STORK FIELD",
+    "name": "Storke Field"
+  },
+  {
+    "code": "STU HLTH",
+    "name": "Student Health Center"
+  },
+  {
+    "code": "SRB",
+    "name": "Student Resources Building"
+  },
+  {
+    "code": "SWIM POOL",
+    "name": "Swimming Pool"
+  },
+  {
+    "code": "TD-E",
+    "name": "Theater/Dance East"
+  },
+  {
+    "code": "TD-W",
+    "name": "Theater/Dance West"
+  },
+  {
+    "code": "TRACK FIELD",
+    "name": "Track Field"
+  },
+  {
+    "code": "UCCS",
+    "name": "UC Sacramento Center"
+  },
+  {
+    "code": "VNTRA CENTR",
+    "name": "UCSB Center at Ventura"
+  },
+  {
+    "code": "WEBB",
+    "name": "Webb Hall (Geological Sciences)"
+  },
+  {
+    "code": "WMNS CENTR",
+    "name": "Women\u2019s Center"
+  },
+  {
+    "code": "ALISO",
+    "name": "Aliso School"
+  },
+  {
+    "code": "BRAND",
+    "name": "Brandon School"
+  },
+  {
+    "code": "ELCAM",
+    "name": "El Camino School"
+  },
+  {
+    "code": "FRANK",
+    "name": "Franklin School"
+  },
+  {
+    "code": "HOLLI",
+    "name": "Hollister School"
+  },
+  {
+    "code": "IVIST",
+    "name": "Isla Vista School"
+  },
+  {
+    "code": "LAPAT",
+    "name": "La Patera School"
+  },
+  {
+    "code": "MAIN",
+    "name": "Main School"
+  },
+  {
+    "code": "OPENA",
+    "name": "Open Alternative School"
+  },
+  {
+    "code": "PEABO",
+    "name": "Peabody School"
+  },
+  {
+    "code": "ROOSE",
+    "name": "Roosevelt School"
+  }
+]

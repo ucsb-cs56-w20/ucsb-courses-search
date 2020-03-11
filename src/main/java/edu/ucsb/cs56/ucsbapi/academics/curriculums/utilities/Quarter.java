@@ -103,7 +103,7 @@ public class Quarter {
     public int decrement() {
         int q = this.yyyyq % 10;
         int yyyy = this.yyyyq / 10;
-        System.out.println(this.yyyyq);
+        //System.out.println(this.yyyyq);
         setValue((q == 1) ? (((yyyy - 1) * 10) + 4) : (this.yyyyq - 1));
         return this.yyyyq;
     }
@@ -183,7 +183,7 @@ public class Quarter {
         }
         String quarter = getQ(qtrInt);
         int quarterIndex = 0;
-        
+
         if(quarter == "F"){
             quarterIndex = 0;
         }
@@ -196,7 +196,7 @@ public class Quarter {
         else if(quarter == "M"){
             quarterIndex = 3;
         }
-        
+
         return quarterIndex;
     }
 

@@ -42,6 +42,7 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
     default Optional<Course> findOneByQuarterAndCourseId(String quarter,
                                                                  String subjectCode,
                                                                  String courseNumber) {
+                                                                   System.out.println(String.format("%-8s%-5s", subjectCode, courseNumber));
         return findOneByQuarterAndCourseId(quarter, String.format("%-8s%-5s", subjectCode, courseNumber));
     }
 
@@ -84,15 +85,15 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
     List<Course> findByQuarterIntervalAndCourseId(String startQuarter,
                                                             String endQuarter,
                                                             String courseId);
-                                                        
+
     /**
      * Returns a list of {@link Course} from the requested
      * quarter and for the requested dept
-     * 
+     *
      * @param quarter   quarter formatted as YYYYQ string
-     * @param dept      the department code 
+     * @param dept      the department code
      * @return a list of matching {@link Course}
-     */                                                       
+     */
      @Query("{'quarter': ?0, 'deptCode': ?1}")
      List<Course> findByQuarterAndDepartment(String quarter, String dept);
 }

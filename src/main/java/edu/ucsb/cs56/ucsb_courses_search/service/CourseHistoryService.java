@@ -6,6 +6,7 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ArchivedCourseRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Section;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 
 import java.time.Year;
@@ -30,49 +31,105 @@ public class CourseHistoryService {
     private CurriculumService curriculumService;
 
     public List<Course> getCourseHistory(String courseId) {
-        String startQuarter = quarterListService.getStartQuarter();
-        String endQuarter = quarterListService.getEndQuarter();
-        List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndCourseId(startQuarter, endQuarter,
-                courseId);
+        String startQuarter = (new Quarter(quarterListService.getStartQuarter())).getYYYYQ();
+        String endQuarter = (new Quarter(quarterListService.getEndQuarter())).getYYYYQ();
+
+        String formattedID = String.format("%-8s%-5s", courseId.substring(0,courseId.indexOf(' ')).trim(), courseId.substring(courseId.indexOf(' ')+1, courseId.length()).trim());
+
+        //String formattedID = "CMPSC    32  ";
+
+        List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndCourseId(endQuarter, startQuarter, formattedID);
+        System.out.println("formatted query: " + startQuarter + " " + endQuarter + " " + formattedID);
+        System.out.println(courses.size());
         return courses;
     };
 
-    // TODO 
+    /** This will return an ArrayList<YearOfCourseEnrollment> that is populated with course history set up to whatever the endQuarter is set to
+    *
+    */
+    private ArrayList<YearOfCourseEnrollment> populateCourseHistory(List<Course> courses) {
 
-    private YearOfCourseEnrollment locateByAcademicYear(String academicYear,
-    HashMap<String,YearOfCourseEnrollment> ayToStats) {
-        // if there is an entry for this academic year, return it
-        // otherwise make a new one for this academic year with the stats all initially TBD
-        // and stick it in the HashMap
-        for(Map.Entry<String, YearOfCourseEnrollment> entry : ayToStats.entrySet()){
-            String acYearKey = entry.getKey();
-            if(acYearKey == academicYear){
-                return entry.getValue();
+      HashMap<String,Integer> enrollmentNumbers = new HashMap<String, Integer>();
+        //We need to iterate through all the courses and scan for ones we want
+        for(Course c : courses)
+        {
+          //now lets scan sections
+          for(Section s : c.getClassSections())
+          {
+            //This is pulled from CourseOffering.java to detect primary vs secondary ClassSections
+            String suffix = s.getSection().substring(2,4);
+            if (suffix.equals("00"))
+            {
+              //this means we havent seen this quarter yet
+              if(enrollmentNumbers.get(c.getQuarter()) == 0)
+              {
+                enrollmentNumbers.put(c.getQuarter(), s.getEnrolledTotal());
+              }
+              //this means we're just adding numbers to a quarter
+              else{
+                enrollmentNumbers.replace(c.getQuarter(), enrollmentNumbers.get(c.getQuarter()) + s.getEnrolledTotal());
+              }
             }
-            else{
-                ayToStats.put(academicYear, new YearOfCourseEnrollment(academicYear, "TBD", "TBD", "TBD", "TBD"));
-            }
+          }
         }
-        return ayToStats.get(academicYear);
+
+        //lets get the start and end quarters
+        String startQuarter = (new Quarter(quarterListService.getStartQuarter())).getYYYYQ();
+        String endQuarter = (new Quarter(quarterListService.getEndQuarter())).getYYYYQ();
+        Quarter endQ = new Quarter(endQuarter); //this is in the past. not the present
+        Quarter startQ = new Quarter(startQuarter);//this is the present not the past
+
+        ArrayList<YearOfCourseEnrollment> yCE = new ArrayList<YearOfCourseEnrollment>();
+
+        YearOfCourseEnrollment year = new YearOfCourseEnrollment(getSchoolYear(startQuarter));
+
+        if(startQ.getQ() != "M")
+        {
+          Quarter tempQ = new Quarter(startQuarter);
+          while(tempQ.getQ() != "M")
+          {
+            tempQ.increment();
+            year.setQuarter(tempQ.getValue()%10, "TBD");
+          }
+        }
+
+        while(!startQ.equals(endQ))
+        {
+          Integer tempInt = enrollmentNumbers.get(startQ.getYYYYQ());
+          if(tempInt != null)
+            year.setQuarter(startQ.getValue()%10, Integer.toString(tempInt));
+
+          startQ.decrement();
+          if(startQ.getQ() != "M")
+          {
+            yCE.add(year);
+            year = new YearOfCourseEnrollment(getSchoolYear(startQ.getYYYYQ()));
+          }
+        }
+
+        return yCE;
     }
 
     public HashMap<String, ArrayList<YearOfCourseEnrollment>> getEnrollmentData(List<CourseOffering> courseOfferings) {
 
         HashMap<String, ArrayList<YearOfCourseEnrollment>> enrollmentClasses = new HashMap<String, ArrayList<YearOfCourseEnrollment>>();
-        ArrayList<YearOfCourseEnrollment> enrollmentNumbers = new ArrayList<YearOfCourseEnrollment>();
+
         // Let's handle the extraction of previous enrollment numbers
         for (CourseOffering offering : courseOfferings) {
-            String courseId = offering.getCourse().getCourseId();
 
+            ArrayList<YearOfCourseEnrollment> enrollmentNumbersForCourse = new ArrayList<YearOfCourseEnrollment>();
+            String courseId = offering.getCourse().getCourseId();
+            //System.out.println(offering.getCourse().getQuarter());
             List<Course> coursesWithThisCourseId = getCourseHistory(courseId);
             Comparator<Course> sortByQuarter = (c1, c2) -> c1.getQuarter().compareTo(c2.getQuarter());
 
             coursesWithThisCourseId.sort(sortByQuarter);
 
-            HashMap<String,YearOfCourseEnrollment> ayToStats = new HashMap<String,YearOfCourseEnrollment>();
-            
+            enrollmentNumbersForCourse = populateCourseHistory(coursesWithThisCourseId);
 
 
+
+            /*
             for (Course c : coursesWithThisCourseId) {
                 String academicYear = Quarter.qyyyyToAcademicYear(c.getQuarter());
                 int index = Quarter.qyyyyToAcademicYearIndex(c.getQuarter());
@@ -85,23 +142,43 @@ public class CourseHistoryService {
             }
 
             // iterate over the hashmaps and stick all the YOCE objects into the enrollmentNumbers list.
-            // pulling from ayToStats and putting into enrollmentNumbers 
+            // pulling from ayToStats and putting into enrollmentNumbers
             for(Map.Entry<String, YearOfCourseEnrollment> ent : ayToStats.entrySet()){
                 YearOfCourseEnrollment val = ent.getValue();
                 enrollmentNumbers.add(val);
             }
-            enrollmentClasses.put(courseId, enrollmentNumbers); // put the enrollment numbers in the hashmap with
+            */
+            enrollmentClasses.put(courseId, enrollmentNumbersForCourse); // put the enrollment numbers in the hashmap with
                                                                     // the class id
             }
-        
+
         return enrollmentClasses;
-        
+
+    }
+
+    private String getSchoolYear(String year)
+    {
+      String output = "";
+      String[] enrollmentNums = new String[4];
+
+      int currentQuarter = Integer.parseInt(year.substring(year.length() - 1)); // get the current quarter
+
+      String currentYear = year.substring(0, year.length() - 1);
+      if (currentQuarter == 4) // if this is the fall quarter then year is "current/current+1"
+      {
+          output = currentYear + "/" + Integer.toString(Integer.parseInt(currentYear) + 1);
+      } else // this means any other quarter so year is "current-1/current"
+      {
+          output = Integer.toString(Integer.parseInt(currentYear) - 1) + "/" + currentYear;
+      }
+
+      return output;
     }
 
     /**
      * This will extract the year's enrollment history from the database based on
      * the quarter given
-     * 
+     *
      * @return returns a YearOfCourses object containing enro
      */
     private YearOfCourseEnrollment extractYearHistory(String quarter, String courseID, String presentQuarter) {

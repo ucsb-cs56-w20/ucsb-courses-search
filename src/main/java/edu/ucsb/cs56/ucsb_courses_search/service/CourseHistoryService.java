@@ -34,13 +34,14 @@ public class CourseHistoryService {
         String startQuarter = (new Quarter(quarterListService.getStartQuarter())).getYYYYQ();
         String endQuarter = (new Quarter(quarterListService.getEndQuarter())).getYYYYQ();
 
-        String formattedID = String.format("%-8s%-5s", courseId.substring(0,courseId.indexOf(' ')).trim(), courseId.substring(courseId.indexOf(' ')+1, courseId.length()).trim());
-
+        String formattedID = String.format("%-8s%-5s", courseId.substring(0,courseId.indexOf(' ')).trim(), courseId.substring(courseId.indexOf(' ')+1, courseId.length()-1).trim());
+        
         //String formattedID = "CMPSC    32  ";
-
+        //System.out.println("{"+formattedID+"}");
         List<Course> courses = archivedCourseRepository.findByQuarterIntervalAndCourseId(endQuarter, startQuarter, formattedID);
-        System.out.println("formatted query: " + startQuarter + " " + endQuarter + " " + formattedID);
-        System.out.println(courses.size());
+        //System.out.println(archivedCourseRepository.findByQuarterIntervalAndCourseId("20201", "20202", "CMPSC    32  "));
+        //System.out.println("formatted query: " + startQuarter + " " + endQuarter + " " + formattedID);
+        //System.out.println(courses);
         return courses;
     };
 

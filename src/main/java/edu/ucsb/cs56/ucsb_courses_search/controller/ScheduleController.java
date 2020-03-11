@@ -114,7 +114,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/create")
-    public String addSchedule(Model model, OAuth2AuthenticationToken token) {
+    public String addSchedule(Model model, OAuth2AuthenticationToken token, RedirectAttributes redirAttrs) {
         Schedule newschedule = new Schedule();
         String uid = token.getPrincipal().getAttributes().get("sub").toString();
         newschedule.setUid(uid);

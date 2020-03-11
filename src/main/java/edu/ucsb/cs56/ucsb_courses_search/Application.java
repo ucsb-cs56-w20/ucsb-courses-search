@@ -30,4 +30,9 @@ public class Application extends WebSecurityConfigurerAdapter {
                      .permitAll();
     }
 
+    /*@Bean
+	  public OAuth2AuthorizedClientService authorizedClientService() {
+		    return new InMemoryOAuth2AuthorizedClientService(this.clientRegistrationRepository());
+	  }*/
+
 }

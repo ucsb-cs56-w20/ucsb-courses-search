@@ -36,11 +36,10 @@ public class CourseController {
     @Autowired
     private MembershipService membershipService;
 
-
     @Autowired
-    public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
+    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
-	this.membershipService = membershipService;
+        this.membershipService = membershipService;
     }
 
     @GetMapping("/courseschedule")
@@ -48,7 +47,6 @@ public class CourseController {
         
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
-
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);

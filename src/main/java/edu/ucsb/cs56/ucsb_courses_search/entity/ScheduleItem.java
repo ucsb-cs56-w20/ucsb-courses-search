@@ -151,12 +151,22 @@ public class ScheduleItem {
 
     @Override
     public String toString() {
-        return "{" + " id='" + id + "'" + ", classname='" + classname + "'" + ", professor='" + professor + "'"
-                + ", meettime='" + meettime + "'" + ", meetday='" + meetday + "'" + ", location='" + location + "'"
-                + ", quarter='" + quarter + "'" + ", uid='" + uid + "'" + ", scheduleid='" + scheduleid + "'"
-                + ", associatedLectureDay='" + associatedLectureDay + "'" + ", associatedLectureTime='"
-                + associatedLectureTime + "'" + ", associatedLectureLocation='" + associatedLectureLocation + "'"
-                + ", enrollCode='" + enrollCode + "'" + ", notes='" + notes + "'" + "}";
+        return "{" +
+            " id='" + id + "'" +
+            ", classname='" + classname + "'" +
+            ", professor='" + professor + "'" +
+            ", meettime='" + meettime + "'" +
+            ", meetday='" + meetday + "'" +
+            ", location='" + location + "'" +
+            ", quarter='" + quarter + "'" +
+            ", uid='" + uid + "'" +
+            ", scheduleid='" + scheduleid + "'" +
+            ", associatedLectureDay='" + associatedLectureDay + "'" +
+            ", associatedLectureTime='" + associatedLectureTime + "'" +
+            ", associatedLectureLocation='" + associatedLectureLocation + "'" +
+            ", enrollCode='" + enrollCode + "'" +
+            ", notes='" + notes + "'" +
+            "}";
     }
 
 }

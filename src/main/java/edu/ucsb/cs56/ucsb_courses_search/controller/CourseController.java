@@ -53,8 +53,6 @@ public class CourseController {
     @Autowired
     private MembershipService membershipService;
 
-
-
     @Autowired
     public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
@@ -156,6 +154,17 @@ public class CourseController {
         logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
         logger.info("ScheduleItem = " + scheduleItem);                   
         scheduleItemRepository.save(scheduleItem);
+
+        Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(scheduleItem.getUid());
+        Set<FinalPage> myfinals = new LinkedHashSet<FinalPage>();
+        for(ScheduleItem si : myclasses){
+            String json = finalService.getJSON(si.getEnrollCode(), si.getQuarter());
+            logger.info(json);
+            FinalPage fp = FinalPage.fromJSON(json);
+            fp.setCourseName(si.getClassname());
+            myfinals.add(fp);
+        }
+        model.addAttribute("myfinals", myfinals);
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
         return "courseschedule/index";

@@ -24,7 +24,7 @@ public class FinalPage{
     private static Logger logger = LoggerFactory.getLogger(CoursePage.class);
 
     private boolean hasFinals;
-    private String comments = "none";
+    private String comments;
     private String examDay;
     private String examDate;
     private String beginTime;
@@ -72,8 +72,9 @@ public class FinalPage{
         return comments;
     }
 
-    public void setComments(String comment){
-        this.comments = comments;
+    public void setComments(String comments){
+        if(comments == "" || comments == null) this.comments = "none";
+        else this.comments = comments;
     }
 
     public String getExamDay(){
@@ -81,7 +82,8 @@ public class FinalPage{
     }
 
     public void setExamDay(String examDay){
-        this.examDay = examDay;
+        if(examDay == null) this.examDay = "N/A";
+        else this.examDay = examDay;
     }
 
     public String getExamDate(){
@@ -89,7 +91,8 @@ public class FinalPage{
     }
 
     public void setExamDate(String examDate){
-        this.examDate = examDate.substring(4,6) + "/" + examDate.substring(6,8) + "/" + examDate.substring(0,4); //formats date nicely
+        if(examDate == null) this.examDate = "N/A";
+        else this.examDate = examDate.substring(4,6) + "/" + examDate.substring(6,8) + "/" + examDate.substring(0,4); //formats date nicely
     }
 
     public String getBeginTime(){
@@ -97,7 +100,8 @@ public class FinalPage{
     }
     
     public void setBeginTime(String beginTime){
-        this.beginTime = beginTime;
+        if(beginTime == null) this.beginTime = "N/A";
+        else this.beginTime = beginTime;
     }
 
     public String getEndTime(){
@@ -105,7 +109,8 @@ public class FinalPage{
     }
 
     public void setEndTime(String endTime){
-        this.endTime = endTime;
+        if(endTime == null) this.endTime = "N/A";
+        else this.endTime = endTime;
     }
 
     @Override

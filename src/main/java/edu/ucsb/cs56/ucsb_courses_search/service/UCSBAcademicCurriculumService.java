@@ -27,7 +27,66 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
 
     public UCSBAcademicCurriculumService(@Value("${ucsb.api.consumer_key}") String apiKey) {
         this.apiKey = apiKey;
-        logger.info("apiKey=" + apiKey);
+    }
+
+    public String getCSV(String subjectArea, String quarter, String courseLevel, String dept, String instructor, String course, String college, String areas){
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("ucsb-api-version", "1.0");
+        headers.set("ucsb-api-key", this.apiKey);
+
+        HttpEntity<String> entity = new HttpEntity<>("body", headers);
+
+        String uri = "https://api.ucsb.edu/academics/curriculums/v1/classes/search";
+        String params = String.format("?quarter=%s&", quarter);
+
+        if(subjectArea != null ){
+            params += String.format("subjectCode=%s&", subjectArea);
+        }
+
+        if(courseLevel != null){
+            params += String.format("objLevelCode=%s&", courseLevel);
+        }
+
+        if(dept != null){
+            params += String.format("subjectCode=%s&", dept);
+        }
+
+        if(instructor != null){
+            params += String.format("instructor=%s&", instructor);
+        }
+
+        if(course != null){
+            params += String.format("courseId=%s&", course);
+        }
+
+        if(college != null){
+            params += String.format("college=%s&", college);
+        }
+
+        if(areas != null){
+            params += String.format("areas=%s&", areas);
+        }
+
+        params += String.format("pageNumber=%d&pageSize=%d&includeClassSections=%s", 1, 100, "true");
+        String url = uri + params;
+
+        logger.info("url=" + url);
+
+        String retVal = "";
+        try {
+            ResponseEntity<String> re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            MediaType contentType = re.getHeaders().getContentType();
+            HttpStatus statusCode = re.getStatusCode();
+            retVal = re.getBody();
+        } catch (HttpClientErrorException e) {
+            retVal = "{\"error\": \"401: Unauthorized\"}";
+        }
+        logger.info("from UCSBAcademicCurriculumService.getJSON: " + retVal);
+        return retVal;
     }
 
     public String getJSON(String subjectArea, String quarter, String courseLevel) {
@@ -71,7 +130,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
     }
 
     public String getJSON(String instructor, String quarter) {
-        logger.info("api: " + apiKey);
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -144,7 +202,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
      */
 
     public String getCourse(String course, int quarter) {
-        logger.info("api: " + apiKey);
         logger.info("getCourse: course: " + course + " quarter: " + quarter);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -182,7 +239,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
 
 
     public String getGE(String college, String areas, String quarter) {
-        logger.info("api: " + apiKey);
         logger.info("getGE: college: " + college + " areas: " + areas +" quarter: " + quarter);
         RestTemplate restTemplate = new RestTemplate();
 
@@ -215,7 +271,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
     }
 
     public String getGE(String college, String areas, String quarter, int startT) {
-        logger.info("api: " + apiKey);
         logger.info("getGE: college: " + college + " areas: " + areas +" quarter: " + quarter + " Start time: "+ startT);
         RestTemplate restTemplate = new RestTemplate();
 
@@ -247,4 +302,35 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
         return retVal;
     }
 
+    public String getFinalExam(String quarter, String enrollCode) {
+        logger.info("getFinalExam: quarter: " + quarter + " enrollCode: " + enrollCode);
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("ucsb-api-version", "1.0");
+        headers.set("ucsb-api-key", this.apiKey);
+
+        HttpEntity<String> entity = new HttpEntity<>("body", headers);
+
+        String uri = "https://api.ucsb.edu/academics/curriculums/v1/finals";
+        String params = String.format(
+                "?quarter=%s&enrollCode=%s",
+                quarter, enrollCode);
+        String url = uri + params;
+        logger.info("url=" + url);
+
+        String retVal = "";
+        try {
+            ResponseEntity<String> re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            MediaType contentType = re.getHeaders().getContentType();
+            HttpStatus statusCode = re.getStatusCode();
+            retVal = re.getBody();
+        } catch (HttpClientErrorException e) {
+            retVal = "{\"error\": \"401: Unauthorized\"}";
+        }
+        logger.info("from UCSBAcademicCurriculumService.getFinalExam: " + retVal);
+        return retVal;
+    }
 }

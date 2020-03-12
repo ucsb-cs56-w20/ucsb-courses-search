@@ -27,7 +27,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
 
     public UCSBAcademicCurriculumService(@Value("${ucsb.api.consumer_key}") String apiKey) {
         this.apiKey = apiKey;
-        logger.info("apiKey=" + apiKey);
     }
 
     public String getCSV(String subjectArea, String quarter, String courseLevel, String dept, String instructor, String course, String college, String areas){
@@ -131,7 +130,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
     }
 
     public String getJSON(String instructor, String quarter) {
-        logger.info("api: " + apiKey);
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -204,7 +202,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
      */
 
     public String getCourse(String course, int quarter) {
-        logger.info("api: " + apiKey);
         logger.info("getCourse: course: " + course + " quarter: " + quarter);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -242,7 +239,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
 
 
     public String getGE(String college, String areas, String quarter) {
-        logger.info("api: " + apiKey);
         logger.info("getGE: college: " + college + " areas: " + areas +" quarter: " + quarter);
         RestTemplate restTemplate = new RestTemplate();
 
@@ -275,7 +271,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
     }
 
     public String getGE(String college, String areas, String quarter, int startT) {
-        logger.info("api: " + apiKey);
         logger.info("getGE: college: " + college + " areas: " + areas +" quarter: " + quarter + " Start time: "+ startT);
         RestTemplate restTemplate = new RestTemplate();
 
@@ -344,7 +339,6 @@ public class UCSBAcademicCurriculumService implements CurriculumService {
     }
   
     public String getFinalExam(String quarter, String enrollCode) {
-        logger.info("api: " + apiKey);
         logger.info("getFinalExam: quarter: " + quarter + " enrollCode: " + enrollCode);
         RestTemplate restTemplate = new RestTemplate();
 

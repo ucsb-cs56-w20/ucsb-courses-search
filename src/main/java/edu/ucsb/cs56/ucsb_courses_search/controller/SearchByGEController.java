@@ -13,6 +13,7 @@ import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGE;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGEMultiQuarter;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGEStartTime;
+import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByGETwoAreas;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.CoursePage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.Course;
 
@@ -39,13 +40,13 @@ public class SearchByGEController {
     private FinalExamService finalExamService;
 
     @GetMapping("/search/byge")
-    public String instructor(Model model, SearchByGE searchByGE) {
+    public String search(Model model, SearchByGE searchByGE) {
         model.addAttribute("searchByGE", new SearchByGE());
         return "search/byge/search";
     }
 
     @GetMapping("/search/byge/results")
-    public String search(@RequestParam(name = "college", required = true) String college,
+    public String searchresults(@RequestParam(name = "college", required = true) String college,
             @RequestParam(name = "area", required = true) String area,
             @RequestParam(name = "quarter", required = true) String quarter, Model model,
             SearchByGE searchByGE) {
@@ -204,6 +205,54 @@ public class SearchByGEController {
         return "search/byge/starttime/results";
     }
    
+    @GetMapping("/search/byge/twoareas")
+    public String twoareas(Model model) {
+        model.addAttribute("searchByGETwoAreas", new SearchByGETwoAreas());
+        return "search/byge/twoareas/search";
+    }
+
+    @GetMapping("/search/byge/twoareas/results")
+    public String searchByGETwoAreas(@RequestParam(name = "college", required = true) String college,
+    @RequestParam(name = "firstArea", required = true) String firstArea,
+    @RequestParam(name = "secondArea", required = true) String secondArea,
+    @RequestParam(name = "quarter", required = true) String quarter,
+    Model model) {
+
+        model.addAttribute("college", college);
+        model.addAttribute("firstarea", firstArea);
+        model.addAttribute("secondarea", secondArea);
+        model.addAttribute("quarter", quarter);
+
+        String firstJson = curriculumService.getGE(college, firstArea, quarter);
+        CoursePage cp1 = CoursePage.fromJSON(firstJson); 
+        List<Course> firstAreaCourses = new ArrayList<Course>();
+        firstAreaCourses.addAll(cp1.classes);
+
+        String secondJson = curriculumService.getGE(college, secondArea, quarter);
+        CoursePage cp2 = CoursePage.fromJSON(secondJson);
+        List<Course> secondAreaCourses = new ArrayList<Course>();
+        secondAreaCourses.addAll(cp2.classes);
+
+        List<Course> courses = new ArrayList<Course>();
+
+        for (Course c1: firstAreaCourses) {
+            for (Course c2: secondAreaCourses) {
+                if (c1.getCourseId().equals(c2.getCourseId())) {
+                    courses.add(c1);
+                }
+            }
+        }
+        
+
+        List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
+        List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
+
+        model.addAttribute("searchByGETwoAreas", new SearchByGETwoAreas());
+        
+        model.addAttribute("rows", rows);
+
+        return "search/byge/twoareas/results";
+    }
 
 
 }

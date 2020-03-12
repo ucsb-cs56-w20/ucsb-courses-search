@@ -16,9 +16,16 @@ public class ScheduleItemServiceImpl implements ScheduleItemService {
 
     public ScheduleItemServiceImpl(){
     }
+    
+    public ScheduleItemRepository getScheduleItemRepository() { 
+        return scheduleItemRepository; 
+    }
+    public void setScheduleItemRepository(ScheduleItemRepository scheduleItemRepository) {
+        this.scheduleItemRepository = scheduleItemRepository;
+    }
 
     @Override
-    public List<ScheduleItem> deleteByClassname(List<ScheduleItem> courseList, String name){
+    public List<ScheduleItem> deleteByClassname(List<ScheduleItem> courseList, String name) {
         for (ScheduleItem i : courseList){
             if (i.getClassname().equals(name)){
                 scheduleItemRepository.delete(i);

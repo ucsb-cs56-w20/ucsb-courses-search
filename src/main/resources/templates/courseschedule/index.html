@@ -44,6 +44,29 @@
         </tr>
       </tbody>
     </table>
+    <h4>Finals Schedule</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Final Date</th>
+          <th>Final Day</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="f: ${myfinals}">
+          <td th:text="${f.courseName}"></td>
+          <td th:text="${f.examDate}"></td>
+          <td th:text="${f.examDay}"></td>
+          <td th:text="${f.beginTime}"></td>
+          <td th:text="${f.endTime}"></td>
+          <td th:text="${f.comments}"></td>
+        </tr>
+      </tbody>
+    </table>
     <form method="GET">
       <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
     </form>

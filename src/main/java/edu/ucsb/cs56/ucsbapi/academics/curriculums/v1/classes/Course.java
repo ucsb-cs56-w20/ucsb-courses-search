@@ -20,9 +20,19 @@ public class Course {
     private String title;
     private String description;
     private List<Section> classSections;
+    private List<GeneralEducation> generalEducation;
     private FinalExam finalExam;
 
+
     public Course() {
+    }
+
+    public List<GeneralEducation> getGeneralEducation() {
+        return this.generalEducation;
+    }
+
+    public void setGeneralEducations(List<GeneralEducation> generalEducation) {
+        this.generalEducation = generalEducation;
     }
 
     public String getQuarter() {
@@ -65,6 +75,21 @@ public class Course {
         this.classSections = classSections;
     }
 
+
+    public String getGEList() {
+        if (getGeneralEducation() == null) {
+            return "";
+        }
+        if (getGeneralEducation().size() == 0) {
+            return "";
+        }
+        String GEList = "";
+        for (int i=0; i< getGeneralEducation().size(); i++) {
+            GEList += getGeneralEducation().get(i).toString();
+        }
+        return GEList;
+    }
+
     public String getDescription(){
         return this.description;
     }
@@ -74,12 +99,15 @@ public class Course {
     }
 
     public FinalExam getFinalExam() {
-		return this.finalExam;
-	}
+    	if (this.finalExam == null)
+	    this.finalExam = new FinalExam();
+	return this.finalExam;
+    }
 
 	public void setFinalExam(FinalExam finalExam) {
 		this.finalExam = finalExam;
 	}
+
    
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture

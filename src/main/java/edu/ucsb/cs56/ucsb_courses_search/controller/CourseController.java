@@ -75,7 +75,8 @@ public class CourseController {
      * Deletes all courses with the same name as "name" from "courseList" and CourseRepository.
      * Returns a list without any courses of name "name".
     */
-    private List<ScheduleItem> deleteByClassname(List<ScheduleItem> courseList, String name){
+    /* This will be deleted once the service actually works...
+    /*private List<ScheduleItem> deleteByClassname(List<ScheduleItem> courseList, String name){
         List<ScheduleItem> left = new ArrayList<ScheduleItem>(courseList);
         for (ScheduleItem i : courseList){
             if (i.getClassname().equals(name)){
@@ -84,7 +85,7 @@ public class CourseController {
             }
         }
         return left;
-    }
+    }*/
 
     @PostMapping("/courseschedule/add")
     public String add(ScheduleItem scheduleItem, 

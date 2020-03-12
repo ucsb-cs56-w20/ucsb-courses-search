@@ -15,6 +15,7 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemService;
+import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
@@ -38,15 +39,13 @@ public class CourseController {
     @Autowired
     private MembershipService membershipService;
 	
-    @Autowired
     private ScheduleItemService scheduleItemService;
 
     @Autowired
-    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService,
-			   ScheduleItemService scheduleItemService) {
+    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
 	this.membershipService = membershipService;
-	this.scheduleItemService = scheduleItemService;
+	this.scheduleItemService = new ScheduleItemServiceImpl();
     }
 
     @GetMapping("/courseschedule")

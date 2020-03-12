@@ -26,7 +26,7 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
-
+import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 

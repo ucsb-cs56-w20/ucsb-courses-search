@@ -151,7 +151,7 @@ public class CourseController {
         scheduleItemService.deleteByClassname(myClasses, scheduleItem.getClassname());
 
         Set<FinalPage> myfinals = new LinkedHashSet<FinalPage>();
-        for(ScheduleItem si : myclasses){
+        for(ScheduleItem si : myClasses){
             String json = finalService.getJSON(si.getEnrollCode(), si.getQuarter());
             logger.info(json);
             FinalPage fp = FinalPage.fromJSON(json);

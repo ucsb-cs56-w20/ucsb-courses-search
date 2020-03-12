@@ -1,5 +1,7 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalService;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CalendarService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -19,7 +22,12 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.LinkedHashSet;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +41,9 @@ public class CourseController {
 
     private Logger logger = LoggerFactory.getLogger(CourseController.class);
 
+    @Autowired(required = false)
+    private FinalService finalService;
+
     @Autowired
     private ScheduleItemRepository scheduleItemRepository;
 
@@ -43,10 +54,11 @@ public class CourseController {
     private MembershipService membershipService;
 
 
+
     @Autowired
     public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
-	this.membershipService = membershipService;
+	    this.membershipService = membershipService;
     }
 
     @GetMapping("/courseschedule")
@@ -55,16 +67,25 @@ public class CourseController {
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
 
-        String json = calendarservice.getJSON();
-        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json);
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
         quarterdeadline.format();
 
 
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
             logger.info("uid="+uid);
-            logger.info("scheduleItemRepository="+scheduleItemRepository);
             Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(uid);
+            Set<FinalPage> myfinals = new LinkedHashSet<FinalPage>();
+            for(ScheduleItem scheduleItem : myclasses){
+                String json = finalService.getJSON(scheduleItem.getEnrollCode(), scheduleItem.getQuarter());
+                logger.info(json);
+                FinalPage fp = FinalPage.fromJSON(json);
+                fp.setCourseName(scheduleItem.getClassname());
+                myfinals.add(fp);
+            }
+            model.addAttribute("myfinals", myfinals);
+            logger.info("scheduleItemRepository="+scheduleItemRepository);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
 
             //how is this getting the info to index.html
@@ -74,7 +95,7 @@ public class CourseController {
             //ArrayList<Course> emptyList = new ArrayList<Course>();
             //model.addAttribute("myclasses", emptyList);
 	    //org.springframework.security.access.AccessDeniedException("403 returned");
-	    throw new AccessForbiddenException();
+	        throw new AccessForbiddenException();
         }
         return "courseschedule/index";
     }
@@ -105,6 +126,17 @@ public class CourseController {
         primary.setQuarter(lecture_quarter);
         logger.info("primary = " + primary); 
         scheduleItemRepository.save(primary);
+
+        Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(scheduleItem.getUid());
+        Set<FinalPage> myfinals = new LinkedHashSet<FinalPage>();
+        for(ScheduleItem si : myclasses){
+            String json = finalService.getJSON(si.getEnrollCode(), si.getQuarter());
+            logger.info(json);
+            FinalPage fp = FinalPage.fromJSON(json);
+            fp.setCourseName(si.getClassname());
+            myfinals.add(fp);
+        }
+        model.addAttribute("myfinals", myfinals);
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
 

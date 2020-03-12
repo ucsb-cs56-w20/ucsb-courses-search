@@ -42,7 +42,7 @@ public class CourseController {
     private ScheduleItemService scheduleItemService;
 
     @Autowired
-    public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService,
+    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService,
 			   ScheduleItemService scheduleItemService) {
         this.scheduleItemRepository = scheduleItemRepository;
 	this.membershipService = membershipService;

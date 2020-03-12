@@ -34,7 +34,10 @@ public class Section {
 
     /** a unique number assigned to a section */
     public String getEnrollCode() {
-        return this.enrollCode;
+        if (this.enrollCode != null){
+            return this.enrollCode;
+        }
+        return "N/A";
     }
 
     /** a unique number assigned to a section */
@@ -44,7 +47,10 @@ public class Section {
 
     /** section number of the course */
     public String getSection() {
-        return this.section;
+        if (this.section != null){
+            return this.section;
+        }
+        return "N/A";
     }
 
     /** section number of the course */
@@ -54,7 +60,10 @@ public class Section {
 
     /** session only for summer quarter */
     public String getSession() {
-        return this.session;
+        if (this.session != null){
+            return this.session;
+        }
+        return "N/A";
     }
 
     /** session only for summer quarter */
@@ -63,7 +72,10 @@ public class Section {
     }
 
     public String getClassClosed() {
-        return this.classClosed;
+        if (this.classClosed != null){
+            return this.classClosed;
+        }
+        return "Y";
     }
 
     public void setClassClosed(String classClosed) {
@@ -71,7 +83,10 @@ public class Section {
     }
 
     public String getCourseCancelled() {
-        return this.courseCancelled;
+        if (this.courseCancelled != null){
+            return this.courseCancelled;
+        }
+        return "N/A";
     }
 
     public void setCourseCancelled(String courseCancelled) {
@@ -79,7 +94,10 @@ public class Section {
     }
 
     public String getGradingOptionCode() {
-        return this.gradingOptionCode;
+        if (this.gradingOptionCode != null){
+            return this.gradingOptionCode;
+        }
+        return "N/A";
     }
 
     public void setGradingOptionCode(String gradingOptionCode) {
@@ -109,7 +127,10 @@ public class Section {
     }
 
     public String getSecondaryStatus() {
-        return this.secondaryStatus;
+        if (this.secondaryStatus != null){
+            return this.secondaryStatus;
+        }
+        return "N/A";
     }
 
     public void setSecondaryStatus(String secondaryStatus) {
@@ -117,11 +138,17 @@ public class Section {
     }
 
     public boolean isDepartmentApprovalRequired() {
-        return this.departmentApprovalRequired;
+        if(this.departmentApprovalRequired){
+            return true;
+        }
+        return false;    
     }
 
     public boolean getDepartmentApprovalRequired() {
-        return this.departmentApprovalRequired;
+        if(this.departmentApprovalRequired){
+            return true;
+        }
+        return false;
     }
 
     public void setDepartmentApprovalRequired(boolean departmentApprovalRequired) {
@@ -129,11 +156,17 @@ public class Section {
     }
 
     public boolean isInstructorApprovalRequired() {
-        return this.instructorApprovalRequired;
+        if(this.instructorApprovalRequired){
+            return true;
+        }
+        return false;
     }
 
     public boolean getInstructorApprovalRequired() {
-        return this.instructorApprovalRequired;
+        if(this.instructorApprovalRequired){
+            return true;
+        }
+        return false;
     }
 
     public void setInstructorApprovalRequired(boolean instructorApprovalRequired) {
@@ -141,7 +174,10 @@ public class Section {
     }
 
     public String getRestrictionLevel() {
-        return this.restrictionLevel;
+        if (this.restrictionLevel != null){
+            return this.restrictionLevel;
+        }
+        return "N/A";
     }
 
     public void setRestrictionLevel(String restrictionLevel) {
@@ -149,7 +185,10 @@ public class Section {
     }
 
     public String getRestrictionMajor() {
-        return this.restrictionMajor;
+        if (this.restrictionMajor != null){
+            return this.restrictionMajor;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMajor(String restrictionMajor) {
@@ -157,7 +196,10 @@ public class Section {
     }
 
     public String getRestrictionMajorPass() {
-        return this.restrictionMajorPass;
+        if (this.restrictionMajorPass != null){
+            return this.restrictionMajorPass;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMajorPass(String restrictionMajorPass) {
@@ -165,7 +207,10 @@ public class Section {
     }
 
     public String getRestrictionMinor() {
-        return this.restrictionMinor;
+        if (this.restrictionMinor != null){
+            return this.restrictionMinor;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMinor(String restrictionMinor) {
@@ -173,7 +218,10 @@ public class Section {
     }
 
     public String getRestrictionMinorPass() {
-        return this.restrictionMinorPass;
+        if (this.restrictionMinorPass != null){
+            return this.restrictionMinorPass;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMinorPass(String restrictionMinorPass) {

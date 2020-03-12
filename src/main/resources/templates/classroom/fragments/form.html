@@ -1,0 +1,29 @@
+<form method="GET"  th:object="${searchByClassroom}">
+    <div class="form-group row">
+        <label for="quarter" class="col-sm-2 col-form-label">Quarter</label>
+        <div class="col-sm-10">
+            <select th:field="*{quarter}" class="custom-select">
+                <option th:each="q: ${quarters}" th:value="${q.value}" th:text="${q}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="building" class="col-sm-2 col-form-label">Building</label>
+        <div class="col-sm-10">
+            <input type="text" th:field="*{building}" class="form-control" id="building">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="classroom" class="col-sm-2 col-form-label">Classroom</label>
+        <div class="col-sm-10">
+            <input type="text"  th:field="*{classroom}" class="form-control" id="classroom">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="js-course-search-submit" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <button type="submit" th:formaction="@{/search/byclassroom/results}" class="btn btn-primary" id="js-course-search-submit">Find Courses</button>
+        </div>
+    </div>
+    
+</form>

@@ -86,8 +86,7 @@ public class WeeklyView {
   }
 
   public int getCourseStartRow(ScheduleItem course) {
-    // TESTED
-    // RETURNS ThE ROW, where 8:00AM = 2, 8:30AM = 3
+    // Returns the row, where 8:00AM = 2, 8:30AM = 3, etc.
 
     String times = course.getMeettime();
     // String times = "11:00 - 11:50";
@@ -103,25 +102,9 @@ public class WeeklyView {
   }
 
   public int getCourseRowSpan(ScheduleItem course) {
-    // Course course, String LectureOrSection
-    // for rowspan nte that meetime gives the section time not lecture time in form
-    // 09:00-09:50
-    // for a 75 minute class, usually 12:30-1:45 or 2-3:14, the hour is difference
-    // of 1
-    // for a 50 min class, the hour is the same etc; 7-7:50
-    // for a long labs, there will be first a 2 hour difference such as 14-16:30 or
-    // 14-16:50, then also check the minutes for an extra
     String times = course.getMeettime();
-    // String times = "11:00 - 11:50";
-    // if(LectureOrSection=="lecture"){
-    // times = course.getAssociatedLectureTime();
-    // }
-    // else{
-    // times = course.getMeettime();
-    // }
-
+    
     // Put both times in minutes
-
     int hour1 = Integer.parseInt(times.substring(0, 2));
     int hour2 = Integer.parseInt(times.substring(6, 8));
 
@@ -130,29 +113,19 @@ public class WeeklyView {
 
     int time1 = hour1 * 60 + minutes1;
     int time2 = hour2 * 60 + minutes2;
-    int differenceInMinutes = time2 - time1; // note that 11:00-11:50= 50 amd 17:30-21:20 = 3 hr 50 min = 230 min
-    differenceInMinutes += 15; // everytime ends either 15,50 or 20 so add extra
-    return differenceInMinutes / 30;// rowspanr
-    // return course.getMeettime();
+    int differenceInMinutes = time2 - time1;
+    differenceInMinutes += 15;
+    return differenceInMinutes / 30;
   }
 
   public String getCourseDescription(ScheduleItem course) {
-    // returns course in span format
-    // rowspan
-    // 'HELLO <br/> \
-    // HWLLO <br/> \
-    // MW';
-
     return course.getClassname() + "\n" + course.getLocation() + "\n" + course.getMeettime();
-
-    // return "stub";
   }
 
   public String insertItem(Iterable<ScheduleItem> myclasses) {
     int column = getCol(); // MONDAY = 0
     this.rowspan = 1;
     String courseDesc = "";
-    // loop through myclasses and look for a colsection = to 1
     for (ScheduleItem s : myclasses) {
       if (isColEqualsMeetday(s, column)) {
         if (getCourseStartRow(s) == this.row) {
@@ -166,9 +139,6 @@ public class WeeklyView {
     }
     incrementCol();
     return courseDesc;
-
-    // return "NO item in myclasses";
-
   }
 
   public boolean notIgnoredCell() {
@@ -206,9 +176,5 @@ public class WeeklyView {
     this.col++;
     if (this.col % 5 == 0)
       this.row++;
-  }
-
-  public String returnStub() {
-    return "stub";
   }
 }

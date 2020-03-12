@@ -24,6 +24,7 @@ import edu.ucsb.cs56.ucsb_courses_search.NavigationTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.controller.CourseController;
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
+import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 
@@ -63,6 +64,9 @@ public class CourseScheduleTest {
 
     @MockBean
     private ScheduleItemRepository mockScheduleItemRepository;
+
+    @MockBean
+    private ScheduleRepository mockScheduleRepository;
 
     @MockBean
     private MembershipService mockMembershipService;

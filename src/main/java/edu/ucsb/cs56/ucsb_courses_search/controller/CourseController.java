@@ -138,8 +138,8 @@ public class CourseController {
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
 
-        String json = calendarservice.getJSON();
-        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json);
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
         quarterdeadline.format();
 
         model.addAttribute ("calendar", quarterdeadline);
@@ -167,6 +167,13 @@ public class CourseController {
         model.addAttribute("myfinals", myfinals);
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
+
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
+        quarterdeadline.format();
+
+        model.addAttribute ("calendar", quarterdeadline);
+        
         return "courseschedule/index";
     }
 

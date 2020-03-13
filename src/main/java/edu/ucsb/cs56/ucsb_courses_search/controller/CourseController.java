@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+import edu.ucsb.cs56.ucsb_courses_search.service.CalendarService;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -45,6 +48,9 @@ public class CourseController {
     @Autowired
     private ScheduleItemRepository scheduleItemRepository;
 
+    @Autowired 
+    private CalendarService calendarservice;
+
     @Autowired
     private MembershipService membershipService;
 
@@ -60,6 +66,11 @@ public class CourseController {
 
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
+
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
+        quarterdeadline.format();
+
 
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
@@ -84,6 +95,7 @@ public class CourseController {
             model.addAttribute("days", days);
             model.addAttribute("timerange", week.getTimeRange());
             model.addAttribute("week",week);
+            model.addAttribute ("calendar", quarterdeadline);
         } else {
             //ArrayList<Course> emptyList = new ArrayList<Course>();
             //model.addAttribute("myclasses", emptyList);
@@ -132,6 +144,13 @@ public class CourseController {
         model.addAttribute("myfinals", myfinals);
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
+
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
+        quarterdeadline.format();
+
+        model.addAttribute ("calendar", quarterdeadline);
+
         return "courseschedule/index";
     }
 
@@ -154,6 +173,13 @@ public class CourseController {
         model.addAttribute("myfinals", myfinals);
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
+
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
+        quarterdeadline.format();
+
+        model.addAttribute ("calendar", quarterdeadline);
+        
         return "courseschedule/index";
     }
 }

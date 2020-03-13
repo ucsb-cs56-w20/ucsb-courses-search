@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{./MapScripts.js}"></script>
 
 <head>
     <title>My Class Schedule</title>
@@ -48,30 +49,6 @@
             }
         </style>
 
-         <script type="text/javascript">
-            function getWalkTime(){
-                var travelFrom = document.getElementById("travel-from");
-                var travelFromCoords = travelFrom.options[travelFrom.selectedIndex].value;
-
-                var travelTo = document.getElementById("travel-to");
-                var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
-
-                window.open("https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
-        + travelFromCoords + "," + travelToCoords + "&b=2&c=0&k1=en-US&k2=km");
-            }
-
-            function getBikeTime(){
-                var travelFrom = document.getElementById("travel-from");
-                var travelFromCoords = travelFrom.options[travelFrom.selectedIndex].value;
-
-                var travelTo = document.getElementById("travel-to");
-                var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
-
-                window.open("https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
-        + travelFromCoords + "," + travelToCoords + "&b=1&c=0&k1=en-US&k2=km")
-            }
-
-         </script>
 
         <div class="traveltime-container">
             <h5>Travel Time</h5>

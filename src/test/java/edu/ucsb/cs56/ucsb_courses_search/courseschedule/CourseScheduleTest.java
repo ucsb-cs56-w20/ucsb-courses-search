@@ -45,9 +45,11 @@ import org.junit.Before;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(CourseController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 @WebAppConfiguration
+@RunWith(SpringRunner.class)
+
 public class CourseScheduleTest {
 
     private Logger logger = LoggerFactory.getLogger(CourseScheduleTest.class);

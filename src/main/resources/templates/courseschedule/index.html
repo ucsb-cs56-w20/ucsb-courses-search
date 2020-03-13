@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html5>
 <html xmlns:th="http://www.thymeleaf.org">
 <script th:src="@{./MapScripts.js}"></script>
 
@@ -60,7 +60,7 @@
             <select class="custom-select" id="travel-to">
                 <option th:each="c: ${myclasses}" th:value="${c.coordinates}" th:text="${c.location}"></option>
             </select>
-             <p>&nbsp;</p> 
+         
             <button onClick="getWalkTime()" class="btn btn-primary">🚶Walking</button>
             <button onClick="getBikeTime()" class="btn btn-primary">🚴Biking</button>
         </div>

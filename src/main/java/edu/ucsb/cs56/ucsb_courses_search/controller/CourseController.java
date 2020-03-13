@@ -21,6 +21,7 @@ import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import edu.ucsb.cs56.ucsb_courses_search.model.WeeklyView;
 
 
 import java.util.ArrayList;
@@ -54,14 +55,15 @@ public class CourseController {
     private MembershipService membershipService;
 
     @Autowired
-    public CourseController(ScheduleItemRepository sheduleItemRepository, MembershipService membershipService) {
+    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService) {
         this.scheduleItemRepository = scheduleItemRepository;
 	    this.membershipService = membershipService;
     }
 
+
     @GetMapping("/courseschedule")
     public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
-        
+
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
 
@@ -85,9 +87,14 @@ public class CourseController {
             model.addAttribute("myfinals", myfinals);
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
+            String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
+            
+            WeeklyView week = new WeeklyView(myclasses);
 
-            //how is this getting the info to index.html
             model.addAttribute("myclasses", myclasses);
+            model.addAttribute("days", days);
+            model.addAttribute("timerange", week.getTimeRange());
+            model.addAttribute("week",week);
             model.addAttribute ("calendar", quarterdeadline);
         } else {
             //ArrayList<Course> emptyList = new ArrayList<Course>();
@@ -98,7 +105,7 @@ public class CourseController {
         return "courseschedule/index";
     }
     @PostMapping("/courseschedule/add")
-    public String add(ScheduleItem scheduleItem, 
+    public String add(ScheduleItem scheduleItem,
                         Model model,
                         @RequestParam String lecture_classname,
                         @RequestParam String lecture_enrollCode,
@@ -110,7 +117,7 @@ public class CourseController {
                         @RequestParam String lecture_quarter) {
         logger.info("Hello!\n");
         logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
-        logger.info("ScheduleItem = " + scheduleItem);                   
+        logger.info("ScheduleItem = " + scheduleItem);
         scheduleItemRepository.save(scheduleItem);
 
         ScheduleItem primary = new ScheduleItem();
@@ -122,7 +129,7 @@ public class CourseController {
         primary.setMeettime(lecture_meettime);
         primary.setLocation(lecture_location);
         primary.setQuarter(lecture_quarter);
-        logger.info("primary = " + primary); 
+        logger.info("primary = " + primary);
         scheduleItemRepository.save(primary);
 
         Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(scheduleItem.getUid());
@@ -146,7 +153,6 @@ public class CourseController {
 
         return "courseschedule/index";
     }
-
 
     @PostMapping("/courseschedule/addLecture")
     public String addLecture(ScheduleItem scheduleItem, Model model) {
@@ -176,5 +182,4 @@ public class CourseController {
         
         return "courseschedule/index";
     }
-
 }

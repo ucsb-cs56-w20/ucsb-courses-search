@@ -21,6 +21,7 @@
           <th>Meeting Times</th>
           <th>Meeting Days</th>
           <th>Location</th>
+
         </tr>
       </thead>
       <tbody>
@@ -33,9 +34,12 @@
           <td th:text="${c.meettime}"></td>
           <td th:text="${c.meetday}"></td>
           <td th:text="${c.location}"></td>
+
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="container" id="weekly_view">
     <h4>Finals Schedule</h4>
     <table class="table">
       <thead>
@@ -56,6 +60,26 @@
           <td th:text="${f.beginTime}"></td>
           <td th:text="${f.endTime}"></td>
           <td th:text="${f.comments}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="week_table" cellspacing="0" cellpadding="1" rules="all"
+      style="border-color:#ff6ec7;border-width:1px;border-style:None;width:100%;border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th></th>
+          <th th:each="d: ${days}" th:text="${d}"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <th class="timerange"></th>
+        <tr th:each="tr: ${timerange}">
+          <td th:text="${tr}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
         </tr>
       </tbody>
     </table>
@@ -104,8 +128,9 @@
       </thead>
     </table>
     <div th:replace="fragments/bootstrap_footer.html"></div>
+  </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>
-    </div>
 </body>
+
 
 </html>

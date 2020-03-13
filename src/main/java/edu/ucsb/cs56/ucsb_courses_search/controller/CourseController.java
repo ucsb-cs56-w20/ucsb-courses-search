@@ -48,13 +48,15 @@ public class CourseController {
     @Autowired
     private MembershipService membershipService;
 	
+    @Autowired
     private ScheduleItemService scheduleItemService;
 
     @Autowired
-    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService) {
+    public CourseController(ScheduleItemRepository scheduleItemRepository, MembershipService membershipService,
+			   ScheduleItemService scheduleItemService) {
         this.scheduleItemRepository = scheduleItemRepository;
 	      this.membershipService = membershipService;
-	      this.scheduleItemService = new ScheduleItemServiceImpl();
+	      this.scheduleItemService = scheduleItemService;
     }
 
     @GetMapping("/courseschedule")

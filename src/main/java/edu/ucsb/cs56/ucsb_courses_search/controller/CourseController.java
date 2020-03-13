@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+import edu.ucsb.cs56.ucsb_courses_search.service.CalendarService;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,6 +23,7 @@ import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemService;
 import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
+import edu.ucsb.cs56.ucsb_courses_search.model.WeeklyView;
 
 
 import java.util.ArrayList;
@@ -45,6 +49,9 @@ public class CourseController {
     @Autowired
     private ScheduleItemRepository scheduleItemRepository;
 
+    @Autowired 
+    private CalendarService calendarservice;
+
     @Autowired
     private MembershipService membershipService;
 	
@@ -59,11 +66,17 @@ public class CourseController {
 	      this.scheduleItemService = scheduleItemService;
     }
 
+
     @GetMapping("/courseschedule")
     public String index(Model model, OAuth2AuthenticationToken token) throws AccessForbiddenException {
-        
+
         logger.info("Inside /courseschedule controller method CourseController#index");
         logger.info("model=" + model + " token=" + token);
+
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
+        quarterdeadline.format();
+
 
         if (token!=null && this.membershipService.isMember(token)) {
             String uid = token.getPrincipal().getAttributes().get("sub").toString();
@@ -80,7 +93,15 @@ public class CourseController {
             model.addAttribute("myfinals", myfinals);
             logger.info("scheduleItemRepository="+scheduleItemRepository);
             // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
+            String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
+            
+            WeeklyView week = new WeeklyView(myclasses);
+
             model.addAttribute("myclasses", myclasses);
+            model.addAttribute("days", days);
+            model.addAttribute("timerange", week.getTimeRange());
+            model.addAttribute("week",week);
+            model.addAttribute ("calendar", quarterdeadline);
         } else {
             //ArrayList<Course> emptyList = new ArrayList<Course>();
             //model.addAttribute("myclasses", emptyList);
@@ -107,7 +128,7 @@ public class CourseController {
     }*/
 
     @PostMapping("/courseschedule/add")
-    public String add(ScheduleItem scheduleItem, 
+    public String add(ScheduleItem scheduleItem,
                         Model model,
                         @RequestParam String lecture_classname,
                         @RequestParam String lecture_enrollCode,
@@ -121,6 +142,7 @@ public class CourseController {
         logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
         logger.info("ScheduleItem = " + scheduleItem);                   
 
+
         ScheduleItem primary = new ScheduleItem();
         primary.setClassname(lecture_classname);
         primary.setEnrollCode(lecture_enrollCode);
@@ -130,6 +152,7 @@ public class CourseController {
         primary.setMeettime(lecture_meettime);
         primary.setLocation(lecture_location);
         primary.setQuarter(lecture_quarter);
+
         logger.info("primary = " + primary); 
       
         //here we find and delete the courses if they already exist.
@@ -162,9 +185,15 @@ public class CourseController {
         }
         model.addAttribute("myfinals", myfinals);
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
+
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
+        quarterdeadline.format();
+
+        model.addAttribute ("calendar", quarterdeadline);
+
         return "courseschedule/index";
     }
-
 
     @PostMapping("/courseschedule/addLecture")
     public String addLecture(ScheduleItem scheduleItem, Model model) {
@@ -185,6 +214,13 @@ public class CourseController {
         model.addAttribute("myfinals", myfinals);
 
         model.addAttribute("myclasses", scheduleItemRepository.findByUid(scheduleItem.getUid()));
+
+        String json_ = calendarservice.getJSON();
+        QuarterDeadlines quarterdeadline = QuarterDeadlines.fromJSON(json_);
+        quarterdeadline.format();
+
+        model.addAttribute ("calendar", quarterdeadline);
+        
         return "courseschedule/index";
     }
 

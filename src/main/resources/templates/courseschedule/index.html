@@ -21,7 +21,6 @@
           <th>Meeting Times</th>
           <th>Meeting Days</th>
           <th>Location</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +33,7 @@
           <td th:text="${c.meettime}"></td>
           <td th:text="${c.meetday}"></td>
           <td th:text="${c.location}"></td>
+
           <td>
           <form action="#" th:action="@{/courseschedule/delete}" th:object="${c}" method="post">
             <input type="hidden" name="classname" th:value="${c.classname} "value="" />
@@ -41,9 +41,12 @@
             <input type="submit" class="btn btn-primary" value="Delete" />
           </form>
           </td>
+
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="container" id="weekly_view">
     <h4>Finals Schedule</h4>
     <table class="table">
       <thead>
@@ -67,12 +70,74 @@
         </tr>
       </tbody>
     </table>
+    <table id="week_table" cellspacing="0" cellpadding="1" rules="all"
+      style="border-color:#ff6ec7;border-width:1px;border-style:None;width:100%;border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th></th>
+          <th th:each="d: ${days}" th:text="${d}"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <th class="timerange"></th>
+        <tr th:each="tr: ${timerange}">
+          <td th:text="${tr}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
+        </tr>
+      </tbody>
+    </table>
     <form method="GET">
       <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
     </form>
+      <h4>Deadlines</h4>
+      <table style="width:40%">
+      <thead>
+        <tr>
+          <th>Quarter</th>
+          <td th:text="${calendar.qyy}"></td>
+        </tr>
+        <tr>
+          <th>First Day of Classes</th>
+          <td th:text="${calendar.firstDayOfClasses}"></td>
+        </tr>
+        <tr>
+          <th>Last Day of Classes</th>
+          <td th:text="${calendar.lastDayOfClasses}"></td>
+        </tr>
+        <tr>
+          <th>Pass 1 Begin</th>
+          <td th:text="${calendar.pass1Begin}"></td>
+        </tr>
+        <tr>
+          <th>Pass 2 Begin</th>
+          <td th:text="${calendar.pass2Begin}"></td>
+        </tr>
+        <tr>
+          <th>Pass 3 Begin</th>
+          <td th:text="${calendar.pass3Begin}"></td>
+        </tr>
+        <tr>
+          <th>Fee Deadline</th>
+          <td th:text="${calendar.feeDeadline}"></td>
+        </tr>
+        <tr>
+          <th>Last Day To Add Undergraduates</th>
+          <td th:text="${calendar.lastDayToAddUnderGrad}"></td>
+        </tr>
+        <tr>
+          <th>Last Day To Add Graduates</th>
+          <td th:text="${calendar.lastDayToAddGrad}"></td>
+        </tr>
+      </thead>
+    </table>
     <div th:replace="fragments/bootstrap_footer.html"></div>
   </div>
   <div th:replace="fragments/bootstrap_scripts.html"></div>
 </body>
+
 
 </html>

@@ -165,7 +165,7 @@ public class CourseController {
         myClasses.add(scheduleItem);
 
         model.addAttribute("myclasses", myClasses);
-        return "courseschedule/index";
+        return "redirect:/courseschedule";
     }
 
     @PostMapping("/courseschedule/delete")
@@ -192,7 +192,7 @@ public class CourseController {
 
         model.addAttribute ("calendar", quarterdeadline);
 
-        return "courseschedule/index";
+        return "redirect:/courseschedule";
     }
 
     @PostMapping("/courseschedule/addLecture")
@@ -221,7 +221,7 @@ public class CourseController {
 
         model.addAttribute ("calendar", quarterdeadline);
         
-        return "courseschedule/index";
+        return "redirect:/courseschedule";
     }
 
 }

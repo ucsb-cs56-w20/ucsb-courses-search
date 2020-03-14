@@ -20,6 +20,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
 import edu.ucsb.cs56.ucsb_courses_search.controller.advice.AuthControllerAdvice;
 import edu.ucsb.cs56.ucsb_courses_search.BootstrapTestHelper;
 import edu.ucsb.cs56.ucsb_courses_search.NavigationTestHelper;
@@ -29,7 +32,6 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.FeatureToggleService;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
-
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 

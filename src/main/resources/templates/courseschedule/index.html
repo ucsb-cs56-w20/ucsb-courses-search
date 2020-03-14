@@ -21,7 +21,6 @@
           <th>Meeting Times</th>
           <th>Meeting Days</th>
           <th>Location</th>
-
         </tr>
       </thead>
       <tbody>
@@ -34,6 +33,14 @@
           <td th:text="${c.meettime}"></td>
           <td th:text="${c.meetday}"></td>
           <td th:text="${c.location}"></td>
+
+          <td>
+          <form action="#" th:action="@{/courseschedule/delete}" th:object="${c}" method="post">
+            <input type="hidden" name="classname" th:value="${c.classname} "value="" />
+            <input type="hidden" name="uid" th:value="${id}" value="1000" />
+            <input type="submit" class="btn btn-primary" value="Delete" />
+          </form>
+          </td>
 
         </tr>
       </tbody>

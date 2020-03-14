@@ -1,38 +1,30 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
-import edu.ucsb.cs56.ucsb_courses_search.service.FinalService;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
-import org.springframework.web.bind.annotation.RequestParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
-import edu.ucsb.cs56.ucsb_courses_search.service.CalendarService;
-import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
-import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
+import edu.ucsb.cs56.ucsb_courses_search.model.WeeklyView;
 import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
+import edu.ucsb.cs56.ucsb_courses_search.service.CalendarService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalService;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
 import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemService;
-import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemServiceImpl;
-import org.springframework.beans.factory.annotation.Qualifier;
-import edu.ucsb.cs56.ucsb_courses_search.model.WeeklyView;
-
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.LinkedHashSet;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
 class AccessForbiddenException extends RuntimeException {
@@ -92,7 +84,6 @@ public class CourseController {
             }
             model.addAttribute("myfinals", myfinals);
             logger.info("scheduleItemRepository="+scheduleItemRepository);
-            // logger.info("there are " + myclasses.size() + " courses that match uid: " + uid);
             String[] days = new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday"};
             
             WeeklyView week = new WeeklyView(myclasses);
@@ -103,29 +94,10 @@ public class CourseController {
             model.addAttribute("week",week);
             model.addAttribute ("calendar", quarterdeadline);
         } else {
-            //ArrayList<Course> emptyList = new ArrayList<Course>();
-            //model.addAttribute("myclasses", emptyList);
-	    //org.springframework.security.access.AccessDeniedException("403 returned");
 	        throw new AccessForbiddenException();
         }
         return "courseschedule/index";
     }
-
-    /**
-     * Deletes all courses with the same name as "name" from "courseList" and CourseRepository.
-     * Returns a list without any courses of name "name".
-    */
-    /* This will be deleted once the service actually works...
-    /*private List<ScheduleItem> deleteByClassname(List<ScheduleItem> courseList, String name){
-        List<ScheduleItem> left = new ArrayList<ScheduleItem>(courseList);
-        for (ScheduleItem i : courseList){
-            if (i.getClassname().equals(name)){
-                scheduleItemRepository.delete(i);
-                left.remove(i);
-            }
-        }
-        return left;
-    }*/
 
     @PostMapping("/courseschedule/add")
     public String add(ScheduleItem scheduleItem,

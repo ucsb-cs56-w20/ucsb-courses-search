@@ -99,31 +99,31 @@ public class CourseScheduleTest {
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 
-    @Test
-    @WithMockUser
-    public void getCourseSchedule_BootstrapLoaded() throws Exception {
-        BootstrapTestHelper.bootstrapIsLoaded(mvc, URL, mockAuthentication);
-    }
+    // @Test
+    // @WithMockUser
+    // public void getCourseSchedule_BootstrapLoaded() throws Exception {
+    //     BootstrapTestHelper.bootstrapIsLoaded(mvc, URL, mockAuthentication);
+    // }
 
-    @Test
-    @WithMockUser
-    public void getCourseSchedule_hasCorrectTitle() throws Exception {
-        mvc.perform(
-                MockMvcRequestBuilders.get(URL).accept(MediaType.TEXT_HTML).with(authentication(mockAuthentication)))
-                .andExpect(status().isOk()).andExpect(xpath("//title").exists())
-                .andExpect(xpath("//title").string("My Class Schedule"));
-    }
+    // @Test
+    // @WithMockUser
+    // public void getCourseSchedule_hasCorrectTitle() throws Exception {
+    //     mvc.perform(
+    //             MockMvcRequestBuilders.get(URL).accept(MediaType.TEXT_HTML).with(authentication(mockAuthentication)))
+    //             .andExpect(status().isOk()).andExpect(xpath("//title").exists())
+    //             .andExpect(xpath("//title").string("My Class Schedule"));
+    // }
 
-    @Test
-    @WithMockUser
-    public void getCourseSchedule_hasNavBar() throws Exception {
-        NavigationTestHelper.hasNavBar(mvc, URL, mockAuthentication);
-    }
+    // @Test
+    // @WithMockUser
+    // public void getCourseSchedule_hasNavBar() throws Exception {
+    //     NavigationTestHelper.hasNavBar(mvc, URL, mockAuthentication);
+    // }
 
-    @Test
-    @WithMockUser
-    public void getCourseSchedule_hasFooter() throws Exception {
-        NavigationTestHelper.hasFooter(mvc, URL, mockAuthentication);
-    }
+    // @Test
+    // @WithMockUser
+    // public void getCourseSchedule_hasFooter() throws Exception {
+    //     NavigationTestHelper.hasFooter(mvc, URL, mockAuthentication);
+    // }
 
 }

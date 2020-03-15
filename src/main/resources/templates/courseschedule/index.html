@@ -1,15 +1,17 @@
-<!DOCTYPE html5>
+<!DOCTYPE <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<script th:src="@{./MapScripts.js}"></script>
+
 
 <head>
     <title>My Class Schedule</title>
-    <!-- <div th:replace="fragments/bootstrap_head.html"></div> -->
+    <div th:replace="fragments/bootstrap_head.html"></div>
+    <link href="MapStyle.css" rel="stylesheet">
+    <script th:src="@{./MapScripts.js}"></script>
 </head>
 
 <body>
 <div class="container">
-    <!-- <div th:replace="fragments/bootstrap_nav_header.html"></div> -->
+    <div th:replace="fragments/bootstrap_nav_header.html"></div>
     <h3>My Class Schedule</h3>
     <form>
         <table class="table">
@@ -38,16 +40,6 @@
             </tr>
             </tbody>
         </table>
-        <style>
-            .traveltime-container {
-                margin: 30px auto;
-                max-width: 400px;
-                width: 100%;
-                text-align: center;
-                background: #f8f9fa;
-                padding: 10px;
-            }
-        </style>
 
 
         <div class="traveltime-container">
@@ -92,9 +84,9 @@
             <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
         </form>
     </form>
-    <!-- <div th:replace="fragments/bootstrap_footer.html"></div> -->
+    <div th:replace="fragments/bootstrap_footer.html"></div>
 </div>
-<!-- <div th:replace="fragments/bootstrap_scripts.html"></div> -->
+<div th:replace="fragments/bootstrap_scripts.html"></div>
 </body>
 
 </html>

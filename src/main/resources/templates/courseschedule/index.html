@@ -1,142 +1,195 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>My Class Schedule</title>
-  <div th:replace="fragments/bootstrap_head.html"></div>
+    <title>My Class Schedule</title>
+    <div th:replace="fragments/bootstrap_head.html"></div>
 </head>
 
 <body>
-  <div class="container">
-    <div th:replace="fragments/bootstrap_nav_header.html"></div>
-    <h3>My Class Schedule</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Quarter</th>
-          <th>Course Name</th>
-          <th>Enroll Code</th>
-          <th>UID</th>
-          <th>Professor</th>
-          <th>Meeting Times</th>
-          <th>Meeting Days</th>
-          <th>Location</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="c: ${myclasses}">
-          <td th:text="${c.quarter}"></td>
-          <td th:text="${c.classname}"></td>
-          <td th:text="${c.enrollCode}"></td>
-          <td th:text="${c.uid}"></td>
-          <td th:text="${c.professor}"></td>
-          <td th:text="${c.meettime}"></td>
-          <td th:text="${c.meetday}"></td>
-          <td th:text="${c.location}"></td>
+    <div class="container">
+        <div th:replace="fragments/bootstrap_nav_header.html"></div>
+        <h3>My Class Schedule</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Quarter</th>
+                    <th>Course Name</th>
+                    <th>Enroll Code</th>
+                    <th>UID</th>
+                    <th>Professor</th>
+                    <th>Meeting Times</th>
+                    <th>Meeting Days</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c: ${myclasses}">
+                    <td th:text="${c.quarter}"></td>
+                    <td th:text="${c.classname}"></td>
+                    <td th:text="${c.enrollCode}"></td>
+                    <td th:text="${c.uid}"></td>
+                    <td th:text="${c.professor}"></td>
+                    <td th:text="${c.meettime}"></td>
+                    <td th:text="${c.meetday}"></td>
+                    <td th:text="${c.location}"></td>
 
-          <td>
-          <form action="#" th:action="@{/courseschedule/delete}" th:object="${c}" method="post">
-            <input type="hidden" name="classname" th:value="${c.classname} "value="" />
-            <input type="hidden" name="uid" th:value="${id}" value="1000" />
-            <input type="submit" class="btn btn-primary" value="Delete" />
-          </form>
-          </td>
+                    <td>
+                        <form action="#" th:action="@{/courseschedule/delete}" th:object="${c}" method="post">
+                            <input type="hidden" name="classname" th:value="${c.classname} " value=""/>
+                            <input type="hidden" name="uid" th:value="${id}" value="1000"/>
+                            <input type="submit" class="btn btn-primary" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container" id="weekly_view">
+        <h4>Finals Schedule</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Final Date</th>
+                    <th>Final Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="f: ${myfinals}">
+                    <td th:text="${f.courseName}"></td>
+                    <td th:text="${f.examDate}"></td>
+                    <td th:text="${f.examDay}"></td>
+                    <td th:text="${f.beginTime}"></td>
+                    <td th:text="${f.endTime}"></td>
+                    <td th:text="${f.comments}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="week_table" cellspacing="0" cellpadding="1" rules="all" style="border-color:#ff6ec7;border-width:1px;border-style:None;width:100%;border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th th:each="d: ${days}" th:text="${d}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <th class="timerange"></th>
+                <tr th:each="tr: ${timerange}">
+                    <td th:text="${tr}"></td>
+                    <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}"
+                        th:rowspan="${week.getRowSpan()}"></td>
+                    <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}"
+                        th:rowspan="${week.getRowSpan()}"></td>
+                    <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}"
+                        th:rowspan="${week.getRowSpan()}"></td>
+                    <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}"
+                        th:rowspan="${week.getRowSpan()}"></td>
+                    <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}"
+                        th:rowspan="${week.getRowSpan()}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <form method="GET">
+            <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">
+                Download CSV
+            </button>
+        </form>
+        <br/>
+        <h4>Deadlines</h4>
+        <hr/>
+        <table style="width:40%">
+            <thead>
+                <tr>
+                    <th>Quarter</th>
+                    <td th:text="${calendar.qyy}"></td>
+                </tr>
+                <tr>
+                    <th>First Day of Classes</th>
+                    <td th:text="${calendar.firstDayOfClasses}"></td>
+                </tr>
+                <tr>
+                    <th>Last Day of Classes</th>
+                    <td th:text="${calendar.lastDayOfClasses}"></td>
+                </tr>
+                <tr>
+                    <th>Pass 1 Begin</th>
+                    <td th:text="${calendar.pass1Begin}"></td>
+                </tr>
+                <tr>
+                    <th>Pass 2 Begin</th>
+                    <td th:text="${calendar.pass2Begin}"></td>
+                </tr>
+                <tr>
+                    <th>Pass 3 Begin</th>
+                    <td th:text="${calendar.pass3Begin}"></td>
+                </tr>
+                <tr>
+                    <th>Fee Deadline</th>
+                    <td th:text="${calendar.feeDeadline}"></td>
+                </tr>
+                <tr>
+                    <th>Last Day To Add Undergraduates</th>
+                    <td th:text="${calendar.lastDayToAddUnderGrad}"></td>
+                </tr>
+                <tr>
+                    <th>Last Day To Add Graduates</th>
+                    <td th:text="${calendar.lastDayToAddGrad}"></td>
+                </tr>
+            </thead>
+        </table>
+        <style>
+            .traveltime-container {
+                margin: 30px auto;
+                max-width: 400px;
+                width: 100%;
+                text-align: center;
+                background: #f8f9fa;
+                padding: 10px;
+            }
+        </style>
+        <script type="text/javascript">
+                function getWalkTime(){
+                   var travelFrom = document.getElementById("travel-from");
+                   var travelFromCoords = travelFrom.options[travelFrom.selectedIndex].value;
 
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="container" id="weekly_view">
-    <h4>Finals Schedule</h4>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Course Name</th>
-          <th>Final Date</th>
-          <th>Final Day</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Comments</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="f: ${myfinals}">
-          <td th:text="${f.courseName}"></td>
-          <td th:text="${f.examDate}"></td>
-          <td th:text="${f.examDay}"></td>
-          <td th:text="${f.beginTime}"></td>
-          <td th:text="${f.endTime}"></td>
-          <td th:text="${f.comments}"></td>
-        </tr>
-      </tbody>
-    </table>
-    <table id="week_table" cellspacing="0" cellpadding="1" rules="all"
-      style="border-color:#ff6ec7;border-width:1px;border-style:None;width:100%;border-collapse:collapse;">
-      <thead>
-        <tr>
-          <th></th>
-          <th th:each="d: ${days}" th:text="${d}"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <th class="timerange"></th>
-        <tr th:each="tr: ${timerange}">
-          <td th:text="${tr}"></td>
-          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
-          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
-          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
-          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
-          <td th:if="${week.notIgnoredCell()}" th:text="${week.insertItem(myclasses)}" th:rowspan="${week.getRowSpan()}"></td>
-        </tr>
-      </tbody>
-    </table>
-    <form method="GET">
-      <button type="submit" th:formaction="@{/personalSchedule}" class="btn btn-primary" id="js-course-search-csv">Download CSV</button>
-    </form>
-      <h4>Deadlines</h4>
-      <table style="width:40%">
-      <thead>
-        <tr>
-          <th>Quarter</th>
-          <td th:text="${calendar.qyy}"></td>
-        </tr>
-        <tr>
-          <th>First Day of Classes</th>
-          <td th:text="${calendar.firstDayOfClasses}"></td>
-        </tr>
-        <tr>
-          <th>Last Day of Classes</th>
-          <td th:text="${calendar.lastDayOfClasses}"></td>
-        </tr>
-        <tr>
-          <th>Pass 1 Begin</th>
-          <td th:text="${calendar.pass1Begin}"></td>
-        </tr>
-        <tr>
-          <th>Pass 2 Begin</th>
-          <td th:text="${calendar.pass2Begin}"></td>
-        </tr>
-        <tr>
-          <th>Pass 3 Begin</th>
-          <td th:text="${calendar.pass3Begin}"></td>
-        </tr>
-        <tr>
-          <th>Fee Deadline</th>
-          <td th:text="${calendar.feeDeadline}"></td>
-        </tr>
-        <tr>
-          <th>Last Day To Add Undergraduates</th>
-          <td th:text="${calendar.lastDayToAddUnderGrad}"></td>
-        </tr>
-        <tr>
-          <th>Last Day To Add Graduates</th>
-          <td th:text="${calendar.lastDayToAddGrad}"></td>
-        </tr>
-      </thead>
-    </table>
-    <div th:replace="fragments/bootstrap_footer.html"></div>
-  </div>
-  <div th:replace="fragments/bootstrap_scripts.html"></div>
+                   var travelTo = document.getElementById("travel-to");
+                   var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
+
+                   window.open("https://maps.openrouteservice.org/directions?n1=34.412592\x26n2=-119.845887\x26n3=16\x26a=" + travelFromCoords + "," + travelToCoords + "\x26b=2\x26c=0\x26k1=en-US\x26k2=km");
+               }
+
+               function getBikeTime(){
+                   var travelFrom = document.getElementById("travel-from");
+                   var travelFromCoords = travelFrom.options[travelFrom.selectedIndex].value;
+
+                   var travelTo = document.getElementById("travel-to");
+                   var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
+
+                   window.open("https://maps.openrouteservice.org/directions?n1=34.412592\x26n2=-119.845887\x26n3=16\x26a=" + travelFromCoords + "," + travelToCoords + "\x26b=1a\x26c=0\x26k1=en-US\x26k2=km");
+               }
+        </script>
+        <div class="traveltime-container">
+            <h4>Travel Time</h4>
+            <p>Find how long it would take to go from</p>
+            <select class="custom-select" id="travel-from">
+                <option th:each="c : ${myclasses}" th:value="${c.coordinates}" th:text="${c.location}"></option>
+            </select>
+            <p>to</p>
+            <select class="custom-select" id="travel-to">
+                <option th:each="c: ${myclasses}" th:value="${c.coordinates}" th:text="${c.location}"></option>
+            </select>
+            <br/>
+            <br/>
+            <button onClick="getWalkTime()" class="btn btn-primary">🚶Walking</button>
+            <button onClick="getBikeTime()" class="btn btn-primary">🚴Biking</button>
+        </div>
+        <div th:replace="fragments/bootstrap_footer.html"></div>
+    </div>
+    <div th:replace="fragments/bootstrap_scripts.html"></div>
 </body>
 
 

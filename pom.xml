@@ -179,6 +179,12 @@
             <version>1.1.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.21</version>
+        </dependency>
+
     </dependencies>
 
     <!-- For use with github pages, to publish the site to the /docs subdirectory -->

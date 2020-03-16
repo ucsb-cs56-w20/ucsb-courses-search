@@ -13,7 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
+import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import edu.ucsb.cs56.ucsb_courses_search.entity.ScheduleItem;
@@ -22,9 +28,24 @@ import edu.ucsb.cs56.ucsb_courses_search.repository.ScheduleItemRepository;
 import edu.ucsb.cs56.ucsb_courses_search.service.CalendarService;
 import edu.ucsb.cs56.ucsb_courses_search.service.FinalService;
 import edu.ucsb.cs56.ucsb_courses_search.service.MembershipService;
+import edu.ucsb.cs56.ucsb_courses_search.service.UCSBBuildingService;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.LinkedHashSet;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.ucsb.cs56.ucsb_courses_search.service.ScheduleItemService;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.FinalPage;
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.v1.classes.QuarterDeadlines;
+
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
 class AccessForbiddenException extends RuntimeException {
@@ -112,7 +133,8 @@ public class CourseController {
                         @RequestParam String lecture_quarter) {
         logger.info("Hello!\n");
         logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
-        logger.info("ScheduleItem = " + scheduleItem);                   
+        logger.info("ScheduleItem = " + scheduleItem);
+        scheduleItemRepository.save(scheduleItem);
 
 
         ScheduleItem primary = new ScheduleItem();
@@ -171,7 +193,7 @@ public class CourseController {
     public String addLecture(ScheduleItem scheduleItem, Model model) {
         logger.info("Hello!\n");
         logger.info("ScheduleItem's uid: " + scheduleItem.getUid());
-        logger.info("ScheduleItem = " + scheduleItem);                   
+        logger.info("ScheduleItem = " + scheduleItem);
         scheduleItemRepository.save(scheduleItem);
 
         Iterable<ScheduleItem> myclasses = scheduleItemRepository.findByUid(scheduleItem.getUid());

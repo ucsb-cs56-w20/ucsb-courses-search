@@ -1,9 +1,13 @@
 package edu.ucsb.cs56.ucsb_courses_search.entity;
 
+import edu.ucsb.cs56.ucsb_courses_search.model.UCSBBuilding;
+import edu.ucsb.cs56.ucsb_courses_search.service.UCSBBuildingService;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Null;
 
 @Entity
 
@@ -25,6 +29,7 @@ public class ScheduleItem {
     private String associatedLectureLocation;
     private String enrollCode;
     private String notes;
+    private String coordinates;
 
     /**
      * Sets the "notes" field, which stores extra information to be displayed about
@@ -133,8 +138,20 @@ public class ScheduleItem {
         this.meetday = meetday;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(String location) { 
         this.location = location;
+        String l1 = location.split("-")[0];
+        String coords = UCSBBuildingService.getCoordinates(l1);
+        this.coordinates = coords;
+    }
+
+    public String getCoordinates(){
+        if(this.coordinates == null){
+            String l1 = this.location.split("-")[0];
+            String coords = UCSBBuildingService.getCoordinates(l1);
+            this.coordinates = coords;
+        }
+        return this.coordinates;
     }
 
     public void setQuarter(String quarter) {

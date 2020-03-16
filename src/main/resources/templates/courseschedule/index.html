@@ -159,8 +159,7 @@
                    var travelTo = document.getElementById("travel-to");
                    var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
 
-                   window.open("https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
-            + travelFromCoords + "," + travelToCoords + "&b=2&c=0&k1=en-US&k2=km");
+                   window.open("https://maps.openrouteservice.org/directions?n1=34.412592\x26n2=-119.845887\x26n3=16\x26a=" + travelFromCoords + "," + travelToCoords + "\x26b=2a\x26c=0\x26k1=en-US\x26k2=km");
                }
 
                function getBikeTime(){
@@ -170,12 +169,14 @@
                    var travelTo = document.getElementById("travel-to");
                    var travelToCoords = travelTo.options[travelTo.selectedIndex].value;
 
-                   window.open("https://maps.openrouteservice.org/directions?n1=34.412592&n2=-119.845887&n3=16&a="
-            + travelFromCoords + "," + travelToCoords + "&b=1&c=0&k1=en-US&k2=km")
+                   window.open("https://maps.openrouteservice.org/directions?n1=34.412592\x26n2=-119.845887\x26n3=16\x26a=" + travelFromCoords + "," + travelToCoords + "\x26b=1a\x26c=0\x26k1=en-US\x26k2=km");
                }
         </script>
+        <br/>
+        <br/>
         <div class="traveltime-container">
-            <h5>Travel Time</h5>
+            <h4>Travel Time</h4>
+            <hr/>
             <p>Find how long it would take to go from</p>
             <select class="custom-select" id="travel-from">
                 <option th:each="c : ${myclasses}" th:value="${c.coordinates}" th:text="${c.location}"></option>
@@ -184,7 +185,8 @@
             <select class="custom-select" id="travel-to">
                 <option th:each="c: ${myclasses}" th:value="${c.coordinates}" th:text="${c.location}"></option>
             </select>
-
+            <br/>
+            <br/>
             <button onClick="getWalkTime()" class="btn btn-primary">🚶Walking</button>
             <button onClick="getBikeTime()" class="btn btn-primary">🚴Biking</button>
         </div>

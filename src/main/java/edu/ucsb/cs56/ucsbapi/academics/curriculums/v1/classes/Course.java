@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 
 import edu.ucsb.cs56.ucsbapi.academics.curriculums.utilities.Quarter;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-
+@Document(collection = "courses")
 public class Course {
 
     private Logger logger = LoggerFactory.getLogger(Course.class);
@@ -18,17 +18,37 @@ public class Course {
     private String quarter;
     private String courseId;
     private String title;
+    private String description;
     private List<Section> classSections;
+    private List<GeneralEducation> generalEducation;
+    private FinalExam finalExam;
+
 
     public Course() {
+    }
+
+    public List<GeneralEducation> getGeneralEducation() {
+        return this.generalEducation;
+    }
+
+    public void setGeneralEducations(List<GeneralEducation> generalEducation) {
+        this.generalEducation = generalEducation;
     }
 
     public String getQuarter() {
         return this.quarter;
     }
 
+    public String getQuarterNoSpace() {
+        return this.quarter.replaceAll("\\s","");
+    }
+
     public void setQuarter(String quarter) {
         this.quarter = quarter;
+    }
+
+    public String getCourseKey() {
+        return this.courseId.replaceAll("\\s","") + this.quarter.replaceAll("\\s","");
     }
 
     public String getCourseId() {
@@ -55,6 +75,39 @@ public class Course {
         this.classSections = classSections;
     }
 
+
+    public String getGEList() {
+        if (getGeneralEducation() == null) {
+            return "";
+        }
+        if (getGeneralEducation().size() == 0) {
+            return "";
+        }
+        String GEList = "";
+        for (int i=0; i< getGeneralEducation().size(); i++) {
+            GEList += getGeneralEducation().get(i).toString();
+        }
+        return GEList;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public FinalExam getFinalExam() {
+    	if (this.finalExam == null)
+	    this.finalExam = new FinalExam();
+	return this.finalExam;
+    }
+
+	public void setFinalExam(FinalExam finalExam) {
+		this.finalExam = finalExam;
+	}
+
    
     /**
      * Return the name of the main instructor(s) for the course, i.e. the lecture
@@ -80,13 +133,13 @@ public class Course {
         if (classSections.size() == 0)
             return "";
         Section firstSection = classSections.get(0);
-        if (firstSection.instructors == null)
+        if (firstSection.getInstructors() == null)
             return "";
-        if (firstSection.instructors.size() == 0)
+        if (firstSection.getInstructors().size() == 0)
             return "";
 
-        List<Instructor> instructors = firstSection.instructors;
-        List<String> instructorNames = instructors.stream().map((i) -> i.instructor).collect(Collectors.toList());
+        List<Instructor> instructors = firstSection.getInstructors();
+        List<String> instructorNames = instructors.stream().map((i) -> i.getInstructor()).collect(Collectors.toList());
         String instructorsCommaSeparated = String.join(", ", instructorNames);
         return instructorsCommaSeparated;
     }

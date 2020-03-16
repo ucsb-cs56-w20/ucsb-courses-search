@@ -4,27 +4,24 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 
 public interface MembershipService {
 
-    /** is current logged in user a member but NOT an admin
-     * of the github org */
-    public boolean isMember(OAuth2AuthenticationToken oAuth2AuthenticationToken);
-
-    /** is current logged in user a member of the github org */
+    /** is current logged in user an admin for the website */
     public boolean isAdmin(OAuth2AuthenticationToken oAuth2AuthenticationToken);
 
-    /** is current logged in user a member or admin of the
-     * github org */
-    default public boolean isMemberOrAdmin(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        return isMember(oAuth2AuthenticationToken) || isAdmin(oAuth2AuthenticationToken);
-    }
+    /** is current logged in user a member of the UCSB GSuite and able to log in */
+    public boolean isMember(OAuth2AuthenticationToken oAuth2AuthenticationToken);
 
+    /**
+     * Return the current user's role on the site.
+     * Note that if the user is both an admin and a member, this function will return admin
+     */ 
     default public String role(OAuth2AuthenticationToken token) {
-        if (token==null)
+       if (token==null)
             return "Guest";
-        if (isMember(token))
-            return "Member";
-        if (isAdmin(token))
+       if (isAdmin(token))
             return "Admin";
-        return "Guest";
+       if(isMember(token))
+	    return "Member";
+       return "Guest";
     }
 
 }

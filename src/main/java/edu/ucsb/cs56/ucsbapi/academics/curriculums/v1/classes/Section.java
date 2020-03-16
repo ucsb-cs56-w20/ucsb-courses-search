@@ -5,10 +5,39 @@ import java.util.stream.Collectors;
 
 public class Section {
 
+    public String meetTime() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        
+        TimeLocation tl0 = timeLocations.get(0);
+
+        return tl0.getBeginTime() + "-" + tl0.getEndTime();
+    }
+
+    public String meetDay() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        return timeLocations.get(0).getDays();
+    }
+
+    public String location() {
+        if (this.timeLocations.size() < 1) {
+            return "";
+        }
+        
+        TimeLocation tl0 = timeLocations.get(0);
+
+        return tl0.getBuilding() + "-" + tl0.getRoom();
+    }
 
     /** a unique number assigned to a section */
     public String getEnrollCode() {
-        return this.enrollCode;
+        if (this.enrollCode != null){
+            return this.enrollCode;
+        }
+        return "N/A";
     }
 
     /** a unique number assigned to a section */
@@ -18,7 +47,10 @@ public class Section {
 
     /** section number of the course */
     public String getSection() {
-        return this.section;
+        if (this.section != null){
+            return this.section;
+        }
+        return "N/A";
     }
 
     /** section number of the course */
@@ -28,7 +60,10 @@ public class Section {
 
     /** session only for summer quarter */
     public String getSession() {
-        return this.session;
+        if (this.session != null){
+            return this.session;
+        }
+        return "N/A";
     }
 
     /** session only for summer quarter */
@@ -37,7 +72,10 @@ public class Section {
     }
 
     public String getClassClosed() {
-        return this.classClosed;
+        if (this.classClosed != null){
+            return this.classClosed;
+        }
+        return "Y";
     }
 
     public void setClassClosed(String classClosed) {
@@ -45,7 +83,10 @@ public class Section {
     }
 
     public String getCourseCancelled() {
-        return this.courseCancelled;
+        if (this.courseCancelled != null){
+            return this.courseCancelled;
+        }
+        return "N/A";
     }
 
     public void setCourseCancelled(String courseCancelled) {
@@ -53,31 +94,43 @@ public class Section {
     }
 
     public String getGradingOptionCode() {
-        return this.gradingOptionCode;
+        if (this.gradingOptionCode != null){
+            return this.gradingOptionCode;
+        }
+        return "N/A";
     }
 
     public void setGradingOptionCode(String gradingOptionCode) {
         this.gradingOptionCode = gradingOptionCode;
     }
 
-    public int getEnrolledTotal() {
+    public Integer getEnrolledTotal() {
+	if(this.enrolledTotal == null){
+		return 0;
+	}
         return this.enrolledTotal;
     }
 
-    public void setEnrolledTotal(int enrolledTotal) {
+    public void setEnrolledTotal(Integer enrolledTotal) {
         this.enrolledTotal = enrolledTotal;
     }
 
-    public int getMaxEnroll() {
+    public Integer getMaxEnroll() {
+	if(this.maxEnroll == null){
+		return 0;
+	}
         return this.maxEnroll;
     }
 
-    public void setMaxEnroll(int maxEnroll) {
+    public void setMaxEnroll(Integer maxEnroll) {
         this.maxEnroll = maxEnroll;
     }
 
     public String getSecondaryStatus() {
-        return this.secondaryStatus;
+        if (this.secondaryStatus != null){
+            return this.secondaryStatus;
+        }
+        return "N/A";
     }
 
     public void setSecondaryStatus(String secondaryStatus) {
@@ -85,11 +138,17 @@ public class Section {
     }
 
     public boolean isDepartmentApprovalRequired() {
-        return this.departmentApprovalRequired;
+        if(this.departmentApprovalRequired){
+            return true;
+        }
+        return false;    
     }
 
     public boolean getDepartmentApprovalRequired() {
-        return this.departmentApprovalRequired;
+        if(this.departmentApprovalRequired){
+            return true;
+        }
+        return false;
     }
 
     public void setDepartmentApprovalRequired(boolean departmentApprovalRequired) {
@@ -97,11 +156,17 @@ public class Section {
     }
 
     public boolean isInstructorApprovalRequired() {
-        return this.instructorApprovalRequired;
+        if(this.instructorApprovalRequired){
+            return true;
+        }
+        return false;
     }
 
     public boolean getInstructorApprovalRequired() {
-        return this.instructorApprovalRequired;
+        if(this.instructorApprovalRequired){
+            return true;
+        }
+        return false;
     }
 
     public void setInstructorApprovalRequired(boolean instructorApprovalRequired) {
@@ -109,7 +174,10 @@ public class Section {
     }
 
     public String getRestrictionLevel() {
-        return this.restrictionLevel;
+        if (this.restrictionLevel != null){
+            return this.restrictionLevel;
+        }
+        return "N/A";
     }
 
     public void setRestrictionLevel(String restrictionLevel) {
@@ -117,7 +185,10 @@ public class Section {
     }
 
     public String getRestrictionMajor() {
-        return this.restrictionMajor;
+        if (this.restrictionMajor != null){
+            return this.restrictionMajor;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMajor(String restrictionMajor) {
@@ -125,7 +196,10 @@ public class Section {
     }
 
     public String getRestrictionMajorPass() {
-        return this.restrictionMajorPass;
+        if (this.restrictionMajorPass != null){
+            return this.restrictionMajorPass;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMajorPass(String restrictionMajorPass) {
@@ -133,7 +207,10 @@ public class Section {
     }
 
     public String getRestrictionMinor() {
-        return this.restrictionMinor;
+        if (this.restrictionMinor != null){
+            return this.restrictionMinor;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMinor(String restrictionMinor) {
@@ -141,7 +218,10 @@ public class Section {
     }
 
     public String getRestrictionMinorPass() {
-        return this.restrictionMinorPass;
+        if (this.restrictionMinorPass != null){
+            return this.restrictionMinorPass;
+        }
+        return "N/A";
     }
 
     public void setRestrictionMinorPass(String restrictionMinorPass) {
@@ -173,15 +253,15 @@ public class Section {
     }
 
     /** a unique number assigned to a section */
-    public String enrollCode;
+    private String enrollCode;
     /** section number of the course */
-    public String section;
+    private String section;
     /** session only for summer quarter */
-    public String session;
+    private String session;
     /** if the class is closed */
-    public String classClosed;
+    private String classClosed;
     /** is course cancelled */
-    public String courseCancelled;
+    private String courseCancelled;
     /**
      * Grading Options Code like Pass/No Pass (P/NP) Or Letter Grades (L).
      * 
@@ -190,48 +270,48 @@ public class Section {
      *      https://developer.ucsb.edu/content/student-record-code-lookups</a>
      * 
      */
-    public String gradingOptionCode;
+    private String gradingOptionCode;
 
     /** total number of enrollments in the course */
-    public int enrolledTotal;
+    private Integer enrolledTotal;
     /** max number of students can be enrolled in the section */
-    public int maxEnroll;
+    private Integer maxEnroll;
 
     /** Secondary Status of the course */
-    public String secondaryStatus;
+    private String secondaryStatus;
 
     /** Is department approval required for enrollment in the section */
-    public boolean departmentApprovalRequired;
+    private boolean departmentApprovalRequired;
 
     /** Is instructor approval required for enrollment in the section */
-    public boolean instructorApprovalRequired;
+    private boolean instructorApprovalRequired;
 
     /** Is there restriction on the level of the course */
-    public String restrictionLevel;
+    private String restrictionLevel;
 
     /** Is there restriction on the major of the student */
-    public String restrictionMajor;
+    private String restrictionMajor;
 
     /** Is there restriction on the major and pass time of the student */
-    public String restrictionMajorPass;
+    private String restrictionMajorPass;
 
     /** Is there restriction on the minor of the student */
-    public String restrictionMinor;
+    private String restrictionMinor;
 
     /** Is there restriction on the minor and pass time of the student */
-    public String restrictionMinorPass;
+    private String restrictionMinorPass;
 
     /** Concurrent courses for the section */
-    public List<String> concurrentCourses;
+    private List<String> concurrentCourses;
 
     /**
      * List of {@link TimeLocation} objects for this course 
      */
-    public List<TimeLocation> timeLocations;
+    private List<TimeLocation> timeLocations;
     /**
      * List of {@link Instructor} objects for this course
      */
-    public List<Instructor> instructors;
+    private List<Instructor> instructors;
 
     public Section() {
     }
@@ -249,7 +329,7 @@ public class Section {
      * @return Name of instructor(s) for the section.
      */
     public String instructorList() { 
-        List<String> instructorNames = this.instructors.stream().map((i) -> i.instructor).collect(Collectors.toList());
+        List<String> instructorNames = this.instructors.stream().map((i) -> i.getInstructor()).collect(Collectors.toList());
         String instructorsCommaSeparated = String.join(", ", instructorNames);
         return instructorsCommaSeparated;
     }
@@ -278,4 +358,7 @@ public class Section {
             ", instructors='" + getInstructors() + "'" +
             "}";
     }
+
+    
+
 }

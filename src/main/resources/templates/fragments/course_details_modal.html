@@ -1,0 +1,43 @@
+<div th:each="r: ${rows}">
+    <!--GENERATE MODAL AND INSERT DATA HERE FOR COURSE DETAILS-->
+    <div class="modal fade" th:attr="id=${r.course.getCourseKey()}" tabindex="-1" role="dialog"
+      aria-labelledby="detailTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="detailTitle">
+              <div th:text="${r.course.courseId}"></div>
+              <div th:text="${r.course.title}"></div>Course Details
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             
+            <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Description: </td>
+                    <td colspan="2" style="vertical-align:bottom;text-align:left;padding:0 10px;" th:text="${r.course.description}" > </td> 
+                  </tr>
+                  <tr>
+                    <td colspan="1" style="text-align:right;vertical-align:top;color:#003366;font-weight:bold;width:20%;">Final Examination: </td>
+                    <td colspan="2" style="vertical-align:middle;text-align:left;padding:0 10px;" th:text="${r.course.getFinalExam().getComments() == ''} ? ${r.course.getFinalExam().formatFinal()} : ${r.course.getFinalExam().getComments()}" > </td> 
+                  </tr>
+                  <td>STUB</td>
+                  <td>STUB_1</td>
+                  <td>STUB_2</td>
+                </tbody>
+              </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  

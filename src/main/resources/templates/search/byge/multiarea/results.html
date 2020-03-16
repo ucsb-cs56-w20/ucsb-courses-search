@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <title>Multi Area GE Search Results</title>
+  <div th:replace="fragments/bootstrap_head.html"></div>
+</head>
+
+<body>
+  <div class="container">
+    <div th:replace="fragments/bootstrap_nav_header.html"></div>
+
+    <h1>Multiple Area Search Results</h1>
+    <div th:replace="search/byge/multiarea/fragments/form.html"></div>
+    <div th:replace="search/byge/multiarea/fragments/list.html"></div>
+
+    <div th:replace="fragments/bootstrap_footer.html"></div>
+  </div>
+  <div th:replace="fragments/bootstrap_scripts.html"></div>
+</body>
+
+</html>

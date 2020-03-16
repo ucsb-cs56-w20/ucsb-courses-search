@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.ucsb_courses_search.controller;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
+import edu.ucsb.cs56.ucsb_courses_search.service.FinalExamService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
 import edu.ucsb.cs56.ucsb_courses_search.model.search.SearchByCourse;
@@ -29,9 +31,15 @@ public class SearchByCourseController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @Autowired
+    private FinalExamService finalExamService;
+
+    @Autowired
+    private QuarterListService quarterListService;
+
     @GetMapping("/search/bycourse")
     public String instructor(Model model, SearchByCourse searchByCourse) {
-        model.addAttribute("quarters",Quarter.quarterList("W20","F83"));
+        model.addAttribute("quarters", quarterListService.getQuarters());
         model.addAttribute("searchByCourse", new SearchByCourse());
         return "search/bycourse/search";
     }
@@ -49,6 +57,7 @@ public class SearchByCourseController {
             String json = curriculumService.getCourse(course, qtr.getValue());
             logger.info("qtr=" + qtr.getValue() + " json=" + json);
             CoursePage cp = CoursePage.fromJSON(json);
+	    logger.info("cp=" + cp);
             courses.addAll(cp.classes);
         }
 
@@ -57,13 +66,14 @@ public class SearchByCourseController {
         List<CourseOffering> courseOfferings = CourseOffering.fromCourses(courses);
         List<CourseListingRow> rows = CourseListingRow.fromCourseOfferings(courseOfferings);
 
+        rows = finalExamService.assignFinalExams(rows);
+        
         List<CourseListingRow> primaryRows = rows.stream().filter(r -> r.getRowType().equals("PRIMARY"))
                 .collect(Collectors.toList());
 
         model.addAttribute("rows", primaryRows);
 
-        // Note: F83 seems to be the oldest data available in the API
-        model.addAttribute("quarters",Quarter.quarterList("W20","F83"));
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "search/bycourse/results";
     }
 

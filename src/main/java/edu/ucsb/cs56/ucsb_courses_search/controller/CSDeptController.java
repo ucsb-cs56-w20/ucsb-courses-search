@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ucsb.cs56.ucsb_courses_search.service.QuarterListService;
 import edu.ucsb.cs56.ucsb_courses_search.service.CurriculumService;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseListingRow;
 import edu.ucsb.cs56.ucsb_courses_search.model.result.CourseOffering;
@@ -32,12 +33,16 @@ public class CSDeptController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @Autowired
+    private QuarterListService quarterListService;
+
     @GetMapping("/csdept/search/classroom")
     public String instructor(Model model, SearchByDept searchByDept) {
         SearchByDept sbd = new SearchByDept();
         sbd.setDept("CMPSC");
         sbd.setCourseLevel("A");
         model.addAttribute("searchByDept", sbd);
+        model.addAttribute("quarters", quarterListService.getQuarters());
         return "csdept/classroom/search";
     }
 
@@ -46,6 +51,8 @@ public class CSDeptController {
             Model model,
             SearchByDept searchByDept) {
         model.addAttribute("quarter", quarter);
+        //to display on the cs dept results page the course info for sections too
+        model.addAttribute("full_section_display", true); 
 
         String json = curriculumService.getJSON("CMPSC", quarter, "A");
         CoursePage cp = CoursePage.fromJSON(json);
@@ -74,6 +81,7 @@ public class CSDeptController {
 
         model.addAttribute("cp", cp);
         model.addAttribute("rows", filteredRows);
+        model.addAttribute("quarters", quarterListService.getQuarters());
 
         return "csdept/classroom/results";
     }

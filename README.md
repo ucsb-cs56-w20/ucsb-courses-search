@@ -4,6 +4,9 @@ A project to:
 * first build a clone of the page <https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx>
 * then build many additional features using the same data.
 
+This is a brownfield project, i.e. a project that is continued over multiple terms.  It was started in F19, worked on
+in S20, and will continue in F20.
+
 # You need an API Key to run this app
 
 If you are a student in CS56, you can get an API key from your mentor.

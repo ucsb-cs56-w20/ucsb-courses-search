@@ -4,5 +4,6 @@
     "ucsb.api.consumer_key":"fill-it-in",
     "app.mongodb.username":"ask-someone-who-knows",
     "app.mongodb.password":"ask-someone-who-knows",
-    "app.feature.multiple_schedules": false
+    "app.feature.multiple_schedules": false,
+    "spring.data.mongodb.uri":"get from mongo"
 }
